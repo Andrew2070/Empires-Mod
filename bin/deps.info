@@ -1,0 +1,12 @@
+[
+    {
+        "repo": "http://central.maven.org/maven2/com/esotericsoftware/reflectasm/reflectasm/${reflectasm_version}/",
+        "file": "reflectasm-${reflectasm_version}.jar",
+        "class": "com.esotericsoftware.reflectasm.AccessClassLoader"
+    },
+    {
+        "repo": "http://central.maven.org/maven2/org/beanshell/bsh/2.0b5",
+        "file": "bsh-2.0b5.jar",
+        "class": "bsh.Interpreter"
+    }
+]
