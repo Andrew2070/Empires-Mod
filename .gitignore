@@ -6,3 +6,8 @@
 .idea/
 .gradle/
 build/
+*.iml
+*.ipr
+*.iws
+run/
+out/
