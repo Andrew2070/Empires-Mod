@@ -1,4 +1,5 @@
-To Do List:
+#To Do List:
+
 
 #1: Chat handeling:
 a) fix crashes (client) or internal server error (server) when player without Empire decides to chat.
