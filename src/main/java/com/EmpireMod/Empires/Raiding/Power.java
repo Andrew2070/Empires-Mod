@@ -6,7 +6,17 @@ Timer timer = new Timer ();
 TimerTask hourlyTask = new TimerTask () {
     @Override
     public void run () {
-        // your code here...
+        
+        double maxpower = 20.00
+        for (power <= maxpower) {
+           power++ 
+            
+            
+        }
+        
+        
+        
+        
     }
 };
 
