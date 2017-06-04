@@ -1,5 +1,5 @@
 #To Do List:
-
+-Must Finish before 1.0.0 Release.
 
 #1: Chat handeling:
 a) fix crashes (client) or internal server error (server) when player without Empire decides to chat.
