@@ -48,7 +48,7 @@ public class ChatHandler {
 					String rankChat = "[" + rank.getChatName() + "]";
 					String empireChat = "[" + empire + "]";
 					String chat = EnumChatFormatting.RED + rankChat + 
-							EnumChatFormatting.GOLD + empireChat + 
+							EnumChatFormatting.GOLD + empireChat + " " +
 							EnumChatFormatting.WHITE + player.getDisplayName() + 
 							": " + event.message;
 					target.addChatMessage(new ChatComponentTranslation(chat));
