@@ -65,6 +65,10 @@ public class Rank implements IChatFormat {
     public String getName() {
         return name;
     }
+    
+    public char getChatName() {
+    	return name.charAt(0);
+    }
 
     public void rename(String newName) {
         this.newName = newName;

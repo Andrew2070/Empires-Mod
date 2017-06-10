@@ -102,3 +102,9 @@ curse {
     changelog = "" // TODO Add changelog support
     releaseType = config.build_type.equals('a') ? "alpha" : (config.build_type.equals('b') ? "beta" : "release")
 }
+
+idea {
+    module {
+        inheritOutputDirs = true
+    }
+}
