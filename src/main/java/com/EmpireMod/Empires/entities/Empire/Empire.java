@@ -195,7 +195,31 @@ public class Empire implements Comparable<Empire>, IChatFormat {
 
         return leaderBlocks + citizensBlocks + citizensExtra + empireExtra;
     }
+    
+    
+    public double getCurrentPower() {
+    	double citizensPower = 0.00;
+    	for (int i=0; i < citizensMap.size(); i++) {
+    		for(Citizen res : citizensMap.keySet()) {
+    			citizensPower += res.getPower();
+    		}
+    		
+    		 
+    		
+    	}
+		return citizensPower;
+    }
 
+    
+    
+    public double getMaxPower() {
+    	double maxPower = citizensMap.size() * Config.instance.defaultMaxPower.get();
+    	
+	return maxPower;
+    }
+    
+    
+    
     public int getExtraBlocks() {
         int citizensExtra = 0;
         for(Citizen res : citizensMap.keySet()) {
@@ -282,7 +306,7 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     @Override
     public IChatComponent toChatMessage() {
         IChatComponent header = LocalManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|%s}", getName()));
-        IChatComponent hoverComponent = ((ChatComponentFormatted)LocalManager.get("Empires.format.empire.long", header, citizensMap.size(), empireBlocksContainer.size(), getMaxBlocks(), plotsContainer.size(), citizensMap, ranksContainer)).applyDelimiter("\n");
+        IChatComponent hoverComponent = ((ChatComponentFormatted)LocalManager.get("Empires.format.empire.long", header, citizensMap.size(), empireBlocksContainer.size(), getMaxBlocks(), getCurrentPower(), getMaxPower(), citizensMap, ranksContainer)).applyDelimiter("\n");
 
         return LocalManager.get("Empires.format.empire.short", name, hoverComponent);
     }
