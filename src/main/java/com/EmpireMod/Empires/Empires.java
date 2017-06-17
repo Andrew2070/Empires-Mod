@@ -20,7 +20,6 @@ import cpw.mods.fml.common.event.*;
 import com.EmpireMod.Empires.Config.Config;
 import com.EmpireMod.Empires.Datasource.DatasourceCrashCallable;
 import com.EmpireMod.Empires.Datasource.EmpiresDatasource;
-import com.EmpireMod.Empires.Handlers.Constants;
 import com.EmpireMod.Empires.Handlers.EmpiresLoadingCallback;
 import com.EmpireMod.Empires.Handlers.ExtraEventsHandler;
 import com.EmpireMod.Empires.Handlers.PlayerTracker;
@@ -28,6 +27,7 @@ import com.EmpireMod.Empires.Handlers.SafemodeHandler;
 import com.EmpireMod.Empires.Handlers.Ticker;
 import com.EmpireMod.Empires.Handlers.VisualsHandler;
 import com.EmpireMod.Empires.Proxies.EconomyProxy;
+import com.EmpireMod.Empires.Tasks.PowerUpdateTask;
 import com.EmpireMod.Empires.commands.Admin.CommandsAdmin;
 import com.EmpireMod.Empires.commands.Neutral.CommandsNeutral;
 import com.EmpireMod.Empires.commands.Neutral.PermCommands;
@@ -90,6 +90,8 @@ public class Empires {
         FMLCommonHandler.instance().bus().register(ChatHandler.instance);
         MinecraftForge.EVENT_BUS.register(ChatHandler.instance);
         
+        FMLCommonHandler.instance().bus().register(PowerUpdateTask.instance);
+        MinecraftForge.EVENT_BUS.register(PowerUpdateTask.instance);
         
         FMLCommonHandler.instance().bus().register(Ticker.instance);
         MinecraftForge.EVENT_BUS.register(Ticker.instance);
@@ -103,8 +105,7 @@ public class Empires {
         registerHandlers();
         
         FMLCommonHandler.instance().registerCrashCallable(new DatasourceCrashCallable());
-      
-        
+
 	}
 
     public void loadConfig() {
@@ -131,6 +132,7 @@ public class Empires {
 	
 	@EventHandler
 	public void serverLoad(FMLServerStartingEvent ev) {
+	//	long StartTime = System.currentTimeMillis();
 	    EconomyProxy.init();
         checkConfig();
         registerCommands();
@@ -139,9 +141,10 @@ public class Empires {
 	    loadConfig();
         CommandManager.registerCommands(PermCommands.class, null, Empires.instance.LOCAL, null);
         if(PermissionProxy.getPermissionManager() instanceof MyPermissionsBridge) {	
-       CommandManager.registerCommands(PermissionManager.class, "Empires.cmd", Empires.instance.LOCAL, null);
-	}
-        
+        CommandManager.registerCommands(PermissionManager.class, "Empires.cmd", Empires.instance.LOCAL, null);
+ 
+       
+	}      
         jsonConfigs.add(new WildPermsConfig(Constants.CONFIG_FOLDER + "/WildPerms.json"));
         jsonConfigs.add(new FlagsConfig(Constants.CONFIG_FOLDER + "/DefaultFlags.json"));
         jsonConfigs.add(new RanksConfig(Constants.CONFIG_FOLDER + "/DefaultEmpireRanks.json"));
@@ -153,9 +156,10 @@ public class Empires {
         //SafemodeHandler.setSafemode(!DatasourceProxy.start(config));
         datasource = new EmpiresDatasource();
         LOG.info("Started");
-   
 
 }
+	
+	
 	 @Mod.EventHandler
 	    public void serverStopping(FMLServerStoppingEvent ev) {
 	        datasource.deleteAllBlockOwners();
