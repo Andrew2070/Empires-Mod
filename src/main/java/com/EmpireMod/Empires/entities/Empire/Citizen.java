@@ -11,6 +11,8 @@ import com.EmpireMod.Empires.entities.Flags.FlagType;
 
 import com.EmpireMod.Empires.Config.Config;
 import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
+import com.EmpireMod.Empires.Tasks.PowerUpdateTask;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -18,7 +20,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IChatComponent;
-
 import java.util.*;
 
 public class Citizen implements IChatFormat {
@@ -27,10 +28,17 @@ public class Citizen implements IChatFormat {
     private String playerName;
     private Date joinDate = new Date();
     private Date lastOnline = new Date();
+   // private Date timeOnline = new Date();
 
+    private long PowerTime = lastOnline.getTime();
+    
+    
+    
     private int teleportCooldown = 0;
 
     private int extraBlocks = 0;
+    
+    private double Power = 0.00;
 
     private boolean isFakePlayer = false;
 
@@ -82,6 +90,9 @@ public class Citizen implements IChatFormat {
 
     /* ----- Map ----- */
 
+
+    
+    
     /**
      * Called when a player changes location from a chunk to another
      */
@@ -202,6 +213,11 @@ public class Citizen implements IChatFormat {
         }
         return lastOnline;
     }
+    
+    public long getJoinTime() {
+		return PowerTime;
+
+    }
 
     public void setLastOnline(Date date) {
         this.lastOnline = date;
@@ -218,8 +234,25 @@ public class Citizen implements IChatFormat {
     public int getExtraBlocks() {
         return extraBlocks;
     }
+    
+    public double getPower() {
+    	return Power;
+    }
+    
+ public void setPower(double Power) {
+    	
+    	Double target = Power;
+    	
+    	if (this.Power == Power) return;
+    	
+    	this.Power = target;
+    	
+    	long defaultTime = (long) 0.00;
+    	this.PowerTime = defaultTime ;
+    	
+   } 	
 
-    public void setExtraBlocks(int extraBlocks) {
+	public void setExtraBlocks(int extraBlocks) {
         this.extraBlocks = extraBlocks;
     }
 
