@@ -16,11 +16,13 @@ import com.EmpireMod.Empires.entities.Empire.AdminEmpire;
 import com.EmpireMod.Empires.entities.Empire.Citizen;
 import com.EmpireMod.Empires.entities.Empire.Empire;
 
-
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.event.world.BlockEvent;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class Ticker {
 
@@ -32,11 +34,11 @@ public class Ticker {
         if(ev.side == Side.CLIENT)
             return;
 
-
         for(Citizen res : EmpiresUniverse.instance.citizens) {
             res.tick();
         }
 
+        
         if((Config.instance.costEmpireUpkeep.get() > 0 || Config.instance.costAdditionalUpkeep.get() > 0) && ev.phase == TickEvent.Phase.START) {
             if (ticked) {
                 if(lastCalendarDay != -1 && Calendar.getInstance().get(Calendar.DAY_OF_YEAR) != lastCalendarDay) {
@@ -59,15 +61,69 @@ public class Ticker {
                 ticked = true;
             }
         }
-    }
+      
+			//Get A List of Entities:
+		    List<EntityPlayerMP> allPlayers = MinecraftServer.getServer().getConfigurationManager().playerEntityList;
+		   
+		     for(int i=0; i < allPlayers.size(); i++) {
+					 
 
+				//Cycle Through List of Entities and choose one:
+				EntityPlayer player = allPlayers.get(i);
+					
+			
+				//Check To See if this probable Player Entity Exists:
+				if (player != null) {
+						
+						
+					//Check To See if Entity Player Is A Player:
+
+					if (player instanceof EntityPlayer) {
+	
+							//Check To See if Player is Alive:
+							if (player.isDead) continue;
+							
+							//Check To See if Player Has A Citizen Profile, If Not Then Make One:	
+							String playerName =  player.getDisplayName();
+							Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(playerName); 
+						     long FinishTime = System.currentTimeMillis();
+							if (FinishTime - res.getJoinTime()  >= 10000) { //real value 3600000
+								
+								
+							if (res.getPower() < Config.instance.defaultMaxPower.get()) {
+							//Calculate New Power For This Selected Player:
+							double newPower = res.getPower() + Config.instance.PowerPerHour.get();
+							
+							//Assign This New Power By Calling A Method to SetPower() in Citizen.Java:
+							
+							res.setPower(newPower);
+							}
+							
+						}
+
+					}
+						
+							
+				}
+    	   
+    	   
+    	   
+    	   
+       }
+        
+        
+        
+    
+    
+    }
+    
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent ev) {
         Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(ev.player);
         if (res != null) {
             res.setPlayer(ev.player);
         } else {
-            Empires.instance.LOG.error("Didn't create resident for player {} ({})", ev.player.getCommandSenderName(), ev.player.getPersistentID());
+            Empires.instance.LOG.error("Didn't create citizen for player {} ({})", ev.player.getCommandSenderName(), ev.player.getPersistentID());
         }
     }
 
