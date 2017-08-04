@@ -5,36 +5,34 @@ package com.EmpireMod.Empires.commands.Officer;
 
 
 
+import java.util.Iterator;
+import java.util.List;
+
+import com.EmpireMod.Empires.API.Chat.Component.ChatManager;
+import com.EmpireMod.Empires.API.Commands.Command.Command;
+import com.EmpireMod.Empires.API.Commands.Command.CommandResponse;
+import com.EmpireMod.Empires.API.Commands.Command.CommandsEMP;
+import com.EmpireMod.Empires.Configuration.Config;
+import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
+import com.EmpireMod.Empires.Proxies.EconomyProxy;
+import com.EmpireMod.Empires.Utilities.EmpireUtils;
+import com.EmpireMod.Empires.Utilities.MathUtils;
+import com.EmpireMod.Empires.Utilities.WorldUtils;
 import com.EmpireMod.Empires.entities.Empire.AdminEmpire;
 import com.EmpireMod.Empires.entities.Empire.Citizen;
 import com.EmpireMod.Empires.entities.Empire.Empire;
 import com.EmpireMod.Empires.entities.Empire.EmpireBlock;
 import com.EmpireMod.Empires.entities.Empire.Plot;
 import com.EmpireMod.Empires.entities.Empire.Rank;
-import com.EmpireMod.Empires.API.commands.CommandResponse;
-import com.EmpireMod.Empires.API.commands.CommandsEMP;
-import com.EmpireMod.Empires.API.commands.Command;
-import com.EmpireMod.Empires.Config.Config;
-import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
-import com.EmpireMod.Empires.Proxies.EconomyProxy;
-import com.EmpireMod.Empires.entities.Tools.WhitelisterTool;
 import com.EmpireMod.Empires.entities.Flags.Flag;
 import com.EmpireMod.Empires.entities.Flags.FlagType;
-import com.EmpireMod.Empires.entities.Position.ChunkPos;
 import com.EmpireMod.Empires.entities.Managers.ToolManager;
-import com.EmpireMod.Empires.API.commands.ChatManager;
-import com.EmpireMod.Empires.utils.EmpireUtils;
-import com.EmpireMod.Empires.utils.WorldUtils;
-import com.EmpireMod.Empires.utils.MathUtils;
+import com.EmpireMod.Empires.entities.Position.ChunkPos;
+import com.EmpireMod.Empires.entities.Tools.WhitelisterTool;
 import com.EmpireMod.Empires.exceptions.EmpiresCommandException;
-
-
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
-
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * All commands that require the officer permission go here
@@ -79,6 +77,11 @@ public class CommandsOfficer extends CommandsEMP {
             if (empire.empireBlocksContainer.size() >= empire.getMaxBlocks()) {
                 throw new EmpiresCommandException("Empires.cmd.err.empire.maxBlocks", 1);
             }
+            
+            if (empire.empireBlocksContainer.size() >= empire.getMaxPower()) {
+            	 throw new EmpiresCommandException("Empires.cmd.err.empire.maxPower", 1);
+            }
+            
             if (getUniverse().blocks.contains(player.dimension, player.chunkCoordX, player.chunkCoordZ)) {
                 throw new EmpiresCommandException("Empires.cmd.err.claim.already");
             }
@@ -142,6 +145,10 @@ public class CommandsOfficer extends CommandsEMP {
             if (empire.empireBlocksContainer.size() + chunks.size() > empire.getMaxBlocks()) {
                 throw new EmpiresCommandException("Empires.cmd.err.empire.maxBlocks", chunks.size());
             }
+            
+            if (empire.empireBlocksContainer.size() + chunks.size() > empire.getPower()) {
+            	throw new EmpiresCommandException("Empires.cmd.err.empire.lackPower");
+            }
 
             if (isFarClaim && empire.empireBlocksContainer.getFarClaims() + 1 > empire.getMaxFarClaims()) {
                 throw new EmpiresCommandException("Empires.cmd.err.claim.far.notAllowed");
@@ -188,6 +195,47 @@ public class CommandsOfficer extends CommandsEMP {
         makeBankRefund(player, empire, block.getPricePaid());
         return CommandResponse.DONE;
     }
+    
+    @Command(
+            name = "overclaim",
+            permission = "Empires.cmd.officer.overclaim",
+            parentName = "Empires.cmd",
+            syntax = "/empire overclaim")
+    public static CommandResponse overclaimCommand(ICommandSender sender, List<String> args) {
+        EntityPlayer player = (EntityPlayer) sender;
+        Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(sender);
+        EmpireBlock block = getBlockAtCitizen(res);
+        Empire empire = block.getEmpire();
+        
+      //  try {
+        Empire CitizensEmpire = CommandsEMP.getEmpireFromCitizen(res);
+
+        if (CitizensEmpire == block.getEmpire()) {
+    	    throw new EmpiresCommandException("Empires.cmd.err.unclaim.presentEmpire");
+        }
+       
+        if (empire.empireBlocksContainer.size() >= empire.getMaxPowerLocal(empire)) {
+            throw new EmpiresCommandException("Empires.cmd.err.unclaim.powerException");
+        }
+        
+        if (res.getPower() < 7) {
+        	throw new EmpiresCommandException("Empires.cmd.err.unclaim.powerException2");
+        }
+        
+        else {
+
+        		
+        //TODO Add Check for Overclaimer's Empire Max Empire blocks
+        //TODO Set unclaimed territory as Overclaimer's territory.
+        getDatasource().deleteBlock(block);
+        ChatManager.send(sender, "Empires.notification.block.overclaimed", block.getX() << 4, block.getZ() << 4, block.getX() << 4 + 15, block.getZ() << 4 + 15, empire);
+        		
+        	
+        }
+        return CommandResponse.DONE;
+
+		
+        }
 
     @Command(
             name = "invite",

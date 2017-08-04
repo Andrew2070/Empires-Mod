@@ -4,9 +4,9 @@ package com.EmpireMod.Empires.entities.Managers;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 
+import com.EmpireMod.Empires.Utilities.PlayerUtils;
 import com.EmpireMod.Empires.entities.Misc.Tool;
 import com.EmpireMod.Empires.entities.Position.BlockPos;
-import com.EmpireMod.Empires.utils.PlayerUtils;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

@@ -1,12 +1,18 @@
 package com.EmpireMod.Empires.Datasource;
 
-import com.google.common.collect.ImmutableList;
-import com.google.gson.JsonSyntaxException;
-import com.EmpireMod.Empires.Datasource.API.EmpiresSchema;
-import com.EmpireMod.Empires.Handlers.EmpiresLoadingCallback;
-import com.EmpireMod.Empires.protection.ProtectionManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.UUID;
+
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
 import com.EmpireMod.Empires.Empires;
-import com.EmpireMod.Empires.Config.Config;
+import com.EmpireMod.Empires.Configuration.Config;
+import com.EmpireMod.Empires.Datasource.Schematics.DatasourceSQL;
+import com.EmpireMod.Empires.Datasource.Schematics.EmpiresSchema;
+import com.EmpireMod.Empires.Handlers.EmpiresLoadingCallback;
+import com.EmpireMod.Empires.Misc.Teleport.Teleport;
 import com.EmpireMod.Empires.entities.Empire.AdminEmpire;
 import com.EmpireMod.Empires.entities.Empire.Bank;
 import com.EmpireMod.Empires.entities.Empire.BlockWhitelist;
@@ -15,23 +21,20 @@ import com.EmpireMod.Empires.entities.Empire.Empire;
 import com.EmpireMod.Empires.entities.Empire.EmpireBlock;
 import com.EmpireMod.Empires.entities.Empire.Plot;
 import com.EmpireMod.Empires.entities.Empire.Rank;
-import com.EmpireMod.Empires.entities.Flags.FlagType;
 import com.EmpireMod.Empires.entities.Flags.Flag;
-import com.EmpireMod.Empires.Misc.Teleport.Teleport;
+import com.EmpireMod.Empires.entities.Flags.FlagType;
+import com.EmpireMod.Empires.protection.ProtectionManager;
+import com.google.common.collect.ImmutableList;
+import com.google.gson.JsonSyntaxException;
+
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.UUID;
 
 public class EmpiresDatasource extends DatasourceSQL {
 
-    //public static final EmpiresDatasource instance = new EmpiresDatasource();
+  //  public static final EmpiresDatasource instance = new EmpiresDatasource();
 
     public EmpiresDatasource() {
         super(Empires.instance.LOG, Config.instance, new EmpiresSchema());
@@ -92,7 +95,9 @@ public class EmpiresDatasource extends DatasourceSQL {
                 empire.empireBlocksContainer.setExtraBlocks(rs.getInt("extraBlocks"));
                 empire.empireBlocksContainer.setExtraFarClaims(rs.getInt("extraFarClaims"));
                 empire.plotsContainer.setMaxPlots(rs.getInt("maxPlots"));
-
+                empire.setPower(rs.getDouble("currentPower"));
+                
+                
                 for (ForgeChunkManager.Ticket ticket : EmpiresLoadingCallback.tickets) {
                     if (ticket.getModData().getString("empireName").equals(empire.getName())) {
                         empire.ticketMap.put(ticket.world.provider.dimensionId, ticket);
@@ -181,7 +186,7 @@ public class EmpiresDatasource extends DatasourceSQL {
     }
 
     
-    protected boolean loadCitizens() {
+    public boolean loadCitizens() { //was protected boolean
         try {
             PreparedStatement loadCitizensStatement = prepare("SELECT * FROM " + prefix + "Citizens", true);
             ResultSet rs = loadCitizensStatement.executeQuery();
@@ -189,7 +194,12 @@ public class EmpiresDatasource extends DatasourceSQL {
             while (rs.next()) {
                 Citizen res = new Citizen(UUID.fromString(rs.getString("uuid")), rs.getString("name"), rs.getLong("joined"), rs.getLong("lastOnline"));
                 res.setExtraBlocks(rs.getInt("extraBlocks"));
+                res.setPower(rs.getDouble("power"));
                 res.setFakePlayer(rs.getBoolean("fakePlayer"));
+                res.setLoadPowerTime(rs.getLong("lastPowerUpdateTime"));
+
+
+               // LOG.error("Power Check" + power3);
 
                 EmpiresUniverse.instance.addCitizen(res);
             }
@@ -226,24 +236,7 @@ public class EmpiresDatasource extends DatasourceSQL {
         return true;
     }
 
-    /*
-    
-    protected boolean loadNations() {
-        try {
-            PreparedStatement loadNationsStatement = prepare("SELECT * FROM " + prefix + "Nations", true);
-            ResultSet rs = loadNationsStatement.executeQuery();
-            while (rs.next()) {
-                Nation nation = new Nation(rs.getString("name"));
-                EmpiresUniverse.instance.addNation(nation);
-            }
-        } catch (SQLException e) {
-            LOG.error("Failed to load Nations!");
-            LOG.error(ExceptionUtils.getStackTrace(e));
-            return false;
-        }
-        return true;
-    }
-    */
+
 
     @SuppressWarnings("unchecked")
     
@@ -390,27 +383,6 @@ public class EmpiresDatasource extends DatasourceSQL {
         }
         return true;
     }
-    /*
-    
-    protected boolean loadEmpiresToNations() {
-        try {
-            PreparedStatement statement = prepare("SELECT * FROM " + prefix + "EmpiresToNations", true);
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                Empire empire = getUniverse().empires.get("");
-                Nation nation = EmpiresUniverse.instance.getNation("");
-                nation.addEmpire(empire);
-                nation.promoteEmpire(empire, Nation.Rank.parse(rs.getString("rank")));
-                empire.setNation(nation);
-            }
-        } catch (SQLException e) {
-            LOG.error("Failed to link Empires to Nations!");
-            LOG.error(ExceptionUtils.getStackTrace(e));
-            return false;
-        }
-        return true;
-    }
-    */
 
     
     protected boolean loadCitizensToPlots() {
@@ -538,7 +510,7 @@ public class EmpiresDatasource extends DatasourceSQL {
         LOG.debug("Saving Empire {}", empire.getName());
         try {
             if (getUniverse().empires.contains(empire)) { // Update
-                PreparedStatement updateStatement = prepare("UPDATE " + prefix + "Empires SET name=?, spawnDim=?, spawnX=?, spawnY=?, spawnZ=?, cameraYaw=?, cameraPitch=?, extraBlocks=?, maxPlots=?, extraFarClaims=? WHERE name=?", true);
+                PreparedStatement updateStatement = prepare("UPDATE " + prefix + "Empires SET name=?, spawnDim=?, spawnX=?, spawnY=?, spawnZ=?, cameraYaw=?, cameraPitch=?, extraBlocks=?, maxPlots=?, extraFarClaims=?, currentPower=?, maxPower=? WHERE name=?", true);
                 updateStatement.setString(1, empire.getName());
                 updateStatement.setInt(2, empire.getSpawn().getDim());
                 updateStatement.setFloat(3, empire.getSpawn().getX());
@@ -549,11 +521,13 @@ public class EmpiresDatasource extends DatasourceSQL {
                 updateStatement.setInt(8, empire.empireBlocksContainer.getExtraBlocks());
                 updateStatement.setInt(9, empire.plotsContainer.getMaxPlots());
                 updateStatement.setInt(10, empire.empireBlocksContainer.getExtraFarClaims());
+                updateStatement.setDouble(11, empire.getPower());
+                updateStatement.setDouble(12, empire.getMaxPower());
 
                 if (empire.getOldName() == null)
-                    updateStatement.setString(11, empire.getName());
+                    updateStatement.setString(13, empire.getName());
                 else
-                    updateStatement.setString(11, empire.getOldName());
+                    updateStatement.setString(13, empire.getOldName());
 
                 updateStatement.executeUpdate();
 
@@ -730,25 +704,39 @@ public class EmpiresDatasource extends DatasourceSQL {
         LOG.debug("Saving Citizen {} ({})", citizen.getUUID(), citizen.getPlayerName());
         try {
             if (getUniverse().citizens.contains(citizen.getUUID())) { // Update
-                PreparedStatement updateStatement = prepare("UPDATE " + prefix + "Citizens SET name=?, lastOnline=?, extraBlocks=?, fakePlayer=? WHERE uuid=?", true);
+                PreparedStatement updateStatement = prepare("UPDATE " + prefix + "Citizens SET name=?, lastOnline=?, extraBlocks=?, power=?, lastPowerUpdateTime=?, fakePlayer=? WHERE uuid=?", true);
                 updateStatement.setString(1, citizen.getPlayerName());
-                updateStatement.setLong(2, citizen.getLastOnline().getTime() / 1000L); // Stupid hack...
+                updateStatement.setLong(2, citizen.getLastOnline().getTime() / 1000L); 
                 updateStatement.setInt(3, citizen.getExtraBlocks());
-                updateStatement.setBoolean(4, citizen.getFakePlayer());
-                updateStatement.setString(5, citizen.getUUID().toString());
+                updateStatement.setBoolean(6, citizen.getFakePlayer());
+                updateStatement.setString(7, citizen.getUUID().toString());
+                updateStatement.setDouble(4, citizen.getPower());
+                updateStatement.setLong(5, citizen.getLastPowerUpdateTime());
                 updateStatement.executeUpdate();
+                
+                double power7 = citizen.getPower();
+                EmpiresUniverse.instance.addCitizen(citizen);
+                
+                //LOG.info("Power is: " + power7);
+
             } else { // Insert
-                PreparedStatement insertStatement = prepare("INSERT INTO " + prefix + "Citizens (uuid, name, joined, lastOnline, extraBlocks, fakePlayer) VALUES(?, ?, ?, ?, ?, ?)", true);
+                PreparedStatement insertStatement = prepare("INSERT INTO " + prefix + "Citizens (uuid, name, joined, lastOnline, extraBlocks, power, lastPowerUpdateTime, fakePlayer) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", true);
                 insertStatement.setString(1, citizen.getUUID().toString());
                 insertStatement.setString(2, citizen.getPlayerName());
-                insertStatement.setLong(3, citizen.getJoinDate().getTime() / 1000L); // Stupid hack...
-                insertStatement.setLong(4, citizen.getLastOnline().getTime() / 1000L); // Stupid hack...
+                insertStatement.setLong(3, citizen.getJoinDate().getTime() / 1000L);
+                insertStatement.setLong(4, citizen.getLastOnline().getTime() / 1000L); 
                 insertStatement.setInt(5, citizen.getExtraBlocks());
-                insertStatement.setBoolean(6, citizen.getFakePlayer());
+                insertStatement.setBoolean(8, citizen.getFakePlayer());
+                insertStatement.setDouble(6, citizen.getPower());
+                insertStatement.setLong(7, citizen.getLastPowerUpdateTime());
                 insertStatement.executeUpdate();
 
                 // Put the Citizen in the Map
+                double power6 = citizen.getPower();
                 EmpiresUniverse.instance.addCitizen(citizen);
+                
+             //   LOG.info("Power is: " + power6);
+                // This is a test to see if the DB saves correctly or not.
             }
         } catch (SQLException e) {
             LOG.error("Failed to save citizen {}!", citizen.getUUID());
@@ -809,29 +797,6 @@ public class EmpiresDatasource extends DatasourceSQL {
         }
         return true;
     }
-
-    /*
-    
-    public boolean saveNation(Nation nation) { // TODO Link any new Empires to the given Nation
-        LOG.debug("Saving Nation {}", nation.getName());
-        try {
-            if (EmpiresUniverse.instance.hasNation(nation)) { // Update
-                // TODO Update Nation (If needed?)
-            } else { // Insert
-                PreparedStatement insertStatement = prepare("INSERT INTO " + prefix + "Nations (name) VALUES(?)", true);
-                insertStatement.setString(1, nation.getName());
-                insertStatement.executeUpdate();
-                // Put the Nation in the Map
-                EmpiresUniverse.instance.addNation(nation);
-            }
-        } catch (SQLException e) {
-            LOG.error("Failed to save Nation {}!", nation.getName());
-            LOG.error(ExceptionUtils.getStackTrace(e));
-            return false;
-        }
-        return true;
-    }
-    */
 
     
     public boolean saveFlag(Flag flag, Plot plot) {
@@ -1095,52 +1060,7 @@ public class EmpiresDatasource extends DatasourceSQL {
         return true;
     }
 
-    /*
     
-    public boolean linkEmpireToNation(Empire empire, Nation nation) {
-        try {
-            PreparedStatement s = prepare("INSERT INTO " + prefix + "EmpiresToNations (empire, nation, rank) VALUES(?, ?, ?);", true);
-            s.setString(1, empire.getName());
-            s.setString(2, nation.getName());
-            s.setString(3, nation.getEmpireRank(empire).toString());
-            s.execute();
-        } catch (SQLException e) {
-            LOG.error("Failed to link a empire to a nation.");
-            LOG.error(ExceptionUtils.getStackTrace(e));
-            return false;
-        }
-        return true;
-    }
-    
-    public boolean unlinkEmpireFromNation(Empire empire, Nation nation) {
-        try {
-            PreparedStatement s = prepare("DELETE FROM " + prefix + "EmpiresToNations WHERE empire = ? AND nation = ?", true);
-            s.setString(1, empire.getName());
-            s.setString(2, nation.getName());
-            s.execute();
-        } catch (SQLException e) {
-            LOG.error("Failed to remove link from a empire to a nation.");
-            LOG.error(ExceptionUtils.getStackTrace(e));
-            return false;
-        }
-        return true;
-    }
-    
-    public boolean updateEmpireToNationLink(Empire empire, Nation nation) {
-        try {
-            PreparedStatement s = prepare("UPDATE " + prefix + "EmpiresToNations SET rank = ? WHERE empire = ?, nation = ?", true);
-            s.setString(1, nation.getEmpireRank(empire).toString());
-            s.setString(2, empire.getName());
-            s.setString(3, nation.getName());
-            s.executeUpdate();
-        } catch (SQLException e) {
-            LOG.error("Failed to update link between a empire and a nation");
-            LOG.error(ExceptionUtils.getStackTrace(e));
-            return false;
-        }
-        return true;
-    }
-    */
 
     
     public boolean linkCitizenToPlot(Citizen res, Plot plot, boolean isOwner) {
@@ -1331,24 +1251,6 @@ public class EmpiresDatasource extends DatasourceSQL {
         return true;
     }
 
-    /*
-    
-    public boolean deleteNation(Nation nation) {
-        try {
-            // Delete Nation from Datsource
-            PreparedStatement deleteNationStatement = prepare("DELETE FROM " + prefix + "Nations WHERE name=?", true);
-            deleteNationStatement.setString(1, nation.getName());
-            deleteNationStatement.execute();
-            // Remove Nation from Map
-            EmpiresUniverse.instance.removeNation(nation);
-        } catch (SQLException e) {
-            LOG.error("Failed to delete Nation {}!", nation.getName());
-            LOG.error(ExceptionUtils.getStackTrace(e));
-            return false;
-        }
-        return true;
-    }
-    */
 
     
     public boolean deleteBlockWhitelist(BlockWhitelist bw, Empire empire) {

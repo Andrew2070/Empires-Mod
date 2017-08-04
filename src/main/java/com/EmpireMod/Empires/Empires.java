@@ -1,37 +1,37 @@
 package com.EmpireMod.Empires;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.logging.log4j.Logger;
 
-import com.EmpireMod.Empires.API.Chat.ChatHandler;
-import com.EmpireMod.Empires.API.JSON.FlagsConfig;
-import com.EmpireMod.Empires.API.JSON.JsonConfig;
-import com.EmpireMod.Empires.API.JSON.RanksConfig;
-import com.EmpireMod.Empires.API.JSON.WildPermsConfig;
-import com.EmpireMod.Empires.API.commands.CommandManager;
-import com.EmpireMod.Empires.API.commands.CommandsEMP;
-import com.EmpireMod.Empires.API.commands.Local;
-import com.EmpireMod.Empires.API.commands.LocalManager;
+import com.EmpireMod.Empires.API.JSON.Configuration.FlagsConfig;
+import com.EmpireMod.Empires.API.JSON.Configuration.JsonConfig;
+import com.EmpireMod.Empires.API.JSON.Configuration.RanksConfig;
+import com.EmpireMod.Empires.API.JSON.Configuration.WildPermsConfig;
+import com.EmpireMod.Empires.API.Commands.Command.CommandManager;
+import com.EmpireMod.Empires.API.Commands.Command.CommandsEMP;
 import com.EmpireMod.Empires.API.permissions.PermissionManager;
 import com.EmpireMod.Empires.API.permissions.PermissionProxy;
 import com.EmpireMod.Empires.API.permissions.RankPermissionManager;
 import com.EmpireMod.Empires.API.permissions.Bridges.MyPermissionsBridge;
-import cpw.mods.fml.common.event.*;
-import com.EmpireMod.Empires.Config.Config;
+import com.EmpireMod.Empires.Configuration.Config;
 import com.EmpireMod.Empires.Datasource.DatasourceCrashCallable;
 import com.EmpireMod.Empires.Datasource.EmpiresDatasource;
+import com.EmpireMod.Empires.Handlers.ChatHandler;
 import com.EmpireMod.Empires.Handlers.EmpiresLoadingCallback;
 import com.EmpireMod.Empires.Handlers.ExtraEventsHandler;
 import com.EmpireMod.Empires.Handlers.PlayerTracker;
 import com.EmpireMod.Empires.Handlers.SafemodeHandler;
 import com.EmpireMod.Empires.Handlers.Ticker;
 import com.EmpireMod.Empires.Handlers.VisualsHandler;
+import com.EmpireMod.Empires.Localization.Localization;
+import com.EmpireMod.Empires.Localization.LocalizationManager;
 import com.EmpireMod.Empires.Proxies.EconomyProxy;
-import com.EmpireMod.Empires.Tasks.PowerUpdateTask;
+import com.EmpireMod.Empires.Utilities.StringUtils;
 import com.EmpireMod.Empires.commands.Admin.CommandsAdmin;
 import com.EmpireMod.Empires.commands.Neutral.CommandsNeutral;
-import com.EmpireMod.Empires.commands.Neutral.PermCommands;
 import com.EmpireMod.Empires.commands.Officer.CommandsOfficer;
+import com.EmpireMod.Empires.commands.Permission.PermCommands;
 import com.EmpireMod.Empires.commands.Recruit.CommandsRecruit;
 import com.EmpireMod.Empires.entities.Managers.SignManager;
 import com.EmpireMod.Empires.entities.Managers.ToolManager;
@@ -40,7 +40,6 @@ import com.EmpireMod.Empires.exceptions.ConfigException;
 import com.EmpireMod.Empires.protection.ProtectionHandlers;
 import com.EmpireMod.Empires.protection.ProtectionManager;
 import com.EmpireMod.Empires.protection.JSON.ProtectionParser;
-import com.EmpireMod.Empires.utils.StringUtils;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -49,19 +48,20 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.MinecraftForge;
 
-@Mod(modid = Constants.MODID, name = Constants.MODNAME, version = Constants.VERSION, dependencies = Constants.DEPENDENCIES)
+@Mod(modid = Constants.MODID, name = Constants.MODNAME, version = Constants.VERSION, dependencies = Constants.DEPENDENCIES, acceptableRemoteVersions = "*")
 
 public class Empires {
 //@Instance
 	@Mod.Instance(Constants.MODID)
 
 	public static Empires instance;
-    public Local LOCAL;
+    public Localization LOCAL;
     public Logger LOG;
     public EmpiresDatasource datasource;
     private final List<JsonConfig> jsonConfigs =  new ArrayList<JsonConfig>();
@@ -80,8 +80,8 @@ public class Empires {
         
         // REF: The localization can simply take the whole config instance to get the localization needed.
         
-        LOCAL = new Local(Constants.CONFIG_FOLDER + "/Localization/", Config.instance.localization.get(), "/Empires/Localization/", Empires.class);
-        LocalManager.register(LOCAL, "Empires");
+        LOCAL = new Localization(Constants.CONFIG_FOLDER + "/Localization/", Config.instance.localization.get(), "/Empires/Localization/", Empires.class);
+        LocalizationManager.register(LOCAL, "Empires");
 
         // Register handlers/trackers
         FMLCommonHandler.instance().bus().register(PlayerTracker.instance);
@@ -89,9 +89,7 @@ public class Empires {
         
         FMLCommonHandler.instance().bus().register(ChatHandler.instance);
         MinecraftForge.EVENT_BUS.register(ChatHandler.instance);
-        
-        FMLCommonHandler.instance().bus().register(PowerUpdateTask.instance);
-        MinecraftForge.EVENT_BUS.register(PowerUpdateTask.instance);
+       
         
         FMLCommonHandler.instance().bus().register(Ticker.instance);
         MinecraftForge.EVENT_BUS.register(Ticker.instance);
@@ -153,7 +151,6 @@ public class Empires {
         }
 
         ProtectionParser.start();
-        //SafemodeHandler.setSafemode(!DatasourceProxy.start(config));
         datasource = new EmpiresDatasource();
         LOG.info("Started");
 

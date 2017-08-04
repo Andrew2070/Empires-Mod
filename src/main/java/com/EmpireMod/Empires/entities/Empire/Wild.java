@@ -1,8 +1,8 @@
 package com.EmpireMod.Empires.entities.Empire;
 
 
-import com.EmpireMod.Empires.API.commands.LocalManager;
-import com.EmpireMod.Empires.API.commands.ChatManager;
+import com.EmpireMod.Empires.API.Chat.Component.ChatManager;
+import com.EmpireMod.Empires.Localization.LocalizationManager;
 import com.EmpireMod.Empires.entities.Flags.FlagType;
 import com.EmpireMod.Empires.entities.Flags.Flag;
 
@@ -25,7 +25,7 @@ public class Wild {
 
         if (!flagsContainer.getValue(flagType)) {
             ChatManager.send(res.getPlayer(), flagType.getDenialKey());
-            ChatManager.send(res.getPlayer(), "Empires.notification.empire.owners", LocalManager.get("Empires.notification.empire.owners.admins"));
+            ChatManager.send(res.getPlayer(), "Empires.notification.empire.owners", LocalizationManager.get("Empires.notification.empire.owners.admins"));
             return false;
         }
         return true;

@@ -1,7 +1,8 @@
 package com.EmpireMod.Empires.entities.Tools;
 
-import com.EmpireMod.Empires.API.commands.ChatManager;
-import com.EmpireMod.Empires.API.commands.LocalManager;
+import com.EmpireMod.Empires.API.Chat.Component.ChatManager;
+import com.EmpireMod.Empires.Localization.LocalizationManager;
+import com.EmpireMod.Empires.Utilities.EmpireUtils;
 import com.EmpireMod.Empires.entities.Managers.ToolManager;
 import com.EmpireMod.Empires.entities.Misc.Tool;
 import com.EmpireMod.Empires.entities.Position.BlockPos;
@@ -9,7 +10,6 @@ import com.EmpireMod.Empires.entities.Empire.Plot;
 import com.EmpireMod.Empires.entities.Empire.Citizen;
 import com.EmpireMod.Empires.entities.Empire.Empire;
 import com.EmpireMod.Empires.entities.Signs.SellSign;
-import com.EmpireMod.Empires.utils.EmpireUtils;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
@@ -26,7 +26,7 @@ public class PlotSellTool extends Tool {
     private Citizen owner;
 
     public PlotSellTool(Citizen owner, int price) {
-        super(owner.getPlayer(), LocalManager.get("Empires.tool.name", LocalManager.get("Empires.tool.plot.sell.name")).getLegacyFormattedText()[0]);
+        super(owner.getPlayer(), LocalizationManager.get("Empires.tool.name", LocalizationManager.get("Empires.tool.plot.sell.name")).getLegacyFormattedText()[0]);
         this.owner = owner;
         this.price = price;
     }
@@ -46,14 +46,14 @@ public class PlotSellTool extends Tool {
 
     @Override
     protected String[] getDescription() {
-        return LocalManager.get("Empires.tool.plot.sell.description", price, restricted).getLegacyFormattedText();
+        return LocalizationManager.get("Empires.tool.plot.sell.description", price, restricted).getLegacyFormattedText();
     }
 
     @Override
     public void onShiftRightClick() {
         this.restricted = !this.restricted;
         updateDescription();
-        ChatManager.send(owner.getPlayer(), "Empires.tool.mode", LocalManager.get("Empires.tool.plot.sell.property"), restricted);
+        ChatManager.send(owner.getPlayer(), "Empires.tool.mode", LocalizationManager.get("Empires.tool.plot.sell.property"), restricted);
     }
 
     protected boolean hasPermission(Empire empire, BlockPos bp) {

@@ -2,10 +2,8 @@ package com.EmpireMod.Empires.Proxies;
 
 
 import com.EmpireMod.Empires.API.Economy.Economy;
-
+import com.EmpireMod.Empires.Configuration.Config;
 import com.EmpireMod.Empires.Empires;
-
-import com.EmpireMod.Empires.Config.Config;
 
 public class EconomyProxy {
 

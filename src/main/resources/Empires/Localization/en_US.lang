@@ -1,13 +1,14 @@
 Empires.format.volume={7|(}{9|%s}{7|, }{9|%s}{7|, }{9|%s}{7|) -> (}{9|%s}{7|, }{9|%s}{7|, }{9|%s}{7|) }
 Empires.format.blockpos={7|(}{9|%s}{7|, }{9|%s}{7|, }{9|%s}{7|)}
 Empires.format.chunkpos={7|(}{9|%s}{7|, }{9|%s}{7|)}
-Empires.format.list.header={6|----------[[}{%s}{6|]]----------}
+Empires.format.list.header={6|---------------[}{%s}{6|]---------------}
 Empires.tool.name={a|[Empires] }{9|TOOL: }{%s}
 Empires.tool.mode={a|[Empires] }{3|Changed '}{%s}{3|' to %s}
 Empires.tool.gained={a|[Empires] }{3|You have been given a tool}
 Empires.cmd.err.group.notExist={a|[Empires] }{c|The group }{%s}{c| does not exist}
 Empires.cmd.err.player.notExist={a|[Empires] }{c|The player }{%s}{c| does not exist}
-
+Empires.cmd.err.unclaim.powerException={a|[Empires] }{c|This Empire Has Enough Power To Support It's Territory}
+Empires.cmd.err.unclaim.powerException2={a|[Empires] }{c|You Need To Have Atleast 7 Power To Over-claim Other Empires!}
 Empires.notification.perm.added={a|[Empires] }{a|Perm node added successfully}
 Empires.notification.perm.removed={a|[Empires] }{a|Perm node removed successfully}
 
@@ -56,6 +57,7 @@ Empires.format.permission={7| - %s}
 
 # Other
 Empires.cmd.unimplemented={a|[Empires] }{c|%s is currently unimplemented}
+Empires.cmd.err.empire.lackPower={a|[Empires] }{c|Your Empire Lack's The Power To Afford This Claim.}
 Empires.cmd.err.partOfEmpire={a|[Empires] }{c|You need to be part of a Empire}
 Empires.cmd.err.empire.missing={a|[Empires] }{c|The empire %s does not exist}
 Empires.cmd.err.citizen.missing={a|[Empires] }{c|The player %s does not exist}
@@ -65,16 +67,17 @@ Empires.cmd.err.rank.missing={a|[Empires] }{c|The rank }{%s}{ does not exist in 
 Empires.cmd.err.citizen.payment={a|[Empires] }{c|You need %s in order to pay for this}
 Empires.cmd.err.empire.payment={a|[Empires] }{c|You need %s in bank to pay for this}
 Empires.cmd.err.notPositiveInteger={a|[Empires] }{c|Value '%s' needs to be a positive integer}
+Empires.cmd.err.empire.maxPower={a|[Empires] }{c|Your Empire Has Reached The Maximum Amount of Claims for It's Power Level}
 Empires.cmd.err.adminEmpire={a|[Empires] }{c|Action denied because }{%s}{c| is an administrator run empire}
 Empires.cmd.err.notInEmpire={a|[Empires] }{c|You are not in empire }{%s}
 Empires.cmd.err.inventory={a|[Empires] }{c|Your inventory is full or you already have a tool}
 Empires.cmd.err.inventory.tool.already={a|[Empires] }{c|You already have a tool in your inventory, it will be replaced by the new one}
 Empires.cmd.err.rankPerm={a|[Empires] }{c|You do not have the rank required to use this command}
 Empires.cmd.err.notPlayer={a|[Empires] }{c|You are not a player}
-Empires.notification.enter.wild={a|[Empires] }{2|WARNING: You Have Entered The Wilderness}
-Empires.notification.enter.empire={a|[Empires] }{2|WARNING: You Have Entered The Territory Of: }{%s}
+Empires.notification.enter.wild={a|[Empires] }{2|ALERT: You Have Entered The Wilderness}
+Empires.notification.enter.empire={a|[Empires] }{c|ALERT: You Have Entered }{%s}{c| 's Territory}
 Empires.notification.enter.ownEmpire={a|[Empires] }{2|Welcome Back To: }{%s}
-Empires.notification.empire.owners.admins={a|[Empires] }{c|SERVER ADMINS}
+Empires.notification.empire.owners.admins={a|[Empires] }{c|Administration}
 
 # Flag based notifications
 
@@ -87,7 +90,7 @@ Empires.protection.PICKUP={a|[Empires] }{c|You cannot pickup blocks/items here}
 Empires.protection.EXPLOSIONS={a|[Empires] }{c|You cannot use explosions here}
 Empires.protection.MOBS={a|[Empires] }{c|You cannot spawn this type of mob here}
 Empires.protection.PVE={a|[Empires] }{c|You cannot touch that}
-Empires.protection.USAGE={a|[Empires] }{c|You cannot use items here}
+Empires.protection.USAGE={a|[Empires] }{c|You cannot use any items here}
 Empires.protection.PVP={a|[Empires] }{c|You cannot attack players here as PVP is Disabled}
 
 Empires.protection.notify.EXPLOSIONS={a|[Empires] }{3|An explosion nearby has been stopped}
@@ -129,10 +132,10 @@ Empires.sign.sell.description.price={a|[Empires] }{6|}
 Empires.sign.sell.description.restricted={a|[Empires] }{c|RESTRICTED}
 
 # /empirea config [load|save]
-Empires.cmd.config.load.start={a|[Empires] }{3|Loading config...}
-Empires.cmd.config.load.stop={a|[Empires] }{a|Config loaded}
-Empires.cmd.config.save.start={a|[Empires] }{3|Saving config...}
-Empires.cmd.config.save.stop={a|[Empires] }{a|Config saved}
+Empires.cmd.config.load.start={a|[Empires] }{3|Loading configuration...}
+Empires.cmd.config.load.stop={a|[Empires] }{a|Configuration loaded}
+Empires.cmd.config.save.start={a|[Empires] }{3|Saving configuration...}
+Empires.cmd.config.save.stop={a|[Empires] }{a|Configuration saved}
 Empires.cmd.config.reset={a|[Empires] }{a|Successfully recreated the %s file}
 
 # /empire new [empirename]
@@ -166,7 +169,8 @@ Empires.cmd.err.claim.already={a|[Empires] }{c|This chunk has already been claim
 Empires.cmd.err.claim.missing={a|[Empires] }{c|This block is not claimed by empire }{%s}
 Empires.cmd.err.claim.far.notAllowed={a|[Empires] }{c|You cannot have anymore far claims}
 Empires.cmd.err.empire.maxBlocks={a|[Empires] }{c|Not enough free slots for %s chunks}
-
+Empires.cmd.err.unclaim.presentEmpire={a|[Empires] }{c|You can't overclaim your own Empire!}
+Empires.cmd.err.unclaim.userNotInEmpire=a|[Empires] }{c|You can't overclaim without being in an Empire!}
 Empires.cmd.err.claim.chunkload.already={a|[Empires] }{c|This chunk is already chunkloaded}
 Empires.cmd.err.claim.unchunkload.missing={a|[Empires] }{c|This chunk is not chunkloaded}
 
@@ -280,13 +284,13 @@ Empires.notification.empire.ranks.perm.remove={a|[Empires] }{a|Removed permissio
 
 Empires.format.flag={7|%s << %s}{7|[}{a|%s}{7|]}
 Empires.format.empire.short={6|%s << %s}
-Empires.format.empire.long={%s}{6N| - }{2|R:%s}{6| - }{2|C:%s/%s}{6| - }{2|P:%s}{6| - }{2N| Citizens: }{%s}{2N| Ranks: }{%s}
+Empires.format.empire.long={%s}{6N| - }{2|Citizens: %s}{6| - }{2|Claims: %s/%s}{6| - }{2|Power: %s/%s }{6| - }{2N| Citizens: }{%s}{2N| Ranks: }{%s}
 Empires.format.rank={l|%s}
 Empires.format.rank.long={l|%s}{7| (}{%s}{7|)}
 Empires.format.plot.short={a|%s}{7|: }{%s}
 Empires.format.plot.long={%s}{2N|Owners: }{%s}{2N|Borders: }{%s}
 Empires.format.citizen.short={a|%s}
-Empires.format.citizen.long={%s}{2N| Empires: }{%s}{2N| Joined: }{a|%s}{2N| Last online: }{a|%s}{2N| Extra blocks: }{a|%s}
+Empires.format.citizen.long={%s}{2N| Empires: }{%s}{2N| Joined: }{a|%s}{2N| Last online: }{a|%s}{2N| Extra blocks: }{a|%s}{2N| Power: }{a|%s}
 Empires.format.citizen.withRank={%s}{7|(}{%s}{7|)}
 Empires.format.block.short={%s}
 Empires.format.admins={c|SERVER ADMINS}
@@ -299,6 +303,7 @@ Empires.format.rank.type.short={%s}
 
 Empires.notification.block.added={a|[Empires] }{a|A New Chunk Was Added To Your Empire's Territory from (%s, %s) to (%s, %s)}{%s}
 Empires.notification.block.removed={a|[Empires] }{a|Territory From (%s, %s) to (%s, %s) Has Been Removed From Empire }{%s}
+Empires.notification.block.overclaimed={a|[Empires] }{a|Territory From (%s, %s) to (%s, %s) Has Been over-claimed From Empire }{%s}
 Empires.notification.plot.start={a|[Empires] }{3|Right click 2 corners with the Selector to create a plot. Use }{3o|"/empire plot select reset"}{3| to reset selection}
 Empires.notification.plot.selectionStart={a|[Empires] }{9|First}{f| corner selected}
 Empires.notification.plot.selectionEnd={a|[Empires] }{9|Second}{f| corner selected}
@@ -372,9 +377,11 @@ Empires.notification.claim.chunkload.all={a|[Empires] }{3|Successfully chunkload
 Empires.notification.claim.chunkunload={a|[Empires] }{3|Successfully removed chunkloading from this chunk}
 Empires.notification.claim.chunkunload.all={a|[Empires] }{3|Successfully removed chunkloading from all (}{a|%s}{3| chunks) in this empire}
 Empires.notification.empire.owners={a|[Empires] }{c| Owners: }{%s}
+Empires.notification.ciz.powerLostOnDeath={a|[Empires] }{c|You Have Lost }{d|%s }{c|Power Due To Death & Now Have }{d|%s }{c|Power Left}
 
 # Help for commands
 Empires.cmd.officer.blocks.help={a|[Empires] }{|Everything related to EmpireBlocks (chunks in empire)}
+Empires.cmd.officer.overclaim.help={a|[Empires] }{|Allows a player to unclaim territory of another (weak) Empire}
 Empires.cmd.officer.claim.help={a|[Empires] }{|Claims the chunk you are in}
 Empires.cmd.officer.invite.help={a|[Empires] }{|Invites a player to your empire}
 Empires.cmd.everyone.perm.help={a|[Empires] }{|Everything related to protection}

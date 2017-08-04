@@ -1,7 +1,7 @@
 package com.EmpireMod.Empires.entities.Misc;
 
+import com.EmpireMod.Empires.Transformers.SignClassTransformer;
 import com.EmpireMod.Empires.entities.Position.BlockPos;
-import com.EmpireMod.Empires.utils.SignClassTransformer;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;

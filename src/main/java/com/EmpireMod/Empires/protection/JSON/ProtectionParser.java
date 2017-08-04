@@ -3,9 +3,8 @@ package com.EmpireMod.Empires.protection.JSON;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
+import com.EmpireMod.Empires.Constants;
 import com.EmpireMod.Empires.Empires;
-import com.EmpireMod.Empires.Handlers.Constants;
 import com.EmpireMod.Empires.entities.Flags.FlagType;
 import com.EmpireMod.Empires.entities.Misc.Volume;
 import com.EmpireMod.Empires.protection.ProtectionManager;

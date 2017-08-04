@@ -1,20 +1,21 @@
 package com.EmpireMod.Empires.commands.Recruit;
 
-import com.EmpireMod.Empires.API.commands.ChatComponentContainer;
-import com.EmpireMod.Empires.API.commands.ChatComponentFormatted;
-import com.EmpireMod.Empires.API.commands.ChatComponentList;
-import com.EmpireMod.Empires.API.commands.ChatManager;
+import com.EmpireMod.Empires.API.Chat.Component.ChatComponentContainer;
+import com.EmpireMod.Empires.API.Chat.Component.ChatComponentFormatted;
+import com.EmpireMod.Empires.API.Chat.Component.ChatComponentList;
+import com.EmpireMod.Empires.API.Chat.Component.ChatManager;
+import com.EmpireMod.Empires.API.Commands.Command.Command;
+import com.EmpireMod.Empires.API.Commands.Command.CommandResponse;
+import com.EmpireMod.Empires.API.Commands.Command.CommandsEMP;
+import com.EmpireMod.Empires.Configuration.Config;
 import com.EmpireMod.Empires.entities.Empire.AdminEmpire;
 import com.EmpireMod.Empires.entities.Empire.Citizen;
 import com.EmpireMod.Empires.entities.Empire.Empire;
 import com.EmpireMod.Empires.entities.Empire.Plot;
 import com.EmpireMod.Empires.entities.Empire.Rank;
 import com.EmpireMod.Empires.entities.Empire.Wild;
-import com.EmpireMod.Empires.API.commands.CommandResponse;
-import com.EmpireMod.Empires.API.commands.Command;
-import com.EmpireMod.Empires.API.commands.LocalManager;
-import com.EmpireMod.Empires.Config.Config;
 import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
+import com.EmpireMod.Empires.Localization.LocalizationManager;
 import com.EmpireMod.Empires.Proxies.EconomyProxy;
 import com.EmpireMod.Empires.entities.Tools.WhitelisterTool;
 import com.EmpireMod.Empires.entities.Flags.Flag;
@@ -32,8 +33,6 @@ import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
 
 import java.util.List;
-
-import com.EmpireMod.Empires.API.commands.CommandsEMP;
 
 /**
  * Process methods for all commands that can be used by everyone
@@ -148,7 +147,7 @@ public class CommandsRecruit extends CommandsEMP {
         Empire empire = getEmpireFromCitizen(res);
 
         IChatComponent root = new ChatComponentList();
-        root.appendSibling(LocalManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|CLAIMS}")));
+        root.appendSibling(LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|CLAIMS}")));
         root.appendSibling(empire.empireBlocksContainer.toChatMessage());
 
         ChatManager.send(sender, root);
@@ -164,15 +163,15 @@ public class CommandsRecruit extends CommandsEMP {
         Citizen res = getUniverse().getOrMakeCitizen(sender);
         Empire empire = getEmpireFromCitizen(res);
 
-        IChatComponent header = LocalManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|BLOCKS}"));
+        IChatComponent header = LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|BLOCKS}"));
         String blocks = empire.empireBlocksContainer.size() + "/" + empire.getMaxBlocks();
         String extraBlocks = empire.getExtraBlocks() + "";
         String farBlocks = empire.empireBlocksContainer.getFarClaims() + "/" + empire.getMaxFarClaims();
 
         ChatComponentContainer extraBlocksSources = new ChatComponentContainer();
-        extraBlocksSources.add(LocalManager.get("Empires.notification.blocks.info.extra", new ChatComponentFormatted("{9|EMPIRE}"), empire.empireBlocksContainer.getExtraBlocks()));
+        extraBlocksSources.add(LocalizationManager.get("Empires.notification.blocks.info.extra", new ChatComponentFormatted("{9|EMPIRE}"), empire.empireBlocksContainer.getExtraBlocks()));
         for(Citizen citizen : empire.citizensMap.keySet()) {
-            extraBlocksSources.add(LocalManager.get("Empires.notification.blocks.info.extra", citizen, citizen.getExtraBlocks()));
+            extraBlocksSources.add(LocalizationManager.get("Empires.notification.blocks.info.extra", citizen, citizen.getExtraBlocks()));
         }
 
         ChatManager.send(sender, "Empires.notification.blocks.info", header, blocks, extraBlocks, extraBlocksSources, farBlocks);
@@ -518,7 +517,7 @@ public class CommandsRecruit extends CommandsEMP {
             Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(sender);
             Plot plot = getPlotAtCitizen(res);
 
-            IChatComponent header = LocalManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|%s}", plot.getName()));
+            IChatComponent header = LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|%s}", plot.getName()));
             ChatManager.send(sender, "Empires.format.plot.long", header, plot.ownersContainer, plot.toVolume());
             return CommandResponse.DONE;
         }
@@ -589,9 +588,9 @@ public class CommandsRecruit extends CommandsEMP {
         Empire empire = getEmpireFromCitizen(res);
 
         IChatComponent root = new ChatComponentList();
-        root.appendSibling(LocalManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|RANKS}")));
+        root.appendSibling(LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|RANKS}")));
         for (Rank rank : empire.ranksContainer) {
-            root.appendSibling(new ChatComponentFormatted("{7| - }").appendSibling(LocalManager.get("Empires.format.rank.long", rank.getName(), rank.getType())));
+            root.appendSibling(new ChatComponentFormatted("{7| - }").appendSibling(LocalizationManager.get("Empires.format.rank.long", rank.getName(), rank.getType())));
         }
 
         ChatManager.send(sender, root);

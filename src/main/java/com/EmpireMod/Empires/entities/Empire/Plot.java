@@ -1,11 +1,9 @@
 package com.EmpireMod.Empires.entities.Empire;
 
 
-import com.EmpireMod.Empires.API.commands.ChatComponentFormatted;
-import com.EmpireMod.Empires.API.commands.LocalManager;
-import com.EmpireMod.Empires.API.commands.ChatManager;
-import com.EmpireMod.Empires.API.commands.IChatFormat;
-
+import com.EmpireMod.Empires.API.Chat.IChatFormat;
+import com.EmpireMod.Empires.API.Chat.Component.ChatComponentFormatted;
+import com.EmpireMod.Empires.API.Chat.Component.ChatManager;
 import com.EmpireMod.Empires.entities.Misc.Volume;
 import com.EmpireMod.Empires.entities.Flags.Flag;
 import com.EmpireMod.Empires.entities.Flags.FlagType;
@@ -13,6 +11,7 @@ import com.EmpireMod.Empires.entities.Misc.SignType;
 import com.EmpireMod.Empires.API.permissions.PermissionProxy;
 import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
 import com.EmpireMod.Empires.Handlers.VisualsHandler;
+import com.EmpireMod.Empires.Localization.LocalizationManager;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -106,7 +105,7 @@ public class Plot implements IChatFormat {
 
     @Override
     public IChatComponent toChatMessage() {
-        return LocalManager.get("Empires.format.plot.short", name, this.toVolume());
+        return LocalizationManager.get("Empires.format.plot.short", name, this.toVolume());
     }
 
     public Volume toVolume() {

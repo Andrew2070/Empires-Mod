@@ -1,8 +1,9 @@
 package com.EmpireMod.Empires.entities.Misc;
 
 
+import com.EmpireMod.Empires.Utilities.PlayerUtils;
 import com.EmpireMod.Empires.entities.Position.BlockPos;
-import com.EmpireMod.Empires.utils.PlayerUtils;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

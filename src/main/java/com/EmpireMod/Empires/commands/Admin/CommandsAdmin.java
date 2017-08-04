@@ -1,15 +1,13 @@
 package com.EmpireMod.Empires.commands.Admin;
 
-import com.EmpireMod.Empires.utils.StringUtils;
-import com.EmpireMod.Empires.API.commands.ChatComponentFormatted;
-import com.EmpireMod.Empires.API.JSON.FlagsConfig;
-import com.EmpireMod.Empires.API.commands.ChatComponentContainer;
-import com.EmpireMod.Empires.API.commands.ChatManager;
-import com.EmpireMod.Empires.API.commands.LocalManager;
-import com.EmpireMod.Empires.API.commands.CommandManager;
-import com.EmpireMod.Empires.API.commands.CommandResponse;
-import com.EmpireMod.Empires.API.commands.CommandsEMP;
-import com.EmpireMod.Empires.API.commands.Command;
+import com.EmpireMod.Empires.API.Chat.Component.ChatComponentContainer;
+import com.EmpireMod.Empires.API.Chat.Component.ChatComponentFormatted;
+import com.EmpireMod.Empires.API.Chat.Component.ChatManager;
+import com.EmpireMod.Empires.API.Commands.Command.Command;
+import com.EmpireMod.Empires.API.Commands.Command.CommandManager;
+import com.EmpireMod.Empires.API.Commands.Command.CommandResponse;
+import com.EmpireMod.Empires.API.Commands.Command.CommandsEMP;
+import com.EmpireMod.Empires.API.JSON.Configuration.FlagsConfig;
 import com.EmpireMod.Empires.API.permissions.CommandTree;
 import com.EmpireMod.Empires.API.permissions.CommandTreeNode;
 import com.EmpireMod.Empires.entities.Flags.FlagType;
@@ -22,17 +20,20 @@ import com.EmpireMod.Empires.entities.Empire.Wild;
 import com.EmpireMod.Empires.entities.Flags.Flag;
 import com.EmpireMod.Empires.entities.Managers.ToolManager;
 import com.EmpireMod.Empires.entities.Position.ChunkPos;
-import com.EmpireMod.Empires.utils.ChatUtils;
-import com.EmpireMod.Empires.utils.WorldUtils;
 import com.EmpireMod.Empires.Empires;
 import com.EmpireMod.Empires.API.permissions.PermissionProxy;
 import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
 import com.EmpireMod.Empires.Handlers.SafemodeHandler;
 import com.EmpireMod.Empires.Handlers.VisualsHandler;
+import com.EmpireMod.Empires.Localization.LocalizationManager;
+import com.EmpireMod.Empires.Utilities.ChatUtils;
+import com.EmpireMod.Empires.Utilities.StringUtils;
+import com.EmpireMod.Empires.Utilities.WorldUtils;
 import com.EmpireMod.Empires.commands.Officer.CommandsOfficer;
 import com.EmpireMod.Empires.Datasource.EmpiresDatasource;
 import com.EmpireMod.Empires.entities.Tools.WhitelisterTool;
 import com.EmpireMod.Empires.exceptions.EmpiresCommandException;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.command.ICommandSender;
@@ -310,15 +311,15 @@ public class CommandsAdmin extends CommandsEMP {
 
         Empire empire = getEmpireFromName(args.get(0));
 
-        IChatComponent header = LocalManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|BLOCKS}"));
+        IChatComponent header = LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|BLOCKS}"));
         String blocks = empire.empireBlocksContainer.size() + "/" + empire.getMaxBlocks();
         String extraBlocks = empire.getExtraBlocks() + "";
         String farBlocks = empire.empireBlocksContainer.getFarClaims() + "/" + empire.getMaxFarClaims();
 
         ChatComponentContainer extraBlocksSources = new ChatComponentContainer();
-        extraBlocksSources.add(LocalManager.get("Empires.notification.blocks.info.extra", new ChatComponentFormatted("{9|EMPIRE}"), empire.empireBlocksContainer.getExtraBlocks()));
+        extraBlocksSources.add(LocalizationManager.get("Empires.notification.blocks.info.extra", new ChatComponentFormatted("{9|EMPIRE}"), empire.empireBlocksContainer.getExtraBlocks()));
         for(Citizen res : empire.citizensMap.keySet()) {
-            extraBlocksSources.add(LocalManager.get("Empires.notification.blocks.info.extra", res, res.getExtraBlocks()));
+            extraBlocksSources.add(LocalizationManager.get("Empires.notification.blocks.info.extra", res, res.getExtraBlocks()));
         }
 
         ChatManager.send(sender, "Empires.notification.blocks.info", header, blocks, extraBlocks, extraBlocksSources, farBlocks);
@@ -1490,7 +1491,7 @@ public class CommandsAdmin extends CommandsEMP {
             Empire empire = getEmpireFromName(args.get(0));
             Plot plot = getPlotFromName(empire, args.get(1));
 
-            IChatComponent header = LocalManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|%s}", plot.getName()));
+            IChatComponent header = LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|%s}", plot.getName()));
             ChatManager.send(sender, "Empires.format.plot.long", plot.ownersContainer, plot.toVolume().toChatMessage());
             return CommandResponse.DONE;
         }

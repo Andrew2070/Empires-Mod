@@ -3,14 +3,12 @@ package com.EmpireMod.Empires.entities.Empire;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gson.*;
-
-
-import com.EmpireMod.Empires.API.commands.ChatComponentFormatted;
-import com.EmpireMod.Empires.API.commands.LocalManager;
-import com.EmpireMod.Empires.API.commands.IChatFormat;
+import com.EmpireMod.Empires.API.Chat.IChatFormat;
+import com.EmpireMod.Empires.API.Chat.Component.ChatComponentFormatted;
+import com.EmpireMod.Empires.API.Container.PermissionsContainer;
 import com.EmpireMod.Empires.API.JSON.API.SerializerTemplate;
+import com.EmpireMod.Empires.Localization.LocalizationManager;
 
-import com.EmpireMod.Empires.API.container.PermissionsContainer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
@@ -102,7 +100,7 @@ public class Rank implements IChatFormat {
 
     @Override
     public IChatComponent toChatMessage() {
-        return LocalManager.get("Empires.format.rank", name).setChatStyle(new ChatStyle().setColor(type.color));
+        return LocalizationManager.get("Empires.format.rank", name).setChatStyle(new ChatStyle().setColor(type.color));
     }
 
     public enum Type implements IChatFormat {
@@ -124,7 +122,7 @@ public class Rank implements IChatFormat {
         @Override
         public IChatComponent toChatMessage() {
             IChatComponent name = new ChatComponentFormatted("{" + color.getFormattingCode() + "|%s}", name());
-            return LocalManager.get("Empires.format.rank.type.short", name);
+            return LocalizationManager.get("Empires.format.rank.type.short", name);
         }
 
         public final EnumChatFormatting color;

@@ -2,16 +2,19 @@ package com.EmpireMod.Empires.entities.Empire;
 
 
 
-import com.EmpireMod.Empires.API.commands.ChatComponentFormatted;
-import com.EmpireMod.Empires.API.commands.LocalManager;
-import com.EmpireMod.Empires.API.commands.ChatManager;
-import com.EmpireMod.Empires.API.commands.IChatFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.UUID;
 
-import com.EmpireMod.Empires.entities.Flags.FlagType;
-
-import com.EmpireMod.Empires.Config.Config;
+import com.EmpireMod.Empires.API.Chat.IChatFormat;
+import com.EmpireMod.Empires.API.Chat.Component.ChatComponentFormatted;
+import com.EmpireMod.Empires.API.Chat.Component.ChatManager;
+import com.EmpireMod.Empires.Configuration.Config;
 import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
-import com.EmpireMod.Empires.Tasks.PowerUpdateTask;
+import com.EmpireMod.Empires.Localization.LocalizationManager;
+import com.EmpireMod.Empires.entities.Flags.FlagType;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -20,7 +23,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IChatComponent;
-import java.util.*;
 
 public class Citizen implements IChatFormat {
     private EntityPlayer player;
@@ -28,17 +30,14 @@ public class Citizen implements IChatFormat {
     private String playerName;
     private Date joinDate = new Date();
     private Date lastOnline = new Date();
-   // private Date timeOnline = new Date();
 
     private long PowerTime = lastOnline.getTime();
-    
-    
     
     private int teleportCooldown = 0;
 
     private int extraBlocks = 0;
     
-    private double Power = 0.00;
+    private double Power = 0.00 + Config.instance.defaultPower.get();
 
     private boolean isFakePlayer = false;
 
@@ -90,9 +89,6 @@ public class Citizen implements IChatFormat {
 
     /* ----- Map ----- */
 
-
-    
-    
     /**
      * Called when a player changes location from a chunk to another
      */
@@ -239,26 +235,58 @@ public class Citizen implements IChatFormat {
     	return Power;
     }
     
+    public long getLastPowerUpdateTime() {
+    	return powerUpdateTime;
+    }
+    
+    public void subtractPower(double Power) {
+    	
+    	Double target2 = (Power);
+    	
+    	if (this.Power == Power) return;
+    	double currentPower = this.Power;
+    	
+    	this.Power = currentPower - target2;
+    	
+    }
+    
  public void setPower(double Power) {
     	
-    	Double target = Power;
+    	Double target = (Power);
     	
     	if (this.Power == Power) return;
     	
-    	this.Power = target;
-    	
-    	long defaultTime = (long) 0.00;
-    	this.PowerTime = defaultTime ;
+     this.Power = target;
     	
    } 	
+ 
+ long powerUpdateTime = 0;
+ public void resetTime(long Time) {
+	 
+	 	long milisTime = Time;
+	 	
+	 	this.powerUpdateTime = milisTime;
 
+	 	
+ }
+ 
+
+ public void setLoadPowerTime(long pTime) {
+	 long pMilisTime = pTime;
+	 this.powerUpdateTime = pMilisTime;
+ }
+ 
 	public void setExtraBlocks(int extraBlocks) {
         this.extraBlocks = extraBlocks;
     }
+	
+	public void setPowerSource(double Power) {
+		this.Power = Power;
+	}
 
     @Override
     public IChatComponent toChatMessage() {
-        return LocalManager.get("Empires.format.citizen.short", playerName);
+        return LocalizationManager.get("Empires.format.citizen.short", playerName);
     }
 
     public boolean getFakePlayer() {

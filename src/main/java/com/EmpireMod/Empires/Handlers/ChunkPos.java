@@ -2,8 +2,8 @@ package com.EmpireMod.Empires.Handlers;
 
 
 import com.EmpireMod.Empires.Empires;
+import com.EmpireMod.Empires.API.Chat.IChatFormat;
 
-import com.EmpireMod.Empires.API.commands.IChatFormat;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IChatComponent;
 

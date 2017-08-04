@@ -4,10 +4,8 @@ package com.EmpireMod.Empires.Datasource.Bridge;
 import com.mysql.jdbc.Driver;
 
 import com.EmpireMod.Empires.Empires;
-import com.EmpireMod.Empires.Config.ConfigProperty;
-import com.EmpireMod.Empires.Config.ConfigTemplate;
-
-
+import com.EmpireMod.Empires.Configuration.ConfigProperty;
+import com.EmpireMod.Empires.Configuration.ConfigTemplate;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 

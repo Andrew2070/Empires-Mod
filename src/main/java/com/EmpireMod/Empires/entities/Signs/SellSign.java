@@ -1,15 +1,16 @@
 package com.EmpireMod.Empires.entities.Signs;
 import java.util.UUID;
-import com.EmpireMod.Empires.API.commands.ChatManager;
-import com.EmpireMod.Empires.API.commands.Local;
+
 import com.EmpireMod.Empires.entities.Misc.Sign;
 import com.EmpireMod.Empires.entities.Misc.SignType;
 import com.EmpireMod.Empires.Empires;
+import com.EmpireMod.Empires.API.Chat.Component.ChatManager;
 import com.EmpireMod.Empires.entities.Empire.Plot;
 import com.EmpireMod.Empires.entities.Empire.Citizen;
 import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
-
+import com.EmpireMod.Empires.Localization.Localization;
 import com.EmpireMod.Empires.Proxies.EconomyProxy;
+import com.EmpireMod.Empires.Transformers.SignClassTransformer;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTBase;
@@ -17,7 +18,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntitySign;
 
 import com.EmpireMod.Empires.entities.Position.BlockPos;
-import com.EmpireMod.Empires.utils.SignClassTransformer;
 
 public class SellSign extends Sign {
     private int price;
@@ -122,7 +122,7 @@ public class SellSign extends Sign {
         }
     }
 
-    public Local getLocal() {
+    public Localization getLocal() {
         return Empires.instance.LOCAL;
     }
 

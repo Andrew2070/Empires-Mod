@@ -3,17 +3,18 @@ package com.EmpireMod.Empires.API.permissions;
 
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
-import com.EmpireMod.Empires.API.commands.CommandManager;
-import com.EmpireMod.Empires.API.commands.Local;
 import com.EmpireMod.Empires.entities.Permissions.TreeNode;
-import com.EmpireMod.Empires.utils.StringUtils;
-import com.EmpireMod.Empires.API.commands.Command;
 import com.EmpireMod.Empires.Empires;
-import com.EmpireMod.Empires.API.commands.CommandCompletion;
-import com.EmpireMod.Empires.API.commands.CommandResponse;
-import com.EmpireMod.Empires.API.commands.ChatComponentHelpMenu;
-import com.EmpireMod.Empires.API.commands.ChatManager;
+import com.EmpireMod.Empires.Localization.Localization;
+import com.EmpireMod.Empires.Utilities.StringUtils;
+import com.EmpireMod.Empires.API.Chat.Component.ChatComponentHelpMenu;
+import com.EmpireMod.Empires.API.Chat.Component.ChatManager;
+import com.EmpireMod.Empires.API.Commands.Command.Command;
+import com.EmpireMod.Empires.API.Commands.Command.CommandCompletion;
+import com.EmpireMod.Empires.API.Commands.Command.CommandManager;
+import com.EmpireMod.Empires.API.Commands.Command.CommandResponse;
 import com.EmpireMod.Empires.exceptions.CommandException;
+
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
@@ -186,7 +187,7 @@ public class CommandTreeNode extends TreeNode<CommandTreeNode> {
             return getParent().getCommandLine() + " " + getLocalizedName();
     }
 
-    public Local getLocal() {
+    public Localization getLocal() {
         return getCommandTree().getLocal();
     }
 

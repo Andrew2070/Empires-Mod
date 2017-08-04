@@ -3,9 +3,10 @@ package com.EmpireMod.Empires.entities.Managers;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
+import com.EmpireMod.Empires.Transformers.SignClassTransformer;
 import com.EmpireMod.Empires.entities.Misc.Sign;
 import com.EmpireMod.Empires.entities.Misc.SignType;
-import com.EmpireMod.Empires.utils.SignClassTransformer;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySign;

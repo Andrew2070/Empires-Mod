@@ -1,18 +1,24 @@
 package com.EmpireMod.Empires.Datasource;
 
 
-import com.mojang.authlib.GameProfile;
-
-import com.EmpireMod.Empires.Misc.Teleport.Teleport;
-import com.EmpireMod.Empires.API.commands.CommandCompletion;
-import com.EmpireMod.Empires.utils.PlayerUtils;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 import com.EmpireMod.Empires.Empires;
-import com.EmpireMod.Empires.Events.*;
+import com.EmpireMod.Empires.API.Commands.Command.CommandCompletion;
+import com.EmpireMod.Empires.Configuration.Config;
+import com.EmpireMod.Empires.Events.AllianceEvent;
+import com.EmpireMod.Empires.Events.CitizenEvent;
+import com.EmpireMod.Empires.Events.EmpireBlockEvent;
+import com.EmpireMod.Empires.Events.EmpireEvent;
+import com.EmpireMod.Empires.Events.PlotEvent;
+import com.EmpireMod.Empires.Events.RankEvent;
 import com.EmpireMod.Empires.Handlers.VisualsHandler;
-import com.EmpireMod.Empires.Config.Config;
-import com.EmpireMod.Empires.entities.Empire.*;
+import com.EmpireMod.Empires.Misc.Teleport.Teleport;
+import com.EmpireMod.Empires.Utilities.PlayerUtils;
 import com.EmpireMod.Empires.entities.Empire.AdminEmpire;
+import com.EmpireMod.Empires.entities.Empire.Alliance;
 import com.EmpireMod.Empires.entities.Empire.Bank;
 import com.EmpireMod.Empires.entities.Empire.Citizen;
 import com.EmpireMod.Empires.entities.Empire.Empire;
@@ -21,6 +27,7 @@ import com.EmpireMod.Empires.entities.Empire.Plot;
 import com.EmpireMod.Empires.entities.Empire.Rank;
 import com.EmpireMod.Empires.entities.Flags.Flag;
 import com.EmpireMod.Empires.entities.Flags.FlagType;
+import com.mojang.authlib.GameProfile;
 
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -29,10 +36,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 public class EmpiresUniverse { // TODO Allow migrating between different Datasources
 

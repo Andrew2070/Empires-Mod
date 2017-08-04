@@ -1,36 +1,37 @@
 package com.EmpireMod.Empires.entities.Empire;
 
 
-import com.EmpireMod.Empires.API.commands.ChatComponentFormatted;
-import com.EmpireMod.Empires.API.commands.LocalManager;
-import com.EmpireMod.Empires.API.commands.ChatManager;
-import com.EmpireMod.Empires.API.commands.IChatFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
 
+import com.EmpireMod.Empires.API.Chat.IChatFormat;
+import com.EmpireMod.Empires.API.Chat.Component.ChatComponentFormatted;
+import com.EmpireMod.Empires.API.Chat.Component.ChatManager;
+import com.EmpireMod.Empires.API.Container.CitizenRankMap;
+import com.EmpireMod.Empires.API.Container.TicketMap;
+import com.EmpireMod.Empires.API.permissions.PermissionProxy;
+import com.EmpireMod.Empires.Configuration.Config;
+import com.EmpireMod.Empires.Localization.LocalizationManager;
+import com.EmpireMod.Empires.Misc.Teleport.Teleport;
+import com.EmpireMod.Empires.Utilities.PlayerUtils;
 import com.EmpireMod.Empires.entities.Flags.Flag;
 import com.EmpireMod.Empires.entities.Flags.FlagType;
-import com.EmpireMod.Empires.API.permissions.PermissionProxy;
-
-
-import com.EmpireMod.Empires.Config.Config;
-import com.EmpireMod.Empires.Misc.Teleport.Teleport;
-import com.EmpireMod.Empires.utils.PlayerUtils;
-
 import com.EmpireMod.Empires.entities.Permissions.PermissionLevel;
-import com.EmpireMod.Empires.API.container.CitizenRankMap;
-import com.EmpireMod.Empires.API.container.TicketMap;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 /**
  * Defines a Empire. A Empire is made up of Citizens, Ranks, Blocks, and Plots.
  */
 public class Empire implements Comparable<Empire>, IChatFormat {
+	
+    private double CitizensPower = 0.00;
+	
+	private double maxPower = 0.00;
+	
     private String name, oldName = null;
 
     protected int maxFarClaims = Config.instance.maxFarClaims.get();
@@ -63,7 +64,7 @@ public class Empire implements Comparable<Empire>, IChatFormat {
 
     public IChatComponent getOwnerComponent() {
         Citizen leader = citizensMap.getLeader();
-        return leader == null ? LocalManager.get("Empires.notification.empire.owners.admins") : leader.toChatMessage();
+        return leader == null ? LocalizationManager.get("Empires.notification.empire.owners.admins") : leader.toChatMessage();
     }
 
     /**
@@ -197,29 +198,19 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     }
     
     
-    public double getCurrentPower() {
-    	double citizensPower = 0.00;
-    	for (int i=0; i < citizensMap.size(); i++) {
-    		for(Citizen res : citizensMap.keySet()) {
-    			citizensPower += res.getPower();
-    		}
-    		
-    		 
-    		
-    	}
-		return citizensPower;
-    }
-
-    
-    
     public double getMaxPower() {
     	double maxPower = citizensMap.size() * Config.instance.defaultMaxPower.get();
     	
 	return maxPower;
     }
     
+    public double getMaxPowerLocal(Empire empire) {
+    	double maxPower = 0.00 + empire.citizensMap.size() * Config.instance.defaultMaxPower.get();
+    	return maxPower;
+    }
     
     
+         
     public int getExtraBlocks() {
         int citizensExtra = 0;
         for(Citizen res : citizensMap.keySet()) {
@@ -286,6 +277,7 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     public void setSpawn(Teleport spawn) {
         this.spawn = spawn;
     }
+    
 
     /**
      * Checks if the given block in non-chunk coordinates is in this Empire
@@ -305,10 +297,28 @@ public class Empire implements Comparable<Empire>, IChatFormat {
 
     @Override
     public IChatComponent toChatMessage() {
-        IChatComponent header = LocalManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|%s}", getName()));
-        IChatComponent hoverComponent = ((ChatComponentFormatted)LocalManager.get("Empires.format.empire.long", header, citizensMap.size(), empireBlocksContainer.size(), getMaxBlocks(), getCurrentPower(), getMaxPower(), citizensMap, ranksContainer)).applyDelimiter("\n");
+        IChatComponent header = LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|%s}", getName()));
+        IChatComponent hoverComponent = ((ChatComponentFormatted)LocalizationManager.get("Empires.format.empire.long", header, citizensMap.size(), empireBlocksContainer.size(), getMaxBlocks(), getPower(), getMaxPower(), citizensMap, ranksContainer)).applyDelimiter("\n");
 
-        return LocalManager.get("Empires.format.empire.short", name, hoverComponent);
+        return LocalizationManager.get("Empires.format.empire.short", name, hoverComponent);
+    }
+    
+    
+    public void setPower(double Power) {
+    	
+    	Double target = Power;
+    	
+    	if (this.CitizensPower == Power) return;
+    	
+    	this.CitizensPower = target;
+    	
+   } 
+    
+    
+    
+    
+    public double getPower() {
+    	return CitizensPower;
     }
 
     public static class Container extends ArrayList<Empire> implements IChatFormat {
@@ -356,8 +366,10 @@ public class Empire implements Comparable<Empire>, IChatFormat {
                 mainEmpire = empire;
             }
         }
+        
 
-        public Empire getMainEmpire() {
+
+		public Empire getMainEmpire() {
             if(!contains(mainEmpire) || mainEmpire == null) {
                 if(size() == 0) {
                     return null;

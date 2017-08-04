@@ -1,13 +1,14 @@
-package com.EmpireMod.Empires.API.container;
+package com.EmpireMod.Empires.API.Container;
 
 
 
 
 import net.minecraft.util.IChatComponent;
-import com.EmpireMod.Empires.API.commands.ChatComponentFormatted;
-import com.EmpireMod.Empires.API.commands.LocalManager;
-import com.EmpireMod.Empires.API.commands.IChatFormat;
-import com.EmpireMod.Empires.API.commands.ChatComponentList;
+
+import com.EmpireMod.Empires.API.Chat.IChatFormat;
+import com.EmpireMod.Empires.API.Chat.Component.ChatComponentFormatted;
+import com.EmpireMod.Empires.API.Chat.Component.ChatComponentList;
+import com.EmpireMod.Empires.Localization.LocalizationManager;
 import com.EmpireMod.Empires.entities.Permissions.PermissionLevel;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -54,9 +55,9 @@ public class PermissionsContainer extends ArrayList<String> implements IChatForm
     @Override
     public IChatComponent toChatMessage() {
         IChatComponent root = new ChatComponentList();
-        root.appendSibling(LocalManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|PERMISSIONS}")));
+        root.appendSibling(LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|PERMISSIONS}")));
         for(String perm : this) {
-            root.appendSibling(LocalManager.get("Empires.format.permission", perm));
+            root.appendSibling(LocalizationManager.get("Empires.format.permission", perm));
         }
         return root;
     }

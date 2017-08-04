@@ -3,11 +3,11 @@ package com.EmpireMod.Empires.entities.Permissions;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gson.*;
-import com.EmpireMod.Empires.API.commands.ChatComponentFormatted;
-import com.EmpireMod.Empires.API.commands.IChatFormat;
+import com.EmpireMod.Empires.API.Chat.IChatFormat;
+import com.EmpireMod.Empires.API.Chat.Component.ChatComponentFormatted;
 import com.EmpireMod.Empires.API.JSON.API.SerializerTemplate;
-import com.EmpireMod.Empires.API.commands.LocalManager;
 import com.EmpireMod.Empires.API.permissions.PermissionsContainer;
+import com.EmpireMod.Empires.Localization.LocalizationManager;
 
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
@@ -69,7 +69,7 @@ public class Group implements IChatFormat {
 
     @Override
     public IChatComponent toChatMessage() {
-        return LocalManager.get("Empires.format.group.short", name);
+        return LocalizationManager.get("Empires.format.group.short", name);
     }
 
     public static class Serializer extends SerializerTemplate<Group> {

@@ -2,22 +2,20 @@ package com.EmpireMod.Empires.protection;
 
 
 import cpw.mods.fml.common.eventhandler.Event;
-import com.EmpireMod.Empires.utils.PlayerUtils;
-import com.EmpireMod.Empires.utils.WorldUtils;
+
 import com.EmpireMod.Empires.entities.Misc.Volume;
 import com.EmpireMod.Empires.entities.Position.BlockPos;
 import com.EmpireMod.Empires.entities.Position.EntityPos;
 import com.EmpireMod.Empires.protection.Segment.Segment;
 import com.EmpireMod.Empires.Empires;
-import com.EmpireMod.Empires.API.commands.ChatManager;
-import com.EmpireMod.Empires.API.commands.LocalManager;
-
-import com.EmpireMod.Empires.Config.Config;
+import com.EmpireMod.Empires.API.Chat.Component.ChatManager;
+import com.EmpireMod.Empires.Configuration.Config;
 import com.EmpireMod.Empires.entities.Flags.FlagType;
-import com.EmpireMod.Empires.utils.EmpireUtils;
 import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
-
-
+import com.EmpireMod.Empires.Localization.LocalizationManager;
+import com.EmpireMod.Empires.Utilities.EmpireUtils;
+import com.EmpireMod.Empires.Utilities.PlayerUtils;
+import com.EmpireMod.Empires.Utilities.WorldUtils;
 import com.EmpireMod.Empires.entities.Empire.BlockWhitelist;
 import com.EmpireMod.Empires.entities.Empire.Citizen;
 import com.EmpireMod.Empires.entities.Empire.Empire;
@@ -121,7 +119,7 @@ public class ProtectionManager {
                 if(currentPlot != null && (lastTickPlot == null || currentPlot != lastTickPlot)) {
                     ChatManager.send(player, "Empires.notification.plot.enter", currentPlot);
                 } else if(currentPlot == null && lastTickPlot != null) {
-                    ChatManager.send(player, "Empires.notification.plot.enter", LocalManager.get("Empires.notification.plot.enter.unassigned"));
+                    ChatManager.send(player, "Empires.notification.plot.enter", LocalizationManager.get("Empires.notification.plot.enter.unassigned"));
                 }
             }
             lastTickPlayerPos.put(player, new EntityPos(player.posX, player.posY, player.posZ, player.dimension));

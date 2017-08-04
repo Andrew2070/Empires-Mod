@@ -2,14 +2,15 @@ package com.EmpireMod.Empires.API.permissions;
 
 
 import cpw.mods.fml.common.Loader;
-import com.EmpireMod.Empires.utils.ClassUtils;
+
 import com.EmpireMod.Empires.Empires;
-import com.EmpireMod.Empires.Config.Config;
+import com.EmpireMod.Empires.Utilities.ClassUtils;
 import com.EmpireMod.Empires.exceptions.PermissionException;
 import com.EmpireMod.Empires.API.permissions.Bridges.BukkitPermissionBridge;
 import com.EmpireMod.Empires.API.permissions.Bridges.MyPermissionsBridge;
 import com.EmpireMod.Empires.API.permissions.Bridges.ForgeEssentialsPermissionBridge;
 import com.EmpireMod.Empires.API.permissions.Bridges.ServerToolsPermissionBridge;
+import com.EmpireMod.Empires.Configuration.Config;
 
 public class PermissionProxy {
     public static final String PERM_SYSTEM_BUKKIT = "$Bukkit";

@@ -1,4 +1,4 @@
-package com.EmpireMod.Empires.API.container;
+package com.EmpireMod.Empires.API.Container;
 
 import com.EmpireMod.Empires.Empires;
 import com.EmpireMod.Empires.entities.Empire.EmpireBlock;

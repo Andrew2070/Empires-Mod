@@ -2,7 +2,7 @@ package com.EmpireMod.Empires.entities.Empire;
 
 
 import com.EmpireMod.Empires.Empires;
-import com.EmpireMod.Empires.Config.Config;
+import com.EmpireMod.Empires.Configuration.Config;
 
 import java.util.ArrayList;
 

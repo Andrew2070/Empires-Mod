@@ -1,8 +1,8 @@
 package com.EmpireMod.Empires.API.permissions.Bridges;
 
-import com.EmpireMod.Empires.utils.PlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import com.EmpireMod.Empires.API.permissions.PermissionManager;
+import com.EmpireMod.Empires.Utilities.PlayerUtils;
 
 import java.util.UUID;
 

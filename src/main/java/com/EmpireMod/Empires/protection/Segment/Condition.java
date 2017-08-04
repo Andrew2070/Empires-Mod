@@ -2,10 +2,9 @@ package com.EmpireMod.Empires.protection.Segment;
 
 
 import com.google.common.base.Joiner;
-
-import com.EmpireMod.Empires.utils.StringUtils;
 import com.EmpireMod.Empires.protection.Segment.Getter.Getter;
 import com.EmpireMod.Empires.exceptions.GetterException;
+import com.EmpireMod.Empires.Utilities.StringUtils;
 import com.EmpireMod.Empires.exceptions.ConditionException;
 
 

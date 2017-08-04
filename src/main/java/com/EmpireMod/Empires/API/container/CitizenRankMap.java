@@ -1,9 +1,9 @@
-package com.EmpireMod.Empires.API.container;
+package com.EmpireMod.Empires.API.Container;
 
 
-import com.EmpireMod.Empires.API.commands.ChatComponentFormatted;
-import com.EmpireMod.Empires.API.commands.IChatFormat;
-import com.EmpireMod.Empires.API.commands.LocalManager;
+import com.EmpireMod.Empires.API.Chat.IChatFormat;
+import com.EmpireMod.Empires.API.Chat.Component.ChatComponentFormatted;
+import com.EmpireMod.Empires.Localization.LocalizationManager;
 import com.EmpireMod.Empires.entities.Empire.Rank;
 import com.EmpireMod.Empires.entities.Empire.Citizen;
 import net.minecraft.util.ChatComponentText;
@@ -57,7 +57,7 @@ public class CitizenRankMap extends HashMap<Citizen, Rank> implements IChatForma
             if (root.getSiblings().size() > 0) {
                 root.appendSibling(new ChatComponentFormatted("{7|, }"));
             }
-            root.appendSibling(LocalManager.get("Empires.format.citizen.withRank", entry.getKey(), entry.getValue()));
+            root.appendSibling(LocalizationManager.get("Empires.format.citizen.withRank", entry.getKey(), entry.getValue()));
         }
 
         return root;

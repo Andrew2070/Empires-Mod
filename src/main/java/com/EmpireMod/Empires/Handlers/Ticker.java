@@ -9,7 +9,7 @@ import cpw.mods.fml.relauncher.Side;
 
 
 import com.EmpireMod.Empires.Empires;
-import com.EmpireMod.Empires.Config.Config;
+import com.EmpireMod.Empires.Configuration.Config;
 import com.EmpireMod.Empires.Datasource.EmpiresDatasource;
 import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
 import com.EmpireMod.Empires.entities.Empire.AdminEmpire;

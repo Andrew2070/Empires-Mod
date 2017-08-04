@@ -1,10 +1,10 @@
 package com.EmpireMod.Empires.API.permissions.Bridges;
 
 
+import com.EmpireMod.Empires.Constants;
 import com.EmpireMod.Empires.API.permissions.IPermissionBridge;
-import com.EmpireMod.Empires.Config.GroupConfig;
-import com.EmpireMod.Empires.Config.UserConfig;
-import com.EmpireMod.Empires.Handlers.Constants;
+import com.EmpireMod.Empires.Configuration.GroupConfig;
+import com.EmpireMod.Empires.Configuration.UserConfig;
 import com.EmpireMod.Empires.entities.Permissions.Group;
 import com.EmpireMod.Empires.entities.Permissions.User;
 

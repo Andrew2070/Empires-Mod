@@ -5,9 +5,10 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
 import com.EmpireMod.Empires.Empires;
-import com.EmpireMod.Empires.utils.WorldUtils;
+import com.EmpireMod.Empires.Utilities.WorldUtils;
 import com.EmpireMod.Empires.entities.Empire.EmpireBlock;
 import com.EmpireMod.Empires.entities.Empire.Plot;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;

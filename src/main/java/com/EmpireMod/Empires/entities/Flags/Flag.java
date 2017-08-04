@@ -2,14 +2,11 @@ package com.EmpireMod.Empires.entities.Flags;
 
 
 import com.google.gson.*;
-
+import com.EmpireMod.Empires.API.Chat.IChatFormat;
+import com.EmpireMod.Empires.API.Chat.Component.ChatComponentFormatted;
+import com.EmpireMod.Empires.API.Chat.Component.ChatComponentList;
 import com.EmpireMod.Empires.API.JSON.API.SerializerTemplate;
-import com.EmpireMod.Empires.API.commands.IChatFormat;
-import com.EmpireMod.Empires.API.commands.LocalManager;
-import com.EmpireMod.Empires.API.commands.ChatComponentList;
-import com.EmpireMod.Empires.API.commands.ChatComponentFormatted;
-
-
+import com.EmpireMod.Empires.Localization.LocalizationManager;
 
 import net.minecraft.util.IChatComponent;
 
@@ -71,8 +68,8 @@ public class Flag<T> implements Comparable<Flag>, IChatFormat {
 
     @Override
     public IChatComponent toChatMessage() {
-        IChatComponent description = LocalManager.get(flagType.getDescriptionKey());
-        return LocalManager.get("Empires.format.flag", flagType.name.toLowerCase(), description, value);
+        IChatComponent description = LocalizationManager.get(flagType.getDescriptionKey());
+        return LocalizationManager.get("Empires.format.flag", flagType.name.toLowerCase(), description, value);
     }
 
     @SuppressWarnings("unchecked")
@@ -146,7 +143,7 @@ public class Flag<T> implements Comparable<Flag>, IChatFormat {
         public IChatComponent toChatMessage() {
             IChatComponent root = new ChatComponentList();
 
-            root.appendSibling(LocalManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|FLAGS}")));
+            root.appendSibling(LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|FLAGS}")));
 
             for (Flag flag : this) {
                 root.appendSibling(flag.toChatMessage());

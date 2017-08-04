@@ -1,17 +1,17 @@
 package com.EmpireMod.Empires.entities.Tools;
 
-import com.EmpireMod.Empires.API.commands.ChatManager;
+import com.EmpireMod.Empires.Localization.LocalizationManager;
+import com.EmpireMod.Empires.Utilities.EmpireUtils;
 import com.EmpireMod.Empires.entities.Position.BlockPos;
 import com.EmpireMod.Empires.entities.Misc.Tool;
 import com.EmpireMod.Empires.entities.Managers.ToolManager;
-import com.EmpireMod.Empires.API.commands.LocalManager;
 import com.EmpireMod.Empires.Empires;
+import com.EmpireMod.Empires.API.Chat.Component.ChatManager;
 import com.EmpireMod.Empires.entities.Empire.BlockWhitelist;
 import com.EmpireMod.Empires.entities.Empire.Citizen;
 import com.EmpireMod.Empires.entities.Empire.Plot;
 import com.EmpireMod.Empires.entities.Empire.Empire;
 import com.EmpireMod.Empires.entities.Flags.FlagType;
-import com.EmpireMod.Empires.utils.EmpireUtils;
 
 
 /**
@@ -23,7 +23,7 @@ public class WhitelisterTool extends Tool {
     private FlagType flagType = FlagType.ACCESS;
 
     public WhitelisterTool(Citizen owner) {
-        super(owner.getPlayer(), LocalManager.get("Empires.tool.name", LocalManager.get("Empires.tool.whitelister.name")).getLegacyFormattedText()[0]);
+        super(owner.getPlayer(), LocalizationManager.get("Empires.tool.name", LocalizationManager.get("Empires.tool.whitelister.name")).getLegacyFormattedText()[0]);
         this.owner = owner;
     }
 
@@ -45,7 +45,7 @@ public class WhitelisterTool extends Tool {
 
     @Override
     protected String[] getDescription() {
-        return LocalManager.get("Empires.tool.whitelister.description", flagType == null ? LocalManager.get("Empires.tool.whitelister.removal").getUnformattedText() : flagType.toString()).getLegacyFormattedText();
+        return LocalizationManager.get("Empires.tool.whitelister.description", flagType == null ? LocalizationManager.get("Empires.tool.whitelister.removal").getUnformattedText() : flagType.toString()).getLegacyFormattedText();
     }
 
     @Override
@@ -54,8 +54,8 @@ public class WhitelisterTool extends Tool {
             flagType = null;
             updateDescription();
             ChatManager.send(owner.getPlayer(), "Empires.tool.mode",
-                    LocalManager.get("Empires.tool.whitelister.property"),
-                    LocalManager.get("Empires.tool.whitelister.removal").getUnformattedText());
+                    LocalizationManager.get("Empires.tool.whitelister.property"),
+                    LocalizationManager.get("Empires.tool.whitelister.removal").getUnformattedText());
         } else {
             if(flagType == null) {
                 flagType = FlagType.getWhitelistable().get(0);
@@ -64,7 +64,7 @@ public class WhitelisterTool extends Tool {
             }
             updateDescription();
             ChatManager.send(owner.getPlayer(), "Empires.tool.mode",
-                    LocalManager.get("Empires.tool.whitelister.property"),
+                    LocalizationManager.get("Empires.tool.whitelister.property"),
                     flagType.name);
         }
     }

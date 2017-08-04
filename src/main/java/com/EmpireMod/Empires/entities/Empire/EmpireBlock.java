@@ -3,8 +3,8 @@ package com.EmpireMod.Empires.entities.Empire;
 
 import com.EmpireMod.Empires.entities.Position.ChunkPos;
 import com.EmpireMod.Empires.entities.Misc.Volume;
-import com.EmpireMod.Empires.API.commands.IChatFormat;
-import com.EmpireMod.Empires.Config.Config;
+import com.EmpireMod.Empires.API.Chat.IChatFormat;
+import com.EmpireMod.Empires.Configuration.Config;
 import com.EmpireMod.Empires.Handlers.VisualsHandler;
 
 import net.minecraft.entity.player.EntityPlayerMP;

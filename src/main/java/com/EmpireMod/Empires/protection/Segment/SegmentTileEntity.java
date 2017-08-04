@@ -5,9 +5,9 @@ package com.EmpireMod.Empires.protection.Segment;
 import com.EmpireMod.Empires.protection.ProtectionHandlers;
 
 import com.EmpireMod.Empires.entities.Misc.Volume;
-import com.EmpireMod.Empires.Config.Config;
 import com.EmpireMod.Empires.protection.Segment.Getter.Getter;
 import com.EmpireMod.Empires.exceptions.GetterException;
+import com.EmpireMod.Empires.Configuration.Config;
 import com.EmpireMod.Empires.entities.Empire.Citizen;
 
 

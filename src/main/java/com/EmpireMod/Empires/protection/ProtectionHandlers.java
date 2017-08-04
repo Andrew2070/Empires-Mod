@@ -16,15 +16,15 @@ import com.EmpireMod.Empires.Events.ModifyBlockEvent;
 import com.EmpireMod.Empires.Events.ProjectileImpactEvent;
 
 import com.EmpireMod.Empires.Empires;
-import com.EmpireMod.Empires.Config.Config;
+import com.EmpireMod.Empires.Configuration.Config;
 import com.EmpireMod.Empires.entities.Empire.BlockWhitelist;
 import com.EmpireMod.Empires.entities.Empire.Citizen;
 import com.EmpireMod.Empires.entities.Empire.Empire;
 import com.EmpireMod.Empires.entities.Flags.FlagType;
-import com.EmpireMod.Empires.utils.EmpireUtils;
 import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
 
 import com.EmpireMod.Empires.Thread.ThreadPlacementCheck;
+import com.EmpireMod.Empires.Utilities.EmpireUtils;
 
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.Entity;

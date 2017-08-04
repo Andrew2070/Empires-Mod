@@ -3,11 +3,10 @@ package com.EmpireMod.Empires.API.Economy;
 
 import cpw.mods.fml.common.Loader;
 import com.EmpireMod.Empires.Empires;
+import com.EmpireMod.Empires.Utilities.ClassUtils;
+import com.EmpireMod.Empires.Utilities.ItemUtils;
+import com.EmpireMod.Empires.Utilities.PlayerUtils;
 import com.EmpireMod.Empires.exceptions.EconomyException;
-import com.EmpireMod.Empires.utils.ClassUtils;
-import com.EmpireMod.Empires.utils.ItemUtils;
-import com.EmpireMod.Empires.utils.PlayerUtils;
-
 
 import net.minecraft.entity.player.EntityPlayer;
 

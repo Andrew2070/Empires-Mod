@@ -1,6 +1,6 @@
 package com.EmpireMod.Empires.API.permissions;
 
-import com.EmpireMod.Empires.API.commands.Local;
+import com.EmpireMod.Empires.Localization.Localization;
 import com.EmpireMod.Empires.entities.Permissions.Tree;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -14,15 +14,15 @@ import java.util.UUID;
 
 public class CommandTree extends Tree<CommandTreeNode> {
 
-    private Local local;
+    private Localization local;
     private IPermissionBridge customManager;
 
-    public CommandTree(CommandTreeNode root, Local local) {
+    public CommandTree(CommandTreeNode root, Localization local) {
         super(root);
         this.local = local;
     }
 
-    public CommandTree(CommandTreeNode root, Local local, IPermissionBridge customManager) {
+    public CommandTree(CommandTreeNode root, Localization local, IPermissionBridge customManager) {
         this(root, local);
         this.customManager = customManager;
     }
@@ -92,7 +92,7 @@ public class CommandTree extends Tree<CommandTreeNode> {
         return true;
     }
 
-    public Local getLocal() {
+    public Localization getLocal() {
         return local;
     }
 }

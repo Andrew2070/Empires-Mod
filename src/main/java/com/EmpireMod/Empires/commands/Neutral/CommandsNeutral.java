@@ -1,37 +1,33 @@
 package com.EmpireMod.Empires.commands.Neutral;
 
-import com.EmpireMod.Empires.utils.StringUtils;
-import com.EmpireMod.Empires.API.commands.ChatComponentFormatted;
-import com.EmpireMod.Empires.API.commands.ChatComponentMultiPage;
-import com.EmpireMod.Empires.API.commands.ChatManager;
-import com.EmpireMod.Empires.API.commands.LocalManager;
-import com.EmpireMod.Empires.API.commands.CommandManager;
-import com.EmpireMod.Empires.API.commands.CommandResponse;
-import com.EmpireMod.Empires.API.commands.Command;
+import com.EmpireMod.Empires.API.Chat.Component.ChatComponentEmpireList;
+import com.EmpireMod.Empires.API.Chat.Component.ChatComponentFormatted;
+import com.EmpireMod.Empires.API.Chat.Component.ChatComponentMultiPage;
+import com.EmpireMod.Empires.API.Chat.Component.ChatManager;
+import com.EmpireMod.Empires.API.Commands.Command.Command;
+import com.EmpireMod.Empires.API.Commands.Command.CommandManager;
+import com.EmpireMod.Empires.API.Commands.Command.CommandResponse;
+import com.EmpireMod.Empires.API.Commands.Command.CommandsEMP;
 import com.EmpireMod.Empires.API.permissions.CommandTree;
 import com.EmpireMod.Empires.API.permissions.CommandTreeNode;
-import com.EmpireMod.Empires.API.commands.ChatComponentEmpireList;
-import com.EmpireMod.Empires.Config.Config;
+import com.EmpireMod.Empires.Configuration.Config;
 import com.EmpireMod.Empires.entities.Empire.Citizen;
 import com.EmpireMod.Empires.entities.Empire.Empire;
 import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
+import com.EmpireMod.Empires.Localization.LocalizationManager;
 import com.EmpireMod.Empires.Proxies.EconomyProxy;
+import com.EmpireMod.Empires.Utilities.EmpireUtils;
+import com.EmpireMod.Empires.Utilities.Formatter;
+import com.EmpireMod.Empires.Utilities.StringUtils;
 import com.EmpireMod.Empires.entities.Flags.FlagType;
-import com.EmpireMod.Empires.utils.Formatter;
-import com.EmpireMod.Empires.utils.EmpireUtils;
-
-
-
-
 import com.EmpireMod.Empires.exceptions.EmpiresCommandException;
+
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IChatComponent;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.EmpireMod.Empires.API.commands.CommandsEMP;
 
 /**
  * All commands that can be accessed by everyone whether or not he's in a empire
@@ -66,7 +62,7 @@ public class CommandsNeutral extends CommandsEMP {
         }
 
         for (Empire empire : empires) {
-            IChatComponent header = LocalManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|%s}", empire.getName()));
+            IChatComponent header = LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|%s}", empire.getName()));
             ChatManager.send(sender, "Empires.format.empire.long", header, empire.citizensMap.size(), empire.empireBlocksContainer.size(), empire.getMaxBlocks(), empire.plotsContainer.size(), empire.citizensMap, empire.ranksContainer);
         }
         return CommandResponse.DONE;
@@ -88,7 +84,7 @@ public class CommandsNeutral extends CommandsEMP {
         if (res == null) {
             throw new EmpiresCommandException("Empires.cmd.err.citizen.missing", args.get(0));
         }
-        IChatComponent header = LocalManager.get("Empires.format.list.header", res);
+        IChatComponent header = LocalizationManager.get("Empires.format.list.header", res);
         ChatManager.send(sender, "Empires.format.citizen.long", header, res.empiresContainer, Formatter.formatDate(res.getJoinDate()), Formatter.formatDate(res.getLastOnline()), res.getExtraBlocks());
         return CommandResponse.DONE;
     }
@@ -207,7 +203,7 @@ public class CommandsNeutral extends CommandsEMP {
 
         // Notify everyone
         ChatManager.send(sender, "Empires.notification.empire.invited.accept", empire);
-        empire.notifyEveryone(LocalManager.get("Empires.notification.empire.joined", res, empire));
+        empire.notifyEveryone(LocalizationManager.get("Empires.notification.empire.joined", res, empire));
         return CommandResponse.DONE;
     }
 
@@ -297,7 +293,7 @@ public class CommandsNeutral extends CommandsEMP {
     public static CommandResponse pricesCommand(ICommandSender sender, List<String> args) {
         Citizen res = getUniverse().getOrMakeCitizen(sender);
 
-        IChatComponent header = LocalManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|PRICES}"));
+        IChatComponent header = LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|PRICES}"));
         ChatManager.send(sender, "Empires.notification.prices",
                 header,
                 EconomyProxy.getCurrency(Config.instance.costAmountMakeEmpire.get()),

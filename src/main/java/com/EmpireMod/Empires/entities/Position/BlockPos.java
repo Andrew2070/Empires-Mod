@@ -2,7 +2,8 @@ package com.EmpireMod.Empires.entities.Position;
 
 
 import com.EmpireMod.Empires.Empires;
-import com.EmpireMod.Empires.API.commands.IChatFormat;
+import com.EmpireMod.Empires.API.Chat.IChatFormat;
+
 import net.minecraft.util.IChatComponent;
 
 /**

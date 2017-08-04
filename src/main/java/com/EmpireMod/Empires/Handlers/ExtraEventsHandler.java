@@ -6,12 +6,12 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
 
 import com.EmpireMod.Empires.entities.Position.ChunkPos;
-import com.EmpireMod.Empires.utils.WorldUtils;
 import com.EmpireMod.Empires.Empires;
 import com.EmpireMod.Empires.entities.Empire.Wild;
 import com.EmpireMod.Empires.entities.Empire.EmpireBlock;
 import com.EmpireMod.Empires.entities.Flags.FlagType;
 import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
+import com.EmpireMod.Empires.Utilities.WorldUtils;
 
 import java.util.List;
 

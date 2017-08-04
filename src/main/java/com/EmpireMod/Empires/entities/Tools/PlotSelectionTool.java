@@ -3,19 +3,17 @@ package com.EmpireMod.Empires.entities.Tools;
 
 
 import com.EmpireMod.Empires.Empires;
-import com.EmpireMod.Empires.API.commands.ChatManager;
+import com.EmpireMod.Empires.API.Chat.Component.ChatManager;
+import com.EmpireMod.Empires.Configuration.Config;
 import com.EmpireMod.Empires.entities.Managers.ToolManager;
-import com.EmpireMod.Empires.API.commands.LocalManager;
 import com.EmpireMod.Empires.entities.Position.BlockPos;
 import com.EmpireMod.Empires.entities.Misc.Tool;
-
-
-import com.EmpireMod.Empires.Config.Config;
 import com.EmpireMod.Empires.Thread.DelayedThread;
+import com.EmpireMod.Empires.Utilities.EmpireUtils;
 import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
 import com.EmpireMod.Empires.Handlers.VisualsHandler;
+import com.EmpireMod.Empires.Localization.LocalizationManager;
 import com.EmpireMod.Empires.entities.Empire.*;
-import com.EmpireMod.Empires.utils.EmpireUtils;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -33,7 +31,7 @@ public class PlotSelectionTool extends Tool {
     private Citizen owner;
 
     public PlotSelectionTool(Citizen owner, String plotName) {
-        super(owner.getPlayer(), LocalManager.get("Empires.tool.name", LocalManager.get("Empires.tool.plot.selection.name")).getLegacyFormattedText()[0]);
+        super(owner.getPlayer(), LocalizationManager.get("Empires.tool.name", LocalizationManager.get("Empires.tool.plot.selection.name")).getLegacyFormattedText()[0]);
         this.owner = owner;
         this.plotName = plotName;
     }
@@ -68,14 +66,14 @@ public class PlotSelectionTool extends Tool {
 
     @Override
     protected String[] getDescription() {
-        return LocalManager.get("Empires.tool.plot.selection.description", plotName, heightDependent).getLegacyFormattedText();
+        return LocalizationManager.get("Empires.tool.plot.selection.description", plotName, heightDependent).getLegacyFormattedText();
     }
 
     @Override
     public void onShiftRightClick() {
         heightDependent = !heightDependent;
         updateDescription();
-        ChatManager.send(owner.getPlayer(), "Empires.tool.mode", LocalManager.get("Empires.tool.plot.selection.property"), heightDependent);
+        ChatManager.send(owner.getPlayer(), "Empires.tool.mode", LocalizationManager.get("Empires.tool.plot.selection.property"), heightDependent);
     }
 
     public void resetSelection(boolean resetBlocks, int delay) {

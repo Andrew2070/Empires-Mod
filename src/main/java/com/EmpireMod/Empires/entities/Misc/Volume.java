@@ -4,7 +4,7 @@ package com.EmpireMod.Empires.entities.Misc;
 import com.google.gson.*;
 
 import com.EmpireMod.Empires.Empires;
-import com.EmpireMod.Empires.API.commands.IChatFormat;
+import com.EmpireMod.Empires.API.Chat.IChatFormat;
 import com.EmpireMod.Empires.API.JSON.API.SerializerTemplate;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.common.util.ForgeDirection;
