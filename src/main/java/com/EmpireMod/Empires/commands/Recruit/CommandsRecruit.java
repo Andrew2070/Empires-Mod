@@ -1,5 +1,7 @@
 package com.EmpireMod.Empires.commands.Recruit;
 
+import java.util.List;
+
 import com.EmpireMod.Empires.API.Chat.Component.ChatComponentContainer;
 import com.EmpireMod.Empires.API.Chat.Component.ChatComponentFormatted;
 import com.EmpireMod.Empires.API.Chat.Component.ChatComponentList;
@@ -8,31 +10,30 @@ import com.EmpireMod.Empires.API.Commands.Command.Command;
 import com.EmpireMod.Empires.API.Commands.Command.CommandResponse;
 import com.EmpireMod.Empires.API.Commands.Command.CommandsEMP;
 import com.EmpireMod.Empires.Configuration.Config;
+import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
+import com.EmpireMod.Empires.Localization.LocalizationManager;
+import com.EmpireMod.Empires.Proxies.EconomyProxy;
 import com.EmpireMod.Empires.entities.Empire.AdminEmpire;
 import com.EmpireMod.Empires.entities.Empire.Citizen;
 import com.EmpireMod.Empires.entities.Empire.Empire;
 import com.EmpireMod.Empires.entities.Empire.Plot;
 import com.EmpireMod.Empires.entities.Empire.Rank;
 import com.EmpireMod.Empires.entities.Empire.Wild;
-import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
-import com.EmpireMod.Empires.Localization.LocalizationManager;
-import com.EmpireMod.Empires.Proxies.EconomyProxy;
-import com.EmpireMod.Empires.entities.Tools.WhitelisterTool;
 import com.EmpireMod.Empires.entities.Flags.Flag;
 import com.EmpireMod.Empires.entities.Flags.FlagType;
 import com.EmpireMod.Empires.entities.Managers.ToolManager;
 import com.EmpireMod.Empires.entities.Misc.Tool;
-import com.EmpireMod.Empires.exceptions.EmpiresCommandException;
+import com.EmpireMod.Empires.entities.Signs.SellSign;
 import com.EmpireMod.Empires.entities.Tools.PlotSelectionTool;
 import com.EmpireMod.Empires.entities.Tools.PlotSellTool;
-import com.EmpireMod.Empires.entities.Signs.SellSign;
+import com.EmpireMod.Empires.entities.Tools.WhitelisterTool;
+import com.EmpireMod.Empires.exceptions.EmpiresCommandException;
+
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 /**
  * Process methods for all commands that can be used by everyone
@@ -107,6 +108,7 @@ public class CommandsRecruit extends CommandsEMP {
         return CommandResponse.DONE;
     }
 
+    //Command Removed:
     /*@Command(
             name = "select",
             permission = "Empires.cmd.everyone.select",
@@ -567,6 +569,7 @@ public class CommandsRecruit extends CommandsEMP {
             ToolManager.instance.register(new PlotSellTool(res, price));
             return CommandResponse.DONE;
         }
+        
     }
 
     @Command(

@@ -1,10 +1,5 @@
 package com.EmpireMod.Empires.commands.Officer;
 
-
-
-
-
-
 import java.util.Iterator;
 import java.util.List;
 

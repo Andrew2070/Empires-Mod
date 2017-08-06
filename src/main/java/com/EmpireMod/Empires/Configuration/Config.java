@@ -55,7 +55,7 @@ public class Config extends ConfigTemplate {
 
     public ConfigProperty<Integer> distanceBetweenEmpires = new ConfigProperty<Integer>(
             "distance", "Empires",
-            "Minimum distance (in chunks) between 2 Empires. Checked when creating a Empire",
+            "The Default Minimum distance (in chunks) between 2 Empires. Prevents Empire's from being too close on creation.",
             3);
     
     
@@ -67,7 +67,7 @@ public class Config extends ConfigTemplate {
     
     public ConfigProperty<Integer> blocksCitizen = new ConfigProperty<Integer>(
             "blocksCitizens", "Empires",
-            "The amount of maximum blocks a Empire gets from each player.",
+            "The amount of maximum blocks a Empire gets from each player, set this value to be equal to maxPower statement.",
             20);
     
     
@@ -96,7 +96,7 @@ public class Config extends ConfigTemplate {
     
     
     public ConfigProperty<Double> defaultMaxPower = new ConfigProperty<Double>(
-            "defaultMaxPower", "Empires",
+            "defaultMaxPower", "Citizens",
             "The default maximum amount of power are allowed per player, be vary that claim blocks should equal the number to the nearest whole number.",
             20.00);
     
@@ -109,13 +109,13 @@ public class Config extends ConfigTemplate {
     public ConfigProperty<Double> minPower = new ConfigProperty<Double>(
             "minPower", "Citizens",
             "The default minimum amount of power are allowed per player.",
-            0.00);
+            -20.00);
     
     
     public ConfigProperty<Double> PowerPerHour = new ConfigProperty<Double>(
             "PowerPerHour", "Citizens",
             "The amount of power a player receives every 10 minutes (default is 0.002777777778 a.k.a 1 per hour)",
-            0.002777777778);
+            0.05);
     
     
     public ConfigProperty<Double> PowerPerDeath = new ConfigProperty<Double>(

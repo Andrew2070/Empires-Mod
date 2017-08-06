@@ -1,5 +1,8 @@
 package com.EmpireMod.Empires.commands.Neutral;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.EmpireMod.Empires.API.Chat.Component.ChatComponentEmpireList;
 import com.EmpireMod.Empires.API.Chat.Component.ChatComponentFormatted;
 import com.EmpireMod.Empires.API.Chat.Component.ChatComponentMultiPage;
@@ -11,23 +14,20 @@ import com.EmpireMod.Empires.API.Commands.Command.CommandsEMP;
 import com.EmpireMod.Empires.API.permissions.CommandTree;
 import com.EmpireMod.Empires.API.permissions.CommandTreeNode;
 import com.EmpireMod.Empires.Configuration.Config;
-import com.EmpireMod.Empires.entities.Empire.Citizen;
-import com.EmpireMod.Empires.entities.Empire.Empire;
 import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
 import com.EmpireMod.Empires.Localization.LocalizationManager;
 import com.EmpireMod.Empires.Proxies.EconomyProxy;
 import com.EmpireMod.Empires.Utilities.EmpireUtils;
 import com.EmpireMod.Empires.Utilities.Formatter;
 import com.EmpireMod.Empires.Utilities.StringUtils;
+import com.EmpireMod.Empires.entities.Empire.Citizen;
+import com.EmpireMod.Empires.entities.Empire.Empire;
 import com.EmpireMod.Empires.entities.Flags.FlagType;
 import com.EmpireMod.Empires.exceptions.EmpiresCommandException;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IChatComponent;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * All commands that can be accessed by everyone whether or not he's in a empire
@@ -63,17 +63,18 @@ public class CommandsNeutral extends CommandsEMP {
 
         for (Empire empire : empires) {
             IChatComponent header = LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|%s}", empire.getName()));
-            ChatManager.send(sender, "Empires.format.empire.long", header, empire.citizensMap.size(), empire.empireBlocksContainer.size(), empire.getMaxBlocks(), empire.plotsContainer.size(), empire.citizensMap, empire.ranksContainer);
+            ChatManager.send(sender, "Empires.format.empire.long", header, empire.citizensMap.size(), empire.empireBlocksContainer.size(), empire.getMaxBlocks(), empire.getPower(), empire.getMaxPower(), empire.citizensMap, empire.ranksContainer);
         }
         return CommandResponse.DONE;
     }
 
     @Command(
-            name = "res",
+            name = "citizen",
             permission = "Empires.cmd.outsider.res",
             parentName = "Empires.cmd",
-            syntax = "/empire res <citizen>",
+            syntax = "/empire citizen <citizen>",
             completionKeys = {"citizenCompletion"},
+            alias = {"ciz", "Citizen"},
             console = true)
     public static CommandResponse resCommand(ICommandSender sender, List<String> args) {
         if (args.size() < 1) {
@@ -85,7 +86,7 @@ public class CommandsNeutral extends CommandsEMP {
             throw new EmpiresCommandException("Empires.cmd.err.citizen.missing", args.get(0));
         }
         IChatComponent header = LocalizationManager.get("Empires.format.list.header", res);
-        ChatManager.send(sender, "Empires.format.citizen.long", header, res.empiresContainer, Formatter.formatDate(res.getJoinDate()), Formatter.formatDate(res.getLastOnline()), res.getExtraBlocks());
+        ChatManager.send(sender, "Empires.format.citizen.long", header, res.empiresContainer, Formatter.formatDate(res.getJoinDate()), Formatter.formatDate(res.getLastOnline()), res.getExtraBlocks(), res.getPower());
         return CommandResponse.DONE;
     }
 

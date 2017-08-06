@@ -1,27 +1,22 @@
 package com.EmpireMod.Empires.commands.Admin;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import com.EmpireMod.Empires.Empires;
 import com.EmpireMod.Empires.API.Chat.Component.ChatComponentContainer;
 import com.EmpireMod.Empires.API.Chat.Component.ChatComponentFormatted;
 import com.EmpireMod.Empires.API.Chat.Component.ChatManager;
+import com.EmpireMod.Empires.API.JSON.Configuration.FlagsConfig;
 import com.EmpireMod.Empires.API.Commands.Command.Command;
 import com.EmpireMod.Empires.API.Commands.Command.CommandManager;
 import com.EmpireMod.Empires.API.Commands.Command.CommandResponse;
 import com.EmpireMod.Empires.API.Commands.Command.CommandsEMP;
-import com.EmpireMod.Empires.API.JSON.Configuration.FlagsConfig;
 import com.EmpireMod.Empires.API.permissions.CommandTree;
 import com.EmpireMod.Empires.API.permissions.CommandTreeNode;
-import com.EmpireMod.Empires.entities.Flags.FlagType;
-import com.EmpireMod.Empires.entities.Empire.Citizen;
-import com.EmpireMod.Empires.entities.Empire.Empire;
-import com.EmpireMod.Empires.entities.Empire.EmpireBlock;
-import com.EmpireMod.Empires.entities.Empire.Plot;
-import com.EmpireMod.Empires.entities.Empire.Rank;
-import com.EmpireMod.Empires.entities.Empire.Wild;
-import com.EmpireMod.Empires.entities.Flags.Flag;
-import com.EmpireMod.Empires.entities.Managers.ToolManager;
-import com.EmpireMod.Empires.entities.Position.ChunkPos;
-import com.EmpireMod.Empires.Empires;
 import com.EmpireMod.Empires.API.permissions.PermissionProxy;
+import com.EmpireMod.Empires.Datasource.EmpiresDatasource;
 import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
 import com.EmpireMod.Empires.Handlers.SafemodeHandler;
 import com.EmpireMod.Empires.Handlers.VisualsHandler;
@@ -30,7 +25,16 @@ import com.EmpireMod.Empires.Utilities.ChatUtils;
 import com.EmpireMod.Empires.Utilities.StringUtils;
 import com.EmpireMod.Empires.Utilities.WorldUtils;
 import com.EmpireMod.Empires.commands.Officer.CommandsOfficer;
-import com.EmpireMod.Empires.Datasource.EmpiresDatasource;
+import com.EmpireMod.Empires.entities.Empire.Citizen;
+import com.EmpireMod.Empires.entities.Empire.Empire;
+import com.EmpireMod.Empires.entities.Empire.EmpireBlock;
+import com.EmpireMod.Empires.entities.Empire.Plot;
+import com.EmpireMod.Empires.entities.Empire.Rank;
+import com.EmpireMod.Empires.entities.Empire.Wild;
+import com.EmpireMod.Empires.entities.Flags.Flag;
+import com.EmpireMod.Empires.entities.Flags.FlagType;
+import com.EmpireMod.Empires.entities.Managers.ToolManager;
+import com.EmpireMod.Empires.entities.Position.ChunkPos;
 import com.EmpireMod.Empires.entities.Tools.WhitelisterTool;
 import com.EmpireMod.Empires.exceptions.EmpiresCommandException;
 
@@ -44,9 +48,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * All commands for admins go here

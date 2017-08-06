@@ -1,18 +1,18 @@
 package com.EmpireMod.Empires.entities.Empire;
 
 
-import com.EmpireMod.Empires.entities.Position.ChunkPos;
-import com.EmpireMod.Empires.entities.Misc.Volume;
+import java.util.HashMap;
+
 import com.EmpireMod.Empires.API.Chat.IChatFormat;
 import com.EmpireMod.Empires.Configuration.Config;
 import com.EmpireMod.Empires.Handlers.VisualsHandler;
+import com.EmpireMod.Empires.entities.Misc.Volume;
+import com.EmpireMod.Empires.entities.Position.ChunkPos;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.ChunkCoordIntPair;
-
-import java.util.HashMap;
 
 public class EmpireBlock implements IChatFormat {
     /**
