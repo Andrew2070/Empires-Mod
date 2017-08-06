@@ -381,7 +381,7 @@ Empires.notification.ciz.powerLostOnDeath={6|[Empires] }{c|You Have Lost }{d|%s 
 
 # Help for commands
 Empires.cmd.officer.blocks.help={6|[Empires] }{|Everything related to EmpireBlocks (chunks in Empire)}
-Empires.cmd.officer.overclaim.help={6|[Empires] }{|Allows a player to unclaim territory of another (weak) Empire}
+Empires.cmd.officer.overclaim.help={6|[Empires] }{|Allows a player to unclaim territory of another (weaker) Empire}
 Empires.cmd.officer.claim.help={6|[Empires] }{|Claims the chunk you are in}
 Empires.cmd.officer.invite.help={6|[Empires] }{|Invites a player to your Empire}
 Empires.cmd.everyone.perm.help={6|[Empires] }{|Everything related to protection}
