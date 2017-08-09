@@ -9,7 +9,7 @@ import net.minecraft.command.ICommandSender;
  */
 public class ChatComponentMultiPage extends ChatComponentContainer {
 
-    private int maxComponentsPerPage = 10;
+    private int maxComponentsPerPage = 15;
 
     public ChatComponentMultiPage(int maxComponentsPerPage) {
         this.maxComponentsPerPage = maxComponentsPerPage;
@@ -22,7 +22,7 @@ public class ChatComponentMultiPage extends ChatComponentContainer {
 
     public ChatComponentContainer getHeader(int page) {
         ChatComponentContainer header = new ChatComponentContainer();
-        header.add(new ChatComponentFormatted("{6| [Empires] - [Command Menu] - [Page: %s/%s]}", page, getNumberOfPages()));
+        header.add(new ChatComponentFormatted("{6| [Empire] - [Command Menu] - [Page: %s/%s]}", page, getNumberOfPages()));
 
         return header;
     }

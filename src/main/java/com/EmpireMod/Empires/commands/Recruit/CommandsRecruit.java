@@ -41,9 +41,9 @@ import net.minecraft.world.World;
 public class CommandsRecruit extends CommandsEMP {
 
     @Command(
-            name = "Empires",
+            name = "Empire",
             permission = "Empires.cmd",
-            alias = {"emp", "empire"},
+            alias = {"emp", "empire", "Empire", "Emp"},
             syntax = "/empire <command>")
     public static CommandResponse empireCommand(ICommandSender sender, List<String> args) {
         return CommandResponse.SEND_HELP_MESSAGE;

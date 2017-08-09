@@ -205,30 +205,28 @@ public class CommandsOfficer extends CommandsEMP {
       //  try {
         Empire CitizensEmpire = CommandsEMP.getEmpireFromCitizen(res);
 
+        if (CitizensEmpire == null) {
+        	throw new EmpiresCommandException("Empires.cmd.err.overclaim.userNotInEmpire");
+        }
         if (CitizensEmpire == block.getEmpire()) {
-    	    throw new EmpiresCommandException("Empires.cmd.err.unclaim.presentEmpire");
+    	    throw new EmpiresCommandException("Empires.cmd.err.overclaim.presentEmpire");
         }
-       
         if (empire.empireBlocksContainer.size() >= empire.getMaxPowerLocal(empire)) {
-            throw new EmpiresCommandException("Empires.cmd.err.unclaim.powerException");
+            throw new EmpiresCommandException("Empires.cmd.err.overclaim.powerException");
         }
-        
         if (res.getPower() < 7) {
-        	throw new EmpiresCommandException("Empires.cmd.err.unclaim.powerException2");
+        	throw new EmpiresCommandException("Empires.cmd.err.overclaim.powerException2");
+        }
+        if (CitizensEmpire.empireBlocksContainer.size() >= CitizensEmpire.getMaxBlocks()) {	
+        	throw new EmpiresCommandException("Empires.cmd.err.overlcaim.maxBlocksReached");
         }
         
         else {
-
-        		
-        //TODO Add Check for Overclaimer's Empire Max Empire blocks
-        //TODO Set unclaimed territory as Overclaimer's territory.
         getDatasource().deleteBlock(block);
         ChatManager.send(sender, "Empires.notification.block.overclaimed", block.getX() << 4, block.getZ() << 4, block.getX() << 4 + 15, block.getZ() << 4 + 15, empire);
-        		
-        	
-        }
         return CommandResponse.DONE;
 
+        }
 		
         }
 
@@ -569,10 +567,10 @@ public class CommandsOfficer extends CommandsEMP {
     }
 
     @Command(
-            name = "pass",
+            name = "abdicate",
             permission = "Empires.cmd.leader.pass",
             parentName = "Empires.cmd",
-            syntax = "/empire pass <citizen>",
+            syntax = "/empire abdicate <citizen>",
             completionKeys = {"citizenCompletion"})
     public static CommandResponse passCommand(ICommandSender sender, List<String> args) {
         if (args.size() < 1) {

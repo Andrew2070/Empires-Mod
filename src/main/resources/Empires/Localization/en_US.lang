@@ -2,49 +2,49 @@ Empires.format.volume={7|(}{9|%s}{7|, }{9|%s}{7|, }{9|%s}{7|) -> (}{9|%s}{7|, }{
 Empires.format.blockpos={7|(}{9|%s}{7|, }{9|%s}{7|, }{9|%s}{7|)}
 Empires.format.chunkpos={7|(}{9|%s}{7|, }{9|%s}{7|)}
 Empires.format.list.header={6|---------------[}{%s}{6|]---------------}
-Empires.tool.name={6|[Empires] }{9|TOOL: }{%s}
-Empires.tool.mode={6|[Empires] }{3|Changed '}{%s}{3|' to %s}
-Empires.tool.gained={6|[Empires] }{3|You have been given a tool}
-Empires.cmd.err.group.notExist={6|[Empires] }{c|The group }{%s}{c| does not exist}
-Empires.cmd.err.player.notExist={6|[Empires] }{c|The player }{%s}{c| does not exist}
-Empires.cmd.err.unclaim.powerException={6|[Empires] }{c|This Empire Has Enough Power To Support It's Territory}
-Empires.cmd.err.unclaim.powerException2={6|[Empires] }{c|You Need To Have Atleast 7 Power To Over-claim Other Empires!}
-Empires.notification.perm.added={6|[Empires] }{a|Perm node added successfully}
-Empires.notification.perm.removed={6|[Empires] }{a|Perm node removed successfully}
+Empires.tool.name={6|[Empire] }{9|TOOL: }{%s}
+Empires.tool.mode={6|[Empire] }{3|Changed '}{%s}{3|' to %s}
+Empires.tool.gained={6|[Empire] }{3|You have been given a tool}
+Empires.cmd.err.group.notExist={6|[Empire] }{c|The group }{%s}{c| does not exist}
+Empires.cmd.err.player.notExist={6|[Empire] }{c|The player }{%s}{c| does not exist}
+Empires.cmd.err.overclaim.powerException={6|[Empire] }{c|This Empire Has Enough Power To Support It's Territory}
+Empires.cmd.err.overclaim.powerException2={6|[Empire] }{c|You Need To Have At-least 7 Power To Over-claim Other Empires!}
+Empires.notification.perm.added={6|[Empire] }{a|Permission node added successfully}
+Empires.notification.perm.removed={6|[Empire] }{a|Permission node removed successfully}
 
-Empires.notification.group.added={6|[Empires] }{a|Group has been added successfully}
-Empires.notification.group.renamed={6|[Empires] }{a|Group has been renamed successfully}
-Empires.notification.group.deleted={6|[Empires] }{a|Group has been deleted successfully}
+Empires.notification.group.added={6|[Empire] }{a|Group has been added successfully}
+Empires.notification.group.renamed={6|[Empire] }{a|Group has been renamed successfully}
+Empires.notification.group.deleted={6|[Empire] }{a|Group has been deleted successfully}
 
-Empires.notification.user.group={6|[Empires] }{a|Player }{%s}{a| is assigned to group }{%s}
-Empires.notification.user.group.set={6|[Empires] }{a|Successfully set the group of the player}
+Empires.notification.user.group={6|[Empire] }{a|Player }{%s}{a| is assigned to group }{%s}
+Empires.notification.user.group.set={6|[Empire] }{a|Successfully set the group of the player}
 
-Empires.notification.config.reloaded={6|[Empires] }{a|Successfully reloaded mod configs}
-Empires.notification.permissions.config.reloaded={6|[Empires] }{a|Successfully reloaded permissions configs}
-Empires.notification.permissions.third_party={6|[Empires] }{a|Currently using third party permission system}
+Empires.notification.config.reloaded={6|[Empire] }{a|Successfully reloaded mod configurations}
+Empires.notification.permissions.config.reloaded={6|[Empire] }{a|Successfully reloaded permissions configurations}
+Empires.notification.permissions.third_party={6|[Empire] }{a|Currently using third party permission system}
 
-Empires.cmd.config.help={6|[Empires] }{|Configuration related commands}
-Empires.cmd.config.reload.help={6|[Empires] }{|Reloads the config files}
+Empires.cmd.config.help={6|[Empire] }{|Configuration related commands}
+Empires.cmd.config.reload.help={6|[Empire] }{|Reloads the configuration files}
 
-Empires.cmd.group.help={6|[Empires] }{|Everything related to groups}
-Empires.cmd.group.list.help={6|[Empires] }{|Lists all groups}
-Empires.cmd.group.delete.help={6|[Empires] }{|Deletes a group}
-Empires.cmd.group.rename.help={6|[Empires] }{|Renames a group}
-Empires.cmd.group.add.help={6|[Empires] }{|Creates a new group}
-Empires.cmd.group.perm.help={6|[Empires] }{|Everything related to editing perms of a group}
-Empires.cmd.group.perm.remove.help={6|[Empires] }{|Removes a perm node from a group}
-Empires.cmd.group.perm.add.help={6|[Empires] }{|Adds a perm node to a group}
-Empires.cmd.group.perm.list.help={6|[Empires] }{|Lists all perm nodes from a group}
+Empires.cmd.group.help={6|[Empire] }{|Everything related to groups}
+Empires.cmd.group.list.help={6|[Empire] }{|Lists all groups}
+Empires.cmd.group.delete.help={6|[Empire] }{|Deletes a group}
+Empires.cmd.group.rename.help={6|[Empire] }{|Renames a group}
+Empires.cmd.group.add.help={6|[Empire] }{|Creates a new group}
+Empires.cmd.group.perm.help={6|[Empire] }{|Everything related to editing permissions of a group}
+Empires.cmd.group.perm.remove.help={6|[Empire] }{|Removes a permission node from a group}
+Empires.cmd.group.perm.add.help={6|[Empire] }{|Adds a permission node to a group}
+Empires.cmd.group.perm.list.help={6|[Empire] }{|Lists all permission nodes from a group}
 
-Empires.cmd.user.help={6|[Empires] }{|Everything related to players}
-Empires.cmd.user.list.help={6|[Empires] }{|Lists all players}
-Empires.cmd.user.group.help={6|[Empires] }{|Everything related to a player's group}
-Empires.cmd.user.group.show.help={6|[Empires] }{|Shows the group which was assigned to the player}
-Empires.cmd.user.group.set.help={6|[Empires] }{|Sets a group to a player}
-Empires.cmd.user.perm.help={6|[Empires] }{|Everything related to a player's perm nodes}
-Empires.cmd.user.perm.list.help={6|[Empires] }{|Lists all perm nodes a player has}
-Empires.cmd.user.perm.remove.help={6|[Empires] }{|Removes a perm node from a player}
-Empires.cmd.user.perm.add.help={6|[Empires] }{|Adds a perm node to a player}
+Empires.cmd.user.help={6|[Empire] }{|Everything related to players}
+Empires.cmd.user.list.help={6|[Empire] }{|Lists all players}
+Empires.cmd.user.group.help={6|[Empire] }{|Everything related to a player's group}
+Empires.cmd.user.group.show.help={6|[Empire] }{|Shows the group which was assigned to the player}
+Empires.cmd.user.group.set.help={6|[Empire] }{|Sets a group to a player}
+Empires.cmd.user.perm.help={6|[Empire] }{|Everything related to a player's permission nodes}
+Empires.cmd.user.perm.list.help={6|[Empire] }{|Lists all permission nodes a player has}
+Empires.cmd.user.perm.remove.help={6|[Empire] }{|Removes a permission node from a player}
+Empires.cmd.user.perm.add.help={6|[Empire] }{|Adds a permission node to a player}
 
 # Formatting
 
@@ -56,241 +56,241 @@ Empires.format.user.short={c|%s}
 Empires.format.permission={7| - %s}
 
 # Other
-Empires.cmd.unimplemented={6|[Empires] }{c|%s is currently unimplemented}
-Empires.cmd.err.Empire.lackPower={6|[Empires] }{c|Your Empire Lack's The Power To Afford This Claim.}
-Empires.cmd.err.partOfEmpire={6|[Empires] }{c|You need to be part of a Empire}
-Empires.cmd.err.Empire.missing={6|[Empires] }{c|The Empire %s does not exist}
-Empires.cmd.err.citizen.missing={6|[Empires] }{c|The player %s does not exist}
-Empires.cmd.err.citizen.notInEmpire={6|[Empires] }{c|The player }{%s}{c| is not in the Empire you've selected}
-Empires.cmd.err.citizen.same={6|[Empires] }{c|You can't do that to yourself}
-Empires.cmd.err.rank.missing={6|[Empires] }{c|The rank }{%s}{ does not exist in }{%s}
-Empires.cmd.err.citizen.payment={6|[Empires] }{c|You need %s in order to pay for this}
-Empires.cmd.err.Empire.payment={6|[Empires] }{c|You need %s in bank to pay for this}
-Empires.cmd.err.notPositiveInteger={6|[Empires] }{c|Value '%s' needs to be a positive integer}
-Empires.cmd.err.Empire.maxPower={6|[Empires] }{c|Your Empire Has Reached The Maximum Amount of Claims for It's Power Level}
-Empires.cmd.err.adminEmpire={6|[Empires] }{c|Action denied because }{%s}{c| is an administrator run Empire}
-Empires.cmd.err.notInEmpire={6|[Empires] }{c|You are not in Empire }{%s}
-Empires.cmd.err.inventory={6|[Empires] }{c|Your inventory is full or you already have a tool}
-Empires.cmd.err.inventory.tool.already={6|[Empires] }{c|You already have a tool in your inventory, it will be replaced by the new one}
-Empires.cmd.err.rankPerm={6|[Empires] }{c|You do not have the rank required to use this command}
-Empires.cmd.err.notPlayer={6|[Empires] }{c|You are not a player}
-Empires.notification.enter.wild={6|[Empires] }{2|ALERT: You Have Entered The Wilderness}
-Empires.notification.enter.Empire={6|[Empires] }{c|ALERT: You Have Entered }{%s}{c| 's Territory}
-Empires.notification.enter.ownEmpire={6|[Empires] }{2|Welcome Back To: }{%s}
-Empires.notification.Empire.owners.admins={6|[Empires] }{c|Administration}
+Empires.cmd.unimplemented={6|[Empire] }{c|%s is currently unimplemented.}
+Empires.cmd.err.empire.lackPower={6|[Empire] }{c|Your Empire Lack's The Power To Afford This Claim.}
+Empires.cmd.err.partOfEmpire={6|[Empire] }{c|You need to be part of an Empire}
+Empires.cmd.err.empire.missing={6|[Empire] }{c|The Empire %s does not exist}
+Empires.cmd.err.citizen.missing={6|[Empire] }{c|The player %s does not exist}
+Empires.cmd.err.citizen.notInEmpire={6|[Empire] }{c|The player }{%s}{c| is not in the empire you've selected}
+Empires.cmd.err.citizen.same={6|[Empire] }{c|You can't do that to yourself}
+Empires.cmd.err.rank.missing={6|[Empire] }{c|The rank }{%s}{ does not exist in }{%s}
+Empires.cmd.err.citizen.payment={6|[Empire] }{c|You need %s in order to pay for this}
+Empires.cmd.err.empire.payment={6|[Empire] }{c|You need %s in bank to pay for this}
+Empires.cmd.err.notPositiveInteger={6|[Empire] }{c|Value '%s' needs to be a positive integer}
+Empires.cmd.err.empire.maxPower={6|[Empire] }{c|Your Empire Has Reached The Maximum Amount of Claims for It's Power Level}
+Empires.cmd.err.adminEmpire={6|[Empire] }{c|Action denied because }{%s}{c| is an administrator controlled empire}
+Empires.cmd.err.notInEmpire={6|[Empire] }{c|You are not in Empire }{%s}
+Empires.cmd.err.inventory={6|[Empire] }{c|Your inventory is full or you already have a tool}
+Empires.cmd.err.inventory.tool.already={6|[Empire] }{c|You already have a tool in your inventory, it will be replaced by the new one}
+Empires.cmd.err.rankPerm={6|[Empire] }{c|You do not have the rank required to use this command}
+Empires.cmd.err.notPlayer={6|[Empire] }{c|You are not a player!}
+Empires.notification.enter.wild={6|[Empire] }{2|You Have Entered The Wilderness...}
+Empires.notification.enter.empire={6|[Empire] }{c|You Have Entered }{%s}{c| 's Territory}
+Empires.notification.enter.ownEmpire={6|[Empire] }{2|Welcome Back To: }{%s}
+Empires.notification.empire.owners.admins={6|[Empire] }{c|Administration}
 
 # Flag based notifications
 
 # Protection
-Empires.protection.ENTER={6|[Empires] }{c|You are not allowed to enter here}
-Empires.protection.ACTIVATE={6|[Empires] }{c|You cannot activate that block}
-Empires.protection.ACCESS={6|[Empires] }{c|You cannot access that block}
-Empires.protection.MODIFY={6|[Empires] }{c|You cannot modify the land here}
-Empires.protection.PICKUP={6|[Empires] }{c|You cannot pickup blocks/items here}
-Empires.protection.EXPLOSIONS={6|[Empires] }{c|You cannot use explosions here}
-Empires.protection.MOBS={6|[Empires] }{c|You cannot spawn this type of mob here}
-Empires.protection.PVE={6|[Empires] }{c|You cannot touch that}
-Empires.protection.USAGE={6|[Empires] }{c|You cannot use any items here}
-Empires.protection.PVP={6|[Empires] }{c|You cannot attack players here as PVP is Disabled}
+Empires.protection.ENTER={6|[Empire] }{c|You are not allowed to enter here}
+Empires.protection.ACTIVATE={6|[Empire] }{c|You cannot activate that block}
+Empires.protection.ACCESS={6|[Empire] }{c|You cannot access that block}
+Empires.protection.MODIFY={6|[Empire] }{c|You cannot modify the land here}
+Empires.protection.PICKUP={6|[Empire] }{c|You cannot pickup blocks/items here}
+Empires.protection.EXPLOSIONS={6|[Empire] }{c|You cannot use explosions here}
+Empires.protection.MOBS={6|[Empire] }{c|You cannot spawn this type of mob here}
+Empires.protection.PVE={6|[Empire] }{c|You cannot touch that}
+Empires.protection.USAGE={6|[Empire] }{c|You cannot use any items here}
+Empires.protection.PVP={6|[Empire] }{c|You cannot attack players here as PVP is Disabled}
 
-Empires.protection.notify.EXPLOSIONS={6|[Empires] }{3|An explosion nearby has been stopped}
+Empires.protection.notify.EXPLOSIONS={6|[Empire] }{3|An explosion nearby has been stopped}
 
 # Flag Info
-Empires.flag.ENTER={6|[Empires] }{3|Allows outsiders to enter}
-Empires.flag.ACTIVATE={6|[Empires] }{3|Allows right-clicking of doors, etc}
-Empires.flag.ACCESS={6|[Empires] }{3|Allows right-clicking of blocks}
-Empires.flag.MODIFY={6|[Empires] }{3|Allows modifying land}
-Empires.flag.PICKUP={6|[Empires] }{3|Allows item pickup}
-Empires.flag.EXPLOSIONS={6|[Empires] }{3|Allows explosions}
-Empires.flag.MOBS={6|[Empires] }{3|Controls whether mobs can exist here}
-Empires.flag.ENTITIES={6|[Empires] }{3|Controls whether entities can exist here}
-Empires.flag.PVE={6|[Empires] }{3|Allows interacting with entities}
-Empires.flag.USAGE={6|[Empires] }{3|Allows usage of items (eggs, buckets etc.)}
-Empires.flag.PVP={6|[Empires] }{3|Allows PVP - Player vs. Player}
-Empires.flag.RESTRICTIONS={6|[Empires] }{3|Gives permission outside player's plots}
-Empires.flag.FAKERS={6|[Empires] }{3|Allows fake players to bypass Protections}
-Empires.flag.NEARBY={6|[Empires] }{3|Allows Empires to be made near this Empire}
+Empires.flag.ENTER={6|[Empire] }{3|Allows outsiders to enter}
+Empires.flag.ACTIVATE={6|[Empire] }{3|Allows right-clicking of doors, etc}
+Empires.flag.ACCESS={6|[Empire] }{3|Allows right-clicking of blocks}
+Empires.flag.MODIFY={6|[Empire] }{3|Allows modifying land}
+Empires.flag.PICKUP={6|[Empire] }{3|Allows item pickup}
+Empires.flag.EXPLOSIONS={6|[Empire] }{3|Allows explosions (TnT, Nukes, etc.}
+Empires.flag.MOBS={6|[Empire] }{3|Controls whether mobs can exist here}
+Empires.flag.ENTITIES={6|[Empire] }{3|Controls whether entities can exist here}
+Empires.flag.PVE={6|[Empire] }{3|Allows interacting with entities}
+Empires.flag.USAGE={6|[Empire] }{3|Allows usage of items (eggs, buckets etc.)}
+Empires.flag.PVP={6|[Empire] }{3|Allows PVP - Player vs. Player}
+Empires.flag.RESTRICTIONS={6|[Empire] }{3|Gives permission outside player's plots}
+Empires.flag.FAKERS={6|[Empire] }{3|Allows fake players to bypass Protections}
+Empires.flag.NEARBY={6|[Empire] }{3|Allows other Empires to be founded near this Empire}
 
 # Tools
-Empires.tool.plot.sell.name={6|[Empires] }{9|Plot Seller}
-Empires.tool.plot.sell.description={6|[Empires] }{7o|   Right-click in a plot to place a sell sign}{7oN|   Shift-right-click air to change modes}{7oN|   Price: }{ao|%s}{7oN|   Restricted to citizens: }{ao|%s}
-Empires.tool.plot.sell.property={6|[Empires] }{3|Restricted to citizens}
+Empires.tool.plot.sell.name={6|[Empire] }{9|Plot Seller}
+Empires.tool.plot.sell.description={6|[Empire] }{7o|   Right-click in a plot to place a sell sign}{7oN|   Shift-right-click air to change modes}{7oN|   Price: }{ao|%s}{7oN|   Restricted to citizens: }{ao|%s}
+Empires.tool.plot.sell.property={6|[Empire] }{3|Restricted to citizens}
 
-Empires.tool.plot.selection.name={6|[Empires] }{9|Plot Selector}
-Empires.tool.plot.selection.description={6|[Empires] }{7o|   Select 2 blocks to make a plot}{7oN|   Shift right-click air to change modes}{7oN|   Plot name: }{ao|%s}{7oN|   Height dependent: }{ao|%s}
-Empires.tool.plot.selection.property={6|[Empires] }{3|Height dependent}
+Empires.tool.plot.selection.name={6|[Empire] }{9|Plot Selector}
+Empires.tool.plot.selection.description={6|[Empire] }{7o|   Select 2 blocks to make a plot}{7oN|   Shift right-click air to change modes}{7oN|   Plot name: }{ao|%s}{7oN|   Height dependent: }{ao|%s}
+Empires.tool.plot.selection.property={6|[Empire] }{3|Height dependent}
 
-Empires.tool.whitelister.name={6|[Empires] }{9|Whitelister}
-Empires.tool.whitelister.description={6|[Empires] }{7o|   Select block for bypassing protection}{7oN|   Shift right-click air to change flag}{7oN|   FlagType: }{ao|%s}
-Empires.tool.whitelister.removal={6|[Empires] }{c|WHITELIST REMOVAL}
-Empires.tool.whitelister.property={6|[Empires] }{3|FlagType}
+Empires.tool.whitelister.name={6|[Empire] }{9|Whitelister}
+Empires.tool.whitelister.description={6|[Empire] }{7o|   Select block for bypassing protection}{7oN|   Shift right-click air to change flag}{7oN|   FlagType: }{ao|%s}
+Empires.tool.whitelister.removal={6|[Empire] }{c|WHITELIST REMOVAL}
+Empires.tool.whitelister.property={6|[Empire] }{3|FlagType}
 
 # Sell Sign
-Empires.sign.sell.title={6|[Empires] }{9|Plot Sale}
-Empires.sign.sell.description.owner={6|[Empires] }{9|by}
-Empires.sign.sell.description.price={6|[Empires] }{6|}
-Empires.sign.sell.description.restricted={6|[Empires] }{c|RESTRICTED}
+Empires.sign.sell.title={6|[Empire] }{9|Plot Sale}
+Empires.sign.sell.description.owner={6|[Empire] }{9|by}
+Empires.sign.sell.description.price={6|[Empire] }{6|}
+Empires.sign.sell.description.restricted={6|[Empire] }{c|RESTRICTED}
 
-# /Empirea config [load|save]
-Empires.cmd.config.load.start={6|[Empires] }{3|Loading configuration...}
-Empires.cmd.config.load.stop={6|[Empires] }{a|Configuration loaded}
-Empires.cmd.config.save.start={6|[Empires] }{3|Saving configuration...}
-Empires.cmd.config.save.stop={6|[Empires] }{a|Configuration saved}
-Empires.cmd.config.reset={6|[Empires] }{a|Successfully recreated the %s file}
+# /empirea config [load|save]
+Empires.cmd.config.load.start={6|[Empire] }{3|Loading configuration...}
+Empires.cmd.config.load.stop={6|[Empire] }{a|Configuration loaded}
+Empires.cmd.config.save.start={6|[Empire] }{3|Saving configuration...}
+Empires.cmd.config.save.stop={6|[Empire] }{a|Configuration saved}
+Empires.cmd.config.reset={6|[Empire] }{a|Successfully recreated the %s file}
 
-# /Empire new [Empirename]
-Empires.cmd.err.new.nameUsed={6|[Empires] }{c|Empire name %s already in use}
-Empires.cmd.err.new.position={6|[Empires] }{c|You cannot make a new Empire on a claimed chunk}
-Empires.cmd.err.new.failed={6|[Empires] }{c|There was an issue with creating the Empire}
-Empires.cmd.err.new.tooClose={6|[Empires] }{c|You are too close to Empire }{%s}{c|. Please leave at least %s chunks between the Empires}
-Empires.cmd.err.claim.tooClose={6|[Empires] }{c|You are too close to Empire }{%s}{c|. Please leave at least %s chunks between the Empires}
-Empires.cmd.err.citizen.maxEmpires={6|[Empires] }{c|You cannot create/join any more Empires, you have hit the maximum amount of Empires you can be in}
-Empires.cmd.err.new.nameTooLong={6|[Empires] }{c|The name of the Empire is too long (32 characters maximum)}
-Empires.notification.Empire.created={6|[Empires] }{%s}{a| created}
-Empires.notification.Empire.deleted={6|[Empires] }{%s}{a| deleted}
-Empires.notification.Empire.deleted.withplots={6|[Empires] }{c|You cannot delete Empires with plots that you don't own}
-
-
-# /Empire invite
-Empires.cmd.err.invite.already={6|[Empires] }{c|Citizen }{%s}{c| is already a member of Empire }{%s}
-Empires.cmd.err.invite.missing={6|[Empires] }{c|You have no invitations}
-Empires.cmd.err.citizen.missing={6|[Empires] }{c|That player does not exist}
-Empires.cmd.err.invite.accept={6|[Empires] }{c|You have more than one invitation. }{3|Choose what invitation you want to accept: }{3o|"/Empire accept <EmpireName>"}
-Empires.cmd.err.invite.refuse={6|[Empires] }{c|You have more than one invitation. }{3|Choose what invitation you want to refuse: }{3o|"/Empire refuse <EmpireName>"}
-
-# /Empire friends
-Empires.cmd.err.friends.add={6|[Empires] }{%s}{c| is already a friend of yours or you already sent an invitation}
-Empires.cmd.err.friends.remove={6|[Empires] }{%s}{c| is not a friend of yours}
-Empires.cmd.err.friends.accept={6|[Empires] }{%s}{c| has not sent an invitation to you}
-
-# /Empire claim
-Empires.cmd.err.claim.failed={6|[Empires] }{c|Failed to claim chunk}
-Empires.cmd.err.claim.already={6|[Empires] }{c|This chunk has already been claimed}
-Empires.cmd.err.claim.missing={6|[Empires] }{c|This block is not claimed by Empire }{%s}
-Empires.cmd.err.claim.far.notAllowed={6|[Empires] }{c|You cannot have anymore far claims}
-Empires.cmd.err.Empire.maxBlocks={6|[Empires] }{c|Not enough free slots for %s chunks}
-Empires.cmd.err.unclaim.presentEmpire={6|[Empires] }{c|You can't overclaim your own Empire!}
-Empires.cmd.err.unclaim.userNotInEmpire=a|[Empires] }{c|You can't overclaim without being in an Empire!}
-Empires.cmd.err.claim.chunkload.already={6|[Empires] }{c|This chunk is already chunkloaded}
-Empires.cmd.err.claim.unchunkload.missing={6|[Empires] }{c|This chunk is not chunkloaded}
-
-# /Empire unclaim
-Empires.cmd.err.unclaim.notInEmpire={6|[Empires] }{c|The block you want to unclaim is not in the Empire you've selected}
-Empires.cmd.err.unclaim.spawnPoint={6|[Empires] }{c|You cannot delete the claim containing the spawn point}
-Empires.cmd.err.unclaim.lastClaim={6|[Empires] }{c|Your Empire must at least have 1 chunk. Use }{co|"/Empire leave delete"}{c| to remove the Empire}
-
-# /Empire info
-Empires.cmd.err.info.notpart={6|[Empires] }{c|You are not part of a Empire. }{3|Alternative usage: }{3o|"/Empire info <Empirename>"}
-
-# /Empire select
-Empires.cmd.err.select.notCitizen={6|[Empires] }{c|You are not a citizen of Empire }{%s}
-Empires.notification.Empire.select={6|[Empires] }{3|The Empire }{%s}{3| has been selected as your primary Empire}
-
-# /Empire ranks
-Empires.cmd.err.ranks.add.already={6|[Empires] }{c|The rank }{%s}{c| already exists}
-Empires.cmd.err.ranks.add.missing={6|[Empires] }{c|The template rank }{%s}{c| does not exist}
-Empires.cmd.err.ranks.perm.add.already={6|[Empires] }{c|The rank }{%s}{c| already has permission %s}
-Empires.cmd.err.ranks.perm.add.failed={6|[Empires] }{c|Failed to add permission}
-Empires.cmd.err.ranks.perm.remove.failed={6|[Empires] }{c|Failed to remove permission}
-Empires.cmd.err.ranks.cantDelete={6|[Empires] }{c|You can't delete this type of rank}
-Empires.cmd.err.ranks.set.already={6|[Empires] }{c|The rank is already set to type }{%s}
-Empires.notification.ranks.set.successful={6|[Empires] }{3|Rank }{%s}{3| has been set to type }{%s}{3| successfully}
-Empires.cmd.err.ranks.type.missing={6|[Empires] }{c|Rank type }{%s}{c| does not exist}
-Empires.notification.ranks.reset={6|[Empires] }{3|Ranks have been reset to their initial state}
-Empires.cmd.err.ranks.set.unique={6|[Empires] }{c|The rank type of }{%s}{c| is unique. You must set the unique type first}
-Empires.cmd.err.ranks.assigned={6|[Empires] }{c|This rank is assigned to some citizens, change their rank before deleting this}
-
-# /Empire plot
-Empires.cmd.err.plot.remove.notInPlot={6|[Empires] }{c|Citizen is not a member/owner of this plot}
-Empires.cmd.err.plot.remove.onlyOwner={6|[Empires] }{c|You are the only owner of this plot, you can only delete the plot}
-Empires.cmd.err.plot.add.alreadyInPlot={6|[Empires] }{c|Citizen is already a member of this plot}
-Empires.cmd.err.plot.start.failed={6|[Empires] }{c|Your inventory is full}
-Empires.cmd.err.plot.failed={6|[Empires] }{c|Creating plot failed}
-Empires.cmd.err.plot.alreadySelected={6|[Empires] }{c|You already selected a volume for the plot}
-Empires.cmd.err.plot.selection.outside={6|[Empires] }{c|You cannot make a plot outside the Empire}
-Empires.cmd.err.plot.selection.otherDimension={6|[Empires] }{c|The second corner needs to be on the same dimension}
-Empires.cmd.err.plot.selection.none={6|[Empires] }{c|You haven't selected anything yet}
-Empires.cmd.err.plot.notInPlot={6|[Empires] }{c|You are not standing in a plot}
-Empires.cmd.err.plot.sell.notInPlot={6|[Empires] }{c|The selection is not in a plot in Empire }{%s}
-Empires.cmd.err.plot.sell.alreadyOwner={6|[Empires] }{c|You are already an owner of this plot}
-Empires.cmd.err.plot.noPermission={6|[Empires] }{c|You do not have owner permissions for this plot}
-Empires.cmd.err.plot.limit={6|[Empires] }{c|You cannot be owner of more than %s plots}
-Empires.cmd.err.plot.limit.toPlayer={6|[Empires] }{c|Player }{%s}{ can't be owner to any more plots}
-Empires.cmd.err.plot.tooSmall={6|[Empires] }{c|Selection too small! Minimum area: }{3|%s}{c|. Minimum height: }{3|%s}
-Empires.cmd.err.plot.tooLarge={6|[Empires] }{c|Selection too large! Maximum area: }{3|%s}{c|. Maximum height: }{3|%s}
-Empires.cmd.err.plot.outside={6|[Empires] }{c|Selection is outside of Empire}
-Empires.cmd.err.plot.insideOther={6|[Empires] }{c|Selection is inside plot }{%s}
-Empires.cmd.err.plot.name={6|[Empires] }{c|Plot with name %s already exists}
+# /empire new [empirename]
+Empires.cmd.err.new.nameUsed={6|[Empire] }{c|Empire name %s already in use!}
+Empires.cmd.err.new.position={6|[Empire] }{c|You cannot make a new empire on a claimed chunk!}
+Empires.cmd.err.new.failed={6|[Empire] }{c|There was an issue with creating the empire... Contact Administrators.}
+Empires.cmd.err.new.tooClose={6|[Empire] }{c|You are too close to Empire }{%s}{c|. Please leave at least %s chunks between the Empires before trying again!}
+Empires.cmd.err.claim.tooClose={6|[Empire] }{c|You are too close to Empire }{%s}{c|. Please leave at least %s chunks between the Empires before trying again!!}
+Empires.cmd.err.citizen.maxEmpires={6|[Empire] }{c|You cannot create/join any more Empires, you have hit the maximum amount of Empires you can be in!}
+Empires.cmd.err.new.nameTooLong={6|[Empire] }{c|The name of the Empire is too long (32 characters maximum)}
+Empires.notification.empire.created={6|[Empire] }{%s}{a| created successfully!}
+Empires.notification.empire.deleted={6|[Empire] }{%s}{a| deleted successfully!}
+Empires.notification.empire.deleted.withplots={6|[Empire] }{c|You cannot delete Empires with plots that you don't own.}
 
 
-# /Empire perm
-Empires.cmd.err.flagNotExists={6|[Empires] }{c|That flag does not exist}
-Empires.cmd.err.perm.valueNotValid={6|[Empires] }{c|Invalid value}
-Empires.cmd.err.flag.unconfigurable={6|[Empires] }{c|That flag can not be changed}
-Empires.cmd.err.flag.notForWhitelist={6|[Empires] }{c|The flag you selected is not allowed on block whitelist}
-Empires.cmd.err.flag.list={6|[Empires] }{c|There's no flag in this Empire}
-Empires.cmd.err.perm.whitelist.noPermssion={6|[Empires] }{c|You do not have permission to whitelist this!}
+# /empire invite
+Empires.cmd.err.invite.already={6|[Empire] }{c|Citizen }{%s}{c| is already a member of Empire: }{%s}
+Empires.cmd.err.invite.missing={6|[Empire] }{c|You have no invitations}
+Empires.cmd.err.citizen.missing={6|[Empire] }{c|That player does not exist}
+Empires.cmd.err.invite.accept={6|[Empire] }{c|You have more than one invitation. }{3|Choose what invitation you want to accept: }{3o|"/empire accept <empireName>"}
+Empires.cmd.err.invite.refuse={6|[Empire] }{c|You have more than one invitation. }{3|Choose what invitation you want to refuse: }{3o|"/empire refuse <empireName>"}
 
-# /Empire promote
-Empires.cmd.err.promote.notLeader={6|[Empires] }{c|You cannot have 2 Leaders in one Empire. Try passing leadership with }{co|"/Empire pass <citizen>"}
+# /empire friends
+Empires.cmd.err.friends.add={6|[Empire] }{%s}{c| is already a friend of yours or you already sent an invitation}
+Empires.cmd.err.friends.remove={6|[Empire] }{%s}{c| is not a friend of yours}
+Empires.cmd.err.friends.accept={6|[Empire] }{%s}{c| has not sent an invitation to you}
 
-Empires.cmd.promote.success.sender={6|[Empires] }{%s}{3| has been }{a|promoted}{3| to rank }{%s}
-Empires.cmd.promote.success.target={6|[Empires] }{a|You have been promoted to rank }{%s}
+# /empire claim
+Empires.cmd.err.claim.failed={6|[Empire] }{c|Failed to claim chunk}
+Empires.cmd.err.claim.already={6|[Empire] }{c|This chunk has already been claimed}
+Empires.cmd.err.claim.missing={6|[Empire] }{c|This block is not claimed by Empire }{%s}
+Empires.cmd.err.claim.far.notAllowed={6|[Empire] }{c|You cannot have anymore far claims}
+Empires.cmd.err.empire.maxBlocks={6|[Empire] }{c|Not enough free slots for %s chunks}
+Empires.cmd.err.overclaim.presentEmpire={6|[Empire] }{c|You can't overclaim your own Empire!}
+Empires.cmd.err.overclaim.userNotInEmpire=a|[Empires] }{c|You can't overclaim without being in an Empire!}
+Empires.cmd.err.claim.chunkload.already={6|[Empire] }{c|This chunk is already chunkloaded}
+Empires.cmd.err.claim.unchunkload.missing={6|[Empire] }{c|This chunk is not chunkloaded}
 
-# /Empire setspawn
-Empires.cmd.err.setspawn.notInEmpire={6|[Empires] }{c|The position that you're at is not inside the Empire }{%s}
+# /empire unclaim
+Empires.cmd.err.unclaim.notInEmpire={6|[Empire] }{c|The block you want to unclaim is not in the Empire you've selected}
+Empires.cmd.err.unclaim.spawnPoint={6|[Empire] }{c|You cannot delete the claim containing the spawn point}
+Empires.cmd.err.unclaim.lastClaim={6|[Empire] }{c|Your Empire must at least have 1 chunk. Use }{co|"/Empire leave delete"}{c| to remove the Empire}
 
-# /Empire spawn
-Empires.cmd.err.spawn.missing={6|[Empires] }{c|The claim that the spawn of }{%s}{ was on got deleted or the spawn wasn't set! }{3|Please use }{3o|"/Empire setspawn"}{3| to set another one}
-Empires.cmd.err.spawn.cooldown={6|[Empires] }{c|You are still on teleport cooldown please wait }{6|%s &6(}{9|%ss}{6|)}{c| more ticks before trying again}
-Empires.cmd.err.spawn.protected={6|[Empires] }{c|You are not allowed to teleport to the location of }{%s}{c|'s spawn}
+# /empire info
+Empires.cmd.err.info.notpart={6|[Empire] }{c|You are not part of a Empire. }{3|Alternative usage: }{3o|"/empire info <empirename>"}
 
-# /Empire kick
-Empires.cmd.err.kick.self={6|[Empires] }{c|No, you can't kick yourself}
-Empires.cmd.err.kick.leader={6|[Empires] }{c|No, you can't kick the leader}
-Empires.notification.Empire.kicked={6|[Empires] }{c|You have been kicked from }{%s}
+# /empire select
+Empires.cmd.err.select.notCitizen={6|[Empire] }{c|You are not a citizen of Empire }{%s}
+Empires.notification.empire.select={6|[Empire] }{3|The Empire }{%s}{3| has been selected as your primary Empire}
 
-# /Empire bank
-Empires.cmd.err.bank.withdraw={6|[Empires] }{c|You only have %s in the bank}
+# /empire ranks
+Empires.cmd.err.ranks.add.already={6|[Empire] }{c|The rank }{%s}{c| already exists}
+Empires.cmd.err.ranks.add.missing={6|[Empire] }{c|The template rank }{%s}{c| does not exist}
+Empires.cmd.err.ranks.perm.add.already={6|[Empire] }{c|The rank }{%s}{c| already has permission %s}
+Empires.cmd.err.ranks.perm.add.failed={6|[Empire] }{c|Failed to add permission}
+Empires.cmd.err.ranks.perm.remove.failed={6|[Empire] }{c|Failed to remove permission}
+Empires.cmd.err.ranks.cantDelete={6|[Empire] }{c|You can't delete this type of rank}
+Empires.cmd.err.ranks.set.already={6|[Empire] }{c|The rank is already set to type }{%s}
+Empires.notification.ranks.set.successful={6|[Empire] }{3|Rank }{%s}{3| has been set to type }{%s}{3| successfully}
+Empires.cmd.err.ranks.type.missing={6|[Empire] }{c|Rank type }{%s}{c| does not exist}
+Empires.notification.ranks.reset={6|[Empire] }{3|Ranks have been reset to their initial state}
+Empires.cmd.err.ranks.set.unique={6|[Empire] }{c|The rank type of }{%s}{c| is unique. You must set the unique type first}
+Empires.cmd.err.ranks.assigned={6|[Empire] }{c|This rank is assigned to some citizens, change their rank before deleting this}
 
-# /Empireadmin new
-Empires.notification.admEmpire.created={6|[Empires] }{a|Admin Empire }{%s}{ created!}
+# /empire plot
+Empires.cmd.err.plot.remove.notInPlot={6|[Empire] }{c|The Citizen is not a member/owner of this plot}
+Empires.cmd.err.plot.remove.onlyOwner={6|[Empire] }{c|You are the only owner of this plot, you only you can delete the plot}
+Empires.cmd.err.plot.add.alreadyInPlot={6|[Empire] }{c|Citizen is already a member of this plot}
+Empires.cmd.err.plot.start.failed={6|[Empire] }{c|Your inventory is full}
+Empires.cmd.err.plot.failed={6|[Empire] }{c|Creating plot failed}
+Empires.cmd.err.plot.alreadySelected={6|[Empire] }{c|You already selected a volume for the plot}
+Empires.cmd.err.plot.selection.outside={6|[Empire] }{c|You cannot make a plot outside the Empire}
+Empires.cmd.err.plot.selection.otherDimension={6|[Empire] }{c|The second corner needs to be on the same dimension}
+Empires.cmd.err.plot.selection.none={6|[Empire] }{c|You haven't selected anything yet}
+Empires.cmd.err.plot.notInPlot={6|[Empire] }{c|You are not standing in a plot}
+Empires.cmd.err.plot.sell.notInPlot={6|[Empire] }{c|The selection is not in a plot in Empire }{%s}
+Empires.cmd.err.plot.sell.alreadyOwner={6|[Empire] }{c|You are already an owner of this plot}
+Empires.cmd.err.plot.noPermission={6|[Empire] }{c|You do not have owner permissions for this plot}
+Empires.cmd.err.plot.limit={6|[Empire] }{c|You cannot be owner of more than %s plots}
+Empires.cmd.err.plot.limit.toPlayer={6|[Empire] }{c|Player }{%s}{ can't be owner to any more plots}
+Empires.cmd.err.plot.tooSmall={6|[Empire] }{c|Selection too small! Minimum area: }{3|%s}{c|. Minimum height: }{3|%s}
+Empires.cmd.err.plot.tooLarge={6|[Empire] }{c|Selection too large! Maximum area: }{3|%s}{c|. Maximum height: }{3|%s}
+Empires.cmd.err.plot.outside={6|[Empire] }{c|Selection is outside of Empire}
+Empires.cmd.err.plot.insideOther={6|[Empire] }{c|Selection is inside plot }{%s}
+Empires.cmd.err.plot.name={6|[Empire] }{c|Plot with name %s already exists}
 
-# /Empireadmin delete
-Empires.adm.cmd.delete.success={6|[Empires] }{c|Deleted Empire with name }{%s}
-Empires.cmd.err.Empire.delete.withPlots={6|[Empires] }{c|This Empire has plots that are not owned by you}
 
-# /Empireadmin kick
-Empires.adm.cmd.err.kick.citizen={6|[Empires] }{c|Player }{%s}{c| is not part of the Empire }{%s}
-Empires.notification.Empire.citizen.remove={6|[Empires] }{a|Citizen }{%s}{a| has been }{c|removed}{a| from Empire }{%s}
-Empires.notification.Empire.citizen.add={6|[Empires] }{a|Citizen }{%s}{a| has been added to Empire }{%s}{a| with rank }{%s}
+# /empire perm
+Empires.cmd.err.flagNotExists={6|[Empire] }{c|That flag does not exist}
+Empires.cmd.err.perm.valueNotValid={6|[Empire] }{c|Invalid value}
+Empires.cmd.err.flag.unconfigurable={6|[Empire] }{c|That flag can not be changed}
+Empires.cmd.err.flag.notForWhitelist={6|[Empire] }{c|The flag you selected is not allowed on theblock whitelist}
+Empires.cmd.err.flag.list={6|[Empire] }{c|There's no flag in this Empire}
+Empires.cmd.err.perm.whitelist.noPermssion={6|[Empire] }{c|You do not have permission to whitelist this!}
 
-# /Empireadmin add
-Empires.adm.cmd.err.add.already={6|[Empires] }{c|Player }{%s}{c| is already a citizen of the Empire }{%s}
+# /empire promote
+Empires.cmd.err.promote.notLeader={6|[Empire] }{c|You cannot have 2 Leaders in one Empire. Try to abdicate leadership with }{co|"/empire abdicate <citizen>"}
 
-# /Empireadmin claim
+Empires.cmd.promote.success.sender={6|[Empire] }{%s}{3| has been }{a|promoted}{3| to rank }{%s}
+Empires.cmd.promote.success.target={6|[Empire] }{a|You have been promoted to the rank }{%s}
 
-Empires.adm.cmd.far.claim={6|[Empires] }{3|You have bypassed far claims}
+# /empire setspawn
+Empires.cmd.err.setspawn.notInEmpire={6|[Empire] }{c|The position that you're at is not inside the Empire }{%s}
 
-# /Empireadmin borders
-Empires.notification.Empire.borders.show={6|[Empires] }{3|Showing borders of Empire }{%s}{3|. Use }{3o|"/Empire borders hide"}{3| to hide them}
-Empires.notification.Empire.borders.hide={6|[Empires] }{a|Borders have been successfully hidden}
+# /empire spawn
+Empires.cmd.err.spawn.missing={6|[Empire] }{c|The claim that the spawn of }{%s}{ was on got deleted or the spawn wasn't set! }{3|Please use }{3o|"/empire setspawn"}{3| to set another one}
+Empires.cmd.err.spawn.cooldown={6|[Empire] }{c|You are still on teleport cooldown please wait }{6|%s &6(}{9|%ss}{6|)}{c| more ticks before trying again}
+Empires.cmd.err.spawn.protected={6|[Empire] }{c|You are not allowed to teleport to the location of }{%s}{c|'s spawn}
 
-# /Empireadmin ranks
-Empires.notification.Empire.ranks.perm.add={6|[Empires] }{a|Added permission to rank successfully}
-Empires.notification.Empire.ranks.perm.remove={6|[Empires] }{a|Removed permission from rank successfully}
+# /empire kick
+Empires.cmd.err.kick.self={6|[Empire] }{c|No, you can't kick yourself from the Empire!}
+Empires.cmd.err.kick.leader={6|[Empire] }{c|No, you can't kick the leader from the Empire!}
+Empires.notification.empire.kicked={6|[Empire] }{c|You have been kicked from }{%s}
+
+# /empire bank
+Empires.cmd.err.bank.withdraw={6|[Empire] }{c|You only have %s in the bank...}
+
+# /empireadmin new
+Empires.notification.admempire.created={6|[Empire] }{a|Administrator Empire }{%s}{ created!}
+
+# /empireadmin delete
+Empires.adm.cmd.delete.success={6|[Empire] }{c|Succesfully Deleted Empire: }{%s}
+Empires.cmd.err.empire.delete.withPlots={6|[Empire] }{c|This Empire has plots that are not owned by you!}
+
+# /empireadmin kick
+Empires.adm.cmd.err.kick.citizen={6|[Empire] }{c|Player }{%s}{c| is not part of the empire }{%s}
+Empires.notification.empire.citizen.remove={6|[Empire] }{a|Citizen }{%s}{a| has been }{c|removed}{a| from Empire }{%s}
+Empires.notification.empire.citizen.add={6|[Empire] }{a|Citizen }{%s}{a| has been added to empire }{%s}{a| with rank }{%s}
+
+# /empireadmin add
+Empires.adm.cmd.err.add.already={6|[Empire] }{c|Player }{%s}{c| is already a citizen of the Empire }{%s}
+
+# /empireadmin claim
+
+Empires.adm.cmd.far.claim={6|[Empire] }{3|You have bypassed far claims}
+
+# /empireadmin borders
+Empires.notification.empire.borders.show={6|[Empire] }{3|Showing borders of Empire }{%s}{3|. Use }{3o|"/empire borders hide"}{3| to hide them}
+Empires.notification.empire.borders.hide={6|[Empire] }{a|Borders have been successfully hidden}
+
+# /empireadmin ranks
+Empires.notification.empire.ranks.perm.add={6|[Empire] }{a|Added permission to rank successfully!}
+Empires.notification.empire.ranks.perm.remove={6|[Empire] }{a|Removed permission from rank successfully!}
 
 # Formatting
 
 Empires.format.flag={7|%s << %s}{7|[}{a|%s}{7|]}
-Empires.format.Empire.short={6|%s << %s}
-Empires.format.Empire.long={%s}{6N| - }{2|Citizens: %s}{6| - }{2|Claims: %s/%s}{6| - }{2|Power: %s/%s }{6| - }{2N| Citizens: }{%s}{2N| Ranks: }{%s}
+Empires.format.empire.short={6|%s << %s}
+Empires.format.empire.long={%s}{6N| - }{2|Citizens: %s}{6| - }{2|Claims: %s/%s}{6| - }{2|Power: %s/%s }{6| - }{2N| Citizens: }{%s}{2N| Ranks: }{%s}
 Empires.format.rank={l|%s}
 Empires.format.rank.long={l|%s}{7| (}{%s}{7|)}
 Empires.format.plot.short={a|%s}{7|: }{%s}
 Empires.format.plot.long={%s}{2N|Owners: }{%s}{2N|Borders: }{%s}
 Empires.format.citizen.short={a|%s}
-Empires.format.citizen.long={%s}{2N| Empires: }{%s}{2N| Joined: }{a|%s}{2N| Last online: }{a|%s}{2N| Extra blocks: }{a|%s}{2N| Power: }{a|%s}
+Empires.format.citizen.long={%s}{2N| Empires: }{%s}{2N| Joined: }{a|%s}{2N| Last online: }{a|%s}{2N| Extra-Claims: }{a|%s}{2N| Power: }{a|%s}
 Empires.format.citizen.withRank={%s}{7|(}{%s}{7|)}
 Empires.format.block.short={%s}
 Empires.format.admins={c|SERVER ADMINS}
@@ -301,259 +301,259 @@ Empires.format.rank.type.short={%s}
 
 # Notifications
 
-Empires.notification.block.added={6|[Empires] }{a|A New Chunk Was Added To Your Empire's Territory from (%s, %s) to (%s, %s)}{%s}
-Empires.notification.block.removed={6|[Empires] }{a|Territory From (%s, %s) to (%s, %s) Has Been Removed From Empire }{%s}
-Empires.notification.block.overclaimed={6|[Empires] }{a|Territory From (%s, %s) to (%s, %s) Has Been over-claimed From Empire }{%s}
-Empires.notification.plot.start={6|[Empires] }{3|Right click 2 corners with the Selector to create a plot. Use }{3o|"/Empire plot select reset"}{3| to reset selection}
-Empires.notification.plot.selectionStart={6|[Empires] }{9|First}{f| corner selected}
-Empires.notification.plot.selectionEnd={6|[Empires] }{9|Second}{f| corner selected}
-Empires.notification.plot.expanded={6|[Empires] }{a|The plot has been successfully expanded vertically}
-Empires.notification.plot.selectionReset={6|[Empires] }{a|Selection has successfully reset}
-Empires.notification.plot.created={6|[Empires] }{a|New plot created}
-Empires.notification.plot.deleted={6|[Empires] }{c|Plot }{%s}{c| has been deleted}
-Empires.notification.plot.limit={6|[Empires] }{3|Owned plots limit per citizen: %s}
-Empires.notification.plot.limit.set={6|[Empires] }{3|Plot limit has been set to %s}
-Empires.notification.Empire.left={6|[Empires] }{%s}{c| has left the Empire }{%s}
-Empires.notification.Empire.left.self={6|[Empires] }{a|You have }{c|left}{c| the Empire }{%s}
-Empires.notification.perm.success={6|[Empires] }{a|Flag successfully changed}
-Empires.notification.Empire.invited.refuse={6|[Empires] }{a|You've}{c| refused}{a| the invitation from Empire }{%s}
-Empires.notification.Empire.invited.accept={6|[Empires] }{a|You've}{a| accepted}{a| the invitation from Empire }{%s}
-Empires.notification.Empire.joined={6|[Empires] }{%s}{3| has}{a| joined}{3| the Empire }{%s}
-Empires.notification.Empire.invited={6|[Empires] }{a|You have been invited to Empire }{%s}{a|! }{3o| "/Empire accept" }{3|or }{3o| "/Empire refuse"}{3| to answer}
-Empires.notification.Empire.invite.sent={6|[Empires] }{a|The invitation was successfully sent}
-Empires.notification.Empire.setspawn={6|[Empires] }{a|Spawn has been set}
-Empires.notification.Empire.left.asLeader={6|[Empires] }{c|Before you leave you need to choose between deleting the Empire or passing leadership to other citizen:}{co| "/Empire pass <citizen>"}{c| or}{co| "/Empire leave delete"}
-Empires.notification.Empire.leaderShip.passed={6|[Empires] }{a|You have been promoted to Leader by the old Leader}
-Empires.notification.Empire.leaderShip.taken={6|[Empires] }{a|Your leadership has been taken, you've been demoted to the default rank}
-Empires.notification.Empire.delete={6|[Empires] }{c|Empire }{%s}{c| has been deleted by the Leader}
-Empires.notification.Empire.startedCreation={6|[Empires] }{2|Started creation of Empire }{2o|%s}{2|, wait a few seconds}
-Empires.notification.plot.renamed={6|[Empires] }{a|The plot has been successfully renamed}
-Empires.notification.plot.showing={6|[Empires] }{3|Plots are now showing borders.}{3| Use}{3o| "/Empire plot hide"}{3| in order to hide them}
-Empires.notification.plot.vanished={6|[Empires] }{3|Plots have been successfully hidden}
-Empires.notification.plot.owner.sender.added={6|[Empires] }{%s}{3| has been }{a|added}{3| as owner to plot }{%s}
-Empires.notification.plot.owner.target.added={6|[Empires] }{a|You have been added as owner to plot }{%s}
-Empires.notification.plot.member.sender.added={6|[Empires] }{%s}{3| has been }{a|added}{3| as member to plot }{%s}
-Empires.notification.plot.member.target.added={6|[Empires] }{a|You have been added as member to plot }{%s}
-Empires.notification.Empire.added={6|[Empires] }{a|You have been added to Empire }{%s}
-Empires.notification.Empire.ranks.add={6|[Empires] }{3|Rank }{%s}{3| has been added to Empire {%s}
-Empires.notification.db.purging={6|[Empires] }{3|The database has been purged}
-Empires.notification.db.reloaded={6|[Empires] }{3|The database has been reloaded into memory}
-Empires.notification.Empire.ranks.perm.remove={6|[Empires] }{a|The permission has been successfully }{c|removed}
-Empires.notification.perm.whitelist.start={6|[Empires] }{3|Right-Click a block to change its flag value, depending on what flag you chose, that flag will be changed for the block you selected.}
-Empires.notification.perm.Empire.whitelist.already={6|[Empires] }{3|Block whitelist already exists for that flag}
-Empires.notification.perm.Empire.whitelist.added={6|[Empires] }{a|The blocks was successfully added to whitelist for that flag}
-Empires.notification.friends.invitationSent={6|[Empires] }{a|Invitation has been sent}
-Empires.notification.friends.gotInvitation={6|[Empires] }{a|You've got a new friend invite from }{%s}
-Empires.notification.friends.removed={6|[Empires] }{a|Player has been removed from the friends list}
-Empires.notification.friends.gotRemoved={6|[Empires] }{3|You have been removed from the friends list of }{%s}
-Empires.notification.friends.accepted={6|[Empires] }{%s}{a| has accepted your invitation to be in the friends list of Empire}
-Empires.notification.friends.gotAccepted={6|[Empires] }{a|You have accepted }{%s}{a|'s friend invitation}
-Empires.notification.friends.refused={6|[Empires] }{%s}{a| has refused your invitation to be in the friends list of Empire}
-Empires.notification.friends.gotRefused={6|[Empires] }{c|You have refused }{%s}{c|'s friend invitation}
-Empires.notification.citizen.payment={6|[Empires] }{3|You have paid %s}
-Empires.notification.citizen.refund={6|[Empires] }{3|You have been refunded %s}
-Empires.notification.Empire.payment={6|[Empires] }{3|%s has been taken from the bank}
-Empires.notification.Empire.refund={6|[Empires] }{3|%s has been refunded to the bank}
-Empires.notification.plot.sender.removed={6|[Empires] }{c|%s has been removed from the plot}
-Empires.notification.plot.target.removed={6|[Empires] }{c|You have been removed from plot }{%s}
-Empires.notification.Empire.bank.info={6|[Empires] }{a|Bank balance: }{7|%s}{aN|Next payment: }{7|%s}
-Empires.notification.Empire.upkeep={6|[Empires] }{3|A new day is upon us, taxes have been collected}
-Empires.notification.Empire.upkeep.failed={6|[Empires] }{c|A new day has passed but the bank is out of money. %s days before Empire deletion}
-Empires.notification.Empire.blocks.extra.set={6|[Empires] }{3|The amount of extra claimable blocks has been set to %s for Empire }{%s}
-Empires.notification.Empire.blocks.farClaims.set={6|[Empires] }{3|The amount of extra far claims has been set to %s for Empire }{%s}
-Empires.notification.res.blocks.extra.set={6|[Empires] }{3|The amount of extra claimable blocks has been set to %s for citizen }{%s}
-Empires.notification.plot.buy.failed={6|[Empires] }{c|You don't have %s}
-Empires.notification.plot.buy.newOwner={6|[Empires] }{a|You have successfully bought plot }{%s}
-Empires.notification.plot.buy.oldOwner={6|[Empires] }{a|The plot }{%s}{a| has been successfully sold. %s has been sent to Empire bank}
-Empires.notification.plot.buy.alreadySold={6|[Empires] }{c|This plot was already sold and }{%s}{c| can't sell it again}
-Empires.notification.plot.sell.start={6|[Empires] }{3|Right click on a plot with the tool given to put the plot on sale}
-Empires.notification.Empire.renamed={6|[Empires] }{3|Empire has been renamed}
-Empires.notification.plot.enter={6|[Empires] }{2|~ }{%s}
-Empires.notification.plot.enter.unassigned={6|[Empires] }{c|Unassigned}
-Empires.notification.update.ranks={6|[Empires] }{a|Successfully updated all ranks}
-Empires.notification.Empire.ranks.rem={6|[Empires] }{3|Rank }{%s}{3| has been removed from Empire }{%s}
-Empires.notification.claim.chunkload={6|[Empires] }{3|This chunk has been successfully chunkloaded}
-Empires.notification.claim.chunkload.all={6|[Empires] }{3|Successfully chunkloaded all (}{a|%s}{3| chunks) in Empire}
-Empires.notification.claim.chunkunload={6|[Empires] }{3|Successfully removed chunkloading from this chunk}
-Empires.notification.claim.chunkunload.all={6|[Empires] }{3|Successfully removed chunkloading from all (}{a|%s}{3| chunks) in this Empire}
-Empires.notification.Empire.owners={6|[Empires] }{c| Owners: }{%s}
-Empires.notification.ciz.powerLostOnDeath={6|[Empires] }{c|You Have Lost }{d|%s }{c|Power Due To Death & Now Have }{d|%s }{c|Power Left}
+Empires.notification.block.added={6|[Empire] }{a|A New Chunk Was Added To Your Empire's Territory from (%s, %s) to (%s, %s)}{%s}
+Empires.notification.block.removed={6|[Empire] }{a|Territory From (%s, %s) to (%s, %s) Has Been Removed From Empire }{%s}
+Empires.notification.block.overclaimed={6|[Empire] }{a|Territory From (%s, %s) to (%s, %s) Has Been over-claimed From Empire }{%s}
+Empires.notification.plot.start={6|[Empire] }{3|Right click 2 corners with the Selector to create a plot. Use }{3o|"/empire plot select reset"}{3| to reset selection}
+Empires.notification.plot.selectionStart={6|[Empire] }{9|First}{f| corner selected}
+Empires.notification.plot.selectionEnd={6|[Empire] }{9|Second}{f| corner selected}
+Empires.notification.plot.expanded={6|[Empire] }{a|The plot has been successfully expanded vertically}
+Empires.notification.plot.selectionReset={6|[Empire] }{a|Selection has successfully reset}
+Empires.notification.plot.created={6|[Empire] }{a|New plot created}
+Empires.notification.plot.deleted={6|[Empire] }{c|Plot }{%s}{c| has been deleted}
+Empires.notification.plot.limit={6|[Empire] }{3|Owned plots limit per citizen: %s}
+Empires.notification.plot.limit.set={6|[Empire] }{3|Plot limit has been set to %s}
+Empires.notification.empire.left={6|[Empire] }{%s}{c| has left the empire }{%s}
+Empires.notification.empire.left.self={6|[Empire] }{a|You have }{c|left}{c| the empire }{%s}
+Empires.notification.perm.success={6|[Empire] }{a|Flag successfully changed}
+Empires.notification.empire.invited.refuse={6|[Empire] }{a|You've}{c| refused}{a| the invitation from empire }{%s}
+Empires.notification.empire.invited.accept={6|[Empire] }{a|You've}{a| accepted}{a| the invitation from empire }{%s}
+Empires.notification.empire.joined={6|[Empire] }{%s}{3| has}{a| joined}{3| the empire }{%s}
+Empires.notification.empire.invited={6|[Empire] }{a|You have been invited to empire }{%s}{a|! }{3o| "/empire accept" }{3|or }{3o| "/empire refuse"}{3| to answer}
+Empires.notification.empire.invite.sent={6|[Empire] }{a|The invitation was successfully sent}
+Empires.notification.empire.setspawn={6|[Empire] }{a|Spawn has been set}
+Empires.notification.empire.left.asLeader={6|[Empire] }{c|Before you leave you need to choose between deleting the empire or abdicating leadership to other citizen:}{co| "/empire abdicate <citizen>"}{c| or}{co| "/empire leave delete"}
+Empires.notification.empire.leaderShip.passed={6|[Empire] }{a|You have been promoted as the Leader by the old Leader}
+Empires.notification.empire.leaderShip.taken={6|[Empire] }{a|Your leadership has been taken, you've been demoted to the default rank}
+Empires.notification.empire.delete={6|[Empire] }{c|Empire }{%s}{c| has been deleted by the Leader}
+Empires.notification.empire.startedCreation={6|[Empire] }{2|Started creation of empire }{2o|%s}{2|, wait a few seconds}
+Empires.notification.plot.renamed={6|[Empire] }{a|The plot has been successfully renamed}
+Empires.notification.plot.showing={6|[Empire] }{3|Plots are now showing borders.}{3| Use}{3o| "/empire plot hide"}{3| in order to hide them}
+Empires.notification.plot.vanished={6|[Empire] }{3|Plots have been successfully hidden}
+Empires.notification.plot.owner.sender.added={6|[Empire] }{%s}{3| has been }{a|added}{3| as owner to plot }{%s}
+Empires.notification.plot.owner.target.added={6|[Empire] }{a|You have been added as owner to plot }{%s}
+Empires.notification.plot.member.sender.added={6|[Empire] }{%s}{3| has been }{a|added}{3| as member to plot }{%s}
+Empires.notification.plot.member.target.added={6|[Empire] }{a|You have been added as member to plot }{%s}
+Empires.notification.empire.added={6|[Empire] }{a|You have been added to empire }{%s}
+Empires.notification.empire.ranks.add={6|[Empire] }{3|Rank }{%s}{3| has been added to empire {%s}
+Empires.notification.db.purging={6|[Empire] }{3|The database has been purged}
+Empires.notification.db.reloaded={6|[Empire] }{3|The database has been reloaded into memory}
+Empires.notification.empire.ranks.perm.remove={6|[Empire] }{a|The permission has been successfully }{c|removed}
+Empires.notification.perm.whitelist.start={6|[Empire] }{3|Right-Click a block to change its flag value, depending on what flag you chose, that flag will be changed for the block you selected.}
+Empires.notification.perm.empire.whitelist.already={6|[Empire] }{3|Block whitelist already exists for that flag}
+Empires.notification.perm.empire.whitelist.added={6|[Empire] }{a|The blocks was successfully added to whitelist for that flag}
+Empires.notification.friends.invitationSent={6|[Empire] }{a|Invitation has been sent}
+Empires.notification.friends.gotInvitation={6|[Empire] }{a|You've got a new friend invite from }{%s}
+Empires.notification.friends.removed={6|[Empire] }{a|Player has been removed from the friends list}
+Empires.notification.friends.gotRemoved={6|[Empire] }{3|You have been removed from the friends list of }{%s}
+Empires.notification.friends.accepted={6|[Empire] }{%s}{a| has accepted your invitation to be in the friends list of empire}
+Empires.notification.friends.gotAccepted={6|[Empire] }{a|You have accepted }{%s}{a|'s friend invitation}
+Empires.notification.friends.refused={6|[Empire] }{%s}{a| has refused your invitation to be in the friends list of empire}
+Empires.notification.friends.gotRefused={6|[Empire] }{c|You have refused }{%s}{c|'s friend invitation}
+Empires.notification.citizen.payment={6|[Empire] }{3|You have paid %s}
+Empires.notification.citizen.refund={6|[Empire] }{3|You have been refunded %s}
+Empires.notification.empire.payment={6|[Empire] }{3|%s has been taken from the bank}
+Empires.notification.empire.refund={6|[Empire] }{3|%s has been refunded to the bank}
+Empires.notification.plot.sender.removed={6|[Empire] }{c|%s has been removed from the plot}
+Empires.notification.plot.target.removed={6|[Empire] }{c|You have been removed from plot }{%s}
+Empires.notification.empire.bank.info={6|[Empire] }{a|Bank balance: }{7|%s}{aN|Next payment: }{7|%s}
+Empires.notification.empire.upkeep={6|[Empire] }{3|A new day is upon us, taxes have been collected}
+Empires.notification.empire.upkeep.failed={6|[Empire] }{c|A new day has passed but the bank is out of money. %s days before empire deletion}
+Empires.notification.empire.blocks.extra.set={6|[Empire] }{3|The amount of extra claimable blocks has been set to %s for empire }{%s}
+Empires.notification.empire.blocks.farClaims.set={6|[Empire] }{3|The amount of extra far claims has been set to %s for empire }{%s}
+Empires.notification.res.blocks.extra.set={6|[Empire] }{3|The amount of extra claimable blocks has been set to %s for citizen }{%s}
+Empires.notification.plot.buy.failed={6|[Empire] }{c|You don't have %s}
+Empires.notification.plot.buy.newOwner={6|[Empire] }{a|You have successfully bought plot }{%s}
+Empires.notification.plot.buy.oldOwner={6|[Empire] }{a|The plot }{%s}{a| has been successfully sold. %s has been sent to empire bank}
+Empires.notification.plot.buy.alreadySold={6|[Empire] }{c|This plot was already sold and }{%s}{c| can't sell it again}
+Empires.notification.plot.sell.start={6|[Empire] }{3|Right click on a plot with the tool given to put the plot on sale}
+Empires.notification.empire.renamed={6|[Empire] }{3|Empire has been renamed}
+Empires.notification.plot.enter={6|[Empire] }{2|~ }{%s}
+Empires.notification.plot.enter.unassigned={6|[Empire] }{c|Unassigned}
+Empires.notification.update.ranks={6|[Empire] }{a|Successfully updated all ranks}
+Empires.notification.empire.ranks.rem={6|[Empire] }{3|Rank }{%s}{3| has been removed from empire }{%s}
+Empires.notification.claim.chunkload={6|[Empire] }{3|This chunk has been successfully chunkloaded}
+Empires.notification.claim.chunkload.all={6|[Empire] }{3|Successfully chunkloaded all (}{a|%s}{3| chunks) in empire}
+Empires.notification.claim.chunkunload={6|[Empire] }{3|Successfully removed chunkloading from this chunk}
+Empires.notification.claim.chunkunload.all={6|[Empire] }{3|Successfully removed chunkloading from all (}{a|%s}{3| chunks) in this empire}
+Empires.notification.empire.owners={6|[Empire] }{c| Owners: }{%s}
+Empires.notification.ciz.powerLostOnDeath={6|[Empire] }{d|%s }{c|Power Lost Upon Death, Remaining: }{d|%s }{c|Power}
 
 # Help for commands
-Empires.cmd.officer.blocks.help={6|[Empires] }{|Everything related to EmpireBlocks (chunks in Empire)}
-Empires.cmd.officer.overclaim.help={6|[Empires] }{|Allows a player to unclaim territory of another (weaker) Empire}
-Empires.cmd.officer.claim.help={6|[Empires] }{|Claims the chunk you are in}
-Empires.cmd.officer.invite.help={6|[Empires] }{|Invites a player to your Empire}
-Empires.cmd.everyone.perm.help={6|[Empires] }{|Everything related to protection}
-Empires.cmd.officer.perm.set.help={6|[Empires] }{|Sets a Empire's flag}
-Empires.cmd.officer.perm.toggle.help={6|[Empires] }{|Toggles a Empire's flag}
-Empires.cmd.officer.perm.whitelist.help={6|[Empires] }{|Makes a block/entity bypass a flag}
-Empires.cmd.officer.promote.help={6|[Empires] }{|Promotes a citizen to the specified rank}
-Empires.cmd.officer.ranks.add.help={6|[Empires] }{|Adds a rank to the Empire}
-Empires.cmd.officer.ranks.perm.help={6|[Empires] }{|Everything related to a rank's permissions}
-Empires.cmd.officer.ranks.perm.add.help={6|[Empires] }{|Adds a permission node to the rank}
-Empires.cmd.officer.ranks.perm.list.help={6|[Empires] }{|Lists all permission nodes of that rank}
-Empires.cmd.officer.ranks.perm.remove.help={6|[Empires] }{|Removes a permission node from a rank}
-Empires.cmd.officer.ranks.remove.help={6|[Empires] }{|Removes a rank}
-Empires.cmd.officer.setspawn.help={6|[Empires] }{|Sets the spawn of the Empire}
-Empires.cmd.officer.unclaim.help={6|[Empires] }{|Removes the claim of the chunk you are in}
-Empires.cmd.everyone.blocks.list.help={6|[Empires] }{|Lists all chunks that are part of the Empire}
-Empires.cmd.everyone.leave.help={6|[Empires] }{|Leave the Empire}
-Empires.cmd.everyone.plot.perm.help={6|[Empires] }{|Protections related to plots}
-Empires.cmd.everyone.plot.perm.list.help={6|[Empires] }{|Lists all flags and their values from the plot}
-Empires.cmd.everyone.plot.perm.set.help={6|[Empires] }{|Sets a plot's flag}
-Empires.cmd.everyone.plot.perm.toggle.help={6|[Empires] }{|Toggles a plot's flag}
-Empires.cmd.everyone.plot.perm.whitelist.help={6|[Empires] }{|Makes a block/entity bypass a flag of plot}
-Empires.cmd.everyone.perm.list.help={6|[Empires] }{|Lists all flags and their values from the Empire}
-Empires.cmd.everyone.plot.help={6|[Empires] }{|Everything related to plots}
-Empires.cmd.everyone.plot.add.help={6|[Empires] }{|Adds a player to the plot}
-Empires.cmd.everyone.plot.add.member.help={6|[Empires] }{|Adds a member to the plot}
-Empires.cmd.everyone.plot.add.owner.help={6|[Empires] }{|Adds an owner to the plot}
-Empires.cmd.everyone.plot.delete.help={6|[Empires] }{|Deletes a plot}
-Empires.cmd.everyone.plot.info.help={6|[Empires] }{|Gives info about the plot you are in}
-Empires.cmd.everyone.plot.make.help={6|[Empires] }{|Creates a plot from the selection made}
-Empires.cmd.everyone.plot.rename.help={6|[Empires] }{|Renames a plot}
-Empires.cmd.everyone.plot.select.help={6|[Empires] }{|Gives a 'selector' tool}
-Empires.cmd.everyone.plot.select.expand.help={6|[Empires] }{|Expands the selection}
-Empires.cmd.everyone.plot.select.reset.help={6|[Empires] }{|Resets the selection}
-Empires.cmd.everyone.plot.show.help={6|[Empires] }{|Visually shows all plots}
-Empires.cmd.everyone.plot.hide.help={6|[Empires] }{|Visually hides all plots}
-Empires.cmd.everyone.ranks.help={6|[Empires] }{|Everything related to ranks}
-Empires.cmd.everyone.ranks.list.help={6|[Empires] }{|Lists all ranks from the Empire}
-Empires.cmd.everyone.select.help={6|[Empires] }{|Selects a Empire which you are citizen of}
-Empires.cmd.everyone.spawn.help={6|[Empires] }{|Teleports the player to Empire's spawn}
-Empires.cmd.outsider.accept.help={6|[Empires] }{|Accepts the invitation to join a Empire}
-Empires.cmd.outsider.friends.help={6|[Empires] }{|Everything related to friends}
-Empires.cmd.outsider.friends.accept.help={6|[Empires] }{|Accepts a friend request}
-Empires.cmd.outsider.friends.add.help={6|[Empires] }{|Sends a friend request}
-Empires.cmd.outsider.friends.list.help={6|[Empires] }{|Lists all friends}
-Empires.cmd.outsider.friends.refuse.help={6|[Empires] }{|Refuses a friend request}
-Empires.cmd.outsider.friends.remove.help={6|[Empires] }{|Removes a friend}
-Empires.cmd.outsider.info.help={6|[Empires] }{|Gives info about a Empire}
-Empires.cmd.outsider.list.help={6|[Empires] }{|Lists all Empires}
-Empires.cmd.outsider.map.help={6|[Empires] }{|Gives a map of the nearby claimed chunks}
-Empires.cmd.outsider.new.help={6|[Empires] }{|Makes a new Empire}
-Empires.cmd.outsider.refuse.help={6|[Empires] }{|Refuses an invitation from a Empire}
-Empires.cmd.outsider.help.help={6|[Empires] }{|Gives help about commands}
-Empires.cmd.outsider.invites.help={6|[Empires] }{|Shows all the invites from Empires}
-Empires.cmd.leader.pass.help={6|[Empires] }{|Passes leadership to someone else in the Empire}
-Empires.cmd.officer.kick.help={6|[Empires] }{|Removes the citizen from the Empire}
-Empires.cmd.officer.plot.limit.help={6|[Empires] }{|Limit of how many plots a player can be owner of}
-Empires.cmd.officer.plot.limit.set.help={6|[Empires] }{|Sets how many plots can a player be owner of}
-Empires.cmd.officer.plot.limit.show.help={6|[Empires] }{|Shows how many plots can a player be owner of}
-Empires.cmd.outsider.res.help={6|[Empires] }{|Shows information about citizens}
-Empires.cmd.everyone.borders.help={6|[Empires] }{|Information about borders of the Empire}
-Empires.cmd.everyone.borders.show.help={6|[Empires] }{|Visually shows the Empire borders}
-Empires.cmd.everyone.borders.hide.help={6|[Empires] }{|Visually hides the Empire borders}
-Empires.cmd.everyone.bank.help={6|[Empires] }{|Everything about the money in the Empire}
-Empires.cmd.everyone.bank.pay.help={6|[Empires] }{|Gives money to the Empire's bank}
-Empires.cmd.everyone.bank.info.help={6|[Empires] }{|Shows information about the Empire's bank}
-Empires.cmd.everyone.wild.help={6|[Empires] }{|Shows information about the Wilderness}
-Empires.cmd.everyone.blocks.help={6|[Empires] }{|Shows information about the blocks claimed}
-Empires.cmd.everyone.plot.sell.help={6|[Empires] }{|Puts plots to sale}
-Empires.cmd.everyone.plot.remove.help={6|[Empires] }{|Remove members or owners from the plot}
-Empires.cmd.leader.leave.delete.help={6|[Empires] }{|Deletes the Empire}
-Empires.cmd.officer.rename.help={6|[Empires] }{|Renames the Empire}
-Empires.cmd.everyone.plot.new.help={6|[Empires] }{|Creates new plot}
-Empires.cmd.everyone.wild.perm.help={6|[Empires] }{|Shows the wilderness permissions}
-Empires.cmd.officer.bank.withdraw.help={6|[Empires] }{|Withdraws money from the Empire bank into your wallet}
-Empires.cmd.officer.ranks.reset.help={6|[Empires] }{|Resets all ranks to their initial state. Deletes all extra ranks.}
-Empires.cmd.outsider.syntax.help={6|[Empires] }{|Shows the syntax of a command}
-Empires.cmd.outsider.prices.help={6|[Empires] }{|Shows prices of everything in Empires}
-Empires.cmd.everyone.bank.deposit.help={6|[Empires] }{|Deposits currency in the bank}
-Empires.cmd.officer.ranks.set.help={6|[Empires] }{|Sets the type of a rank}
-Empires.cmd.everyone.blocks.info.help={6|[Empires] }{|Shows information about the Territory}
-Empires.cmd.officer.claim.chunkunload.help={6|[Empires] }{|Removes chunkloading from the chunk you're standing in}
-Empires.cmd.officer.claim.chunkunload.all.help={6|[Empires] }{|Removes chunkloading from all the chunks of the Empire}
-Empires.cmd.officer.claim.chunkload.help={6|[Empires] }{|Chunkloads the chunk you're standing in}
-Empires.cmd.officer.claim.chunkload.all.help={6|[Empires] }{|Chunkloads all the chunks from the Empire}
+Empires.cmd.officer.blocks.help={6|[Empire] }{|Everything related to EmpireBlocks (chunks in empire)}
+Empires.cmd.officer.overclaim.help={6|[Empire] }{|Allows a player to un-claim territory of another (weaker) Empire}
+Empires.cmd.officer.claim.help={6|[Empire] }{|Claims the chunk you are in}
+Empires.cmd.officer.invite.help={6|[Empire] }{|Invites a player to your empire}
+Empires.cmd.everyone.perm.help={6|[Empire] }{|Everything related to protection}
+Empires.cmd.officer.perm.set.help={6|[Empire] }{|Sets a Empire's flag}
+Empires.cmd.officer.perm.toggle.help={6|[Empire] }{|Toggles a Empire's flag}
+Empires.cmd.officer.perm.whitelist.help={6|[Empire] }{|Makes a block/entity bypass a flag}
+Empires.cmd.officer.promote.help={6|[Empire] }{|Promotes a citizen to the specified rank}
+Empires.cmd.officer.ranks.add.help={6|[Empire] }{|Adds a rank to the Empire}
+Empires.cmd.officer.ranks.perm.help={6|[Empire] }{|Everything related to a rank's permissions}
+Empires.cmd.officer.ranks.perm.add.help={6|[Empire] }{|Adds a permission node to the rank}
+Empires.cmd.officer.ranks.perm.list.help={6|[Empire] }{|Lists all permission nodes of that rank}
+Empires.cmd.officer.ranks.perm.remove.help={6|[Empire] }{|Removes a permission node from a rank}
+Empires.cmd.officer.ranks.remove.help={6|[Empire] }{|Removes a rank}
+Empires.cmd.officer.setspawn.help={6|[Empire] }{|Sets the spawn of the Empire}
+Empires.cmd.officer.unclaim.help={6|[Empire] }{|Removes the claim of the chunk you are in}
+Empires.cmd.everyone.blocks.list.help={6|[Empire] }{|Lists all chunks that are part of the Empire}
+Empires.cmd.everyone.leave.help={6|[Empire] }{|Leave the empire}
+Empires.cmd.everyone.plot.perm.help={6|[Empire] }{|Protections related to plots}
+Empires.cmd.everyone.plot.perm.list.help={6|[Empire] }{|Lists all flags and their values from the plot}
+Empires.cmd.everyone.plot.perm.set.help={6|[Empire] }{|Sets a plot's flag}
+Empires.cmd.everyone.plot.perm.toggle.help={6|[Empire] }{|Toggles a plot's flag}
+Empires.cmd.everyone.plot.perm.whitelist.help={6|[Empire] }{|Makes a block/entity bypass a flag of plot}
+Empires.cmd.everyone.perm.list.help={6|[Empire] }{|Lists all flags and their values from the Empire}
+Empires.cmd.everyone.plot.help={6|[Empire] }{|Everything related to plots}
+Empires.cmd.everyone.plot.add.help={6|[Empire] }{|Adds a player to the plot}
+Empires.cmd.everyone.plot.add.member.help={6|[Empire] }{|Adds a member to the plot}
+Empires.cmd.everyone.plot.add.owner.help={6|[Empire] }{|Adds an owner to the plot}
+Empires.cmd.everyone.plot.delete.help={6|[Empire] }{|Deletes a plot}
+Empires.cmd.everyone.plot.info.help={6|[Empire] }{|Gives info about the plot you are in}
+Empires.cmd.everyone.plot.make.help={6|[Empire] }{|Creates a plot from the selection made}
+Empires.cmd.everyone.plot.rename.help={6|[Empire] }{|Renames a plot}
+Empires.cmd.everyone.plot.select.help={6|[Empire] }{|Gives a 'selector' tool}
+Empires.cmd.everyone.plot.select.expand.help={6|[Empire] }{|Expands the selection}
+Empires.cmd.everyone.plot.select.reset.help={6|[Empire] }{|Resets the selection}
+Empires.cmd.everyone.plot.show.help={6|[Empire] }{|Visually shows all plots}
+Empires.cmd.everyone.plot.hide.help={6|[Empire] }{|Visually hides all plots}
+Empires.cmd.everyone.ranks.help={6|[Empire] }{|Everything related to ranks}
+Empires.cmd.everyone.ranks.list.help={6|[Empire] }{|Lists all ranks from the Empire}
+Empires.cmd.everyone.select.help={6|[Empire] }{|Selects a empire which you are citizen of}
+Empires.cmd.everyone.spawn.help={6|[Empire] }{|Teleports the player to empire's spawn}
+Empires.cmd.outsider.accept.help={6|[Empire] }{|Accepts the invitation to join a empire}
+Empires.cmd.outsider.friends.help={6|[Empire] }{|Everything related to friends}
+Empires.cmd.outsider.friends.accept.help={6|[Empire] }{|Accepts a friend request}
+Empires.cmd.outsider.friends.add.help={6|[Empire] }{|Sends a friend request}
+Empires.cmd.outsider.friends.list.help={6|[Empire] }{|Lists all friends}
+Empires.cmd.outsider.friends.refuse.help={6|[Empire] }{|Refuses a friend request}
+Empires.cmd.outsider.friends.remove.help={6|[Empire] }{|Removes a friend}
+Empires.cmd.outsider.info.help={6|[Empire] }{|Gives info about a empire}
+Empires.cmd.outsider.list.help={6|[Empire] }{|Lists all empires}
+Empires.cmd.outsider.map.help={6|[Empire] }{|Gives a map of the nearby claimed chunks}
+Empires.cmd.outsider.new.help={6|[Empire] }{|Makes a new empire}
+Empires.cmd.outsider.refuse.help={6|[Empire] }{|Refuses an invitation from a empire}
+Empires.cmd.outsider.help.help={6|[Empire] }{|Gives help about commands}
+Empires.cmd.outsider.invites.help={6|[Empire] }{|Shows all the invites from empires}
+Empires.cmd.leader.pass.help={6|[Empire] }{|Passes leadership to someone else in the empire}
+Empires.cmd.officer.kick.help={6|[Empire] }{|Removes the citizen from the empire}
+Empires.cmd.officer.plot.limit.help={6|[Empire] }{|Limit of how many plots a player can be owner of}
+Empires.cmd.officer.plot.limit.set.help={6|[Empire] }{|Sets how many plots can a player be owner of}
+Empires.cmd.officer.plot.limit.show.help={6|[Empire] }{|Shows how many plots can a player be owner of}
+Empires.cmd.outsider.res.help={6|[Empire] }{|Shows information about citizens}
+Empires.cmd.everyone.borders.help={6|[Empire] }{|Information about borders of the empire}
+Empires.cmd.everyone.borders.show.help={6|[Empire] }{|Visually shows the empire borders}
+Empires.cmd.everyone.borders.hide.help={6|[Empire] }{|Visually hides the empire borders}
+Empires.cmd.everyone.bank.help={6|[Empire] }{|Everything about the money in the empire}
+Empires.cmd.everyone.bank.pay.help={6|[Empire] }{|Gives money to the empire's bank}
+Empires.cmd.everyone.bank.info.help={6|[Empire] }{|Shows information about the empire's bank}
+Empires.cmd.everyone.wild.help={6|[Empire] }{|Shows information about the Wild}
+Empires.cmd.everyone.blocks.help={6|[Empire] }{|Shows information about the blocks claimed}
+Empires.cmd.everyone.plot.sell.help={6|[Empire] }{|Puts plots to sale}
+Empires.cmd.everyone.plot.remove.help={6|[Empire] }{|Remove members or owners from the plot}
+Empires.cmd.leader.leave.delete.help={6|[Empire] }{|Deletes the Empire}
+Empires.cmd.officer.rename.help={6|[Empire] }{|Renames the Empire}
+Empires.cmd.everyone.plot.new.help={6|[Empire] }{|Creates new plot}
+Empires.cmd.everyone.wild.perm.help={6|[Empire] }{|Shows the wilderness permissions}
+Empires.cmd.officer.bank.withdraw.help={6|[Empire] }{|Withdraws money from the empire bank into your wallet}
+Empires.cmd.officer.ranks.reset.help={6|[Empire] }{|Resets all ranks to their initial state. Deletes all extra ranks.}
+Empires.cmd.outsider.syntax.help={6|[Empire] }{|Shows the syntax of a command}
+Empires.cmd.outsider.prices.help={6|[Empire] }{|Shows prices of everything in Empires}
+Empires.cmd.everyone.bank.deposit.help={6|[Empire] }{|Deposits currency in the bank}
+Empires.cmd.officer.ranks.set.help={6|[Empire] }{|Sets the type of a rank}
+Empires.cmd.everyone.blocks.info.help={6|[Empire] }{|Shows information about the Territory}
+Empires.cmd.officer.claim.chunkunload.help={6|[Empire] }{|Removes chunkloading from the chunk you're standing in}
+Empires.cmd.officer.claim.chunkunload.all.help={6|[Empire] }{|Removes chunkloading from all the chunks of the empire}
+Empires.cmd.officer.claim.chunkload.help={6|[Empire] }{|Chunkloads the chunk you're standing in}
+Empires.cmd.officer.claim.chunkload.all.help={6|[Empire] }{|Chunkloads all the chunks from the empire}
 
-Empires.adm.cmd.config.help={6|[Empires] }{|Everything About The Configurations}
-Empires.adm.cmd.config.reload.help={6|[Empires] }{|Reloads the Configuration}
-Empires.adm.cmd.add.help={6|[Empires] }{|Adds a player to a specified Empire with the specified rank}
-Empires.adm.cmd.delete.help={6|[Empires] }{|Deletes an Empire}
-Empires.adm.cmd.new.help={6|[Empires] }{|Creates an AdminEmpire}
-Empires.adm.cmd.safemode.help={6|[Empires] }{|Sets the server to safemode}
-Empires.adm.cmd.db.help={6|[Empires] }{|Everything related to the database}
-Empires.adm.cmd.db.purge.help={6|[Empires] }{|Deletes everything from the database}
-Empires.adm.cmd.db.reload.help={6|[Empires] }{|Reloads everything from the database}
-Empires.adm.cmd.perm.help={6|[Empires] }{|Everything related to flags}
-Empires.adm.cmd.perm.Empire.help={6|[Empires] }{|Everything related to a Empire's flags}
-Empires.adm.cmd.perm.Empire.list.help={6|[Empires] }{|Lists all flags and their values of a Empire}
-Empires.adm.cmd.perm.Empire.set.help={6|[Empires] }{|Sets a Empire's flag}
-Empires.adm.cmd.perm.Empire.toggle.help={6|[Empires] }{|Toggles a Empire's flag}
-Empires.adm.cmd.perm.Empire.whitelist.help={6|[Empires] }{|Makes a block/entity bypass a flag of a Empire}
-Empires.adm.cmd.perm.wild.help={6|[Empires] }{|Everything related to wilderness flags}
-Empires.adm.cmd.perm.wild.list.help={6|[Empires] }{|Lists all flags and their values of the wilderness}
-Empires.adm.cmd.perm.wild.set.help={6|[Empires] }{|Sets a wilderness flag}
-Empires.adm.cmd.perm.wild.toggle.help={6|[Empires] }{|Toggles a wilderness flag}
-Empires.adm.cmd.claim.help={6|[Empires] }{|Claims a chunk for a Empire}
-Empires.adm.cmd.unclaim.help={6|[Empires] }{|Removes a chunked claim from a Empire}
-Empires.adm.cmd.help.help={6|[Empires] }{|Gives all help about the admin commands}
-Empires.adm.cmd.cost.help={6|[Empires] }{|Information about the cost item}
-Empires.adm.cmd.cost.itemname.help={6|[Empires] }{|The name that can be used in config as the cost item}
-Empires.adm.cmd.debug.help={6|[Empires] }{|Debug options and tools for protection making}
-Empires.adm.cmd.debug.itemClass.help={6|[Empires] }{|Gives information about the class}
-Empires.adm.cmd.res.help={6|[Empires] }{|Everything about a citizen}
-Empires.adm.cmd.res.blocks.help={6|[Empires] }{|Shows information about the territory of a citizen}
-Empires.adm.cmd.res.blocks.extra.help={6|[Empires] }{|Shows information about the extra territory of a citizen}
-Empires.adm.cmd.res.blocks.extra.set.help={6|[Empires] }{|Sets the extra amount of territory for a citizen}
-Empires.adm.cmd.res.blocks.extra.add.help={6|[Empires] }{|Adds to the the extra amount of territory for a citizen}
-Empires.adm.cmd.res.blocks.extra.remove.help={6|[Empires] }{|Subtracts from the extra amount of territory for a citizen}
-Empires.adm.cmd.Empire.help={6|[Empires] }{|Everything about a Empire}
-Empires.adm.cmd.blocks.help={6|[Empires] }{|Shows information about the blocks in a Empire}
-Empires.adm.cmd.blocks.extra.help={6|[Empires] }{|Shows information about the extra territory}
-Empires.adm.cmd.blocks.extra.set.help={6|[Empires] }{|Sets the extra amount of territory for a Empire}
-Empires.adm.cmd.blocks.extra.add.help={6|[Empires] }{|Adds to the extra amount of territory for a Empire}
-Empires.adm.cmd.blocks.extra.remove.help={6|[Empires] }{|Subtracts from the extra amount of blocks for a Empire}
-Empires.adm.cmd.blocks.farClaims.help={6|[Empires] }{|Shows information about the far claims}
-Empires.adm.cmd.blocks.farClaims.set.help={6|[Empires] }{|Sets the extra far claims for a Empire}
-Empires.adm.cmd.blocks.farClaims.add.help={6|[Empires] }{|Adds to the extra far claims of a Empire}
-Empires.adm.cmd.blocks.farClaims.remove.help={6|[Empires] }{|Subtracts from the extra far claims of a Empire}
-Empires.adm.cmd.debug.itemClass.help={6|[Empires] }{|Shows information about the class of the held item}
-Empires.adm.cmd.borders.help={6|[Empires] }{|Information about borders of a Empire}
-Empires.adm.cmd.borders.show.help={6|[Empires] }{|Visually shows the Empire borders}
-Empires.adm.cmd.borders.hide.help={6|[Empires] }{|Visually hides all the Empire borders}
-Empires.adm.cmd.plot.help={6|[Empires] }{|Everything related to plots}
-Empires.adm.cmd.plot.show.help={6|[Empires] }{|Visually shows all plots in a Empire}
-Empires.adm.cmd.plot.hide.help={6|[Empires] }{|Visually hides all plots}
-Empires.adm.cmd.config.reload.help={6|[Empires] }{|Reloads all the configuration files, including protections}
-Empires.adm.cmd.rename.help={6|[Empires] }{|Renames the Empire}
-Empires.adm.cmd.debug.item.help={6|[Empires] }{|Shows class hierarchy information about the item}
-Empires.adm.cmd.plot.add.help={6|[Empires] }{|Adds an owner/member to the plot}
-Empires.adm.cmd.plot.rename.help={6|[Empires] }{|Renames the plot}
-Empires.adm.cmd.plot.info.help={6|[Empires] }{|Shows info about the plot}
-Empires.adm.cmd.plot.remove.help={6|[Empires] }{|Removes an owner/member from the plot}
-Empires.adm.cmd.plot.delete.help={6|[Empires] }{|Deletes the plot}
-Empires.adm.cmd.plot.add.owner.help={6|[Empires] }{|Adds a player with owner permissions to the plot}
-Empires.adm.cmd.plot.add.member.help={6|[Empires] }{|Adds a player with normal permissions to the plot}
-Empires.adm.cmd.plot.perm.help={6|[Empires] }{|Everything related to plot flags}
-Empires.adm.cmd.plot.perm.set.help={6|[Empires] }{|Sets a plot's flag}
-Empires.adm.cmd.plot.perm.toggle.help={6|[Empires] }{|Toggles a plot's flag}
-Empires.adm.cmd.plot.perm.list.help={6|[Empires] }{|Shows all the flags and their current values of a plot}
-Empires.adm.cmd.ranks.help={6|[Empires] }{|Everything related to ranks}
-Empires.adm.cmd.ranks.reset.help={6|[Empires] }{|Resets the ranks in a Empire to their default settings}
-Empires.adm.cmd.ranks.add.help={6|[Empires] }{|Adds a rank to the Empire}
-Empires.adm.cmd.ranks.perm.help={6|[Empires] }{|Everything related to permission nodes in a rank}
-Empires.adm.cmd.ranks.perm.list.help={6|[Empires] }{|Lists the permission nodes in a rank}
-Empires.adm.cmd.ranks.perm.remove.help={6|[Empires] }{|Removes a permission node from a rank}
-Empires.adm.cmd.ranks.perm.add.help={6|[Empires] }{|Adds a permission node to a rank}
-Empires.adm.cmd.ranks.set.help={6|[Empires] }{|Sets the type of a rank}
-Empires.adm.cmd.ranks.remove.help={6|[Empires] }{|Removes a rank from a Empire}
-Empires.adm.cmd.kick.help={6|[Empires] }{|Removes a player from a Empire}
-Empires.adm.cmd.syntax.help={6|[Empires] }{|Shows the syntax of a command}
-Empires.adm.cmd.blocks.far.help={6|[Empires] }{|Everything related to far claims in a Empire}
-Empires.adm.cmd.blocks.far.add.help={6|[Empires] }{|Adds to the extra amount of far claims a Empire can have}
-Empires.adm.cmd.blocks.far.remove.help={6|[Empires] }{|Removes from the extra amount of far claims a Empire can have}
-Empires.adm.cmd.blocks.far.set.help={6|[Empires] }{|Sets the extra amount of far claims a Empire can have}
-Empires.adm.cmd.config.reset.help={6|[Empires] }{|Resets a config to its default state (same as deleting and restarting the server)}
-Empires.adm.cmd.config.reset.wildPerms.help={6|[Empires] }{|Resets the WildPerms.json file}
-Empires.adm.cmd.config.reset.defaultRanks.help={6|[Empires] }{|Resets the DefaultEmpireRanks.json file}
-Empires.adm.cmd.config.reset.defaultFlags.help={6|[Empires] }{|Resets the DefaultFlags.json file}
-Empires.adm.cmd.spawn.help={6|[Empires] }{|Teleports the player to Empire's spawn}
-Empires.adm.cmd.update.help={6|[Empires] }{|Everything related to updating information in database}
-Empires.adm.cmd.update.ranks.help={6|[Empires] }{|Updates all the ranks in all the Empires}
-Empires.adm.cmd.blocks.info.help={6|[Empires] }{|Shows information about the Empire's Territory}
-Empires.adm.cmd.claim.chunkunload.help={6|[Empires] }{|Removes chunkloading from the chunk you're standing in}
-Empires.adm.cmd.claim.chunkunload.all.help={6|[Empires] }{|Removes chunkloading from all the chunks of a given Empire}
-Empires.adm.cmd.claim.chunkload.help={6|[Empires] }{|Chunkloads the chunk you're standing in}
+Empires.adm.cmd.config.help={6|[Empire] }{|Everything about the configurations}
+Empires.adm.cmd.config.reload.help={6|[Empire] }{|Reloads the configuration}
+Empires.adm.cmd.add.help={6|[Empire] }{|Adds a player to a specified empire with the specified rank}
+Empires.adm.cmd.delete.help={6|[Empire] }{|Deletes a empire}
+Empires.adm.cmd.new.help={6|[Empire] }{|Creates an AdminEmpire}
+Empires.adm.cmd.safemode.help={6|[Empire] }{|Sets the server to safemode}
+Empires.adm.cmd.db.help={6|[Empire] }{|Everything related to the database}
+Empires.adm.cmd.db.purge.help={6|[Empire] }{|Deletes everything from the database}
+Empires.adm.cmd.db.reload.help={6|[Empire] }{|Reloads everything from the database}
+Empires.adm.cmd.perm.help={6|[Empire] }{|Everything related to flags}
+Empires.adm.cmd.perm.empire.help={6|[Empire] }{|Everything related to a empire's flags}
+Empires.adm.cmd.perm.empire.list.help={6|[Empire] }{|Lists all flags and their values of a empire}
+Empires.adm.cmd.perm.empire.set.help={6|[Empire] }{|Sets a empire's flag}
+Empires.adm.cmd.perm.empire.toggle.help={6|[Empire] }{|Toggles a Empire's flag}
+Empires.adm.cmd.perm.empire.whitelist.help={6|[Empire] }{|Makes a block/entity bypass a flag of a empire}
+Empires.adm.cmd.perm.wild.help={6|[Empire] }{|Everything related to wilderness flags}
+Empires.adm.cmd.perm.wild.list.help={6|[Empire] }{|Lists all flags and their values of the Wilderness}
+Empires.adm.cmd.perm.wild.set.help={6|[Empire] }{|Sets a wilderness flag}
+Empires.adm.cmd.perm.wild.toggle.help={6|[Empire] }{|Toggles a wilderness flag}
+Empires.adm.cmd.claim.help={6|[Empire] }{|Claims a chunk for a empire}
+Empires.adm.cmd.unclaim.help={6|[Empire] }{|Removes a chunked claim from an Empire}
+Empires.adm.cmd.help.help={6|[Empire] }{|Gives all help about the administrator commands}
+Empires.adm.cmd.cost.help={6|[Empire] }{|Information about the cost item}
+Empires.adm.cmd.cost.itemname.help={6|[Empire] }{|The name that can be used in configuration as the cost item}
+Empires.adm.cmd.debug.help={6|[Empire] }{|Debug options and tools for protection making}
+Empires.adm.cmd.debug.itemClass.help={6|[Empire] }{|Gives information about the class}
+Empires.adm.cmd.res.help={6|[Empire] }{|Everything about a citizen}
+Empires.adm.cmd.res.blocks.help={6|[Empire] }{|Shows information about the territory of a citizen}
+Empires.adm.cmd.res.blocks.extra.help={6|[Empire] }{|Shows information about the extra territory of a Citizen}
+Empires.adm.cmd.res.blocks.extra.set.help={6|[Empire] }{|Sets the extra amount of territory for a Citizen}
+Empires.adm.cmd.res.blocks.extra.add.help={6|[Empire] }{|Adds to the the extra amount of territory for a Citizen}
+Empires.adm.cmd.res.blocks.extra.remove.help={6|[Empire] }{|Subtracts from the extra amount of territory for a Citizen}
+Empires.adm.cmd.empire.help={6|[Empire] }{|Everything about an Empire}
+Empires.adm.cmd.blocks.help={6|[Empire] }{|Shows information about the blocks in an Empire}
+Empires.adm.cmd.blocks.extra.help={6|[Empire] }{|Shows information about the Empire's extra territory}
+Empires.adm.cmd.blocks.extra.set.help={6|[Empire] }{|Sets the extra amount of territory for a Empire}
+Empires.adm.cmd.blocks.extra.add.help={6|[Empire] }{|Adds to the extra amount of territory for a Empire}
+Empires.adm.cmd.blocks.extra.remove.help={6|[Empire] }{|Subtracts from the extra amount of blocks for a Empire}
+Empires.adm.cmd.blocks.farClaims.help={6|[Empire] }{|Shows information about the far claims}
+Empires.adm.cmd.blocks.farClaims.set.help={6|[Empire] }{|Sets the extra far claims for a Empire}
+Empires.adm.cmd.blocks.farClaims.add.help={6|[Empire] }{|Adds to the extra far claims of a Empire}
+Empires.adm.cmd.blocks.farClaims.remove.help={6|[Empire] }{|Subtracts from the extra far claims of a Empire}
+Empires.adm.cmd.debug.itemClass.help={6|[Empire] }{|Shows information about the class of the held item}
+Empires.adm.cmd.borders.help={6|[Empire] }{|Information about borders of a Empire}
+Empires.adm.cmd.borders.show.help={6|[Empire] }{|Visually shows the empire borders}
+Empires.adm.cmd.borders.hide.help={6|[Empire] }{|Visually hides all the Empire borders}
+Empires.adm.cmd.plot.help={6|[Empire] }{|Everything related to plots}
+Empires.adm.cmd.plot.show.help={6|[Empire] }{|Visually shows all plots in a Empire}
+Empires.adm.cmd.plot.hide.help={6|[Empire] }{|Visually hides all plots}
+Empires.adm.cmd.config.reload.help={6|[Empire] }{|Reloads all the config files, including protections}
+Empires.adm.cmd.rename.help={6|[Empire] }{|Renames the empire}
+Empires.adm.cmd.debug.item.help={6|[Empire] }{|Shows class hierarchy information about the item}
+Empires.adm.cmd.plot.add.help={6|[Empire] }{|Adds an owner/member to the plot}
+Empires.adm.cmd.plot.rename.help={6|[Empire] }{|Renames the plot}
+Empires.adm.cmd.plot.info.help={6|[Empire] }{|Shows info about the plot}
+Empires.adm.cmd.plot.remove.help={6|[Empire] }{|Removes an owner/member from the plot}
+Empires.adm.cmd.plot.delete.help={6|[Empire] }{|Deletes the plot}
+Empires.adm.cmd.plot.add.owner.help={6|[Empire] }{|Adds a player with owner permissions to the plot}
+Empires.adm.cmd.plot.add.member.help={6|[Empire] }{|Adds a player with normal permissions to the plot}
+Empires.adm.cmd.plot.perm.help={6|[Empire] }{|Everything related to plot flags}
+Empires.adm.cmd.plot.perm.set.help={6|[Empire] }{|Sets a plot's flag}
+Empires.adm.cmd.plot.perm.toggle.help={6|[Empire] }{|Toggles a plot's flag}
+Empires.adm.cmd.plot.perm.list.help={6|[Empire] }{|Shows all the flags and their current values of a plot}
+Empires.adm.cmd.ranks.help={6|[Empire] }{|Everything related to ranks}
+Empires.adm.cmd.ranks.reset.help={6|[Empire] }{|Resets the ranks in a Empire to their default settings}
+Empires.adm.cmd.ranks.add.help={6|[Empire] }{|Adds a rank to the Empire}
+Empires.adm.cmd.ranks.perm.help={6|[Empire] }{|Everything related to permission nodes in a rank}
+Empires.adm.cmd.ranks.perm.list.help={6|[Empire] }{|Lists the permission nodes in a rank}
+Empires.adm.cmd.ranks.perm.remove.help={6|[Empire] }{|Removes a permission node from a rank}
+Empires.adm.cmd.ranks.perm.add.help={6|[Empire] }{|Adds a permission node to a rank}
+Empires.adm.cmd.ranks.set.help={6|[Empire] }{|Sets the type of a rank}
+Empires.adm.cmd.ranks.remove.help={6|[Empire] }{|Removes a rank from a Empire}
+Empires.adm.cmd.kick.help={6|[Empire] }{|Removes a player from a Empire}
+Empires.adm.cmd.syntax.help={6|[Empire] }{|Shows the syntax of a command}
+Empires.adm.cmd.blocks.far.help={6|[Empire] }{|Everything related to far claims in a Empire}
+Empires.adm.cmd.blocks.far.add.help={6|[Empire] }{|Adds to the extra amount of far claims a empire can have}
+Empires.adm.cmd.blocks.far.remove.help={6|[Empire] }{|Removes from the extra amount of far claims a empire can have}
+Empires.adm.cmd.blocks.far.set.help={6|[Empire] }{|Sets the extra amount of far claims a Empire can have}
+Empires.adm.cmd.config.reset.help={6|[Empire] }{|Resets a configuration to its default state (same as deleting and restarting the server)}
+Empires.adm.cmd.config.reset.wildPerms.help={6|[Empire] }{|Resets the WildPerms.json file}
+Empires.adm.cmd.config.reset.defaultRanks.help={6|[Empire] }{|Resets the DefaultEmpireRanks.json file}
+Empires.adm.cmd.config.reset.defaultFlags.help={6|[Empire] }{|Resets the DefaultFlags.json file}
+Empires.adm.cmd.spawn.help={6|[Empire] }{|Teleports the player to Empire's spawn}
+Empires.adm.cmd.update.help={6|[Empire] }{|Everything related to updating information in database}
+Empires.adm.cmd.update.ranks.help={6|[Empire] }{|Updates all the ranks in all the empires}
+Empires.adm.cmd.blocks.info.help={6|[Empire] }{|Shows information about the Empire's Territory}
+Empires.adm.cmd.claim.chunkunload.help={6|[Empire] }{|Removes chunkloading from the chunk you're standing in}
+Empires.adm.cmd.claim.chunkunload.all.help={6|[Empire] }{|Removes chunkloading from all the chunks of a given empire}
+Empires.adm.cmd.claim.chunkload.help={6|[Empire] }{|Chunkloads the chunk you're standing in}

@@ -10,7 +10,7 @@ import java.util.List;
  * Extend this and add to it all the DBUpdates you want.
  * This has been isolated because of the amount of lines the updates can have.
  */
-public abstract class Schema {
+public abstract class BaseSchematic {
 
     protected List<DBUpdate> updates = new ArrayList<DBUpdate>();
 

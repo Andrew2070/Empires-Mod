@@ -78,7 +78,10 @@ public class CommandsNeutral extends CommandsEMP {
             console = true)
     public static CommandResponse resCommand(ICommandSender sender, List<String> args) {
         if (args.size() < 1) {
-            return CommandResponse.SEND_SYNTAX;
+        	Citizen res1 = getCitizenFromName(sender.getCommandSenderName());
+        	 IChatComponent header = LocalizationManager.get("Empires.format.list.header", res1);
+        	 ChatManager.send(sender, "Empires.format.citizen.long", header, res1.empiresContainer, Formatter.formatDate(res1.getJoinDate()), Formatter.formatDate(res1.getLastOnline()), res1.getExtraBlocks(), res1.getPower());
+        	 return CommandResponse.DONE;
         }
 
         Citizen res = getCitizenFromName(args.get(0));

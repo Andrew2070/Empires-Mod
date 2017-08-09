@@ -14,7 +14,7 @@ public class ChatComponentEmpireList extends ChatComponentMultiPage {
 
     private void construct() {
         for (Empire t : empires) {
-            this.add(new ChatComponentFormatted("{7| - }{%s}", t.toChatMessage()));
+            this.add(new ChatComponentFormatted("{7| --> }{%s}", t.toChatMessage()));
         }
     }
 
@@ -22,7 +22,7 @@ public class ChatComponentEmpireList extends ChatComponentMultiPage {
     public ChatComponentContainer getHeader(int page) {
         ChatComponentContainer header = super.getHeader(page);
 
-        header.add(new ChatComponentFormatted("{9| - Empires}"));
+        header.add(new ChatComponentFormatted("{9| [All Presently Existing Empires Listed Below]"));
 
         return header;
     }

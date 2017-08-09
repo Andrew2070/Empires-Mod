@@ -5,7 +5,7 @@ import com.EmpireMod.Empires.Configuration.Config;
 import com.EmpireMod.Empires.Datasource.Bridge.BridgeSQL;
 import com.EmpireMod.Empires.entities.Empire.Rank;
 
-public class EmpiresSchema extends Schema {
+public class EmpiresSchematic extends BaseSchematic {
     @Override
     public void initializeUpdates(BridgeSQL bridge) {
         updates.add(new DBUpdate("07.25.2014.1", "Add Updates Table", "CREATE TABLE IF NOT EXISTS " + bridge.prefix + "Updates (" +

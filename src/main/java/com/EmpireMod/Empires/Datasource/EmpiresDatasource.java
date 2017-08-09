@@ -10,7 +10,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import com.EmpireMod.Empires.Empires;
 import com.EmpireMod.Empires.Configuration.Config;
 import com.EmpireMod.Empires.Datasource.Schematics.DatasourceSQL;
-import com.EmpireMod.Empires.Datasource.Schematics.EmpiresSchema;
+import com.EmpireMod.Empires.Datasource.Schematics.EmpiresSchematic;
 import com.EmpireMod.Empires.Handlers.EmpiresLoadingCallback;
 import com.EmpireMod.Empires.Misc.Teleport.Teleport;
 import com.EmpireMod.Empires.entities.Empire.AdminEmpire;
@@ -37,7 +37,7 @@ public class EmpiresDatasource extends DatasourceSQL {
   //  public static final EmpiresDatasource instance = new EmpiresDatasource();
 
     public EmpiresDatasource() {
-        super(Empires.instance.LOG, Config.instance, new EmpiresSchema());
+        super(Empires.instance.LOG, Config.instance, new EmpiresSchematic());
     }
 
     @Override

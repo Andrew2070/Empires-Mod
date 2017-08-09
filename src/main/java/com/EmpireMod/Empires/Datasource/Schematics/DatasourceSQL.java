@@ -24,14 +24,14 @@ public abstract class DatasourceSQL {
 
     protected String prefix = "";
     protected BridgeSQL bridge;
-    protected Schema schema;
+    protected BaseSchematic schema;
 
     public ConfigProperty<String> databaseType = new ConfigProperty<String>(
             "type", "datasource",
             "Specifies the database engine that is being used.",
             "SQLite");
 
-    public DatasourceSQL(Logger log, ConfigTemplate config, Schema schema) {
+    public DatasourceSQL(Logger log, ConfigTemplate config, BaseSchematic schema) {
         this.LOG = log;
         this.schema = schema;
         loadConfig(config);
@@ -103,7 +103,7 @@ public abstract class DatasourceSQL {
             }
         }
 
-        for (Schema.DBUpdate update : schema.updates) {
+        for (BaseSchematic.DBUpdate update : schema.updates) {
             if (ids.contains(update.id)) {
                 continue; // Skip if update is already done
             }

@@ -3,6 +3,8 @@ package com.EmpireMod.Empires.Handlers;
 import java.util.Calendar;
 import java.util.List;
 
+import org.bukkit.event.entity.PlayerDeathEvent;
+
 import com.EmpireMod.Empires.Empires;
 import com.EmpireMod.Empires.API.Chat.Component.ChatManager;
 import com.EmpireMod.Empires.API.Commands.Command.CommandsEMP;
@@ -12,15 +14,18 @@ import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
 import com.EmpireMod.Empires.entities.Empire.AdminEmpire;
 import com.EmpireMod.Empires.entities.Empire.Citizen;
 import com.EmpireMod.Empires.entities.Empire.Empire;
+import com.sk89q.worldedit.entity.Player;
 
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
 
 public class Ticker {
@@ -69,14 +74,9 @@ public class Ticker {
 
 				//Cycle Through List of Entities and choose one:
 				EntityPlayer player = allPlayers.get(i);
-					
-			
 				//Check To See if this probable Player Entity Exists:
-				if (player != null) {
-						
-						
+				if (player != null) {		
 					//Check To See if Entity Player Is A Player:
-
 					if (player instanceof EntityPlayer) {
 	
 							//Check To See if Player is Alive:
@@ -102,30 +102,18 @@ public class Ticker {
 							res.resetTime(FinishTime);
 							Empires.instance.datasource.saveCitizen(res);
 							}
-							
 						}
-
-					}
-						
-							
+					}	
 				}
-  
-    	   
-       }     
-		     
-		     	
+       }     	
 		     //Empire Power Math:
-	     
 		     	List<Empire> allEmpires = CommandsEMP.getUniverse().empires;
-		    
+	
 				for(int i=0; i < allEmpires.size(); i++) {
 					
 					Empire empire = allEmpires.get(i);
 					
 					if (empire.getPower() < empire.getMaxPowerLocal(empire)) {
-						
-					
-					
 					for (Citizen res : empire.citizensMap.keySet()) {
 						
 			    			double maxP = empire.getMaxPowerLocal(empire);
@@ -133,7 +121,6 @@ public class Ticker {
 			    			if (empire.getPower() != maxP) {
 			    				double newEmpirePower = empire.getPower();
 			    					   newEmpirePower += res.getPower();
-			    	 
 			    					   empire.setPower(newEmpirePower);
 			
 			    			}
@@ -144,19 +131,18 @@ public class Ticker {
 
     }
     
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
+   @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onPlayerDeath(PlayerEvent.PlayerRespawnEvent ev) {
+		if(ev.player.worldObj.isRemote || ev.isCanceled()) 
+			return;
+ 
     	Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(ev.player);
+    	
     	if (res != null) {
-    		res.setPlayer(ev.player);
-    		
+
     		res.subtractPower(Config.instance.PowerPerDeath.get());
     	    ChatManager.send(ev.player, "Empires.notification.ciz.powerLostOnDeath", Config.instance.PowerPerDeath.get(), res.getPower());
-    	}
-    	else {
-    		
-    		Empires.instance.LOG.error("[Player Death] Didn't create citizen for player {} ({})", ev.player.getCommandSenderName(), ev.player.getPersistentID());
-    		Empires.instance.LOG.info("[Player Death] Could not subtract power on death for player {} ({})", ev.player.getCommandSenderName(), ev.player.getPersistentID());
+
     	}
     	
     
@@ -173,7 +159,7 @@ public class Ticker {
        
         }
     }
-    
+   
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onPlayerLogout(PlayerEvent.PlayerLoggedOutEvent ev) {

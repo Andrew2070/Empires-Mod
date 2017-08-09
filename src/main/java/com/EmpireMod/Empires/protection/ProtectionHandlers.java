@@ -274,6 +274,7 @@ public class ProtectionHandlers {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onBlockTrample(BlockTrampleEvent ev) {
         if(ev.world.isRemote || ev.isCanceled())
+        	
             return;
 
         Entity entity = ev.entity;

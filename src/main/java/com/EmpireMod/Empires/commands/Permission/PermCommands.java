@@ -43,9 +43,9 @@ public class PermCommands {
     }
 
     @Command(
-            name = "Empires",
+            name = "empireperm",
             permission = "Empires.cmd",
-            syntax = "/perm <command>",
+            syntax = "/empireperm <command>",
             alias = {"p", "perm"})
     public static CommandResponse permCommand(ICommandSender sender, List<String> args) {
         return CommandResponse.SEND_HELP_MESSAGE;
@@ -55,7 +55,7 @@ public class PermCommands {
             name = "config",
             permission = "Empires.cmd.config",
             parentName = "Empires.cmd",
-            syntax = "/perm config <command>")
+            syntax = "/empireperm config <command>")
     public static CommandResponse configCommand(ICommandSender sender, List<String> args) {
         return CommandResponse.SEND_HELP_MESSAGE;
     }
@@ -64,7 +64,7 @@ public class PermCommands {
             name = "reload",
             permission = "Empires.cmd.config.reload",
             parentName = "Empires.cmd.config",
-            syntax = "/perm config reload")
+            syntax = "/empireperm config reload")
     public static CommandResponse configReloadCommand(ICommandSender sender, List<String> args) {
         Empires.instance.loadConfig();
         // REF: Change these to localized versions of themselves
