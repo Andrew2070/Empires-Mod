@@ -2,8 +2,8 @@
 -Must Finish before 1.0.0 Release.
 
 #1: Chat handeling:
-a) fix crashes (client) or internal server error (server) when player without Empire decides to chat.
-b) Add abbrieviations for Empire ranks: [Leader] = [L]; [Officer] = [O]; [Member] = [M]
+[DONE] a) fix crashes (client) or internal server error (server) when player without Empire decides to chat.
+[DONE] b) Add abbrieviations for Empire ranks: [Leader] = [L]; [Officer] = [O]; [Member] = [M]
 c) Add optional herochat support.
 d) Add private message support.
 
@@ -20,15 +20,15 @@ f) Add support for "Enemy" relationships being unable to execute essentials comm
 
 
 #3) Raiding Mechanisms:
-a) Add "stregnth" system based on faction's "power" system. (if power <= territory then empire = raidable).
-b) Add citizen power system in which citizens start with 0.00 power that updates by 0.2 every 20 minutes.
-c) Doing /empire citizen <name> should show power as a result in the header.
-d) Doing /empire info <name> should show power as a result in the header.
-e) Add configuration support for different rates of power (increase/decrease).
-f) Allow other "Empires" to over-claim or unclaim land of empires where power<=territory.
+[DONE] a) Add "stregnth" system based on faction's "power" system. (if power <= territory then empire = raidable).
+[DONE] b) Add citizen power system in which citizens start with 0.00 power that updates by 0.2 every 20 minutes.
+[DONE] c) Doing /empire citizen <name> should show power as a result in the header.
+[DONE] d) Doing /empire info <name> should show power as a result in the header.
+[DONE] e) Add configuration support for different rates of power (increase/decrease).
+[DONE] f) Allow other "Empires" to over-claim or unclaim land of empires where power<=territory.
 
 
 #4) Misc:
-a) Add new "Empire Border Block" to replace lapis lazuli border.
-b) Graphical changes to how the commands appear in game.
-c) Cleanup, organize imports.
+[Not Possible] a) Add new "Empire Border Block" to replace lapis lazuli border.
+[DONE] b) Graphical changes to how the commands appear in game.
+[DONE] c) Cleanup, organize imports.
