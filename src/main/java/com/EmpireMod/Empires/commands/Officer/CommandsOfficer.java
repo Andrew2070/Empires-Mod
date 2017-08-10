@@ -56,6 +56,9 @@ public class CommandsOfficer extends CommandsEMP {
         return CommandResponse.DONE;
     }
 
+    
+    
+    
     @Command(
             name = "claim",
             permission = "Empires.cmd.officer.claim",
@@ -215,20 +218,43 @@ public class CommandsOfficer extends CommandsEMP {
             throw new EmpiresCommandException("Empires.cmd.err.overclaim.powerException");
         }
         if (res.getPower() < 7) {
-        	throw new EmpiresCommandException("Empires.cmd.err.overclaim.powerException2");
+        	throw new EmpiresCommandException("Empires.cmd.err.overclaim.minPowerRequired");
         }
         if (CitizensEmpire.empireBlocksContainer.size() >= CitizensEmpire.getMaxBlocks()) {	
         	throw new EmpiresCommandException("Empires.cmd.err.overlcaim.maxBlocksReached");
         }
         
-        else {
-        getDatasource().deleteBlock(block);
-        ChatManager.send(sender, "Empires.notification.block.overclaimed", block.getX() << 4, block.getZ() << 4, block.getX() << 4 + 15, block.getZ() << 4 + 15, empire);
-        return CommandResponse.DONE;
+         if (CitizensEmpire != null) {
+        
+        	if (CitizensEmpire != block.getEmpire()) {
+        
+        		if (empire.empireBlocksContainer.size() < empire.getMaxPowerLocal(empire)) {
+        	
+        			if (res.getPower() >= 7) {
+        				
+        				if (CitizensEmpire.empireBlocksContainer.size() < CitizensEmpire.getMaxBlocks()) {
+        				
+        				if (block.isPointIn(empire.getSpawn().getDim(), empire.getSpawn().getX(), empire.getSpawn().getZ())) {
+        					
+        					  getDatasource().deleteEmpire(empire);
 
-        }
-		
-        }
+        					}
+        	
+        					}
+        				}
+        			}
+        		}
+        	
+        	
+            getDatasource().deleteBlock(block);
+            ChatManager.send(sender, "Empires.notification.block.overclaimed", block.getX() << 4, block.getZ() << 4, block.getX() << 4 + 15, block.getZ() << 4 + 15, empire);
+            
+        	
+        	}
+        
+         return CommandResponse.DONE;
+    }
+    
 
     @Command(
             name = "invite",

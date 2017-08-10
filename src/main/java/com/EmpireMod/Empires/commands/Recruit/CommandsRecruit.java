@@ -342,6 +342,7 @@ public class CommandsRecruit extends CommandsEMP {
 
             Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(sender);
             ToolManager.instance.register(new PlotSelectionTool(res, args.get(0)));
+            //ChatManager.send(sender, "Empires.notification.plot.");
             return CommandResponse.DONE;
         }
 

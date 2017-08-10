@@ -357,7 +357,28 @@ public class CommandsAdmin extends CommandsEMP {
         ChatManager.send(sender, "Empires.notification.empire.blocks.extra.set", empire.empireBlocksContainer.getExtraBlocks(), empire);
         return CommandResponse.DONE;
     }
+  /*/  
+    @Command(
+            name = "powerboost",
+            permission = "Empires.adm.cmd.powerboost",
+            syntax = "/empireadmin power set <citizen> <amount>",
+            completionKeys = {"citizenCompletion"},
+            console = true)
+    public static CommandResponse powerBoostCommand(ICommandSender sender, List<String> args) {
+        if(args.size() < 2) {
+            return CommandResponse.SEND_SYNTAX;
+        }
 
+        checkPositiveInteger(args.get(1));
+
+        Citizen citizen = getCitizenFromName(sender.toString());
+        empire.empireBlocksContainer.setExtraBlocks(Integer.parseInt(args.get(1)));
+        
+        getDatasource().saveEmpire(empire);
+        ChatManager.send(sender, "Empires.notification.empire.blocks.extra.set", empire.empireBlocksContainer.getExtraBlocks(), empire);
+        return CommandResponse.DONE;
+    }
+/*/
     @Command(
             name = "add",
             permission = "Empires.adm.cmd.blocks.extra.add",

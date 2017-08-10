@@ -56,7 +56,7 @@ public class Config extends ConfigTemplate {
     public ConfigProperty<Integer> distanceBetweenEmpires = new ConfigProperty<Integer>(
             "distance", "Empires",
             "The Default Minimum distance (in chunks) between 2 Empires. Prevents Empire's from being too close on creation.",
-            3);
+            1);
     
     
     public ConfigProperty<Integer> blocksLeader = new ConfigProperty<Integer>(
@@ -102,7 +102,7 @@ public class Config extends ConfigTemplate {
     
     public ConfigProperty<Double> defaultPower = new ConfigProperty<Double>(
             "defaultPowers", "Citizens",
-            "The default amount of power each player starts with.",
+            "The default amount of power each player starts with (Normally 0.00):",
             0.00);
     
   
