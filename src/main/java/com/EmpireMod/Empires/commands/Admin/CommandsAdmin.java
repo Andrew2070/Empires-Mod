@@ -50,7 +50,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 
 /**
- * All commands for admins go here
+ * All commands for administrators go here
  */
 @SuppressWarnings("unused")
 public class CommandsAdmin extends CommandsEMP {
@@ -63,7 +63,7 @@ public class CommandsAdmin extends CommandsEMP {
             name = "Empiresadmin",
             permission = "Empires.adm.cmd",
             syntax = "/empireadmin <command>",
-            alias = {"empadmin", "empireadmin"})
+            alias = {"empadmin", "empireadmin", "eadmin", "Empadmin", "Empireadmin", "Eadmin"})
     public static CommandResponse empireAdminCommand(ICommandSender sender, List<String> args) {
         return CommandResponse.SEND_HELP_MESSAGE;
     }
@@ -357,11 +357,12 @@ public class CommandsAdmin extends CommandsEMP {
         ChatManager.send(sender, "Empires.notification.empire.blocks.extra.set", empire.empireBlocksContainer.getExtraBlocks(), empire);
         return CommandResponse.DONE;
     }
-  /*/  
+  
     @Command(
             name = "powerboost",
             permission = "Empires.adm.cmd.powerboost",
             syntax = "/empireadmin power set <citizen> <amount>",
+            parentName = "Empires.adm.cmd",
             completionKeys = {"citizenCompletion"},
             console = true)
     public static CommandResponse powerBoostCommand(ICommandSender sender, List<String> args) {
@@ -370,15 +371,16 @@ public class CommandsAdmin extends CommandsEMP {
         }
 
         checkPositiveInteger(args.get(1));
-
-        Citizen citizen = getCitizenFromName(sender.toString());
-        empire.empireBlocksContainer.setExtraBlocks(Integer.parseInt(args.get(1)));
+        Citizen citizen = getCitizenFromName(args.get(0));
+        double boostValue = Integer.parseInt(args.get(1));
+        citizen.setPower(boostValue);
+        citizen.setMaxPower(boostValue);
+        getDatasource().saveCitizen(citizen);
         
-        getDatasource().saveEmpire(empire);
-        ChatManager.send(sender, "Empires.notification.empire.blocks.extra.set", empire.empireBlocksContainer.getExtraBlocks(), empire);
+        ChatManager.send(sender, "Empires.notification.citizen.powerboost", boostValue, citizen.getPower());
         return CommandResponse.DONE;
     }
-/*/
+
     @Command(
             name = "add",
             permission = "Empires.adm.cmd.blocks.extra.add",

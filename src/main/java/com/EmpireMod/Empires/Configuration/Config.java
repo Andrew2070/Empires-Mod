@@ -114,8 +114,8 @@ public class Config extends ConfigTemplate {
     
     public ConfigProperty<Double> PowerPerHour = new ConfigProperty<Double>(
             "PowerPerHour", "Citizens",
-            "The amount of power a player receives every 10 minutes (default is 0.002777777778 a.k.a 1 per hour)",
-            0.05);
+            "The amount of power a player receives every hour)",
+            1.00);
     
     
     public ConfigProperty<Double> PowerPerDeath = new ConfigProperty<Double>(

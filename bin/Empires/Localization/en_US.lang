@@ -149,6 +149,7 @@ Empires.cmd.err.new.nameTooLong={6|[Empire] }{c|The name of the Empire is too lo
 Empires.notification.empire.created={6|[Empire] New Empire }{%s}{a| created successfully!}
 Empires.notification.empire.deleted={6|[Empire] The Empire }{%s}{a| was deleted successfully!}
 Empires.notification.empire.deleted.withplots={6|[Empire] }{c|You cannot delete an Empire with plots that you don't own.}
+Empires.notification.citizen.powerboost={6|[Empire] }{Power Boosted By [}{%s}{] For Citizen}{%s}
 
 
 # /empire invite
@@ -290,7 +291,7 @@ Empires.format.rank.long={l|%s}{7| (}{%s}{7|)}
 Empires.format.plot.short={a|%s}{7|: }{%s}
 Empires.format.plot.long={%s}{2N|Owners: }{%s}{2N|Borders: }{%s}
 Empires.format.citizen.short={a|%s}
-Empires.format.citizen.long={%s}{2N| Empires: }{%s}{2N| Joined: }{a|%s}{2N| Last online: }{a|%s}{2N| Extra-Claims: }{a|%s}{2N| Power: }{a|%s}
+Empires.format.citizen.long={%s}{2N| Empires: }{%s}{2N| Joined: }{a|%s}{2N| Last online: }{a|%s}{2N| Extra-Claims: }{a|%s}{2N| Power: }{a|%s}{2N| Max Power: }{a|%s}
 Empires.format.citizen.withRank={%s}{7|(}{%s}{7|)}
 Empires.format.block.short={%s}
 Empires.format.admins={c|SERVER ADMINS}
@@ -412,6 +413,7 @@ Empires.cmd.everyone.plot.add.owner.help={6|[Empire] }{|Adds an owner to the plo
 Empires.cmd.everyone.plot.delete.help={6|[Empire] }{|Deletes a plot}
 Empires.cmd.everyone.plot.info.help={6|[Empire] }{|Gives info about the plot you are in}
 Empires.cmd.everyone.plot.make.help={6|[Empire] }{|Creates a plot from the selection made}
+Empires.adm.cmd.powerboost.help={6|[Empire] }{|Increase/Decrease the power of a player}
 Empires.cmd.everyone.plot.rename.help={6|[Empire] }{|Renames a plot}
 Empires.cmd.everyone.plot.select.help={6|[Empire] }{|Gives a 'selector' tool}
 Empires.cmd.everyone.plot.select.expand.help={6|[Empire] }{|Expands the selection}

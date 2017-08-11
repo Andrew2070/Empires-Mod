@@ -80,7 +80,7 @@ public class CommandsNeutral extends CommandsEMP {
         if (args.size() < 1) {
         	Citizen res1 = getCitizenFromName(sender.getCommandSenderName());
         	 IChatComponent header = LocalizationManager.get("Empires.format.list.header", res1);
-        	 ChatManager.send(sender, "Empires.format.citizen.long", header, res1.empiresContainer, Formatter.formatDate(res1.getJoinDate()), Formatter.formatDate(res1.getLastOnline()), res1.getExtraBlocks(), res1.getPower());
+        	 ChatManager.send(sender, "Empires.format.citizen.long", header, res1.empiresContainer, Formatter.formatDate(res1.getJoinDate()), Formatter.formatDate(res1.getLastOnline()), res1.getExtraBlocks(), res1.getPower(), res1.getMaxPower());
         	 return CommandResponse.DONE;
         }
 
@@ -89,7 +89,7 @@ public class CommandsNeutral extends CommandsEMP {
             throw new EmpiresCommandException("Empires.cmd.err.citizen.missing", args.get(0));
         }
         IChatComponent header = LocalizationManager.get("Empires.format.list.header", res);
-        ChatManager.send(sender, "Empires.format.citizen.long", header, res.empiresContainer, Formatter.formatDate(res.getJoinDate()), Formatter.formatDate(res.getLastOnline()), res.getExtraBlocks(), res.getPower());
+        ChatManager.send(sender, "Empires.format.citizen.long", header, res.empiresContainer, Formatter.formatDate(res.getJoinDate()), Formatter.formatDate(res.getLastOnline()), res.getExtraBlocks(), res.getPower(), res.getMaxPower());
         return CommandResponse.DONE;
     }
 

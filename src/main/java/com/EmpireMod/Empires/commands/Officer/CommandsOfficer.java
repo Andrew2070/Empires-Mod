@@ -220,10 +220,7 @@ public class CommandsOfficer extends CommandsEMP {
         if (res.getPower() < 7) {
         	throw new EmpiresCommandException("Empires.cmd.err.overclaim.minPowerRequired");
         }
-        if (CitizensEmpire.empireBlocksContainer.size() >= CitizensEmpire.getMaxBlocks()) {	
-        	throw new EmpiresCommandException("Empires.cmd.err.overlcaim.maxBlocksReached");
-        }
-        
+
          if (CitizensEmpire != null) {
         
         	if (CitizensEmpire != block.getEmpire()) {
@@ -232,24 +229,22 @@ public class CommandsOfficer extends CommandsEMP {
         	
         			if (res.getPower() >= 7) {
         				
-        				if (CitizensEmpire.empireBlocksContainer.size() < CitizensEmpire.getMaxBlocks()) {
-        				
         				if (block.isPointIn(empire.getSpawn().getDim(), empire.getSpawn().getX(), empire.getSpawn().getZ())) {
         					
         					  getDatasource().deleteEmpire(empire);
 
         					}
-        	
+        				
+        	            getDatasource().deleteBlock(block);
+        	            ChatManager.send(sender, "Empires.notification.block.overclaimed", block.getX() << 4, block.getZ() << 4, block.getX() << 4 + 15, block.getZ() << 4 + 15, empire);
+
         					}
+        			
         				}
-        			}
+        			
         		}
         	
-        	
-            getDatasource().deleteBlock(block);
-            ChatManager.send(sender, "Empires.notification.block.overclaimed", block.getX() << 4, block.getZ() << 4, block.getX() << 4 + 15, block.getZ() << 4 + 15, empire);
-            
-        	
+        
         	}
         
          return CommandResponse.DONE;

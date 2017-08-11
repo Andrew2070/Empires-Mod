@@ -38,7 +38,7 @@ public class Citizen implements IChatFormat {
     private int extraBlocks = 0;
     
     private double Power = 0.00 + Config.instance.defaultPower.get();
-
+    private double maxPower = 0.00 + Config.instance.defaultMaxPower.get();
     private boolean isFakePlayer = false;
 
     public final Plot.Container plotsContainer = new Plot.Container(Config.instance.defaultMaxPlots.get());
@@ -235,6 +235,9 @@ public class Citizen implements IChatFormat {
     	return Power;
     }
     
+    public double getMaxPower() {
+    	return maxPower;
+    }
     public long getLastPowerUpdateTime() {
     	return powerUpdateTime;
     }
@@ -259,6 +262,12 @@ public class Citizen implements IChatFormat {
      this.Power = target;
     	
    } 	
+ 
+ public void setMaxPower(double maxP) {
+ 	
+	 this.maxPower = maxP;
+ 	
+} 	
  
  long powerUpdateTime = 0;
  public void resetTime(long Time) {
