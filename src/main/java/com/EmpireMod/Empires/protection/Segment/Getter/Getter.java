@@ -4,8 +4,8 @@ package com.EmpireMod.Empires.protection.Segment.Getter;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.EmpireMod.Empires.API.JSON.API.SerializerTemplate;
+import com.EmpireMod.Empires.exceptions.Protection.GetterException;
 import com.EmpireMod.Empires.protection.Segment.Caller.Caller;
-import com.EmpireMod.Empires.exceptions.GetterException;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

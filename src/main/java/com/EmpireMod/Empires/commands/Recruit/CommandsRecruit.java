@@ -27,7 +27,7 @@ import com.EmpireMod.Empires.entities.Signs.SellSign;
 import com.EmpireMod.Empires.entities.Tools.PlotSelectionTool;
 import com.EmpireMod.Empires.entities.Tools.PlotSellTool;
 import com.EmpireMod.Empires.entities.Tools.WhitelisterTool;
-import com.EmpireMod.Empires.exceptions.EmpiresCommandException;
+import com.EmpireMod.Empires.exceptions.Empires.EmpiresCommandException;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;

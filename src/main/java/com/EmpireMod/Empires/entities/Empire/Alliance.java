@@ -23,10 +23,9 @@ public class Alliance implements Comparable<Alliance> {
         return String.format("Alliance: {Name: %s}", name);
     }
 
-    /* ----- Comparable ----- */
 
     @Override
-    public int compareTo(Alliance n) { // TODO Flesh this out some more?
+    public int compareTo(Alliance n) { 
         int thisNumberOfEmpires = empiresContainer.size(),
                 thatNumberOfEmpires = n.empiresContainer.size();
         if (thisNumberOfEmpires > thatNumberOfEmpires)

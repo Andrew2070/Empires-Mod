@@ -23,7 +23,7 @@ import com.EmpireMod.Empires.Utilities.StringUtils;
 import com.EmpireMod.Empires.entities.Empire.Citizen;
 import com.EmpireMod.Empires.entities.Empire.Empire;
 import com.EmpireMod.Empires.entities.Flags.FlagType;
-import com.EmpireMod.Empires.exceptions.EmpiresCommandException;
+import com.EmpireMod.Empires.exceptions.Empires.EmpiresCommandException;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;

@@ -5,7 +5,7 @@ import cpw.mods.fml.common.Loader;
 
 import com.EmpireMod.Empires.Empires;
 import com.EmpireMod.Empires.Utilities.ClassUtils;
-import com.EmpireMod.Empires.exceptions.PermissionException;
+import com.EmpireMod.Empires.exceptions.Permission.PermissionException;
 import com.EmpireMod.Empires.API.permissions.Bridges.BukkitPermissionBridge;
 import com.EmpireMod.Empires.API.permissions.Bridges.MyPermissionsBridge;
 import com.EmpireMod.Empires.API.permissions.Bridges.ForgeEssentialsPermissionBridge;

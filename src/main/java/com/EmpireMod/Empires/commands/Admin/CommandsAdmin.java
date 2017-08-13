@@ -36,7 +36,7 @@ import com.EmpireMod.Empires.entities.Flags.FlagType;
 import com.EmpireMod.Empires.entities.Managers.ToolManager;
 import com.EmpireMod.Empires.entities.Position.ChunkPos;
 import com.EmpireMod.Empires.entities.Tools.WhitelisterTool;
-import com.EmpireMod.Empires.exceptions.EmpiresCommandException;
+import com.EmpireMod.Empires.exceptions.Empires.EmpiresCommandException;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;

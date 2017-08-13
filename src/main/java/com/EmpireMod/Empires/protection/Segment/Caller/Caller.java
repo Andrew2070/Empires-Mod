@@ -3,9 +3,9 @@ package com.EmpireMod.Empires.protection.Segment.Caller;
 
 import com.google.gson.*;
 import com.EmpireMod.Empires.API.JSON.API.SerializerTemplate;
+import com.EmpireMod.Empires.exceptions.Protection.ProtectionParseException;
 import com.EmpireMod.Empires.protection.Segment.Caller.reflectasm.ASMCallerField;
 import com.EmpireMod.Empires.protection.Segment.Caller.reflectasm.ASMCallerMethod;
-import com.EmpireMod.Empires.exceptions.ProtectionParseException;
 
 import java.lang.reflect.Type;
 

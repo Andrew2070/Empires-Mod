@@ -6,12 +6,12 @@ import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.UUID;
 import com.EmpireMod.Empires.entities.Permissions.PermissionLevel;
+import com.EmpireMod.Empires.exceptions.Empires.EmpiresCommandException;
 import com.EmpireMod.Empires.API.Commands.Command.CommandsEMP;
 import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
 import com.EmpireMod.Empires.Utilities.PlayerUtils;
 import com.EmpireMod.Empires.entities.Empire.Citizen;
 import com.EmpireMod.Empires.entities.Empire.Empire;
-import com.EmpireMod.Empires.exceptions.EmpiresCommandException;
 
 public class RankPermissionManager implements IPermissionBridge {
 

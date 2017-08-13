@@ -9,7 +9,7 @@ import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
 import com.EmpireMod.Empires.entities.Empire.Citizen;
 import com.EmpireMod.Empires.entities.Empire.Empire;
 import com.EmpireMod.Empires.entities.Empire.Rank;
-import com.EmpireMod.Empires.exceptions.CommandException;
+import com.EmpireMod.Empires.exceptions.Command.CommandException;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;

@@ -24,7 +24,7 @@ import com.EmpireMod.Empires.entities.Flags.FlagType;
 import com.EmpireMod.Empires.entities.Managers.ToolManager;
 import com.EmpireMod.Empires.entities.Position.ChunkPos;
 import com.EmpireMod.Empires.entities.Tools.WhitelisterTool;
-import com.EmpireMod.Empires.exceptions.EmpiresCommandException;
+import com.EmpireMod.Empires.exceptions.Empires.EmpiresCommandException;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
@@ -308,16 +308,53 @@ public class CommandsOfficer extends CommandsEMP {
        if (empire.citizensMap.contains(target.getPlayerName())) {
     	   getDatasource().unlinkCitizenFromEmpire(target, empire);
        }
-        
+       target.empireBansContainer.add(empire);
         ChatManager.send(sender, "Empires.notification.empire.banned.sender", target);
         
         ChatManager.send(target.getPlayer(), "Empires.notification.empire.receiver", empire);
         
         empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.banned.tellAll", target, res));
-      
         return CommandResponse.DONE;
     }
 
+    @Command(
+            name = "unban",
+            permission = "Empires.cmd.officer.unban",
+            parentName = "Empires.cmd",
+            syntax = "/empire unban <citizen>",
+            completionKeys = {"citizenCompletion"})
+    public static CommandResponse unbanCommand(ICommandSender sender, List<String> args) {
+        if (args.size() < 1) {
+            return CommandResponse.SEND_SYNTAX;
+        }
+
+        Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(sender);
+        Empire empire = getEmpireFromCitizen(res);
+        Citizen target = getCitizenFromName(args.get(0));
+
+        if (!target.empireBansContainer.contains(empire)) {
+        	throw new EmpiresCommandException("Empires.cmd.err.ban.notBanned");
+        }
+                 
+        target.empireBansContainer.remove(empire);
+        
+        ChatManager.send(sender, "Empires.notification.empire.unbanned.sender", target);
+        
+        ChatManager.send(target.getPlayer(), "Empires.notification.empire.unbanned.receiver", empire);
+        
+        empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.unbanned.tellAll", target, res));
+      
+        return CommandResponse.DONE;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @Command(
             name = "set",
             permission = "Empires.cmd.officer.perm.set",

@@ -2,8 +2,8 @@ package com.EmpireMod.Empires.API.Commands.Command;
 
 import com.EmpireMod.Empires.Empires;
 import com.EmpireMod.Empires.API.Chat.Component.ChatManager;
-import com.EmpireMod.Empires.exceptions.EmpiresCommandException;
 import com.EmpireMod.Empires.entities.Flags.FlagType;
+import com.EmpireMod.Empires.exceptions.Empires.EmpiresCommandException;
 import com.EmpireMod.Empires.entities.Empire.Citizen;
 import com.EmpireMod.Empires.entities.Empire.Empire;
 import com.EmpireMod.Empires.entities.Empire.EmpireBlock;

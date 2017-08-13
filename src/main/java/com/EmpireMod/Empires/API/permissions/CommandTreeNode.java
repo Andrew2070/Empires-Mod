@@ -4,6 +4,7 @@ package com.EmpireMod.Empires.API.permissions;
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
 import com.EmpireMod.Empires.entities.Permissions.TreeNode;
+import com.EmpireMod.Empires.exceptions.Command.CommandException;
 import com.EmpireMod.Empires.Empires;
 import com.EmpireMod.Empires.Localization.Localization;
 import com.EmpireMod.Empires.Utilities.StringUtils;
@@ -13,7 +14,6 @@ import com.EmpireMod.Empires.API.Commands.Command.Command;
 import com.EmpireMod.Empires.API.Commands.Command.CommandCompletion;
 import com.EmpireMod.Empires.API.Commands.Command.CommandManager;
 import com.EmpireMod.Empires.API.Commands.Command.CommandResponse;
-import com.EmpireMod.Empires.exceptions.CommandException;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;

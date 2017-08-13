@@ -21,12 +21,9 @@ import com.EmpireMod.Empires.protection.Segment.Enums.Priority;
 import com.EmpireMod.Empires.protection.Segment.Caller.CallerFormula;
 import com.EmpireMod.Empires.protection.Segment.Getter.Getter;
 import com.EmpireMod.Empires.protection.Segment.Getter.GetterDynamic;
-
-
-import com.EmpireMod.Empires.exceptions.ConditionException;
-import com.EmpireMod.Empires.exceptions.GetterException;
-import com.EmpireMod.Empires.exceptions.ProtectionParseException;
-
+import com.EmpireMod.Empires.exceptions.Empires.ConditionException;
+import com.EmpireMod.Empires.exceptions.Protection.GetterException;
+import com.EmpireMod.Empires.exceptions.Protection.ProtectionParseException;
 
 import net.minecraft.entity.player.EntityPlayer;
 

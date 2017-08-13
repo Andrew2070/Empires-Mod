@@ -1,8 +1,8 @@
 package com.EmpireMod.Empires.protection.Segment.Getter;
 
 
+import com.EmpireMod.Empires.exceptions.Protection.GetterException;
 import com.EmpireMod.Empires.protection.Segment.Caller.Caller;
-import com.EmpireMod.Empires.exceptions.GetterException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;

@@ -20,7 +20,6 @@ public class Config extends ConfigTemplate {
             "The menu custom message to display when the server is in maintenance mode",
             "Server Under Maintenance, [ETA: 5 minutes].");
 
-
     public ConfigProperty<String> permissionSystem = new ConfigProperty<String>(
             "permissionSystem", "general",
             "The permission system it should be used as default. $ForgeEssentials for FE permission system, $Bukkit for Bukkit permission system, and $Empires for our own permission system.",

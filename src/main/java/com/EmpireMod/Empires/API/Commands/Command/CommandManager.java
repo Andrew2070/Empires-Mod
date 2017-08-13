@@ -3,7 +3,6 @@ package com.EmpireMod.Empires.API.Commands.Command;
 
 import cpw.mods.fml.common.Loader;
 import com.EmpireMod.Empires.Empires;
-import com.EmpireMod.Empires.exceptions.CommandException;
 import com.EmpireMod.Empires.API.Commands.CommandRegistrar.BukkitCommandRegistrar;
 import com.EmpireMod.Empires.API.Commands.CommandRegistrar.ForgeEssentialsCommandRegistrar;
 import com.EmpireMod.Empires.API.Commands.CommandRegistrar.ICommandRegistrar;
@@ -14,6 +13,7 @@ import com.EmpireMod.Empires.API.permissions.CommandTree;
 import com.EmpireMod.Empires.API.permissions.IPermissionBridge;
 import com.EmpireMod.Empires.Localization.Localization;
 import com.EmpireMod.Empires.Utilities.ClassUtils;
+import com.EmpireMod.Empires.exceptions.Command.CommandException;
 
 import net.minecraft.command.ICommandSender;
 

@@ -209,7 +209,6 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     	return maxPower;
     }
     
-    
          
     public int getExtraBlocks() {
         int citizensExtra = 0;

@@ -6,7 +6,7 @@ import com.EmpireMod.Empires.Empires;
 import com.EmpireMod.Empires.Utilities.ClassUtils;
 import com.EmpireMod.Empires.Utilities.ItemUtils;
 import com.EmpireMod.Empires.Utilities.PlayerUtils;
-import com.EmpireMod.Empires.exceptions.EconomyException;
+import com.EmpireMod.Empires.exceptions.Economy.EconomyException;
 
 import net.minecraft.entity.player.EntityPlayer;
 

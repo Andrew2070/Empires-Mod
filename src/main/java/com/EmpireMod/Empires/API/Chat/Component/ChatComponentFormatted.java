@@ -3,7 +3,7 @@ package com.EmpireMod.Empires.API.Chat.Component;
 
 import com.EmpireMod.Empires.API.Chat.IChatFormat;
 import com.EmpireMod.Empires.Utilities.ColorUtils;
-import com.EmpireMod.Empires.exceptions.FormatException;
+import com.EmpireMod.Empires.exceptions.Format.FormatException;
 
 import net.minecraft.event.HoverEvent;
 import net.minecraft.util.ChatComponentText;

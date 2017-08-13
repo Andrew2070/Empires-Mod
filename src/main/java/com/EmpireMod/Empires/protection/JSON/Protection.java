@@ -7,8 +7,8 @@ import com.google.gson.*;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModContainer;
 import com.EmpireMod.Empires.API.JSON.API.SerializerTemplate;
+import com.EmpireMod.Empires.exceptions.Protection.ProtectionParseException;
 import com.EmpireMod.Empires.protection.Segment.*;
-import com.EmpireMod.Empires.exceptions.ProtectionParseException;
 
 import java.lang.reflect.Type;
 import java.util.List;

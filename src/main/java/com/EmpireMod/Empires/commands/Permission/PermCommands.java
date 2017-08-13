@@ -8,7 +8,6 @@ import com.EmpireMod.Empires.API.Chat.Component.ChatManager;
 import com.EmpireMod.Empires.API.Commands.Command.Command;
 import com.EmpireMod.Empires.API.Commands.Command.CommandResponse;
 import com.EmpireMod.Empires.Empires;
-import com.EmpireMod.Empires.exceptions.PermissionCommandException;
 import com.EmpireMod.Empires.API.permissions.PermissionProxy;
 import com.EmpireMod.Empires.API.permissions.Bridges.MyPermissionsBridge;
 import com.EmpireMod.Empires.Localization.LocalizationManager;
@@ -16,6 +15,7 @@ import com.EmpireMod.Empires.Utilities.ColorUtils;
 import com.EmpireMod.Empires.Utilities.PlayerUtils;
 import com.EmpireMod.Empires.entities.Permissions.Group;
 import com.EmpireMod.Empires.entities.Permissions.User;
+import com.EmpireMod.Empires.exceptions.Permission.PermissionCommandException;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;

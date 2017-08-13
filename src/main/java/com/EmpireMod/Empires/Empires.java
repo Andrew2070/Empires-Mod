@@ -36,7 +36,7 @@ import com.EmpireMod.Empires.commands.Recruit.CommandsRecruit;
 import com.EmpireMod.Empires.entities.Managers.SignManager;
 import com.EmpireMod.Empires.entities.Managers.ToolManager;
 import com.EmpireMod.Empires.entities.Signs.SellSign;
-import com.EmpireMod.Empires.exceptions.ConfigException;
+import com.EmpireMod.Empires.exceptions.Configuration.ConfigException;
 import com.EmpireMod.Empires.protection.ProtectionHandlers;
 import com.EmpireMod.Empires.protection.ProtectionManager;
 import com.EmpireMod.Empires.protection.JSON.ProtectionParser;
