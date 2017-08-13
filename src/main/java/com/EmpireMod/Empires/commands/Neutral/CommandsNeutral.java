@@ -130,7 +130,7 @@ public class CommandsNeutral extends CommandsEMP {
 
         ChatManager.send(sender, "Empires.notification.empire.startedCreation", args.get(0));
 
-        if (res.empiresContainer.size() >= Config.instance.maxEmpires.get()) {
+        if (res.empiresContainer.size() >= 1) {
             throw new EmpiresCommandException("Empires.cmd.err.citizen.maxEmpires");
         }
         if (getUniverse().empires.contains(args.get(0))) {
@@ -200,7 +200,7 @@ public class CommandsNeutral extends CommandsEMP {
             }
             
         }
-        if (res.empiresContainer.size() >= Config.instance.maxEmpires.get()) {
+        if (res.empiresContainer.size() >= 1) {
             throw new EmpiresCommandException("Empires.cmd.err.citizen.maxEmpires");
         }
         

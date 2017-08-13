@@ -63,20 +63,14 @@ public class Config extends ConfigTemplate {
     
     public ConfigProperty<Integer> blocksLeader = new ConfigProperty<Integer>(
             "blocksLeader", "Empires",
-            "The amount of maximum blocks a Empire gets from the leader, this should match the max power setting to the nearest whole number.",
+            "The amount of maximum claims a Empire gets from the leader, this should match the max power setting to the nearest whole number.",
             20);
     
     
     public ConfigProperty<Integer> blocksCitizen = new ConfigProperty<Integer>(
             "blocksCitizens", "Empires",
-            "The amount of maximum blocks a Empire gets from each player, set this value to be equal to maxPower statement.",
+            "The amount of maximum claims a Empire gets from each player, set this value to be equal to maxPower statement.",
             20);
-    
-    
-    public ConfigProperty<Integer> maxEmpires = new ConfigProperty<Integer>(
-            "maxEmpires", "Citizens",
-            "The amount of Empires a Citizen can be in, don't change this or a lot of things will break",
-            1);
     
     
     public ConfigProperty<Integer> placeProtectionRange = new ConfigProperty<Integer>(
@@ -94,7 +88,7 @@ public class Config extends ConfigTemplate {
     public ConfigProperty<Integer> maxFarClaims = new ConfigProperty<Integer>(
             "maxFarClaims", "Empires",
             "The maximum amount of chunks not attached to any other claimed chunk that are allowed per Empire. Set to 0 to disable far claims altogether.",
-            0);
+            10);
     
     
     public ConfigProperty<Double> defaultMaxPower = new ConfigProperty<Double>(
