@@ -45,6 +45,8 @@ public class Config extends ConfigTemplate {
             "safeModeMessage", "general",
             "Message to display to users when Empires is in safemode.",
             "Empires Mod has been triggered into safe-mode. Please inform a server admin to disable it!");
+    
+    
 
     /* ----- Datasource Config ----- */
 
@@ -122,7 +124,12 @@ public class Config extends ConfigTemplate {
             "PowerPerDeath", "Citizens",
             "The amount of power a player loses when they die:",
             2.50);
-
+    
+    public ConfigProperty<Double> PowerUpdateTime = new ConfigProperty<Double>(
+            "PowerUpdateTime", "Citizens",
+            "The amount of time in milliseconds that power should update (default = 600000 a.k.a 10 min)",
+            60000.00);
+    
     
     public ConfigProperty<Integer> teleportCooldown = new ConfigProperty<Integer>(
             "teleportCooldown", "Citizens",

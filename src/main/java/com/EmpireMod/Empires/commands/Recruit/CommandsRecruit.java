@@ -131,10 +131,10 @@ public class CommandsRecruit extends CommandsEMP {
 
 */
     @Command(
-            name = "blocks",
+            name = "territory",
             permission = "Empires.cmd.everyone.blocks",
             parentName = "Empires.cmd",
-            syntax = "/empire blocks <command>")
+            syntax = "/empire territory <command>")
     public static CommandResponse blocksCommand(ICommandSender sender, List<String> args) {
         return CommandResponse.SEND_HELP_MESSAGE;
     }
@@ -143,7 +143,7 @@ public class CommandsRecruit extends CommandsEMP {
             name = "list",
             permission = "Empires.cmd.everyone.blocks.list",
             parentName = "Empires.cmd.everyone.blocks",
-            syntax = "/empire blocks list")
+            syntax = "/empire territory list")
     public static CommandResponse blocksListCommand(ICommandSender sender, List<String> args) {
         Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(sender);
         Empire empire = getEmpireFromCitizen(res);
@@ -160,7 +160,7 @@ public class CommandsRecruit extends CommandsEMP {
             name = "info",
             permission = "Empires.cmd.everyone.blocks.info",
             parentName = "Empires.cmd.everyone.blocks",
-            syntax = "/empire blocks info")
+            syntax = "/empire territory info")
     public static CommandResponse blocksInfoCommand(ICommandSender sender, List<String> args) {
         Citizen res = getUniverse().getOrMakeCitizen(sender);
         Empire empire = getEmpireFromCitizen(res);

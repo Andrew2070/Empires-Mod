@@ -197,9 +197,7 @@ public class EmpiresDatasource extends DatasourceSQL {
                 res.setPower(rs.getDouble("power"));
                 res.setFakePlayer(rs.getBoolean("fakePlayer"));
                 res.setLoadPowerTime(rs.getLong("lastPowerUpdateTime"));
-
-
-               // LOG.error("Power Check" + power3);
+                res.setBanned(rs.getBoolean("isBanned"));
 
                 EmpiresUniverse.instance.addCitizen(res);
             }
@@ -421,6 +419,24 @@ public class EmpiresDatasource extends DatasourceSQL {
             }
         } catch (SQLException e) {
             LOG.error("Failed to load empire invites.");
+            LOG.error(ExceptionUtils.getStackTrace(e));
+            return false;
+        }
+
+        return true;
+    }
+    
+    protected boolean loadEmpireBans() {
+        try {
+            PreparedStatement s = prepare("SELECT * FROM " + prefix + "EmpireBans", true);
+            ResultSet rs = s.executeQuery();
+            while (rs.next()) {
+                Citizen res = getUniverse().citizens.get(UUID.fromString(rs.getString("citizen")));
+                Empire empire = getUniverse().empires.get(rs.getString("empireName"));
+                res.empireBansContainer.add(empire);
+            }
+        } catch (SQLException e) {
+            LOG.error("Failed to load empire bans.");
             LOG.error(ExceptionUtils.getStackTrace(e));
             return false;
         }
@@ -704,12 +720,13 @@ public class EmpiresDatasource extends DatasourceSQL {
         LOG.debug("Saving Citizen {} ({})", citizen.getUUID(), citizen.getPlayerName());
         try {
             if (getUniverse().citizens.contains(citizen.getUUID())) { // Update
-                PreparedStatement updateStatement = prepare("UPDATE " + prefix + "Citizens SET name=?, lastOnline=?, extraBlocks=?, power=?, lastPowerUpdateTime=?, fakePlayer=? WHERE uuid=?", true);
+                PreparedStatement updateStatement = prepare("UPDATE " + prefix + "Citizens SET name=?, lastOnline=?, extraBlocks=?, power=?, lastPowerUpdateTime=?, isBanned=?, fakePlayer=? WHERE uuid=?", true);
                 updateStatement.setString(1, citizen.getPlayerName());
                 updateStatement.setLong(2, citizen.getLastOnline().getTime() / 1000L); 
                 updateStatement.setInt(3, citizen.getExtraBlocks());
-                updateStatement.setBoolean(6, citizen.getFakePlayer());
-                updateStatement.setString(7, citizen.getUUID().toString());
+                updateStatement.setBoolean(7, citizen.getFakePlayer());
+                updateStatement.setBoolean(6, citizen.getBanned());
+                updateStatement.setString(8, citizen.getUUID().toString());
                 updateStatement.setDouble(4, citizen.getPower());
                 updateStatement.setLong(5, citizen.getLastPowerUpdateTime());
                 updateStatement.executeUpdate();
@@ -720,13 +737,14 @@ public class EmpiresDatasource extends DatasourceSQL {
                 //LOG.info("Power is: " + power7);
 
             } else { // Insert
-                PreparedStatement insertStatement = prepare("INSERT INTO " + prefix + "Citizens (uuid, name, joined, lastOnline, extraBlocks, power, lastPowerUpdateTime, fakePlayer) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", true);
+                PreparedStatement insertStatement = prepare("INSERT INTO " + prefix + "Citizens (uuid, name, joined, lastOnline, extraBlocks, power, lastPowerUpdateTime, fakePlayer, isBanned) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", true);
                 insertStatement.setString(1, citizen.getUUID().toString());
                 insertStatement.setString(2, citizen.getPlayerName());
                 insertStatement.setLong(3, citizen.getJoinDate().getTime() / 1000L);
                 insertStatement.setLong(4, citizen.getLastOnline().getTime() / 1000L); 
                 insertStatement.setInt(5, citizen.getExtraBlocks());
                 insertStatement.setBoolean(8, citizen.getFakePlayer());
+                insertStatement.setBoolean(9, citizen.getBanned());
                 insertStatement.setDouble(6, citizen.getPower());
                 insertStatement.setLong(7, citizen.getLastPowerUpdateTime());
                 insertStatement.executeUpdate();
@@ -930,6 +948,26 @@ public class EmpiresDatasource extends DatasourceSQL {
             }
         } catch (SQLException e) {
             LOG.error("Failed to save empire invite: {} for empire {}", res.getPlayerName(), empire.getName());
+            LOG.error(ExceptionUtils.getStackTrace(e));
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean saveEmpireBans(Citizen res, Empire empire) {
+        try {
+            if (!res.empireInvitesContainer.contains(empire)) {
+                PreparedStatement s = prepare("INSERT INTO " + prefix + "EmpireBans(citizen, empireName) VALUES(?, ?)", true);
+                s.setString(1, res.getUUID().toString());
+                s.setString(2, empire.getName());
+                s.executeUpdate();
+
+                res.empireBansContainer.add(empire);
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            LOG.error("Failed to save empire bans for citizen: {} for empire {}", res.getPlayerName(), empire.getName());
             LOG.error(ExceptionUtils.getStackTrace(e));
             return false;
         }

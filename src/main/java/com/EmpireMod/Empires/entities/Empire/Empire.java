@@ -199,7 +199,7 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     
     
     public double getMaxPower() {
-    	double maxPower = citizensMap.size() * Config.instance.defaultMaxPower.get();
+    	double maxPower = 0.00 + citizensMap.size() * Config.instance.defaultMaxPower.get();
     	
 	return maxPower;
     }

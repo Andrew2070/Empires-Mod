@@ -37,12 +37,14 @@ public class Citizen implements IChatFormat {
 
     private int extraBlocks = 0;
     
-    private double Power = 0.00 + Config.instance.defaultPower.get();
+    private double Power = Math.floor(0.00 + Config.instance.defaultPower.get());
     private double maxPower = 0.00 + Config.instance.defaultMaxPower.get();
     private boolean isFakePlayer = false;
-
+    private boolean isBanned = false;
+    
     public final Plot.Container plotsContainer = new Plot.Container(Config.instance.defaultMaxPlots.get());
     public final Empire.Container empireInvitesContainer = new Empire.Container();
+    public final Empire.Container empireBansContainer = new Empire.Container();
     public final Empire.Container empiresContainer = new Empire.Container();
 
     public Citizen(EntityPlayer pl) {
@@ -231,6 +233,10 @@ public class Citizen implements IChatFormat {
         return extraBlocks;
     }
     
+    public boolean getBanned() {
+    	return isBanned;
+    }
+    
     public double getPower() {
     	return Power;
     }
@@ -252,6 +258,14 @@ public class Citizen implements IChatFormat {
     	this.Power = currentPower - target2;
     	
     }
+    
+    public void setBanned(boolean ban) {
+    	
+    	this.isBanned = ban;
+    	
+    }
+    
+    
     
  public void setPower(double Power) {
     	

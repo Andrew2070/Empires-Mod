@@ -91,23 +91,38 @@ public class Ticker {
 						     long FinishTime = System.currentTimeMillis();
 						     
 						     
-							if (FinishTime - res.getLastPowerUpdateTime()  >= 3600000 ) { // value 3600000 for 1 hour
+							if (FinishTime - res.getLastPowerUpdateTime()  >= Config.instance.PowerUpdateTime.get() ) { 
 								
 
 							if (res.getPower() < res.getMaxPower()) {
 							//Calculate New Power For This Selected Player:
-							double newPowerUnrounded = (double) res.getPower() + Config.instance.PowerPerHour.get();
-							double newPower = (double)  newPowerUnrounded; //the fuck? makes it 0 instead of 20.00 (20.000018 to 20.00 not working)
-							//Assign This New Power By Calling A Method to SetPower() in Citizen.Java:
+							//double newPower = (double) res.getPower() + Config.instance.PowerPerHour.get();
+							
+							double powerPerHour = Config.instance.PowerPerHour.get();
+							double powerUpdateTime = Config.instance.PowerUpdateTime.get();
+							
+							double newPower = res.getPower() + powerPerHour;
+					
+							
+							// = (0.00 + 20.00/(600,000/100,000)
+							
 							res.setPower(newPower);
 							res.resetTime(FinishTime);
 							Empires.instance.datasource.saveCitizen(res);
+							
 							}
 							
 							if (res.getPower() > res.getMaxPower()) {
 								double newMaxPower = res.getPower();
 								res.setMaxPower(newMaxPower);
+								
 							}
+							
+							if (res.getPower() < Config.instance.minPower.get()) {
+								
+								res.setPower(Config.instance.minPower.get());
+							}
+
 								
 							
 						}

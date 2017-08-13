@@ -214,7 +214,7 @@ public class CommandsOfficer extends CommandsEMP {
         if (CitizensEmpire == block.getEmpire()) {
     	    throw new EmpiresCommandException("Empires.cmd.err.overclaim.presentEmpire");
         }
-        if (empire.empireBlocksContainer.size() >= empire.getMaxPowerLocal(empire)) {
+        if (empire.empireBlocksContainer.size() >= empire.getMaxPower()) {
             throw new EmpiresCommandException("Empires.cmd.err.overclaim.powerException");
         }
         if (res.getPower() < 7) {
@@ -225,7 +225,7 @@ public class CommandsOfficer extends CommandsEMP {
         
         	if (CitizensEmpire != block.getEmpire()) {
         
-        		if (empire.empireBlocksContainer.size() < empire.getMaxPowerLocal(empire)) {
+        		if (empire.empireBlocksContainer.size() < empire.getMaxPower()) {
         	
         			if (res.getPower() >= 7) {
         				
@@ -275,6 +275,48 @@ public class CommandsOfficer extends CommandsEMP {
         ChatManager.send(sender, "Empires.notification.empire.invite.sent");
         return CommandResponse.DONE;
     }
+    
+    
+    
+    @Command(
+            name = "ban",
+            permission = "Empires.cmd.officer.ban",
+            parentName = "Empires.cmd",
+            syntax = "/empire ban <citizen>",
+            completionKeys = {"citizenCompletion"})
+    public static CommandResponse banCommand(ICommandSender sender, List<String> args) {
+        if (args.size() < 1) {
+            return CommandResponse.SEND_SYNTAX;
+        }
+
+        Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(sender);
+        Empire empire = getEmpireFromCitizen(res);
+        Citizen target = getCitizenFromName(args.get(0));
+
+        if (target.getBanned() == true) {
+        	throw new EmpiresCommandException("Empires.cmd.err.ban.existing");
+        }
+
+        if (target == res) {
+            throw new EmpiresCommandException("Empires.cmd.err.ban.self");
+        }
+        
+        if (empire.citizensMap.get(target) == empire.ranksContainer.getLeaderRank()) {
+            throw new EmpiresCommandException("Empires.cmd.err.ban.leader");
+        }
+       
+       if (empire.citizensMap.contains(target.getPlayerName())) {
+    	   getDatasource().unlinkCitizenFromEmpire(target, empire);
+       }
+        
+        ChatManager.send(sender, "Empires.notification.empire.banned.sender", target);
+        
+        ChatManager.send(target.getPlayer(), "Empires.notification.empire.receiver", empire);
+        
+        empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.banned.tellAll", target, res));
+      
+        return CommandResponse.DONE;
+    }
 
     @Command(
             name = "set",
@@ -293,7 +335,18 @@ public class CommandsOfficer extends CommandsEMP {
 
         if (!flag.flagType.configurable) {
             throw new EmpiresCommandException("Empires.cmd.err.flag.unconfigurable");
-        } else {
+        
+        } 
+        
+        if (flag.flagType.name == "ENTER") {
+        	throw new EmpiresCommandException("Empires.cmd.err.flag.unconfigurable");
+        }
+        
+        if (flag.flagType.name == "PVP") {
+        	throw new EmpiresCommandException("Empires.cmd.err.flag.unconfigurable");
+        }
+        
+        else {
             if (flag.setValue(args.get(1))) {
                 ChatManager.send(sender, "Empires.notification.perm.success");
             } else {

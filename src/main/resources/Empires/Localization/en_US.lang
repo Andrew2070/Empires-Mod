@@ -9,6 +9,7 @@ Empires.cmd.err.group.notExist={6|[Empire] }{c|The group }{%s}{c| does not exist
 Empires.cmd.err.player.notExist={6|[Empire] }{c|The player }{%s}{c| does not exist}
 Empires.cmd.err.overclaim.powerException={6|[Empire] }{c|This Empire Has Enough Power To Support It's Territory}
 Empires.cmd.err.overclaim.minPowerRequired={6|[Empire] }{c|You Require 7 Power Minimum To Overclaim Empires!}
+Empires.cmd.errr.invite.banned={6|[Empire] }{c|You Are Banned From That Empire!}
 Empires.notification.perm.added={6|[Empire] }{a|Permission node added successfully}
 Empires.notification.perm.removed={6|[Empire] }{a|Permission node removed successfully}
 
@@ -18,6 +19,7 @@ Empires.notification.group.deleted={6|[Empire] }{a|Group has been deleted succes
 
 Empires.notification.user.group={6|[Empire] }{a|Player }{%s}{a| is assigned to group }{%s}
 Empires.notification.user.group.set={6|[Empire] }{a|Successfully set the group of the player}
+
 
 Empires.notification.config.reloaded={6|[Empire] }{a|Successfully reloaded mod configurations}
 Empires.notification.permissions.config.reloaded={6|[Empire] }{a|Successfully reloaded permissions configurations}
@@ -146,8 +148,8 @@ Empires.cmd.err.new.tooClose={6|[Empire] }{c|You are too close to Empire }{%s}{c
 Empires.cmd.err.claim.tooClose={6|[Empire] }{c|You are too close to Empire }{%s}{c|. Please leave at least %s chunks between the Empires before trying again!!}
 Empires.cmd.err.citizen.maxEmpires={6|[Empire] }{c|You cannot create/join any more Empires, you have hit the maximum amount of Empires you can be in!}
 Empires.cmd.err.new.nameTooLong={6|[Empire] }{c|The name of the Empire is too long (32 characters maximum)}
-Empires.notification.empire.created={6|[Empire] New Empire }{%s}{a| created successfully!}
-Empires.notification.empire.deleted={6|[Empire] The Empire }{%s}{a| was deleted successfully!}
+Empires.notification.empire.created={6|[Empire]}{a| New Empire }{%s}{a| created successfully!}
+Empires.notification.empire.deleted={6|[Empire]}{a| The Empire }{%s}{a| was deleted successfully!}
 Empires.notification.empire.deleted.withplots={6|[Empire] }{c|You cannot delete an Empire with plots that you don't own.}
 Empires.notification.citizen.powerboost={6|[Empire] }{Power Boosted By [}{%s}{] For Citizen}{%s}
 
@@ -291,7 +293,7 @@ Empires.format.rank.long={l|%s}{7| (}{%s}{7|)}
 Empires.format.plot.short={a|%s}{7|: }{%s}
 Empires.format.plot.long={%s}{2N|Owners: }{%s}{2N|Borders: }{%s}
 Empires.format.citizen.short={a|%s}
-Empires.format.citizen.long={%s}{2N| Empires: }{%s}{2N| Joined: }{a|%s}{2N| Last online: }{a|%s}{2N| Extra-Claims: }{a|%s}{2N| Power: }{a|%s}{2N| Max Power: }{a|%s}
+Empires.format.citizen.long={%s}{2N| Empires: }{%s}{2N| Joined: }{a|%s}{2N| Last Activity: }{a|%s}{2N| Extra-Claims: }{a|%s}{2N| Current Power: }{a|%s}{2N| Maximum Power: }{a|%s}
 Empires.format.citizen.withRank={%s}{7|(}{%s}{7|)}
 Empires.format.block.short={%s}
 Empires.format.admins={c|SERVER ADMINS}
@@ -362,6 +364,12 @@ Empires.notification.empire.upkeep={6|[Empire] }{3|A new day is upon us, taxes h
 Empires.notification.empire.upkeep.failed={6|[Empire] }{c|A new day has passed but the bank is out of money. %s days before Empire deletion}
 Empires.notification.empire.blocks.extra.set={6|[Empire] }{3|The amount of extra claimable blocks has been set to %s for Empire }{%s}
 Empires.notification.empire.blocks.farClaims.set={6|[Empire] }{3|The amount of extra far claims has been set to %s for Empire }{%s}
+Empires.cmd.err.ban.self={6|[Empire] }{d|You Cannot Ban Yourself From The Empire!}
+Empires.cmd.err.ban.leader={6|[Empire] }{d|You Cannot Ban The Leader From The Empire!}
+Empires.cmd.err.ban.existing={6|[Empire] }{d|That Person Is Already Banned From The Empire!}
+Empires.notification.empire.banned.sender={6|[Empire] }{%s}{3| Successfully Banned From Your Empire}
+Empires.notification.empire.banned.reciever={6|[Empire] }{c|You Have Been Banned From The Empire: }{%s}
+Empires.notification.empire.banned.tellAll={6|[Empire] }{%s}{{c| Has Been Banned By }{%s}
 Empires.notification.res.blocks.extra.set={6|[Empire] }{3|The amount of extra claimable blocks has been set to %s for citizen }{%s}
 Empires.notification.plot.buy.failed={6|[Empire] }{c|You don't have %s}
 Empires.notification.plot.buy.newOwner={6|[Empire] }{a|You have successfully bought plot }{%s}
@@ -383,6 +391,7 @@ Empires.notification.ciz.powerLostOnDeath={6|[Empire] }{d|%s }{c|Power Lost Upon
 # Help for commands
 Empires.cmd.officer.blocks.help={6|[Empire] }{|Everything related to EmpireBlocks (chunks in Empire)}
 Empires.cmd.officer.overclaim.help={6|[Empire] }{|Allows a player to un-claim territory of another (weaker) Empire}
+Empires.cmd.officer.ban.help={6|[Empire] }{|Work In Progress: Let's you ban a player from your Empire}
 Empires.cmd.officer.claim.help={6|[Empire] }{|Claims the chunk you are in}
 Empires.cmd.officer.invite.help={6|[Empire] }{|Invites a player to your Empire}
 Empires.cmd.everyone.perm.help={6|[Empire] }{|Everything related to protection}

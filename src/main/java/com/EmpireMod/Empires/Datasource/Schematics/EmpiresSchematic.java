@@ -154,6 +154,13 @@ public class EmpiresSchematic extends BaseSchematic {
                 "PRIMARY KEY(citizen, empireName)," +
                 "FOREIGN KEY(citizen) REFERENCES " + bridge.prefix + "Citizens(UUID) ON DELETE CASCADE, " +
                 "FOREIGN KEY(empireName) REFERENCES " + bridge.prefix + "Empires(name) ON DELETE CASCADE ON UPDATE CASCADE)"));
+        
+        updates.add(new DBUpdate("08.11.2017", "Add EmpireBans", "CREATE TABLE IF NOT EXISTS " + bridge.prefix + "EmpireBans(" +
+                "citizen CHAR(36)," +
+                "empireName VARCHAR(50), " +
+                "PRIMARY KEY(citizen, empireName)," +
+                "FOREIGN KEY(citizen) REFERENCES " + bridge.prefix + "Citizens(UUID) ON DELETE CASCADE, " +
+                "FOREIGN KEY(empireName) REFERENCES " + bridge.prefix + "Empires(name) ON DELETE CASCADE ON UPDATE CASCADE)"));
 
         // Table Modifications
         updates.add(new DBUpdate("06.28.2017", "Add 'power' to citizens", "ALTER TABLE " + bridge.prefix +
@@ -208,6 +215,9 @@ public class EmpiresSchematic extends BaseSchematic {
                 "Empires ADD extraFarClaims INTEGER DEFAULT 0"));
         updates.add(new DBUpdate("12.16.2015.1", "Add 'fakePlayer to citizens", "ALTER TABLE " + bridge.prefix +
                 "Citizens ADD fakePlayer BOOLEAN DEFAULT false"));
+        
+        updates.add(new DBUpdate("8.12.2017, ", "Add 'isBanned to citizens", "ALTER TABLE " + bridge.prefix +
+        		"Citizens ADD isBanned BOOLEAN DEFAULT false"));
     }
 
 }

@@ -198,11 +198,16 @@ public class CommandsNeutral extends CommandsEMP {
             if (!invites.contains(empire)) {
                 throw new EmpiresCommandException("Empires.cmd.err.invite.missing");
             }
+            
         }
         if (res.empiresContainer.size() >= Config.instance.maxEmpires.get()) {
             throw new EmpiresCommandException("Empires.cmd.err.citizen.maxEmpires");
         }
-
+        
+        if (res.empireBansContainer.contains(empire)) {
+        	throw new EmpiresCommandException("Empires.cmd.errr.invite.banned");
+        }
+        
         getDatasource().deleteEmpireInvite(res, empire, true);
 
         // Notify everyone
