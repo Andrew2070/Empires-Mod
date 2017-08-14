@@ -112,11 +112,6 @@ public class Ticker {
 							
 							}
 							
-							if (res.getPower() > res.getMaxPower()) {
-								double newMaxPower = res.getPower();
-								res.setMaxPower(newMaxPower);
-								
-							}
 							
 							if (res.getPower() < Config.instance.minPower.get()) {
 								
@@ -133,29 +128,33 @@ public class Ticker {
 		     //Empire Power Math:
 		     	List<Empire> allEmpires = CommandsEMP.getUniverse().empires;
 	
-				for(int i=0; i < allEmpires.size(); i++) {
+				for (int i=0; i < allEmpires.size(); i++) {
 					
 					Empire empire = allEmpires.get(i);
-					
-					if (empire.getPower() < empire.getMaxPowerLocal(empire)) {
-					for (Citizen res : empire.citizensMap.keySet()) {
-						
-			    			double maxP = empire.getMaxPowerLocal(empire);
 
-			    			if (empire.getPower() != maxP) {
+					for (int c=0; c < empire.citizensMap.size(); c++) {
+						
+						for (Citizen res : empire.citizensMap.keySet()) {
+
+							if (res.getPower() > res.getMaxPower()) {
+								double newMaxPower = res.getPower();
+								res.setMaxPower(newMaxPower);
+								
+							}
+							
+			    			if (empire.getPower() < empire.getMaxPower()) {
+			    				
 			    				double newEmpirePower = empire.getPower();
 			    					   newEmpirePower += res.getPower();
 			    					   empire.setPower(newEmpirePower);
-			    					   
-			    					   
-			
+
 			    			}
 			    	}
 				
 			   	}
 			}
+		}
 
-    }
     
    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onPlayerDeath(PlayerEvent.PlayerRespawnEvent ev) {

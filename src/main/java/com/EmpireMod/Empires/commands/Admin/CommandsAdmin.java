@@ -361,7 +361,7 @@ public class CommandsAdmin extends CommandsEMP {
     @Command(
             name = "powerboost",
             permission = "Empires.adm.cmd.powerboost",
-            syntax = "/empireadmin power set <citizen> <amount>",
+            syntax = "/empireadmin powerboost <citizen> <amount>",
             parentName = "Empires.adm.cmd",
             completionKeys = {"citizenCompletion"},
             console = true)

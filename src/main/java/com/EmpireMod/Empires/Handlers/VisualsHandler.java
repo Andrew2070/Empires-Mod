@@ -160,7 +160,7 @@ public class VisualsHandler {
                         x = block.getX() << 4;
                         for (int k = x + 1; k <= x + 14; k++) {
                             y = WorldUtils.getMaxHeightWithSolid(block.getDim(), k, z);
-                            BlockCoords blockCoord = new BlockCoords(k, y, z, block.getDim(), Blocks.lapis_block);
+                            BlockCoords blockCoord = new BlockCoords(k, y, z, block.getDim(), Blocks.gold_block);
                             blockList.add(blockCoord);
                         }
                     } else {
@@ -168,7 +168,7 @@ public class VisualsHandler {
                         z = block.getZ() << 4;
                         for (int k = z + 1; k <= z + 14; k++) {
                             y = WorldUtils.getMaxHeightWithSolid(block.getDim(), x, k);
-                            BlockCoords blockCoord = new BlockCoords(x, y, k, block.getDim(), Blocks.lapis_block);
+                            BlockCoords blockCoord = new BlockCoords(x, y, k, block.getDim(), Blocks.gold_block);
                             blockList.add(blockCoord);
                         }
                     }
@@ -180,7 +180,7 @@ public class VisualsHandler {
                 x = dx[i] == 1 ? block.getX() << 4 : (block.getX() << 4) + 15;
                 z = dz[i] == 1 ? block.getZ() << 4 : (block.getZ() << 4) + 15;
                 y = WorldUtils.getMaxHeightWithSolid(block.getDim(), x, z);
-                BlockCoords blockCoord = new BlockCoords(x, y, z, block.getDim(), Blocks.lapis_block);
+                BlockCoords blockCoord = new BlockCoords(x, y, z, block.getDim(), Blocks.gold_block);
                 blockList.add(blockCoord);
             }
         }

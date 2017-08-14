@@ -214,40 +214,25 @@ public class CommandsOfficer extends CommandsEMP {
         if (CitizensEmpire == block.getEmpire()) {
     	    throw new EmpiresCommandException("Empires.cmd.err.overclaim.presentEmpire");
         }
-        if (empire.empireBlocksContainer.size() >= empire.getMaxPower()) {
+        
+        
+        if (block.getEmpire().empireBlocksContainer.size() > block.getEmpire().getPower()) {
             throw new EmpiresCommandException("Empires.cmd.err.overclaim.powerException");
         }
+        
         if (res.getPower() < 7) {
         	throw new EmpiresCommandException("Empires.cmd.err.overclaim.minPowerRequired");
         }
 
-         if (CitizensEmpire != null) {
-        
-        	if (CitizensEmpire != block.getEmpire()) {
-        
-        		if (empire.empireBlocksContainer.size() < empire.getMaxPower()) {
-        	
-        			if (res.getPower() >= 7) {
         				
-        				if (block.isPointIn(empire.getSpawn().getDim(), empire.getSpawn().getX(), empire.getSpawn().getZ())) {
-        					
-        					  getDatasource().deleteEmpire(empire);
-
-        					}
+        if (block.isPointIn(empire.getSpawn().getDim(), empire.getSpawn().getX(), empire.getSpawn().getZ())) {
+        getDatasource().deleteEmpire(empire); 
+        empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.overclaimed.deleted", empire, res));
+        }
         				
-        	            getDatasource().deleteBlock(block);
-        	            ChatManager.send(sender, "Empires.notification.block.overclaimed", block.getX() << 4, block.getZ() << 4, block.getX() << 4 + 15, block.getZ() << 4 + 15, empire);
-
-        					}
-        			
-        				}
-        			
-        		}
-        	
-        
-        	}
-        
-         return CommandResponse.DONE;
+        getDatasource().deleteBlock(block);
+        ChatManager.send(sender, "Empires.notification.block.overclaimed", block.getX() << 4, block.getZ() << 4, block.getX() << 4 + 15, block.getZ() << 4 + 15, empire);
+        return CommandResponse.DONE;
     }
     
 
