@@ -1,5 +1,6 @@
 package com.EmpireMod.Empires.Handlers;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
 import com.EmpireMod.Empires.entities.Empire.AdminEmpire;
 import com.EmpireMod.Empires.entities.Empire.Citizen;
 import com.EmpireMod.Empires.entities.Empire.Empire;
+import com.EmpireMod.Empires.exceptions.Command.CommandException;
+import com.EmpireMod.Empires.API.Commands.Command.CommandsEMP;
 import com.sk89q.worldedit.entity.Player;
 
 import cpw.mods.fml.common.eventhandler.EventPriority;
@@ -68,7 +71,6 @@ public class Ticker {
       
 			//Get A List of Entities:
 		    List<EntityPlayerMP> allPlayers = MinecraftServer.getServer().getConfigurationManager().playerEntityList;
-		   
 		     for(int i=0; i < allPlayers.size(); i++) {
 					 
 
@@ -85,76 +87,66 @@ public class Ticker {
 							//Check To See if Player Has A Citizen Profile, If Not Then Make One:	
 							String playerName =  player.getDisplayName();
 							Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(playerName); 
-						
-							Citizen citizen = res;
-		
-						     long FinishTime = System.currentTimeMillis();
-						     
-						     
-							if (FinishTime - res.getLastPowerUpdateTime()  >= Config.instance.PowerUpdateTime.get() ) { 
-								
 
-							if (res.getPower() < res.getMaxPower()) {
-							//Calculate New Power For This Selected Player:
-							//double newPower = (double) res.getPower() + Config.instance.PowerPerHour.get();
+							Citizen citizen = res;
 							
+		
+						     
+						    if (res.getPower() > res.getMaxPower()) {
+									double newMaxPower = res.getPower();
+									res.setMaxPower(newMaxPower);
+								}
+
+						    long FinishTime = System.currentTimeMillis();
+							if (FinishTime - res.getLastPowerUpdateTime()  >= Config.instance.PowerUpdateTime.get() ) { 
+								if (res.getPower() < res.getMaxPower()) {
+									
+							//Calculate New Power For This Selected Player:
+
 							double powerPerHour = Config.instance.PowerPerHour.get();
 							double powerUpdateTime = Config.instance.PowerUpdateTime.get();
-							
 							double newPower = res.getPower() + powerPerHour;
+							
+							try {
+
+							Empire empire = CommandsEMP.getEmpireFromCitizen(res);
+							
+							if (empire.getPower() < empire.getMaxPower())
+								
+							empire.addPower(newPower);
+							
+							return;
+							
+							} catch (CommandException e) {
+
+							
 					
-							
-							// = (0.00 + 20.00/(600,000/100,000)
-							
-							res.setPower(newPower);
+							res.setPower(newPower);		
 							res.resetTime(FinishTime);
+		
 							Empires.instance.datasource.saveCitizen(res);
 							
-							}
+							
 							
 							
 							if (res.getPower() < Config.instance.minPower.get()) {
 								
 								res.setPower(Config.instance.minPower.get());
 							}
+							
+							return;
+							}
 
-								
+								}
 							
 						}
 	
 					}	
 				}
-       }     	
-		     //Empire Power Math:
-		     	List<Empire> allEmpires = CommandsEMP.getUniverse().empires;
-	
-				for (int i=0; i < allEmpires.size(); i++) {
-					
-					Empire empire = allEmpires.get(i);
-
-					for (int c=0; c < empire.citizensMap.size(); c++) {
-						
-						for (Citizen res : empire.citizensMap.keySet()) {
-
-							if (res.getPower() > res.getMaxPower()) {
-								double newMaxPower = res.getPower();
-								res.setMaxPower(newMaxPower);
-								
-							}
-							
-			    			if (empire.getPower() < empire.getMaxPower()) {
-			    				
-			    				double newEmpirePower = empire.getPower();
-			    					   newEmpirePower += res.getPower();
-			    					   empire.setPower(newEmpirePower);
-
-			    			}
-			    	}
-				
-			   	}
-			}
-		}
-
+       }  
+		     
+    }     	
+		     	
     
    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onPlayerDeath(PlayerEvent.PlayerRespawnEvent ev) {
@@ -179,6 +171,9 @@ public class Ticker {
         if (res != null) {
             res.setPlayer(ev.player);
          //  Empires.instance.datasource.saveCitizen(res);
+            
+            
+            
         } else {
             Empires.instance.LOG.error("[Player Login] Didn't create citizen for player {} ({})", ev.player.getCommandSenderName(), ev.player.getPersistentID());
        

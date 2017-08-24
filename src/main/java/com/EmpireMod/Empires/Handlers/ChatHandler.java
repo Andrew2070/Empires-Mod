@@ -52,6 +52,8 @@ public class ChatHandler {
 							EnumChatFormatting.WHITE + player.getDisplayName() + 
 							": " + event.message;
 					target.addChatMessage(new ChatComponentTranslation(chat));
+					
+					
 				} catch (CommandException e) {
 					String chat2 = player.getDisplayName() + ": " + event.message;
 					target.addChatMessage(new ChatComponentTranslation(chat2));

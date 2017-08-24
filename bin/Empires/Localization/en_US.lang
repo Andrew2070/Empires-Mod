@@ -21,7 +21,7 @@ Empires.notification.user.group={6|[Empire] }{a|Player }{%s}{a| is assigned to g
 Empires.notification.user.group.set={6|[Empire] }{a|Successfully set the group of the player}
 
 
-Empires.notification.config.reloaded={6|[Empire] }{a|Successfully reloaded mod configurations}
+Empires.notification.config.reloaded={6|[Empire] }{a|Successfully reloaded configurations}
 Empires.notification.permissions.config.reloaded={6|[Empire] }{a|Successfully reloaded permissions configurations}
 Empires.notification.permissions.third_party={6|[Empire] }{a|Currently using third party permission system}
 
@@ -133,7 +133,7 @@ Empires.sign.sell.description.owner={6|[Empire] }{9|by}
 Empires.sign.sell.description.price={6|[Empire] }{6|}
 Empires.sign.sell.description.restricted={6|[Empire] }{c|RESTRICTED}
 
-# /empirea configuration [load|save]
+# /empireadmin configuration [load|save]
 Empires.cmd.config.load.start={6|[Empire] }{3|Loading configuration...}
 Empires.cmd.config.load.stop={6|[Empire] }{a|Configuration loaded}
 Empires.cmd.config.save.start={6|[Empire] }{3|Saving configuration...}
@@ -288,7 +288,7 @@ Empires.notification.empire.ranks.perm.remove={6|[Empire] }{a|Removed permission
 
 Empires.format.flag={7|%s << %s}{7|[}{a|%s}{7|]}
 Empires.format.empire.short={6|%s << %s}
-Empires.format.empire.long={%s}{6N| - }{2|Citizens: %s}{6| - }{2|Claims: %s/%s}{6| - }{2|Power: %s/%s }{6| - }{2N| Citizens: }{%s}{2N| Ranks: }{%s}
+Empires.format.empire.long={%s}{2N| Citizens: %s}{2N| Claims: %s/%s}{2N| Power: %s/%s }{2N| Citizens: }{%s}{2N| Ranks: }{%s}
 Empires.format.rank={l|%s}
 Empires.format.rank.long={l|%s}{7| (}{%s}{7|)}
 Empires.format.plot.short={a|%s}{7|: }{%s}

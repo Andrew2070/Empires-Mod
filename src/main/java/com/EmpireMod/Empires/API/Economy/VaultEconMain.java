@@ -1,4 +1,4 @@
-package com.EmpireMod.net.milkbowl.vault.economy;
+package com.EmpireMod.Empires.API.Economy;
 
 
 import java.util.List;
@@ -9,7 +9,7 @@ import org.bukkit.OfflinePlayer;
  * The main economy API
  *
  */
-public interface Economy {
+public interface VaultEconMain {
 
     /**
      * Checks if economy method is enabled.

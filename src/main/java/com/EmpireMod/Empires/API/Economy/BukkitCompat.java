@@ -1,7 +1,6 @@
 package com.EmpireMod.Empires.API.Economy;
 
 
-import com.EmpireMod.net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -18,7 +17,7 @@ public class BukkitCompat {
     public static Class<? extends IEconManager> initEconomy() {
         Server server = Bukkit.getServer();
 
-        RegisteredServiceProvider<Economy> economyProvider = server.getServicesManager().getRegistration(com.EmpireMod.net.milkbowl.vault.economy.Economy.class);
+        RegisteredServiceProvider<VaultEconMain> economyProvider = server.getServicesManager().getRegistration(com.EmpireMod.Empires.API.Economy.VaultEconMain.class);
         if (economyProvider != null) {
             VaultEconomy.econ = economyProvider.getProvider();
             if (VaultEconomy.econ != null && VaultEconomy.econ.isEnabled()) {

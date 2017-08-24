@@ -1,7 +1,6 @@
 package com.EmpireMod.Empires.API.Economy;
 
 
-import com.EmpireMod.net.milkbowl.vault.economy.Economy;
 import net.minecraft.entity.player.EntityPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -13,7 +12,7 @@ import java.util.UUID;
  * Economy implementation for the Vault API
  */
 public class VaultEconomy implements IEconManager {
-    public static Economy econ;
+    public static VaultEconMain econ;
 
     private OfflinePlayer player;
 

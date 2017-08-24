@@ -314,7 +314,21 @@ public class Empire implements Comparable<Empire>, IChatFormat {
    } 
     
     
+    public void setMaxPower(double maxP) {
+    	this.maxPower = maxP;
+    }
     
+    public void addMaxPower(double additive) {
+    	double target = additive;
+    	double newMaxPower = this.maxPower + target;
+    	this.maxPower = newMaxPower;
+    }
+    
+    public void addPower(double additive) {
+    	double target = additive;
+    	double newPower = this.CitizensPower + target;
+    	this.CitizensPower = newPower;
+    }
     
     public double getPower() {
     	return CitizensPower;

@@ -1,4 +1,4 @@
-package com.EmpireMod.net.milkbowl.vault.economy;
+package com.EmpireMod.Empires.API.Economy;
 
 /* This file is part of Vault.
 Vault is free software: you can redistribute it and/or modify

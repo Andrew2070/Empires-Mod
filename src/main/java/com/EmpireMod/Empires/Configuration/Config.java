@@ -212,6 +212,12 @@ public class Config extends ConfigTemplate {
             5);
     
     
+    public ConfigProperty<Integer> empireNameMaxChars = new ConfigProperty<Integer>(
+            "empireNameMaxChars", "Empires",
+            "The maximum amount of characters that an Empire's name can contain: (default = 32):",
+            32);
+    
+    
     public ConfigProperty<Integer> defaultMaxPlots = new ConfigProperty<Integer>(
             "defaultMaxPlotsPerPlayer", "Empires",
             "The maximum amount of plots a player can make in a Empire as a default.",

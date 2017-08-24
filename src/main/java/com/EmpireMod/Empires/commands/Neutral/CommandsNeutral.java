@@ -116,10 +116,10 @@ public class CommandsNeutral extends CommandsEMP {
     }
 
     @Command(
-            name = "new",
+            name = "create",
             permission = "Empires.cmd.outsider.new",
             parentName = "Empires.cmd",
-            syntax = "/empire new <name>")
+            syntax = "/empire create <name>")
     public static CommandResponse newEmpireCommand(ICommandSender sender, List<String> args) {
         if (args.size() < 1) {
             return CommandResponse.SEND_SYNTAX;
@@ -147,10 +147,16 @@ public class CommandsNeutral extends CommandsEMP {
                 }
             }
         }
-        if (args.get(0).length() > 32) {
+        
+        //Need to insert an If statement that blocks the use of spaces in empire names ie: Republic of LALA has 2 spaces, hence unsearchable.
+        
+        if (args.get(0).length() > Config.instance.empireNameMaxChars.get()) {
             throw new EmpiresCommandException("Empires.cmd.err.new.nameTooLong");
         }
 
+       
+        
+        
         makePayment(player, Config.instance.costAmountMakeEmpire.get() + Config.instance.costAmountClaim.get());
 
         Empire empire = getUniverse().newEmpire(args.get(0), res); // Attempt to create the Empire
