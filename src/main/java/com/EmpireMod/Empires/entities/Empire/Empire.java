@@ -197,6 +197,11 @@ public class Empire implements Comparable<Empire>, IChatFormat {
         return leaderBlocks + citizensBlocks + citizensExtra + empireExtra;
     }
     
+ 
+    
+    
+    
+    
     
     public double getMaxPower() {
     	double maxPower = 0.00 + citizensMap.size() * Config.instance.defaultMaxPower.get();
@@ -263,6 +268,12 @@ public class Empire implements Comparable<Empire>, IChatFormat {
 
     public void setAlliance(Alliance alliance) {
         this.alliance = alliance;
+    }
+    
+    public void subtractPower(double Power) {
+    	if (this.CitizensPower == Power) return;
+    	double currentPower = this.CitizensPower;
+    	this.CitizensPower = currentPower - Power;  	
     }
 
     public boolean hasSpawn() {

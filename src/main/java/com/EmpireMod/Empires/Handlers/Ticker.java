@@ -12,6 +12,7 @@ import com.EmpireMod.Empires.API.Commands.Command.CommandsEMP;
 import com.EmpireMod.Empires.Configuration.Config;
 import com.EmpireMod.Empires.Datasource.EmpiresDatasource;
 import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
+import com.EmpireMod.Empires.Events.EmpireEvent;
 import com.EmpireMod.Empires.entities.Empire.AdminEmpire;
 import com.EmpireMod.Empires.entities.Empire.Citizen;
 import com.EmpireMod.Empires.entities.Empire.Empire;
@@ -28,6 +29,7 @@ import cpw.mods.fml.relauncher.Side;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.management.PlayerManager;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
 
@@ -87,83 +89,98 @@ public class Ticker {
 							//Check To See if Player Has A Citizen Profile, If Not Then Make One:	
 							String playerName =  player.getDisplayName();
 							Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(playerName); 
-
 							Citizen citizen = res;
-							
-		
-						     
-						    if (res.getPower() > res.getMaxPower()) {
-									double newMaxPower = res.getPower();
-									res.setMaxPower(newMaxPower);
-								}
-
-						    long FinishTime = System.currentTimeMillis();
-							if (FinishTime - res.getLastPowerUpdateTime()  >= Config.instance.PowerUpdateTime.get() ) { 
-								if (res.getPower() < res.getMaxPower()) {
-									
-							//Calculate New Power For This Selected Player:
-
 							double powerPerHour = Config.instance.PowerPerHour.get();
 							double powerUpdateTime = Config.instance.PowerUpdateTime.get();
 							double newPower = res.getPower() + powerPerHour;
 							
-							try {
 
-							Empire empire = CommandsEMP.getEmpireFromCitizen(res);
-							
-							if (empire.getPower() < empire.getMaxPower())
-								
-							empire.addPower(newPower);
-							
-							return;
-							
-							} catch (CommandException e) {
 
-							
-					
-							res.setPower(newPower);		
-							res.resetTime(FinishTime);
-		
-							Empires.instance.datasource.saveCitizen(res);
-							
-							
-							
-							
+						    if (res.getPower() > res.getMaxPower()) {
+									double newMaxPower = res.getPower();
+									res.setMaxPower(newMaxPower);
+								}
+						    
 							if (res.getPower() < Config.instance.minPower.get()) {
-								
 								res.setPower(Config.instance.minPower.get());
 							}
-							
-							return;
-							}
+						    
+							//Calculate New Power For This Selected Player:
+						    long FinishTime = System.currentTimeMillis();
+							if (FinishTime - res.getLastPowerUpdateTime()  >= Config.instance.PowerUpdateTime.get() ) { 	
 
+								if (res.getPower() < res.getMaxPower()) {
+									res.setPower(newPower);		
+									res.resetTime(FinishTime);
+									res.setPowerAdded(false);
+									Empires.instance.datasource.saveCitizen(res);
+									}
+
+							return;
 								}
-							
 						}
 	
 					}	
+				
 				}
-       }  
-		     
-    }     	
+         
+		     List<Empire> allEmpires = CommandsEMP.getUniverse().empires;
+		     for (int i=0; i < allEmpires.size(); i++) {
+					
+					Empire empire = allEmpires.get(i);
+					if (empire.getPower() < empire.getMaxPower()) {
+						for (int c=0; c < empire.citizensMap.size(); c++) {
+							
+						
+						ArrayList<Citizen> empireCitizens = new ArrayList<Citizen>(empire.citizensMap.keySet());
+						Citizen citizen = empireCitizens.get(c);
+						
+					if (citizen.getPowerAdded() == false) {
+						
+					if (citizen.getPower() != citizen.getPreviousPower()) {
+						empire.addPower(citizen.getPower());
+						citizen.setPowerAdded(true);
+						citizen.setPreviousPower(citizen.getPower());
+						}
+						}				
+						}
+						
+				
+					}	     
+		     }
 		     	
+}
+
     
-   @SubscribeEvent(priority = EventPriority.HIGHEST)
+    
+ @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onPlayerDeath(PlayerEvent.PlayerRespawnEvent ev) {
-		if(ev.player.worldObj.isRemote || ev.isCanceled()) 
+		if(ev.player.worldObj.isRemote || ev.isCanceled()) {
 			return;
- 
-    	Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(ev.player);
-    	
-    	if (res != null) {
-
+		}
+		
+    		Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(ev.player);
     		res.subtractPower(Config.instance.PowerPerDeath.get());
+    		
     	    ChatManager.send(ev.player, "Empires.notification.ciz.powerLostOnDeath", Config.instance.PowerPerDeath.get(), res.getPower());
+    	    
+    	    try {
+    	    	
+    	    	Empire empire = CommandsEMP.getEmpireFromCitizen(res);
+    	    	
+    	    	empire.subtractPower(Config.instance.PowerPerDeath.get());	    	
+    	    	
+    	    } catch(CommandException e) {
+    	    	return;
+    	    }
 
-    	}
-    	
+  
     
     }
+
+   
+   
+   
     
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent ev) {

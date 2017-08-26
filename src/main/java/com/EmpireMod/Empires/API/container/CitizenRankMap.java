@@ -44,6 +44,8 @@ public class CitizenRankMap extends HashMap<Citizen, Rank> implements IChatForma
         return null;
     }
 
+        	
+
     @Override
     public String toString() {
         return toChatMessage().getUnformattedText();

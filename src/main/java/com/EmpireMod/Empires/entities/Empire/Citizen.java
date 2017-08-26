@@ -36,11 +36,14 @@ public class Citizen implements IChatFormat {
     private int teleportCooldown = 0;
 
     private int extraBlocks = 0;
+    private double previousPower = 0.00;
+    private int powerID = 0;
     
     private double Power = Math.floor(0.00 + Config.instance.defaultPower.get());
     private double maxPower = 0.00 + Config.instance.defaultMaxPower.get();
     private boolean isFakePlayer = false;
     private boolean isBanned = false;
+    private boolean powerAdded = false;
     
     public final Plot.Container plotsContainer = new Plot.Container(Config.instance.defaultMaxPlots.get());
     public final Empire.Container empireInvitesContainer = new Empire.Container();
@@ -237,6 +240,10 @@ public class Citizen implements IChatFormat {
     	return isBanned;
     }
     
+    public boolean getPowerAdded() {
+    	return powerAdded;
+    }
+    
     public double getPower() {
     	return Power;
     }
@@ -249,14 +256,9 @@ public class Citizen implements IChatFormat {
     }
     
     public void subtractPower(double Power) {
-    	
-    	Double target2 = (Power);
-    	
     	if (this.Power == Power) return;
     	double currentPower = this.Power;
-    	
-    	this.Power = currentPower - target2;
-    	
+    	this.Power = currentPower - Power;  	
     }
     
     public void setBanned(boolean ban) {
@@ -265,8 +267,18 @@ public class Citizen implements IChatFormat {
     	
     }
     
+    public void setPowerAdded(boolean value) {
+    	this.powerAdded = value;
+    }
+    
+    public double getPreviousPower() {
+    	return previousPower;
+    }
     
     
+    public void setPreviousPower(double val) {
+    	this.previousPower = val;
+    }
  public void setPower(double Power) {
     	
     	Double target = (Power);
