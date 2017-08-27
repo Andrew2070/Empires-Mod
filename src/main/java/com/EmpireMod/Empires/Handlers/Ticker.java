@@ -138,9 +138,13 @@ public class Ticker {
 					if (citizen.getPowerAdded() == false) {
 						
 					if (citizen.getPower() != citizen.getPreviousPower()) {
-						empire.addPower(citizen.getPower());
+						
+						if (citizen.getPower()>=0) {
+						double result = (citizen.getPower()-citizen.getPreviousPower());
+						empire.addPower(result);
 						citizen.setPowerAdded(true);
 						citizen.setPreviousPower(citizen.getPower());
+						}
 						}
 						}				
 						}
@@ -158,17 +162,17 @@ public class Ticker {
 		if(ev.player.worldObj.isRemote || ev.isCanceled()) {
 			return;
 		}
-		
+	 
     		Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(ev.player);
     		res.subtractPower(Config.instance.PowerPerDeath.get());
-    		
+    		Empires.instance.datasource.saveCitizen(res);
     	    ChatManager.send(ev.player, "Empires.notification.ciz.powerLostOnDeath", Config.instance.PowerPerDeath.get(), res.getPower());
     	    
     	    try {
     	    	
     	    	Empire empire = CommandsEMP.getEmpireFromCitizen(res);
     	    	
-    	    	empire.subtractPower(Config.instance.PowerPerDeath.get());	    	
+    	    	empire.subtractPower(Config.instance.PowerPerDeath.get());	 
     	    	
     	    } catch(CommandException e) {
     	    	return;
