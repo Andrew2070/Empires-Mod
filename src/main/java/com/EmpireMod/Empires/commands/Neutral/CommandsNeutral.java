@@ -160,9 +160,13 @@ public class CommandsNeutral extends CommandsEMP {
         makePayment(player, Config.instance.costAmountMakeEmpire.get() + Config.instance.costAmountClaim.get());
 
         Empire empire = getUniverse().newEmpire(args.get(0), res); // Attempt to create the Empire
+        
+     
         if (empire == null) {
             throw new EmpiresCommandException("Empires.cmd.err.new.failed");
         }
+        
+        empire.addPower(res.getPower());
 
         ChatManager.send(sender, "Empires.notification.empire.created", empire);
         return CommandResponse.DONE;
@@ -215,6 +219,8 @@ public class CommandsNeutral extends CommandsEMP {
         }
         
         getDatasource().deleteEmpireInvite(res, empire, true);
+        
+        empire.addPower(res.getPower());
 
         // Notify everyone
         ChatManager.send(sender, "Empires.notification.empire.invited.accept", empire);
