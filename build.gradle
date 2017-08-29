@@ -77,29 +77,20 @@ dependencies {
 }
 
 // Process Resources, injecting version numbers in
+// Process Resources, injecting version numbers in
 processResources {
     // this will ensure that this task is redone when the versions change.
     inputs.property "mod_version", project.version
     inputs.property "minecraft_version", minecraft.version
     inputs.property "reflectasmversion", project.reflectasmversion
-
+ 
     // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        //include '**/*.lang'
-        include '**/*.info'
-        include 'plugin.yml'
-  
-        expand([
-                'mod_version'    : project.version,
-                'minecraft_version'  : minecraft.version,
-                'reflectasmversion' : project.reflectasmversion
-                ])
-    }
-    
-    // copy everything else, thats not text
-    from(sourceSets.main.resources.srcDirs) {
-        exclude '**/*.info'
-        exclude '**/*.properties'
+    ['**/*.info', 'plugin.yml'].each {
+        filesMatching(it) {
+            expand 'mod_version'       : project.version,
+                   'minecraft_version' : minecraft.version,
+                   'reflectasmversion' : project.reflectasmversion
+        }
     }
 }
 
