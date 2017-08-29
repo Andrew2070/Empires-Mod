@@ -47,8 +47,7 @@ if (System.env.TRAVIS_TAG != null && !System.env.TRAVIS_TAG.isEmpty()) {
 
 // Apply Plugins
 apply from: 'https://raw.githubusercontent.com/BuiltBrokenModding/BuiltBrokenScripts/buildScripts/index/index.gradle'
-apply plugin: "curseforge"
-apply plugin: "forge"
+//apply plugin: 'curseforge'
 
 // Configure Everything
 version = "${minecraft.version}-${build_number}${build_type}"
@@ -105,9 +104,11 @@ processResources {
 }
 
 // Setup Curse Upload task
-curse {
-    apiKey = System.env.CURSEFORGEKEY
-    projectId = project_id
-    changelog = changelog.html
-    releaseType = build_type.equals('a') ? "alpha" : (build_type.equals('b') ? "beta" : "release")
+curseforge {
+    project {
+        id = project_id
+        changelog = file('changelog.html')
+        changelogType = 'html'
+        releaseType = build_type.equals('a') ? "alpha" : (build_type.equals('b') ? "beta" : "release")
+    }
 }
