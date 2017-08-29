@@ -15,6 +15,13 @@ buildscript {
     }
 }
 
+plugins {
+  id "com.matthewprenger.cursegradle" version "1.0.9"
+  id 'net.saliman.cobertura' version '2.2.5'
+  id 'com.github.kt3k.coveralls' version '2.0.1'
+  id "se.bjurr.gitchangelog.git-changelog-gradle-plugin" version "1.50"
+}
+
 repositories {
     maven {
         name = "bukkit-repo"
@@ -30,36 +37,26 @@ repositories {
     }
 }
 
-
-// Load Configs
-ext.configFile = file "build.properties"
-
-ext.configFile.withReader {
-    def prop = new Properties()
-    prop.load(it)
-    ext.config = new ConfigSlurper().parse prop
-}
-
 if (System.env.TRAVIS_TAG != null && !System.env.TRAVIS_TAG.isEmpty()) {
-    ext.config.build_number = System.env.TRAVIS_TAG.substring(0, System.env.TRAVIS_TAG.length()-1)
-    ext.config.build_type = System.env.TRAVIS_TAG.substring(System.env.TRAVIS_TAG.length()-1)
+    ext.build_number = System.env.TRAVIS_TAG.substring(0, System.env.TRAVIS_TAG.length()-1)
+    ext.build_type = System.env.TRAVIS_TAG.substring(System.env.TRAVIS_TAG.length()-1)
 } else {
-    ext.config.build_number = "0000"
-    ext.config.build_type = "r"
+    ext.build_number = "0000"
+    ext.build_type = "r"
 }
 
 // Apply Plugins
+apply from: 'https://raw.githubusercontent.com/BuiltBrokenModding/BuiltBrokenScripts/buildScripts/index/index.gradle'
 apply plugin: "curseforge"
 apply plugin: "forge"
 
 // Configure Everything
-version = "${config.minecraft_version}-${config.build_number}${config.build_type}"
-group = config.group
-archivesBaseName = config.archivesBaseName
-
+version = "${minecraft.version}-${build_number}${build_type}"
+// group = group
+// archivesBaseName = archivesBaseName
+println "reflectasmversion is " + reflectasmversion
 minecraft {
-    version = "${config.minecraft_version}-${config.forge_version}"
-    replace "@VERSION@", "${project.version}"
+   replace "@VERSION@", "${project.version}"
 }
 
 // Setup Deps
@@ -67,7 +64,7 @@ dependencies {
  // Database engines
     compile "org.xerial:sqlite-jdbc:3.8.5-pre1"
     compile "mysql:mysql-connector-java:5.1.32"
-    
+
      // Minecraft related deps
     compile "com.forgeessentials:forgeessentials:1.4.1-SNAPSHOT:dev"
     compile files("libs/bukkit-1.7.9-R0.2.jar")
@@ -77,34 +74,40 @@ dependencies {
 
     // Other deps
     compile "org.beanshell:bsh:2.0b5"
-    compile "com.esotericsoftware.reflectasm:reflectasm:${config.reflectasm_version}"
+    compile "com.esotericsoftware.reflectasm:reflectasm:${reflectasmversion}"
 }
 
 // Process Resources, injecting version numbers in
 processResources {
+    // this will ensure that this task is redone when the versions change.
     inputs.property "mod_version", project.version
-    inputs.property "minecraft_version", project.minecraft.version
-    inputs.property "reflectasm_version", config.reflectasm_version
+    inputs.property "minecraft_version", minecraft.version
+    inputs.property "reflectasmversion", project.reflectasmversion
 
+    // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
-        include '*.info', 'plugin.yml'
-        expand 'mod_version': project.version, 'minecraft_version': project.minecraft.version, 'reflectasm_version': config.reflectasm_version
+        //include '**/*.lang'
+        include '**/*.info'
+        include 'plugin.yml'
+  
+        expand([
+                'mod_version'    : project.version,
+                'minecraft_version'  : minecraft.version,
+                'reflectasmversion' : project.reflectasmversion
+                ])
     }
+    
+    // copy everything else, thats not text
     from(sourceSets.main.resources.srcDirs) {
-        exclude '*.info'
+        exclude '**/*.info'
+        exclude '**/*.properties'
     }
 }
 
 // Setup Curse Upload task
 curse {
     apiKey = System.env.CURSEFORGEKEY
-    projectId = config.project_id
-    changelog = "" // TODO Add changelog support
-    releaseType = config.build_type.equals('a') ? "alpha" : (config.build_type.equals('b') ? "beta" : "release")
-}
-
-idea {
-    module {
-        inheritOutputDirs = true
-    }
+    projectId = project_id
+    changelog = changelog.html
+    releaseType = build_type.equals('a') ? "alpha" : (build_type.equals('b') ? "beta" : "release")
 }
