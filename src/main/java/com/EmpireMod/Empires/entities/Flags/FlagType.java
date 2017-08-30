@@ -40,7 +40,7 @@ public class FlagType<T> implements Comparable<FlagType<T>>{
         PICKUP = new FlagType<Boolean>("PICKUP", true, true, Property.IN_EMPIRE, Property.IN_PLOT, Property.IN_WILD, Property.WHITELISTABLE);
 
         // Allows PVP
-        PVP = new FlagType<Boolean>("PVP", false, true, Property.IN_EMPIRE, Property.IN_PLOT, Property.IN_WILD);
+        PVP = new FlagType<Boolean>("PVP", true, false, Property.IN_EMPIRE, Property.IN_PLOT, Property.IN_WILD);
 
         // Allows hostile mobs to spawn
         MOBS = new FlagType<Boolean>("MOBS", false, true, Property.IN_EMPIRE, Property.IN_PLOT, Property.IN_WILD);

@@ -27,7 +27,7 @@ public class Config extends ConfigTemplate {
 
     public ConfigProperty<String> localization = new ConfigProperty<String>(
             "localization", "general",
-            "The localization file used, currently we only support English.",
+            "The localization file used, default: en_US",
             "en_US");
 
     public ConfigProperty<Boolean> fullAccessForOPS = new ConfigProperty<Boolean>(
@@ -50,14 +50,14 @@ public class Config extends ConfigTemplate {
     /* ----- Datasource Config ----- */
 
     public ConfigProperty<String> dbType = new ConfigProperty<String>(
-            "type", "datasource", "Datasource Type. Eg: MySQL, SQLite, etc.",
+            "type", "datasource", "Datasource Type: MySQL/SQLite",
             "SQLite");
 
 
     public ConfigProperty<Integer> distanceBetweenEmpires = new ConfigProperty<Integer>(
             "distance", "Empires",
             "The Default Minimum distance (in chunks) between 2 Empires. Prevents Empire's from being too close on creation.",
-            1);
+            3);
     
     
     public ConfigProperty<Integer> blocksLeader = new ConfigProperty<Integer>(
@@ -121,7 +121,7 @@ public class Config extends ConfigTemplate {
     public ConfigProperty<Double> PowerUpdateTime = new ConfigProperty<Double>(
             "PowerUpdateTime", "Citizens",
             "The amount of time in milliseconds that power should update (default = 600000 a.k.a 10 min)",
-            60000.00);
+            3600000.00);
     
     
     public ConfigProperty<Integer> teleportCooldown = new ConfigProperty<Integer>(
@@ -226,7 +226,7 @@ public class Config extends ConfigTemplate {
     
     public ConfigProperty<Integer> upkeepEmpireDeletionDays = new ConfigProperty<Integer>(
             "upkeepEmpireDeletionDays", "Empires",
-            "The amount of days a Empire can go on without paying upkeep.",
+            "The amount of days a Empire can go on without paying the upkeep.",
             14);
     
     
@@ -275,7 +275,7 @@ public class Config extends ConfigTemplate {
     
     public ConfigProperty<Boolean> fireSpreadInEmpires = new ConfigProperty<Boolean>(
             "fireSpreadInEmpires", "protection",
-            "Allow fire to spread and burn up blocks in all Empires and plots on the server. default: true",
+            "Allow fire to spread and burn blocks in all Empires. default: true",
             true);
     
     

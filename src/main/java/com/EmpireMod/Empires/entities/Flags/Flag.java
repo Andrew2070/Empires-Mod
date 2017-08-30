@@ -143,7 +143,7 @@ public class Flag<T> implements Comparable<Flag>, IChatFormat {
         public IChatComponent toChatMessage() {
             IChatComponent root = new ChatComponentList();
 
-            root.appendSibling(LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|FLAGS}")));
+            root.appendSibling(LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|CURRENT FLAGS}")));
 
             for (Flag flag : this) {
                 root.appendSibling(flag.toChatMessage());
