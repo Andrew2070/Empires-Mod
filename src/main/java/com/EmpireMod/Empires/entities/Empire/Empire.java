@@ -28,7 +28,7 @@ import net.minecraft.util.IChatComponent;
  */
 public class Empire implements Comparable<Empire>, IChatFormat {
 	
-    private double CitizensPower = 0.00;
+    private double CitizensPower = -0.00;
 	
 	private double maxPower = 0.00;
 	

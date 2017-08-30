@@ -165,8 +165,6 @@ public class CommandsNeutral extends CommandsEMP {
         if (empire == null) {
             throw new EmpiresCommandException("Empires.cmd.err.new.failed");
         }
-       
-
         ChatManager.send(sender, "Empires.notification.empire.created", empire);
         return CommandResponse.DONE;
     }

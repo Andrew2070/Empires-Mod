@@ -141,7 +141,7 @@ public class Ticker {
 						
 						if (citizen.getPower()>=0) {
 						double result = (citizen.getPower()-citizen.getPreviousPower());
-						empire.addPower(result);
+						empire.addPower(result-1.00);
 						citizen.setPowerAdded(true);
 						citizen.setPreviousPower(citizen.getPower());
 						}
