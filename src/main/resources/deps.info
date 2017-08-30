@@ -1,7 +1,7 @@
 [
     {
-        "repo": "http://central.maven.org/maven2/com/esotericsoftware/reflectasm/reflectasm/${reflectasm_version}/",
-        "file": "reflectasm-${reflectasm_version}.jar",
+        "repo": "http://central.maven.org/maven2/com/esotericsoftware/reflectasm/reflectasm/${reflectasmversion}/",
+        "file": "reflectasm-${reflectasmversion}.jar",
         "class": "com.esotericsoftware.reflectasm.AccessClassLoader"
     },
     {
