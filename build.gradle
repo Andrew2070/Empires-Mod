@@ -71,7 +71,7 @@ dependencies {
     compile "com.forgeessentials:forgeessentials:1.4.1-SNAPSHOT:dev"
     compile files("libs/bukkit-1.7.9-R0.2.jar")
     compile "org.spongepowered:mixin:0.4.4-SNAPSHOT"
-    compile "com.sk89q.worldedit:worldedit-forge-mc1.7.10:6.0.2-SNAPSHOT:dev"
+    //compile "com.sk89q.worldedit:worldedit-forge-mc1.7.10:6.0.2-SNAPSHOT:dev"
 
     // Other deps
     compile "org.beanshell:bsh:2.0b5"
@@ -97,24 +97,17 @@ processResources {
 }
 
 shadowJar {
-   baseName = 'Empire-Mod'
-   classifier = 'universal'
-   version = '1.0.0'
-   dependencies {
-   classpath "org.xerial:sqlite-jdbc:3.8.5-pre1"
-   classpath "mysql:mysql-connector-java:5.1.32"
-
-     // Minecraft related deps
-    classpath "com.forgeessentials:forgeessentials:1.4.1-SNAPSHOT:dev"
-    classpath files("libs/bukkit-1.7.9-R0.2.jar")
-    classpath "org.spongepowered:mixin:0.4.4-SNAPSHOT"
-    classpath "com.sk89q.worldedit:worldedit-forge-mc1.7.10:6.0.2-SNAPSHOT:dev"
-
-    // Other deps
-    classpath "org.beanshell:bsh:2.0b5"
-    classpath"com.esotericsoftware.reflectasm:reflectasm:${reflectasmversion}"
-
-   }
+    classifier = 'universal'
+    dependencies {
+    exclude(dependency('com.forgeessentials:forgeessentials:1.4.1-SNAPSHOT:dev'))
+    exclude(dependency('com.sk89q.worldedit:worldedit-forge-mc1.7.10:6.0.2-SNAPSHOT:dev'))
+    }
+    manifest {
+        attributes (
+            'FMLCorePlugin': 'Empires.DepLoader',
+            'FMLCorePluginContainsFMLMod': 'true'
+        )
+    }
 }
 // Setup Curse Upload task
 curseforge {
