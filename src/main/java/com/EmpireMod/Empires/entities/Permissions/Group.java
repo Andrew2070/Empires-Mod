@@ -1,149 +1,155 @@
 package com.EmpireMod.Empires.entities.Permissions;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Iterator;
 
-import com.google.common.collect.ImmutableList;
-import com.google.gson.*;
 import com.EmpireMod.Empires.API.Chat.IChatFormat;
 import com.EmpireMod.Empires.API.Chat.Component.ChatComponentFormatted;
 import com.EmpireMod.Empires.API.JSON.API.SerializerTemplate;
 import com.EmpireMod.Empires.API.permissions.PermissionsContainer;
 import com.EmpireMod.Empires.Localization.LocalizationManager;
+import com.google.common.collect.ImmutableList;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
 
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Iterator;
-
 /**
- * A set of permissions that is assigned to players.
- * Each player can only have one group assigned to.
- * Groups have a hierarchy.
+ * A set of permissions that is assigned to players. Each player can only have
+ * one group assigned to. Groups have a hierarchy.
  */
 public class Group implements IChatFormat {
 
-    private String name;
+	private String name;
 
-    public final PermissionsContainer permsContainer = new PermissionsContainer();
-    public final Meta.Container metaContainer = new Meta.Container();
-    public final Container parents = new Container();
+	public final PermissionsContainer permsContainer = new PermissionsContainer();
+	public final Meta.Container metaContainer = new Meta.Container();
+	public final Container parents = new Container();
 
-    public Group() {
-        this.name = "default";
-        this.permsContainer.add("cmd.*");
-        this.permsContainer.add("Empires.cmd");
-        this.permsContainer.add("Empires.cmd.outsider.*");
-    }
+	public Group() {
+		this.name = "default";
+		this.permsContainer.add("cmd.*");
+		this.permsContainer.add("Empires.cmd");
+		this.permsContainer.add("Empires.cmd.outsider.*");
+	}
 
-    public Group(String name) {
-        this.name = name;
-    }
+	public Group(String name) {
+		this.name = name;
+	}
 
-    public PermissionLevel hasPermission(String permission) {
-        PermissionLevel permLevel = permsContainer.hasPermission(permission);
+	public PermissionLevel hasPermission(String permission) {
+		PermissionLevel permLevel = permsContainer.hasPermission(permission);
 
-        if (permLevel == PermissionLevel.DENIED || permLevel == PermissionLevel.ALLOWED) {
-            return permLevel;
-        }
+		if (permLevel == PermissionLevel.DENIED || permLevel == PermissionLevel.ALLOWED) {
+			return permLevel;
+		}
 
-        // If nothing was found search the inherited permissions
+		// If nothing was found search the inherited permissions
 
-        for (Group parent : parents) {
-            permLevel = parent.hasPermission(permission);
-            if (permLevel == PermissionLevel.DENIED || permLevel == PermissionLevel.ALLOWED) {
-                return permLevel;
-            }
-        }
+		for (Group parent : parents) {
+			permLevel = parent.hasPermission(permission);
+			if (permLevel == PermissionLevel.DENIED || permLevel == PermissionLevel.ALLOWED) {
+				return permLevel;
+			}
+		}
 
-        return permLevel;
-    }
+		return permLevel;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    @Override
-    public IChatComponent toChatMessage() {
-        return LocalizationManager.get("Empires.format.group.short", name);
-    }
+	@Override
+	public IChatComponent toChatMessage() {
+		return LocalizationManager.get("Empires.format.group.short", name);
+	}
 
-    public static class Serializer extends SerializerTemplate<Group> {
+	public static class Serializer extends SerializerTemplate<Group> {
 
-        @Override
-        public void register(GsonBuilder builder) {
-            builder.registerTypeAdapter(Group.class, this);
-            new Meta.Container.Serializer().register(builder);
-        }
+		@Override
+		public void register(GsonBuilder builder) {
+			builder.registerTypeAdapter(Group.class, this);
+			new Meta.Container.Serializer().register(builder);
+		}
 
-        @Override
-        public Group deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            JsonObject jsonObject = json.getAsJsonObject();
-            String name = jsonObject.get("name").getAsString();
-            Group group = new Group(name);
-            if (jsonObject.has("permissions")) {
-                group.permsContainer.addAll(ImmutableList.copyOf(context.<String[]>deserialize(jsonObject.get("permissions"), String[].class)));
-            }
-            if (jsonObject.has("meta")) {
-                group.metaContainer.addAll(context.<Meta.Container>deserialize(jsonObject.get("meta"), Meta.Container.class));
-            }
-            return group;
-        }
+		@Override
+		public Group deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+				throws JsonParseException {
+			JsonObject jsonObject = json.getAsJsonObject();
+			String name = jsonObject.get("name").getAsString();
+			Group group = new Group(name);
+			if (jsonObject.has("permissions")) {
+				group.permsContainer.addAll(ImmutableList
+						.copyOf(context.<String[]>deserialize(jsonObject.get("permissions"), String[].class)));
+			}
+			if (jsonObject.has("meta")) {
+				group.metaContainer
+						.addAll(context.<Meta.Container>deserialize(jsonObject.get("meta"), Meta.Container.class));
+			}
+			return group;
+		}
 
-        @Override
-        public JsonElement serialize(Group group, Type typeOfSrc, JsonSerializationContext context) {
-            JsonObject json = new JsonObject();
-            json.addProperty("name", group.getName());
-            json.add("permissions", context.serialize(group.permsContainer));
-            json.add("meta", context.serialize(group.metaContainer));
-            return json;
-        }
-    }
+		@Override
+		public JsonElement serialize(Group group, Type typeOfSrc, JsonSerializationContext context) {
+			JsonObject json = new JsonObject();
+			json.addProperty("name", group.getName());
+			json.add("permissions", context.serialize(group.permsContainer));
+			json.add("meta", context.serialize(group.metaContainer));
+			return json;
+		}
+	}
 
-    public static class Container extends ArrayList<Group> implements IChatFormat {
+	public static class Container extends ArrayList<Group> implements IChatFormat {
 
-        public void remove(String groupName) {
-            for (Iterator<Group> it = iterator(); it.hasNext();) {
-                Group group = it.next();
-                if (group.getName().equals(groupName)) {
-                    it.remove();
-                    return;
-                }
-            }
-        }
+		public void remove(String groupName) {
+			for (Iterator<Group> it = iterator(); it.hasNext();) {
+				Group group = it.next();
+				if (group.getName().equals(groupName)) {
+					it.remove();
+					return;
+				}
+			}
+		}
 
-        public boolean contains(String groupName) {
-            for (Group group : this) {
-                if (group.getName().equals(groupName))
-                    return true;
-            }
-            return false;
-        }
+		public boolean contains(String groupName) {
+			for (Group group : this) {
+				if (group.getName().equals(groupName))
+					return true;
+			}
+			return false;
+		}
 
-        public Group get(String groupName) {
-            for (Group group : this) {
-                if (group.getName().equals(groupName))
-                    return group;
-            }
-            return null;
-        }
+		public Group get(String groupName) {
+			for (Group group : this) {
+				if (group.getName().equals(groupName))
+					return group;
+			}
+			return null;
+		}
 
-        @Override
-        public IChatComponent toChatMessage() {
-            IChatComponent root = new ChatComponentText("");
+		@Override
+		public IChatComponent toChatMessage() {
+			IChatComponent root = new ChatComponentText("");
 
-            for (Group group : this) {
-                if (root.getSiblings().size() > 0) {
-                    root.appendSibling(new ChatComponentFormatted("{7|, }"));
-                }
-                root.appendSibling(group.toChatMessage());
-            }
+			for (Group group : this) {
+				if (root.getSiblings().size() > 0) {
+					root.appendSibling(new ChatComponentFormatted("{7|, }"));
+				}
+				root.appendSibling(group.toChatMessage());
+			}
 
-            return root;
-        }
-    }
+			return root;
+		}
+	}
 }

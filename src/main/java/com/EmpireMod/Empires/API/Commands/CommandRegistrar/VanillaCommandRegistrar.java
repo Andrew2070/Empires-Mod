@@ -1,7 +1,5 @@
 package com.EmpireMod.Empires.API.Commands.CommandRegistrar;
 
-
-
 import net.minecraft.command.CommandHandler;
 import net.minecraft.command.ICommand;
 import net.minecraft.server.MinecraftServer;
@@ -10,14 +8,14 @@ import net.minecraft.server.MinecraftServer;
  * Standard vanilla command registrar
  */
 public class VanillaCommandRegistrar implements ICommandRegistrar {
-    protected CommandHandler commandHandler;
+	protected CommandHandler commandHandler;
 
-    public VanillaCommandRegistrar() {
-        this.commandHandler = (CommandHandler) MinecraftServer.getServer().getCommandManager();
-    }
+	public VanillaCommandRegistrar() {
+		this.commandHandler = (CommandHandler) MinecraftServer.getServer().getCommandManager();
+	}
 
-    @Override
-    public void registerCommand(ICommand cmd, String permNode, boolean defaultPerm) {
-        this.commandHandler.registerCommand(cmd);
-    }
+	@Override
+	public void registerCommand(ICommand cmd, String permNode, boolean defaultPerm) {
+		this.commandHandler.registerCommand(cmd);
+	}
 }

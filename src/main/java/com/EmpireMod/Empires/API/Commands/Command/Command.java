@@ -1,7 +1,5 @@
 package com.EmpireMod.Empires.API.Commands.Command;
 
-
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -10,17 +8,17 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Command {
-    String name();
+	String name();
 
-    String permission();
+	String permission();
 
-    String syntax();
+	String syntax();
 
-    String parentName() default "ROOT";
+	String parentName() default "ROOT";
 
-    String[] alias() default {};
+	String[] alias() default {};
 
-    boolean console() default true;
+	boolean console() default true;
 
-    String[] completionKeys() default {};
+	String[] completionKeys() default {};
 }

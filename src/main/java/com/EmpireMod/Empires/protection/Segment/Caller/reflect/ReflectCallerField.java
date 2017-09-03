@@ -1,34 +1,33 @@
 package com.EmpireMod.Empires.protection.Segment.Caller.reflect;
 
+import java.lang.reflect.Field;
 
 import com.EmpireMod.Empires.protection.Segment.Caller.Caller;
 
-import java.lang.reflect.Field;
-
 public class ReflectCallerField extends Caller {
-    private Field field;
+	private Field field;
 
-    @Override
-    public Object invoke(Object instance, Object... parameters) throws Exception {
-        return getField().get(instance);
-    }
+	@Override
+	public Object invoke(Object instance, Object... parameters) throws Exception {
+		return getField().get(instance);
+	}
 
-    @Override
-    public Class<?> nextClass() throws Exception {
-        return getField().getType();
-    }
+	@Override
+	public Class<?> nextClass() throws Exception {
+		return getField().getType();
+	}
 
-    private Field getField() throws Exception {
-        // Lazy loading ftw!
-        if (field == null) {
-            try {
-                field = checkClass.getField(name);
-            } catch (NoSuchFieldException ex) {
-                field = checkClass.getDeclaredField(name);
-                field.setAccessible(true);
-            }
-        }
+	private Field getField() throws Exception {
+		// Lazy loading ftw!
+		if (field == null) {
+			try {
+				field = checkClass.getField(name);
+			} catch (NoSuchFieldException ex) {
+				field = checkClass.getDeclaredField(name);
+				field.setAccessible(true);
+			}
+		}
 
-        return field;
-    }
+		return field;
+	}
 }

@@ -1,11 +1,9 @@
 package com.EmpireMod.Empires.API.permissions;
 
+public interface PermissionObject {
 
-public interface PermissionObject
-{
+	public String getPermissionNode();
 
-    public String getPermissionNode();
+	public PermissionLevel getPermissionLevel();
 
-    public PermissionLevel getPermissionLevel();
-    
 }

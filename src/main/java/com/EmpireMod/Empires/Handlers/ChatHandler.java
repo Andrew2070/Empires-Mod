@@ -2,8 +2,6 @@ package com.EmpireMod.Empires.Handlers;
 
 import java.util.List;
 
-import org.bukkit.Bukkit;
-
 import com.EmpireMod.Empires.API.Commands.Command.CommandsEMP;
 import com.EmpireMod.Empires.Datasource.EmpiresUniverse;
 import com.EmpireMod.Empires.entities.Empire.Citizen;
@@ -47,13 +45,10 @@ public class ChatHandler {
 					// TODO: Add herochat support?
 					String rankChat = "[" + rank.getChatName() + "]";
 					String empireChat = "[" + empire + "]";
-					String chat = EnumChatFormatting.RED + rankChat + 
-							EnumChatFormatting.GOLD + empireChat + " " +
-							EnumChatFormatting.WHITE + player.getDisplayName() + 
-							": " + event.message;
+					String chat = EnumChatFormatting.RED + rankChat + EnumChatFormatting.GOLD + empireChat + " "
+							+ EnumChatFormatting.WHITE + player.getDisplayName() + ": " + event.message;
 					target.addChatMessage(new ChatComponentTranslation(chat));
-					
-					
+
 				} catch (CommandException e) {
 					String chat2 = player.getDisplayName() + ": " + event.message;
 					target.addChatMessage(new ChatComponentTranslation(chat2));

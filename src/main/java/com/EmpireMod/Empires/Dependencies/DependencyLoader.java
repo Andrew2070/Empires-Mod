@@ -1,5 +1,4 @@
-package com.EmpireMod.Empires.DependencyLoader;
-
+package com.EmpireMod.Empires.Dependencies;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;

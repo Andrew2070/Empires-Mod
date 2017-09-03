@@ -1,92 +1,103 @@
 package com.EmpireMod.Empires.Localization;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.EmpireMod.Empires.Empires;
 import com.EmpireMod.Empires.API.Chat.Component.ChatComponentFormatted;
 
-import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Loads and handles Localization files
  */
 public class Localization {
-    public static final String defaultLocalization = "en_US";
+	public static final String defaultLocalization = "en_US";
 
-    private Map<String, String> localizations = new HashMap<String, String>();
-    private String filePath;
-    private String lang;
-    private String classPath;
-    private Class clazz;
+	private Map<String, String> localizations = new HashMap<String, String>();
+	private String filePath;
+	private String lang;
+	private String classPath;
+	private Class clazz;
 
-    public Localization(String filePath, String lang, String classPath, Class clazz) {
-        this.filePath = filePath;
-        this.lang = lang;
-        this.classPath = classPath;
-        this.clazz = clazz;
+	public Localization(String filePath, String lang, String classPath, Class clazz) {
+		this.filePath = filePath;
+		this.lang = lang;
+		this.classPath = classPath;
+		this.clazz = clazz;
 
-        load();
-    }
+		load();
+	}
 
-    private Reader getReader() throws FileNotFoundException {
-        InputStream is = null;
+	private Reader getReader() throws FileNotFoundException {
+		InputStream is = null;
 
-        if(filePath != null) {
-            File file = new File(filePath + lang + ".lang");
-            if (file.exists() && !file.isDirectory()) {
-                is = new FileInputStream(file);
-            }
-        }
-        if (is == null) {
-            is = clazz.getResourceAsStream(classPath + lang + ".lang");
-        }
-        if (is == null) {
-            is = clazz.getResourceAsStream(classPath + defaultLocalization + ".lang");
-            Empires.instance.LOG.warn("Reverting to en_US.lang because {} does not exist!", lang + ".lang");
-        }
+		if (filePath != null) {
+			File file = new File(filePath + lang + ".lang");
+			if (file.exists() && !file.isDirectory()) {
+				is = new FileInputStream(file);
+			}
+		}
+		if (is == null) {
+			is = clazz.getResourceAsStream(classPath + lang + ".lang");
+		}
+		if (is == null) {
+			is = clazz.getResourceAsStream(classPath + defaultLocalization + ".lang");
+			Empires.instance.LOG.warn("Reverting to en_US.lang because {} does not exist!", lang + ".lang");
+		}
 
-        return new InputStreamReader(is);
-    }
-    /**
-     * Do the actual loading of the Localization file
-     */
-    public void load() {
-        localizations.clear();
+		return new InputStreamReader(is);
+	}
 
-        try {
-            BufferedReader br = new BufferedReader(getReader());
-            String line;
+	/**
+	 * Do the actual loading of the Localization file
+	 */
+	public void load() {
+		localizations.clear();
 
-            while ((line = br.readLine()) != null) {
-                line = line.trim(); // Trim it in-case there is spaces before the actual key-value pairs
-                String[] entry = line.split("=");
-                if (line.startsWith("#") || line.isEmpty() || entry.length < 2) {
-                    // Ignore entries that are not formatted correctly (maybe log later)
-                    // Ignore comments and empty lines
-                    continue;
-                }
+		try {
+			BufferedReader br = new BufferedReader(getReader());
+			String line;
 
-                localizations.put(entry[0].trim(), entry[1].trim());
-            }
-            br.close();
-        } catch (IOException ex) {
-            Empires.instance.LOG.error("Failed to load localization file!");
-            Empires.instance.LOG.error(ExceptionUtils.getStackTrace(ex));
-        }
-    }
+			while ((line = br.readLine()) != null) {
+				line = line.trim(); // Trim it in-case there is spaces before
+									// the actual key-value pairs
+				String[] entry = line.split("=");
+				if (line.startsWith("#") || line.isEmpty() || entry.length < 2) {
+					// Ignore entries that are not formatted correctly (maybe
+					// log later)
+					// Ignore comments and empty lines
+					continue;
+				}
 
-    public ChatComponentFormatted getLocalization(String key, Object... args) {
-        String localized = localizations.get(key);
-        return localized == null ? new ChatComponentFormatted("{|" + key + "}") : new ChatComponentFormatted(localized, args);
-    }
+				localizations.put(entry[0].trim(), entry[1].trim());
+			}
+			br.close();
+		} catch (IOException ex) {
+			Empires.instance.LOG.error("Failed to load localization file!");
+			Empires.instance.LOG.error(ExceptionUtils.getStackTrace(ex));
+		}
+	}
 
-    public boolean hasLocalization(String key) {
-        return localizations.containsKey(key);
-    }
+	public ChatComponentFormatted getLocalization(String key, Object... args) {
+		String localized = localizations.get(key);
+		return localized == null ? new ChatComponentFormatted("{|" + key + "}")
+				: new ChatComponentFormatted(localized, args);
+	}
 
-    public Map<String, String> getLocalizationMap() {
-        return localizations;
-    }
+	public boolean hasLocalization(String key) {
+		return localizations.containsKey(key);
+	}
+
+	public Map<String, String> getLocalizationMap() {
+		return localizations;
+	}
 }

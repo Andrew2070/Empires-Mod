@@ -1,6 +1,5 @@
 package com.EmpireMod.Empires.entities.Empire;
 
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -27,396 +26,397 @@ import net.minecraft.util.IChatComponent;
  * Defines a Empire. A Empire is made up of Citizens, Ranks, Blocks, and Plots.
  */
 public class Empire implements Comparable<Empire>, IChatFormat {
-	
-    private double CitizensPower = -0.00;
-	
+
+	private double CitizensPower = -0.00;
+
 	private double maxPower = 0.00;
-	
-    private String name, oldName = null;
 
-    protected int maxFarClaims = Config.instance.maxFarClaims.get();
+	private String name, oldName = null;
 
-    private Alliance alliance;
-    private Teleport spawn;
+	protected int maxFarClaims = Config.instance.maxFarClaims.get();
 
-    public final TicketMap ticketMap = new TicketMap(this);
-    public final CitizenRankMap citizensMap = new CitizenRankMap();
-    public final Rank.Container ranksContainer = new Rank.Container();
-    public final Plot.Container plotsContainer = new Plot.Container(Config.instance.defaultMaxPlots.get());
-    public final Flag.Container flagsContainer = new Flag.Container();
-    public final EmpireBlock.Container empireBlocksContainer = new EmpireBlock.Container();
-    public final BlockWhitelist.Container blockWhitelistsContainer = new BlockWhitelist.Container();
+	private Alliance alliance;
+	private Teleport spawn;
 
-    public final Bank bank = new Bank(this);
+	public final TicketMap ticketMap = new TicketMap(this);
+	public final CitizenRankMap citizensMap = new CitizenRankMap();
+	public final Rank.Container ranksContainer = new Rank.Container();
+	public final Plot.Container plotsContainer = new Plot.Container(Config.instance.defaultMaxPlots.get());
+	public final Flag.Container flagsContainer = new Flag.Container();
+	public final EmpireBlock.Container empireBlocksContainer = new EmpireBlock.Container();
+	public final BlockWhitelist.Container blockWhitelistsContainer = new BlockWhitelist.Container();
 
-    public Empire(String name) {
-        this.name = name;
-    }
+	public final Bank bank = new Bank(this);
 
-    /**
-     * Notifies every citizen in this empire sending a message.
-     */
-    public void notifyEveryone(IChatComponent message) {
-        for (Citizen r : citizensMap.keySet()) {
-            ChatManager.send(r.getPlayer(), message);
-        }
-    }
+	public Empire(String name) {
+		this.name = name;
+	}
 
-    public IChatComponent getOwnerComponent() {
-        Citizen leader = citizensMap.getLeader();
-        return leader == null ? LocalizationManager.get("Empires.notification.empire.owners.admins") : leader.toChatMessage();
-    }
+	/**
+	 * Notifies every citizen in this empire sending a message.
+	 */
+	public void notifyEveryone(IChatComponent message) {
+		for (Citizen r : citizensMap.keySet()) {
+			ChatManager.send(r.getPlayer(), message);
+		}
+	}
 
-    /**
-     * Checks if the Citizen is allowed to do the action specified by the FlagType at the coordinates given.
-     * This method will go through all the plots and prioritize the plot's flags over empire flags.
-     */
-    public boolean hasPermission(Citizen res, FlagType<Boolean> flagType, int dim, int x, int y, int z) {
-        Plot plot = plotsContainer.get(dim, x, y, z);
+	public IChatComponent getOwnerComponent() {
+		Citizen leader = citizensMap.getLeader();
+		return leader == null ? LocalizationManager.get("Empires.notification.empire.owners.admins")
+				: leader.toChatMessage();
+	}
 
-        if (plot == null) {
-            return hasPermission(res, flagType);
-        } else {
-        	return plot.hasPermission(res, flagType);
-        }
-    }
+	/**
+	 * Checks if the Citizen is allowed to do the action specified by the
+	 * FlagType at the coordinates given. This method will go through all the
+	 * plots and prioritize the plot's flags over empire flags.
+	 */
+	public boolean hasPermission(Citizen res, FlagType<Boolean> flagType, int dim, int x, int y, int z) {
+		Plot plot = plotsContainer.get(dim, x, y, z);
 
-    /**
-     * Checks if the Citizen is allowed to do the action specified by the FlagType in this empire.
-     */
-    public boolean hasPermission(Citizen res, FlagType<Boolean> flagType) {
-        if(flagType.configurable ? flagsContainer.getValue(flagType) : flagType.defaultValue) {
-            return true;
-        }
+		if (plot == null) {
+			return hasPermission(res, flagType);
+		} else {
+			return plot.hasPermission(res, flagType);
+		}
+	}
 
-        if (res == null || res.getFakePlayer()) {
-            return false;
-        }
+	/**
+	 * Checks if the Citizen is allowed to do the action specified by the
+	 * FlagType in this empire.
+	 */
+	public boolean hasPermission(Citizen res, FlagType<Boolean> flagType) {
+		if (flagType.configurable ? flagsContainer.getValue(flagType) : flagType.defaultValue) {
+			return true;
+		}
 
-        boolean rankBypass;
-        boolean permissionBypass;
+		if (res == null || res.getFakePlayer()) {
+			return false;
+		}
 
-        if (citizensMap.containsKey(res)) {
-            if (flagsContainer.getValue(FlagType.RESTRICTIONS)) {
-                rankBypass = hasPermission(res, FlagType.RESTRICTIONS.getBypassPermission());
-                permissionBypass = PermissionProxy.getPermissionManager().hasPermission(res.getUUID(), FlagType.RESTRICTIONS.getBypassPermission());
+		boolean rankBypass;
+		boolean permissionBypass;
 
-                if (!rankBypass && !permissionBypass) {
-                    ChatManager.send(res.getPlayer(), flagType.getDenialKey());
-                    ChatManager.send(res.getPlayer(), "Empires.notification.empire.owners", getOwnerComponent());
-                    return false;
-                }
-            }
+		if (citizensMap.containsKey(res)) {
+			if (flagsContainer.getValue(FlagType.RESTRICTIONS)) {
+				rankBypass = hasPermission(res, FlagType.RESTRICTIONS.getBypassPermission());
+				permissionBypass = PermissionProxy.getPermissionManager().hasPermission(res.getUUID(),
+						FlagType.RESTRICTIONS.getBypassPermission());
 
-            rankBypass = hasPermission(res, flagType.getBypassPermission());
-            permissionBypass = PermissionProxy.getPermissionManager().hasPermission(res.getUUID(), flagType.getBypassPermission());
+				if (!rankBypass && !permissionBypass) {
+					ChatManager.send(res.getPlayer(), flagType.getDenialKey());
+					ChatManager.send(res.getPlayer(), "Empires.notification.empire.owners", getOwnerComponent());
+					return false;
+				}
+			}
 
-            if (!rankBypass && !permissionBypass) {
-                ChatManager.send(res.getPlayer(), flagType.getDenialKey());
-                ChatManager.send(res.getPlayer(), "Empires.notification.empire.owners", getOwnerComponent());
-                return false;
-            }
+			rankBypass = hasPermission(res, flagType.getBypassPermission());
+			permissionBypass = PermissionProxy.getPermissionManager().hasPermission(res.getUUID(),
+					flagType.getBypassPermission());
 
-        } else {
-            permissionBypass = PermissionProxy.getPermissionManager().hasPermission(res.getUUID(), flagType.getBypassPermission());
+			if (!rankBypass && !permissionBypass) {
+				ChatManager.send(res.getPlayer(), flagType.getDenialKey());
+				ChatManager.send(res.getPlayer(), "Empires.notification.empire.owners", getOwnerComponent());
+				return false;
+			}
 
-            if (!permissionBypass) {
-                ChatManager.send(res.getPlayer(), flagType.getDenialKey());
-                ChatManager.send(res.getPlayer(), "Empires.notification.empire.owners", getOwnerComponent());
-                return false;
-            }
-        }
+		} else {
+			permissionBypass = PermissionProxy.getPermissionManager().hasPermission(res.getUUID(),
+					flagType.getBypassPermission());
 
-        return true;
-    }
+			if (!permissionBypass) {
+				ChatManager.send(res.getPlayer(), flagType.getDenialKey());
+				ChatManager.send(res.getPlayer(), "Empires.notification.empire.owners", getOwnerComponent());
+				return false;
+			}
+		}
 
-    /**
-     * Permission node check for Citizens
-     */
-    public boolean hasPermission(Citizen res, String permission) {
-        if(!citizensMap.containsKey(res)) {
-            return false;
-        }
+		return true;
+	}
 
-        Rank rank = citizensMap.get(res);
-        return rank.permissionsContainer.hasPermission(permission) == PermissionLevel.ALLOWED;
-    }
+	/**
+	 * Permission node check for Citizens
+	 */
+	public boolean hasPermission(Citizen res, String permission) {
+		if (!citizensMap.containsKey(res)) {
+			return false;
+		}
 
-    public <T> T getValueAtCoords(int dim, int x, int y, int z, FlagType<T> flagType) {
-        Plot plot = plotsContainer.get(dim, x, y, z);
-        if(plot == null || !flagType.isPlotPerm) {
-            return flagsContainer.getValue(flagType);
-        } else {
-            return plot.flagsContainer.getValue(flagType);
-        }
-    }
+		Rank rank = citizensMap.get(res);
+		return rank.permissionsContainer.hasPermission(permission) == PermissionLevel.ALLOWED;
+	}
 
-    /**
-     * Used to get the owners of a plot (or a empire) at the position given
-     * Returns null if position is not in empire
-     */
-    public Citizen.Container getOwnersAtPosition(int dim, int x, int y, int z) {
-        Citizen.Container result = new Citizen.Container();
-        Plot plot = plotsContainer.get(dim, x, y, z);
-        if (plot == null) {
-            if (isPointInEmpire(dim, x, z) && !(this instanceof AdminEmpire) && !citizensMap.isEmpty()) {
-            	Citizen leader = citizensMap.getLeader();
-                if (leader != null) {
-                	result.add(leader);
-                }
-            }
-        } else {
-            for (Citizen res : plot.ownersContainer) {
-                result.add(res);
-            }
-        }
-        return result;
-    }
+	public <T> T getValueAtCoords(int dim, int x, int y, int z, FlagType<T> flagType) {
+		Plot plot = plotsContainer.get(dim, x, y, z);
+		if (plot == null || !flagType.isPlotPerm) {
+			return flagsContainer.getValue(flagType);
+		} else {
+			return plot.flagsContainer.getValue(flagType);
+		}
+	}
 
-    public void sendToSpawn(Citizen res) {
-        EntityPlayer pl = res.getPlayer();
-        if (pl != null) {
-            PlayerUtils.teleport((EntityPlayerMP)pl, spawn.getDim(), spawn.getX(), spawn.getY(), spawn.getZ());
-            res.setTeleportCooldown(Config.instance.teleportCooldown.get());
-        }
-    }
+	/**
+	 * Used to get the owners of a plot (or a empire) at the position given
+	 * Returns null if position is not in empire
+	 */
+	public Citizen.Container getOwnersAtPosition(int dim, int x, int y, int z) {
+		Citizen.Container result = new Citizen.Container();
+		Plot plot = plotsContainer.get(dim, x, y, z);
+		if (plot == null) {
+			if (isPointInEmpire(dim, x, z) && !(this instanceof AdminEmpire) && !citizensMap.isEmpty()) {
+				Citizen leader = citizensMap.getLeader();
+				if (leader != null) {
+					result.add(leader);
+				}
+			}
+		} else {
+			for (Citizen res : plot.ownersContainer) {
+				result.add(res);
+			}
+		}
+		return result;
+	}
 
-    public int getMaxFarClaims() {
-        return maxFarClaims + empireBlocksContainer.getExtraFarClaims();
-    }
+	public void sendToSpawn(Citizen res) {
+		EntityPlayer pl = res.getPlayer();
+		if (pl != null) {
+			PlayerUtils.teleport((EntityPlayerMP) pl, spawn.getDim(), spawn.getX(), spawn.getY(), spawn.getZ());
+			res.setTeleportCooldown(Config.instance.teleportCooldown.get());
+		}
+	}
 
-    public int getMaxBlocks() {
-        int leaderBlocks = Config.instance.blocksLeader.get();
-        int citizensBlocks = Config.instance.blocksCitizen.get() * (citizensMap.size() - 1);
-        int citizensExtra = 0;
-        for(Citizen res : citizensMap.keySet()) {
-            citizensExtra += res.getExtraBlocks();
-        }
-        int empireExtra = empireBlocksContainer.getExtraBlocks();
+	public int getMaxFarClaims() {
+		return maxFarClaims + empireBlocksContainer.getExtraFarClaims();
+	}
 
-        return leaderBlocks + citizensBlocks + citizensExtra + empireExtra;
-    }
-    
- 
-    
-    
-    
-    
-    
-    public double getMaxPower() {
-    	double maxPower = 0.00 + citizensMap.size() * Config.instance.defaultMaxPower.get();
-    	
-	return maxPower;
-    }
-    
-    public double getMaxPowerLocal(Empire empire) {
-    	double maxPower = 0.00 + empire.citizensMap.size() * Config.instance.defaultMaxPower.get();
-    	return maxPower;
-    }
-    
-         
-    public int getExtraBlocks() {
-        int citizensExtra = 0;
-        for(Citizen res : citizensMap.keySet()) {
-            citizensExtra += res.getExtraBlocks();
-        }
-        return citizensExtra + empireBlocksContainer.getExtraBlocks();
-    }
+	public int getMaxBlocks() {
+		int leaderBlocks = Config.instance.blocksLeader.get();
+		int citizensBlocks = Config.instance.blocksCitizen.get() * (citizensMap.size() - 1);
+		int citizensExtra = 0;
+		for (Citizen res : citizensMap.keySet()) {
+			citizensExtra += res.getExtraBlocks();
+		}
+		int empireExtra = empireBlocksContainer.getExtraBlocks();
 
-    /* ----- Comparable ----- */
+		return leaderBlocks + citizensBlocks + citizensExtra + empireExtra;
+	}
 
-    @Override
-    public int compareTo(Empire t) { // TODO Flesh this out more for ranking empires?
-        int thisNumberOfCitizens = citizensMap.size(),
-                thatNumberOfCitizens = t.citizensMap.size();
-        if (thisNumberOfCitizens > thatNumberOfCitizens)
-            return -1;
-        else if (thisNumberOfCitizens == thatNumberOfCitizens)
-            return 0;
-        else if (thisNumberOfCitizens < thatNumberOfCitizens)
-            return 1;
+	public double getMaxPower() {
+		double maxPower = 0.00 + citizensMap.size() * Config.instance.defaultMaxPower.get();
 
-        return -1;
-    }
+		return maxPower;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public double getMaxPowerLocal(Empire empire) {
+		double maxPower = 0.00 + empire.citizensMap.size() * Config.instance.defaultMaxPower.get();
+		return maxPower;
+	}
 
-    public String getOldName() {
-        return oldName;
-    }
+	public int getExtraBlocks() {
+		int citizensExtra = 0;
+		for (Citizen res : citizensMap.keySet()) {
+			citizensExtra += res.getExtraBlocks();
+		}
+		return citizensExtra + empireBlocksContainer.getExtraBlocks();
+	}
 
-    /**
-     * Renames this current Empire setting oldName to the previous name. You MUST set oldName to null after saving it in the Datasource
-     */
-    public void rename(String newName) {
-        oldName = name;
-        name = newName;
-    }
+	/* ----- Comparable ----- */
 
-    /**
-     * Resets the oldName to null. You MUST call this after a name change in the Datasource!
-     */
-    public void resetOldName() {
-        oldName = null;
-    }
+	@Override
+	public int compareTo(Empire t) { // TODO Flesh this out more for ranking
+										// empires?
+		int thisNumberOfCitizens = citizensMap.size(), thatNumberOfCitizens = t.citizensMap.size();
+		if (thisNumberOfCitizens > thatNumberOfCitizens)
+			return -1;
+		else if (thisNumberOfCitizens == thatNumberOfCitizens)
+			return 0;
+		else if (thisNumberOfCitizens < thatNumberOfCitizens)
+			return 1;
 
-    public Alliance getAlliance() {
-        return alliance;
-    }
+		return -1;
+	}
 
-    public void setAlliance(Alliance alliance) {
-        this.alliance = alliance;
-    }
-    
-    public void subtractPower(double Power) {
-    	if (this.CitizensPower == Power) return;
-    	double currentPower = this.CitizensPower;
-    	this.CitizensPower = currentPower - Power;  	
-    }
+	public String getName() {
+		return name;
+	}
 
-    public boolean hasSpawn() {
-        return spawn != null;
-    }
+	public String getOldName() {
+		return oldName;
+	}
 
-    public Teleport getSpawn() {
-        return spawn;
-    }
+	/**
+	 * Renames this current Empire setting oldName to the previous name. You
+	 * MUST set oldName to null after saving it in the Datasource
+	 */
+	public void rename(String newName) {
+		oldName = name;
+		name = newName;
+	}
 
-    public void setSpawn(Teleport spawn) {
-        this.spawn = spawn;
-    }
-    
+	/**
+	 * Resets the oldName to null. You MUST call this after a name change in the
+	 * Datasource!
+	 */
+	public void resetOldName() {
+		oldName = null;
+	}
 
-    /**
-     * Checks if the given block in non-chunk coordinates is in this Empire
-     */
-    public boolean isPointInEmpire(int dim, int x, int z) {
-        return isChunkInEmpire(dim, x >> 4, z >> 4);
-    }
+	public Alliance getAlliance() {
+		return alliance;
+	}
 
-    public boolean isChunkInEmpire(int dim, int chunkX, int chunkZ) {
-        return empireBlocksContainer.contains(dim, chunkX, chunkZ);
-        }
+	public void setAlliance(Alliance alliance) {
+		this.alliance = alliance;
+	}
 
-    @Override
-    public String toString() {
-        return toChatMessage().getUnformattedText();
-    }
+	public void subtractPower(double Power) {
+		if (this.CitizensPower == Power)
+			return;
+		double currentPower = this.CitizensPower;
+		this.CitizensPower = currentPower - Power;
+	}
 
-    @Override
-    public IChatComponent toChatMessage() {
-        IChatComponent header = LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|%s}", getName()));
-        IChatComponent hoverComponent = ((ChatComponentFormatted)LocalizationManager.get("Empires.format.empire.long", header, citizensMap.size(), empireBlocksContainer.size(), getMaxBlocks(), getPower(), getMaxPower(), citizensMap, ranksContainer)).applyDelimiter("\n");
+	public boolean hasSpawn() {
+		return spawn != null;
+	}
 
-        return LocalizationManager.get("Empires.format.empire.short", name, hoverComponent);
-    }
-    
-    
-    public void setPower(double Power) {
-    	
-    	Double target = Power;
-    	
-    	if (this.CitizensPower == Power) return;
-    	
-    	this.CitizensPower = target;
-    	
-   } 
-    
-    
-    public void setMaxPower(double maxP) {
-    	this.maxPower = maxP;
-    }
-    
-    public void addMaxPower(double additive) {
-    	double target = additive;
-    	double newMaxPower = this.maxPower + target;
-    	this.maxPower = newMaxPower;
-    }
-    
-    public void addPower(double additive) {
-    	double target = additive;
-    	double newPower = this.CitizensPower + target;
-    	this.CitizensPower = newPower;
-    }
-    
-    public double getPower() {
-    	return CitizensPower;
-    }
+	public Teleport getSpawn() {
+		return spawn;
+	}
 
-    public static class Container extends ArrayList<Empire> implements IChatFormat {
+	public void setSpawn(Teleport spawn) {
+		this.spawn = spawn;
+	}
 
-        private Empire mainEmpire;
-        public boolean isSelectedEmpireSaved = false;
+	/**
+	 * Checks if the given block in non-chunk coordinates is in this Empire
+	 */
+	public boolean isPointInEmpire(int dim, int x, int z) {
+		return isChunkInEmpire(dim, x >> 4, z >> 4);
+	}
 
-        @Override
-        public boolean add(Empire empire) {
-            if(mainEmpire == null) {
-                mainEmpire = empire;
-            }
-            return super.add(empire);
-        }
+	public boolean isChunkInEmpire(int dim, int chunkX, int chunkZ) {
+		return empireBlocksContainer.contains(dim, chunkX, chunkZ);
+	}
 
-        public Empire get(String name) {
-            for(Empire empire : this) {
-                if(empire.getName().equals(name)) {
-                    return empire;
-                }
-            }
-            return null;
-        }
+	@Override
+	public String toString() {
+		return toChatMessage().getUnformattedText();
+	}
 
-        public void remove(String name) {
-            for(Iterator<Empire> it = iterator(); it.hasNext(); ) {
-                Empire empire = it.next();
-                if(empire.getName().equals(name)) {
-                    it.remove();
-                }
-            }
-        }
+	@Override
+	public IChatComponent toChatMessage() {
+		IChatComponent header = LocalizationManager.get("Empires.format.list.header",
+				new ChatComponentFormatted("{9|%s}", getName()));
+		IChatComponent hoverComponent = ((ChatComponentFormatted) LocalizationManager.get("Empires.format.empire.long",
+				header, citizensMap.size(), empireBlocksContainer.size(), getMaxBlocks(), getPower(), getMaxPower(),
+				citizensMap, ranksContainer)).applyDelimiter("\n");
 
-        public boolean contains(String name) {
-            for(Empire empire : this) {
-                if(empire.getName().equals(name)) {
-                    return true;
-                }
-            }
-            return false;
-        }
+		return LocalizationManager.get("Empires.format.empire.short", name, hoverComponent);
+	}
 
-        public void setMainEmpire(Empire empire) {
-            if(contains(empire)) {
-                mainEmpire = empire;
-            }
-        }
-        
+	public void setPower(double Power) {
 
+		Double target = Power;
+
+		if (this.CitizensPower == Power)
+			return;
+
+		this.CitizensPower = target;
+
+	}
+
+	public void setMaxPower(double maxP) {
+		this.maxPower = maxP;
+	}
+
+	public void addMaxPower(double additive) {
+		double target = additive;
+		double newMaxPower = this.maxPower + target;
+		this.maxPower = newMaxPower;
+	}
+
+	public void addPower(double additive) {
+		double target = additive;
+		double newPower = this.CitizensPower + target;
+		this.CitizensPower = newPower;
+	}
+
+	public double getPower() {
+		return CitizensPower;
+	}
+
+	public static class Container extends ArrayList<Empire> implements IChatFormat {
+
+		private Empire mainEmpire;
+		public boolean isSelectedEmpireSaved = false;
+
+		@Override
+		public boolean add(Empire empire) {
+			if (mainEmpire == null) {
+				mainEmpire = empire;
+			}
+			return super.add(empire);
+		}
+
+		public Empire get(String name) {
+			for (Empire empire : this) {
+				if (empire.getName().equals(name)) {
+					return empire;
+				}
+			}
+			return null;
+		}
+
+		public void remove(String name) {
+			for (Iterator<Empire> it = iterator(); it.hasNext();) {
+				Empire empire = it.next();
+				if (empire.getName().equals(name)) {
+					it.remove();
+				}
+			}
+		}
+
+		public boolean contains(String name) {
+			for (Empire empire : this) {
+				if (empire.getName().equals(name)) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public void setMainEmpire(Empire empire) {
+			if (contains(empire)) {
+				mainEmpire = empire;
+			}
+		}
 
 		public Empire getMainEmpire() {
-            if(!contains(mainEmpire) || mainEmpire == null) {
-                if(size() == 0) {
-                    return null;
-                } else {
-                    mainEmpire = get(0);
-                }
-            }
+			if (!contains(mainEmpire) || mainEmpire == null) {
+				if (size() == 0) {
+					return null;
+				} else {
+					mainEmpire = get(0);
+				}
+			}
 
-            return mainEmpire;
-        }
+			return mainEmpire;
+		}
 
-        @Override
-        public IChatComponent toChatMessage() {
-            IChatComponent root = new ChatComponentText("");
+		@Override
+		public IChatComponent toChatMessage() {
+			IChatComponent root = new ChatComponentText("");
 
-            for (Empire empire : this) {
-                if (root.getSiblings().size() > 0) {
-                    root.appendSibling(new ChatComponentFormatted("{7|, }"));
-                }
-                root.appendSibling(empire.toChatMessage());
-            }
+			for (Empire empire : this) {
+				if (root.getSiblings().size() > 0) {
+					root.appendSibling(new ChatComponentFormatted("{7|, }"));
+				}
+				root.appendSibling(empire.toChatMessage());
+			}
 
-            return root;
-        }
-    }
+			return root;
+		}
+	}
 }

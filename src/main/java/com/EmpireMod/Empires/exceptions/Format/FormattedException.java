@@ -6,9 +6,9 @@ import net.minecraft.util.IChatComponent;
 
 public abstract class FormattedException extends RuntimeException {
 
-    public final IChatComponent message;
+	public final IChatComponent message;
 
-    public FormattedException(String localizationKey, Object... args) {
-        message = LocalizationManager.get(localizationKey, args);
-    }
+	public FormattedException(String localizationKey, Object... args) {
+		message = LocalizationManager.get(localizationKey, args);
+	}
 }

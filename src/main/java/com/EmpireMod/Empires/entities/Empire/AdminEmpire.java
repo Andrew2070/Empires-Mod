@@ -1,13 +1,12 @@
 package com.EmpireMod.Empires.entities.Empire;
 
-
 public class AdminEmpire extends Empire {
-    public AdminEmpire(String name) {
-        super(name);
-    }
+	public AdminEmpire(String name) {
+		super(name);
+	}
 
-    @Override
-    public int getMaxBlocks() {
-        return Integer.MAX_VALUE;
-    }
+	@Override
+	public int getMaxBlocks() {
+		return Integer.MAX_VALUE;
+	}
 }

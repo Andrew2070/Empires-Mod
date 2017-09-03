@@ -1,5 +1,4 @@
-package com.EmpireMod.Empires.DependencyLoader;
-
+package com.EmpireMod.Empires.Dependencies;
 
 import cpw.mods.fml.common.versioning.ComparableVersion;
 

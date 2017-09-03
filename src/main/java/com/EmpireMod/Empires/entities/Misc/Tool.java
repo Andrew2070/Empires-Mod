@@ -1,6 +1,5 @@
 package com.EmpireMod.Empires.entities.Misc;
 
-
 import com.EmpireMod.Empires.Utilities.PlayerUtils;
 import com.EmpireMod.Empires.entities.Position.BlockPos;
 
@@ -12,58 +11,60 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.EnumChatFormatting;
 
 /**
- * A wrapper class for an instance of an itemstack which executes only on the server-side.
+ * A wrapper class for an instance of an itemstack which executes only on the
+ * server-side.
  */
 public abstract class Tool {
 
-    /**
-     * Every tool starts with this string. Allows easy checks for invalid tools.
-     */
-    public static final String IDENTIFIER = EnumChatFormatting.BLUE.toString();
+	/**
+	 * Every tool starts with this string. Allows easy checks for invalid tools.
+	 */
+	public static final String IDENTIFIER = EnumChatFormatting.BLUE.toString();
 
-    public EntityPlayer owner;
-    //was protected not public.
+	public EntityPlayer owner;
+	// was protected not public.
 
-    /**
-     * This is used as an identifier to find the itemstack in the player's inventory.
-     */
-    protected String toolName;
+	/**
+	 * This is used as an identifier to find the itemstack in the player's
+	 * inventory.
+	 */
+	protected String toolName;
 
-    protected Tool(EntityPlayer owner, String toolName) {
-        this.owner = owner;
-        this.toolName = IDENTIFIER + toolName;
-    }
+	protected Tool(EntityPlayer owner, String toolName) {
+		this.owner = owner;
+		this.toolName = IDENTIFIER + toolName;
+	}
 
-    public abstract void onItemUse(BlockPos bp, int face);
+	public abstract void onItemUse(BlockPos bp, int face);
 
-    protected abstract String[] getDescription();
+	protected abstract String[] getDescription();
 
-    public void onShiftRightClick() {
-    }
+	public void onShiftRightClick() {
+	}
 
-    public ItemStack getItemStack() {
-        return PlayerUtils.getItemStackFromPlayer(owner, Items.wooden_hoe, toolName);
-    }
+	public ItemStack getItemStack() {
+		return PlayerUtils.getItemStackFromPlayer(owner, Items.wooden_hoe, toolName);
+	}
 
-    public void giveItemStack() {
-        ItemStack itemStack = new ItemStack(Items.wooden_hoe);
-        itemStack.setStackDisplayName(toolName);
-        NBTTagList lore = new NBTTagList();
-        for(String s : getDescription()) {
-            lore.appendTag(new NBTTagString(s));
-        }
-        itemStack.getTagCompound().getCompoundTag("display").setTag("Lore", lore);
-        PlayerUtils.giveItemStackToPlayer(owner, itemStack);
-        //owner.sendMessage(Empires.instance.LOCAL.getLocalization("Empires.notification.tool.gained"));
-    }
+	public void giveItemStack() {
+		ItemStack itemStack = new ItemStack(Items.wooden_hoe);
+		itemStack.setStackDisplayName(toolName);
+		NBTTagList lore = new NBTTagList();
+		for (String s : getDescription()) {
+			lore.appendTag(new NBTTagString(s));
+		}
+		itemStack.getTagCompound().getCompoundTag("display").setTag("Lore", lore);
+		PlayerUtils.giveItemStackToPlayer(owner, itemStack);
+		// owner.sendMessage(Empires.instance.LOCAL.getLocalization("Empires.notification.tool.gained"));
+	}
 
-    protected void updateDescription() {
-        NBTTagList lore = getItemStack().getTagCompound().getCompoundTag("display").getTagList("Lore", 8);
-        NBTTagList newLore = new NBTTagList();
-        String[] newDescription = getDescription();
-        for(int i = 0; i < lore.tagCount(); i++) {
-            newLore.appendTag(new NBTTagString(newDescription[i]));
-        }
-        getItemStack().getTagCompound().getCompoundTag("display").setTag("Lore", newLore);
-    }
+	protected void updateDescription() {
+		NBTTagList lore = getItemStack().getTagCompound().getCompoundTag("display").getTagList("Lore", 8);
+		NBTTagList newLore = new NBTTagList();
+		String[] newDescription = getDescription();
+		for (int i = 0; i < lore.tagCount(); i++) {
+			newLore.appendTag(new NBTTagString(newDescription[i]));
+		}
+		getItemStack().getTagCompound().getCompoundTag("display").setTag("Lore", newLore);
+	}
 }

@@ -4,6 +4,6 @@ import java.util.UUID;
 
 public interface IPermissionBridge {
 
-    boolean hasPermission(UUID uuid, String permission);
+	boolean hasPermission(UUID uuid, String permission);
 
 }
