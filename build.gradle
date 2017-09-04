@@ -99,8 +99,10 @@ processResources {
 shadowJar {
     classifier = 'universal'
     dependencies {
-    exclude(dependency('com.forgeessentials:forgeessentials:1.4.1-SNAPSHOT:dev'))
-    exclude(dependency('com.sk89q.worldedit:worldedit-forge-mc1.7.10:6.0.2-SNAPSHOT:dev'))
+    include(dependency('org.xerial:sqlite-jdbc:3.8.5-pre1'))
+    include(dependency('mysql:mysql-connector-java:5.1.32'))
+    include(dependency('org.beanshell:bsh:2.0b5'))
+    include(dependency('com.esotericsoftware.reflectasm:reflectasm:1.09'))
     }
     manifest {
         attributes (
