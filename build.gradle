@@ -12,111 +12,52 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
     }
 }
 
-plugins {
-  id 'java'
-  id "com.matthewprenger.cursegradle" version "1.0.9"
-  id 'com.github.johnrengelman.shadow' version '1.2.4'
-  id 'net.saliman.cobertura' version '2.2.5'
-  id 'com.github.kt3k.coveralls' version '2.0.1'
-  id "se.bjurr.gitchangelog.git-changelog-gradle-plugin" version "1.50"
-}
-
-repositories {
-    maven {
-        name = "bukkit-repo"
-        url = "http://repo.bukkit.org/content/groups/public/"
-    }
-    maven {
-        name = "SpongePowered"
-        url = "https://repo.spongepowered.org/maven"
-    }
-    maven {
-        name = "sk89q"
-        url = "http://maven.sk89q.com/artifactory/repo/"
-    }
-}
-
-if (System.env.TRAVIS_TAG != null && !System.env.TRAVIS_TAG.isEmpty()) {
-    ext.build_number = System.env.TRAVIS_TAG.substring(0, System.env.TRAVIS_TAG.length()-1)
-    ext.build_type = System.env.TRAVIS_TAG.substring(System.env.TRAVIS_TAG.length()-1)
-} else {
-    ext.build_number = "0000"
-    ext.build_type = "r"
-}
-
-// Apply Plugins
-apply from: 'https://raw.githubusercontent.com/BuiltBrokenModding/BuiltBrokenScripts/buildScripts/index/index.gradle'
 apply plugin: 'forge'
-//apply plugin: 'curseforge'
 
-// Configure Everything
-version = "${minecraft.version}-${build_number}${build_type}"
-println "reflectasmversion is " + reflectasmversion
+version = "1.0"
+group= "com.yourname.modid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "modid"
+
 minecraft {
-   replace "@VERSION@", "${project.version}"
+    version = "1.7.10-10.13.4.1614-1.7.10"
+    runDir = "eclipse"
 }
 
-
-// Setup Deps
 dependencies {
- // Database engines
-    compile "org.xerial:sqlite-jdbc:3.8.5-pre1"
-    compile "mysql:mysql-connector-java:5.1.32"
+    // you may put jars on which you depend on in ./libs
+    // or you may define them like so..
+    //compile "some.group:artifact:version:classifier"
+    //compile "some.group:artifact:version"
+      
+    // real examples
+    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
+    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
 
-     // Minecraft related deps
-    compile "com.forgeessentials:forgeessentials:1.4.1-SNAPSHOT:dev"
-    compile files("libs/bukkit-1.7.9-R0.2.jar")
-    compile "org.spongepowered:mixin:0.4.4-SNAPSHOT"
-    //compile "com.sk89q.worldedit:worldedit-forge-mc1.7.10:6.0.2-SNAPSHOT:dev"
+    // for more info...
+    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
+    // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
-    // Other deps
-    compile "org.beanshell:bsh:2.0b5"
-    compile "com.esotericsoftware.reflectasm:reflectasm:${reflectasmversion}"
 }
 
-
-// Process Resources, injecting version numbers in
-processResources {
+processResources
+{
     // this will ensure that this task is redone when the versions change.
-    inputs.property "mod_version", project.version
-    inputs.property "minecraft_version", minecraft.version
-    inputs.property "reflectasmversion", project.reflectasmversion
- 
-    // replace stuff in mcmod.info, nothing else
-    ['**/*.info', 'plugin.yml'].each {
-        filesMatching(it) {
-            expand 'mod_version'       : project.version,
-                   'minecraft_version' : minecraft.version,
-                   'reflectasmversion' : project.reflectasmversion
-        }
-    }
-}
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
 
-shadowJar {
-    classifier = 'universal'
-    dependencies {
-    include(dependency('org.xerial:sqlite-jdbc:3.8.5-pre1'))
-    include(dependency('mysql:mysql-connector-java:5.1.32'))
-    include(dependency('org.beanshell:bsh:2.0b5'))
-    include(dependency('com.esotericsoftware.reflectasm:reflectasm:1.09'))
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+                
+        // replace version and mcversion
+        expand 'version':project.version, 'mcversion':project.minecraft.version
     }
-    manifest {
-        attributes (
-            'FMLCorePlugin': 'Empires.DepLoader',
-            'FMLCorePluginContainsFMLMod': 'true'
-        )
-    }
-}
-// Setup Curse Upload task
-curseforge {
-    project {
-        id = project_id
-        changelog = file('changelog.html')
-        changelogType = 'html'
-        releaseType = build_type.equals('a') ? "alpha" : (build_type.equals('b') ? "beta" : "release")
+        
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
     }
 }

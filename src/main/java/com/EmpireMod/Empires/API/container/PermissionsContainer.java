@@ -1,4 +1,4 @@
-package com.EmpireMod.Empires.API.Container;
+package com.EmpireMod.Empires.API.container;
 
 import java.util.ArrayList;
 import java.util.Iterator;
