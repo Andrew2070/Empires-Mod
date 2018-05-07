@@ -73,7 +73,7 @@ public class Empires {
 		MinecraftServer server = MinecraftServer.getServer();
 		LOG = ev.getModLog();
 
-		Constants.CONFIG_FOLDER = ev.getModConfigurationDirectory().getPath() + "/Empires/";
+		Constants.CONFIG_FOLDER = ev.getModConfigurationDirectory().getPath() + "/Empires Mod/";
 		Constants.DATABASE_FOLDER = ev.getModConfigurationDirectory().getParent() + "/databases/";
 		// Load Configs
 
@@ -143,9 +143,9 @@ public class Empires {
 			CommandManager.registerCommands(PermissionManager.class, "Empires.cmd", Empires.instance.LOCAL, null);
 
 		}
-		jsonConfigs.add(new WildPermsConfig(Constants.CONFIG_FOLDER + "/WildPerms.json"));
-		jsonConfigs.add(new FlagsConfig(Constants.CONFIG_FOLDER + "/DefaultFlags.json"));
-		jsonConfigs.add(new RanksConfig(Constants.CONFIG_FOLDER + "/DefaultEmpireRanks.json"));
+		jsonConfigs.add(new WildPermsConfig(Constants.CONFIG_FOLDER + "/JSON/WildPerms.json"));
+		jsonConfigs.add(new FlagsConfig(Constants.CONFIG_FOLDER + "/JSON/DefaultFlags.json"));
+		jsonConfigs.add(new RanksConfig(Constants.CONFIG_FOLDER + "/JSON/DefaultEmpireRanks.json"));
 		for (JsonConfig jsonConfig : jsonConfigs) {
 			jsonConfig.init();
 		}
