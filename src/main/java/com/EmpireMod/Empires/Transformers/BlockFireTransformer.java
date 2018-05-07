@@ -44,7 +44,7 @@ public class BlockFireTransformer implements IClassTransformer {
 					&& !kcauldronDetected && opcode == Opcodes.INVOKEVIRTUAL) {
 				if (owner.equals("net/minecraft/world/World") && name.equals("func_147465_d")
 						|| name.equals("setBlock")) {
-					super.visitMethodInsn(Opcodes.INVOKESTATIC, "myessentials/event/ModifyBlockEvent",
+					super.visitMethodInsn(Opcodes.INVOKESTATIC, "com/EmpireMod/Empires/Events/ModifyBlockEvent",
 							"checkAndSetBlock", "(Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;II)Z",
 							false);
 					return;
@@ -54,7 +54,7 @@ public class BlockFireTransformer implements IClassTransformer {
 					super.visitVarInsn(Opcodes.ILOAD, 10);
 					super.visitVarInsn(Opcodes.ILOAD, 12);
 					super.visitVarInsn(Opcodes.ILOAD, 11);
-					super.visitMethodInsn(Opcodes.INVOKESTATIC, "myessentials/event/ModifyBlockEvent",
+					super.visitMethodInsn(Opcodes.INVOKESTATIC, "com/EmpireMod/Empires/Events/ModifyBlockEvent",
 							"checkFlagAndBlock", "(ZLnet/minecraft/world/World;III)Z", false);
 					kcauldronDetected = true;
 					return;
@@ -62,12 +62,12 @@ public class BlockFireTransformer implements IClassTransformer {
 			} else if (methodTransformed.equals("tryCatchFire") && opcode == Opcodes.INVOKEVIRTUAL
 					&& owner.equals("net/minecraft/world/World")) {
 				if (name.equals("func_147465_d") || name.equals("setBlock")) {
-					super.visitMethodInsn(Opcodes.INVOKESTATIC, "myessentials/event/ModifyBlockEvent",
+					super.visitMethodInsn(Opcodes.INVOKESTATIC, "com/EmpireMod/Empires/Events/ModifyBlockEvent",
 							"checkAndSetBlock", "(Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;II)Z",
 							false);
 					return;
 				} else if (name.equals("func_147468_f") || name.equals("setBlockToAir")) {
-					super.visitMethodInsn(Opcodes.INVOKESTATIC, "myessentials/event/ModifyBlockEvent",
+					super.visitMethodInsn(Opcodes.INVOKESTATIC, "com/EmpireMod/Empires/Events/ModifyBlockEvent",
 							"checkAndSetBlockToAir", "(Lnet/minecraft/world/World;III)Z", false);
 					return;
 				}

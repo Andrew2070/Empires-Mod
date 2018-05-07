@@ -12,12 +12,15 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
     }
 }
 
 plugins {
   id 'java'
   id "com.matthewprenger.cursegradle" version "1.0.9"
+  id 'com.github.johnrengelman.shadow' version '1.2.4'
+  id 'net.saliman.cobertura' version '2.2.5'
   id 'com.github.kt3k.coveralls' version '2.0.1'
   id "se.bjurr.gitchangelog.git-changelog-gradle-plugin" version "1.50"
 }
@@ -46,17 +49,15 @@ if (System.env.TRAVIS_TAG != null && !System.env.TRAVIS_TAG.isEmpty()) {
 }
 
 // Apply Plugins
+apply from: 'https://raw.githubusercontent.com/BuiltBrokenModding/BuiltBrokenScripts/buildScripts/index/index.gradle'
 apply plugin: 'forge'
 //apply plugin: 'curseforge'
 
 // Configure Everything
-//version = "${minecraft.version}-${build_number}${build_type}"
+version = "${minecraft.version}-${build_number}${build_type}"
 println "reflectasmversion is " + reflectasmversion
-
 minecraft {
    replace "@VERSION@", "${project.version}"
-   version = "1.7.10-10.13.4.1614-1.7.10"
-   runDir = "eclipse"
 }
 
 
@@ -77,6 +78,7 @@ dependencies {
     compile "com.esotericsoftware.reflectasm:reflectasm:${reflectasmversion}"
 }
 
+
 // Process Resources, injecting version numbers in
 processResources {
     // this will ensure that this task is redone when the versions change.
@@ -94,14 +96,21 @@ processResources {
     }
 }
 
-jar {
+shadowJar {
     classifier = 'universal'
-    manifest {
-        attributes (
-            'FMLCorePlugin': 'com.EmpireMod.Empires.DependencyLoader',
-            'FMLCorePluginContainsFMLMod': 'true'
-        )
+    dependencies {
+    include(dependency('org.xerial:sqlite-jdbc:3.8.5-pre1'))
+    include(dependency('mysql:mysql-connector-java:5.1.32'))
+    include(dependency('org.beanshell:bsh:2.0b5'))
+    include(dependency('com.esotericsoftware.reflectasm:reflectasm:1.09'))
+    include(dependency('org.spongepowered:mixin:0.4.4-SNAPSHOT'))
+    include(dependency('com.forgeessentials:forgeessentials:1.4.1-SNAPSHOT:dev'))
+    //include(dependency('com.sk89q.worldedit:worldedit-forge-mc1.7.10:6.0.2-SNAPSHOT:dev'))
     }
+}
+
+reobf.reobf(shadowJar) { spec ->
+    spec.classpath = sourceSets.main.compileClasspath;
 }
 // Setup Curse Upload task
 curseforge {
@@ -112,3 +121,4 @@ curseforge {
         releaseType = build_type.equals('a') ? "alpha" : (build_type.equals('b') ? "beta" : "release")
     }
 }
+build.dependsOn shadowJar

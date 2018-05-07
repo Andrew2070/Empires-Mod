@@ -52,7 +52,7 @@ public class EntityFireballTransformer implements IClassTransformer {
 			if (!patched && opcode == Opcodes.INVOKEVIRTUAL
 					&& owner.equals("net/minecraft/entity/projectile/EntityFireball")
 					&& (name.equals("func_70227_a") || name.equals("onImpact"))) {
-				super.visitMethodInsn(Opcodes.INVOKESTATIC, "myessentials/event/ProjectileImpactEvent", "fireEvent",
+				super.visitMethodInsn(Opcodes.INVOKESTATIC, "com/EmpireMod/Empires/Events/ProjectileImpactEvent", "fireEvent",
 						"(Lnet/minecraft/entity/projectile/EntityFireball;Lnet/minecraft/util/MovingObjectPosition;)Z",
 						false);
 				Label elseLabel = new Label();

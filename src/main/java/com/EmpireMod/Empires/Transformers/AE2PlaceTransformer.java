@@ -58,7 +58,7 @@ public class AE2PlaceTransformer implements IClassTransformer {
 				super.visitFieldInsn(Opcodes.GETFIELD, "appeng/core/sync/packets/PacketPartPlacement", "z", "I");
 				super.visitVarInsn(Opcodes.ALOAD, 0);
 				super.visitFieldInsn(Opcodes.GETFIELD, "appeng/core/sync/packets/PacketPartPlacement", "face", "I");
-				super.visitMethodInsn(Opcodes.INVOKESTATIC, "myessentials/event/AE2PartPlaceEvent", "fireEvent",
+				super.visitMethodInsn(Opcodes.INVOKESTATIC, "com/EmpireMod/Empires/Events/AE2PartPlaceEvent", "fireEvent",
 						"(Lnet/minecraft/entity/player/EntityPlayer;IIII)Z", false);
 
 				Label elseLabel = new Label();

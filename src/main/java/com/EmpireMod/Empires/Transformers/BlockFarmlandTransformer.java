@@ -68,7 +68,7 @@ public class BlockFarmlandTransformer implements IClassTransformer {
 				super.visitVarInsn(Opcodes.ILOAD, 2);
 				super.visitVarInsn(Opcodes.ILOAD, 3);
 				super.visitVarInsn(Opcodes.ILOAD, 4);
-				super.visitMethodInsn(Opcodes.INVOKESTATIC, "myessentials/event/BlockTrampleEvent", "fireEvent",
+				super.visitMethodInsn(Opcodes.INVOKESTATIC, "com/EmpireMod/Empires/Events/BlockTrampleEvent", "fireEvent",
 						"(Lnet/minecraft/entity/Entity;Lnet/minecraft/block/BlockFarmland;III)Z", false);
 
 				Label elseLabel = new Label();

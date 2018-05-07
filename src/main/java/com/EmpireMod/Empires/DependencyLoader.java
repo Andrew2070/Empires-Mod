@@ -19,7 +19,7 @@ public class DependencyLoader implements IFMLLoadingPlugin, IFMLCallHook {
     public Void call() throws Exception {
         File mcDir = (File) FMLInjectionData.data()[6];
 
-        new com.EmpireMod.Empires.Dependencies.DependencyLoader(new File(mcDir, "MyEssentials/libs"), (LaunchClassLoader) com.EmpireMod.Empires.Dependencies.DependencyLoader.class.getClassLoader()).load();
+        new com.EmpireMod.Empires.Dependencies.DependencyLoader(new File(mcDir, "Empires-Mod/libs"), (LaunchClassLoader) com.EmpireMod.Empires.Dependencies.DependencyLoader.class.getClassLoader()).load();
 
         return null;
     }

@@ -52,7 +52,7 @@ public class EntityThrowableTransformer implements IClassTransformer {
 			if (!patched && opcode == Opcodes.INVOKEVIRTUAL
 					&& owner.equals("net/minecraft/entity/projectile/EntityThrowable")
 					&& (name.equals("func_70184_a") || name.equals("onImpact"))) {
-				super.visitMethodInsn(Opcodes.INVOKESTATIC, "myessentials/event/ProjectileImpactEvent", "fireEvent",
+				super.visitMethodInsn(Opcodes.INVOKESTATIC, "com/EmpireMod/Empires/Events/ProjectileImpactEvent", "fireEvent",
 						"(Lnet/minecraft/entity/projectile/EntityThrowable;Lnet/minecraft/util/MovingObjectPosition;)Z",
 						false);
 				Label elseLabel = new Label();

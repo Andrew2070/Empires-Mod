@@ -70,7 +70,7 @@ public class AE2NetworkToolTransformer implements IClassTransformer {
 			super.visitVarInsn(Opcodes.FLOAD, 8);
 			super.visitVarInsn(Opcodes.FLOAD, 9);
 			super.visitVarInsn(Opcodes.FLOAD, 10);
-			super.visitMethodInsn(Opcodes.INVOKESTATIC, "myessentials/classtransformers/AE2NetworkToolTransformer",
+			super.visitMethodInsn(Opcodes.INVOKESTATIC, "com/EmpireMod/Empires/Transformers/AE2NetworkToolTransformer",
 					"onItemUse", "(Lnet/minecraft/world/World;IIILnet/minecraft/entity/player/EntityPlayer;IFFF)Z",
 					false);
 			Label allowed = new Label();
