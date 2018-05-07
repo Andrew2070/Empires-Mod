@@ -33,7 +33,7 @@ public class ProtectionParser {
 	}
 
 	public static boolean start() {
-		String folderPath = Constants.CONFIG_FOLDER + "protections/";
+		String folderPath = Constants.CONFIG_FOLDER + "Protection Files/";
 		File folder = new File(folderPath);
 		if (!folder.exists()) {
 			if (!folder.mkdir()) {
