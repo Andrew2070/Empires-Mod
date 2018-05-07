@@ -16,8 +16,8 @@ public class MyPermissionsBridge implements IPermissionBridge {
 	public final Group.Container groups = new Group.Container();
 	public final User.Container users = new User.Container();
 
-	public final GroupConfig groupConfig = new GroupConfig(Constants.CONFIG_FOLDER + "GroupConfig.json", this);
-	public final UserConfig userConfig = new UserConfig(Constants.CONFIG_FOLDER + "UserConfig.json", this);
+	public final GroupConfig groupConfig = new GroupConfig(Constants.CONFIG_FOLDER + "JSON/GroupConfig.json", this);
+	public final UserConfig userConfig = new UserConfig(Constants.CONFIG_FOLDER + "JSON/UserConfig.json", this);
 
 	public MyPermissionsBridge() {
 	}
