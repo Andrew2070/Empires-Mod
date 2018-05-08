@@ -305,7 +305,7 @@ Empires.format.rank.type.short={%s}
 
 # Notifications
 
-Empires.notification.block.added={6|[Empire] }{a|A New Chunk Was Added To Your Territory from (%s, %s) to (%s, %s)}{ [%s]}
+Empires.notification.block.added={6|[Empire] }{a|A New Chunk Was Added To Your Territory from (%s, %s) to (%s, %s) [}{%s}{a|]}
 Empires.notification.block.removed={6|[Empire] }{a|Territory From (%s, %s) to (%s, %s) Has Been Removed From Empire }{%s}
 Empires.notification.block.overclaimed={6|[Empire] }{a|Territory From (%s, %s) to (%s, %s) Has Been over-claimed From Empire }{%s}
 Empires.notification.plot.start={6|[Empire] }{3|Right click 2 corners with the Selector to create a plot. Use }{3o|"/empire plot select reset"}{3| to reset selection}
