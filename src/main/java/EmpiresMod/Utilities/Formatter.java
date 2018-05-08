@@ -22,7 +22,7 @@ public class Formatter {
 	}
 
 	public static String formatBlockInfo(EmpireBlock block) {
-		return String.format(" ---------- Claimed Chunk----------\nEmpire: %1$s\nDimension: %2$s\nLocation: %3$s",
+		return String.format(" ---------- Claimed Chunk----------\nEmpire: %1$s\nDimension: %2$s\nCoordinates: %3$s",
 				block.getEmpire().getName(), block.getDim(), block.getCoordString());
 	}
 
@@ -31,7 +31,7 @@ public class Formatter {
 											// prefer 14 to 16 instead of 9, the
 											// FPS drop is too high)
 
-		ChatManager.send(res.getPlayer(), new ChatComponentText("---------- [Empire Map] ----------"));
+		ChatManager.send(res.getPlayer(), new ChatComponentText("---------------- [Empire Map] ----------------"));
 		for (int z = cz - heightRad; z <= cz + heightRad; z++) {
 			JsonMessageBuilder msgBuilder = new JsonMessageBuilder();
 
@@ -49,9 +49,10 @@ public class Formatter {
 				} else {
 					extraBuilder.setColor(ownEmpire ? EnumChatFormatting.DARK_GREEN
 							: isEmpire ? EnumChatFormatting.DARK_RED : EnumChatFormatting.GRAY);
+					
 				}
 
-				extraBuilder.setText(isEmpire ? "X" : "_");
+				extraBuilder.setText(ownEmpire ? "[O]" : isEmpire ? "[X]" : "[#]");
 
 				if (b != null) {
 					extraBuilder.setHoverEventShowText(formatBlockInfo(b));
