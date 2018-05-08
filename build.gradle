@@ -98,7 +98,7 @@ jar {
     classifier = 'universal'
     manifest {
         attributes (
-            'FMLCorePlugin': 'com.EmpireMod.Empires.DependencyLoader',
+            'FMLCorePlugin': 'EmpiresMod.DependencyLoader',
             'FMLCorePluginContainsFMLMod': 'true'
         )
     }
