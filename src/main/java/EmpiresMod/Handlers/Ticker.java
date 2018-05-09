@@ -118,6 +118,13 @@ public class Ticker {
 		     for (int i=0; i < allEmpires.size(); i++) {
 					
 					Empire empire = allEmpires.get(i);
+					
+					if (empire.getPower() - empire.getMaxPower() > 0) {
+						double difference = empire.getPower() - empire.getMaxPower();
+						double currentmax = empire.getMaxPower();
+						empire.subtractPower(difference);
+					}
+					
 					if (empire.getPower() < empire.getMaxPower()) {
 						for (int c=0; c < empire.citizensMap.size(); c++) {
 							
@@ -125,17 +132,14 @@ public class Ticker {
 						ArrayList<Citizen> empireCitizens = new ArrayList<Citizen>(empire.citizensMap.keySet());
 						Citizen citizen = empireCitizens.get(c);
 						
+					if (citizen.getPower() <= citizen.getMaxPower()) {
+						
 					if (citizen.getPowerAdded() == false) {
 						
 					if (citizen.getPower() != citizen.getPreviousPower()) {
 						
 						if (citizen.getPower()>=0) {
-						double result = (citizen.getPower() - citizen.getPreviousPower());
-						
-					
-						
-						
-						
+						double result = (citizen.getPower() - citizen.getPreviousPower());			
 						empire.addPower(result);
 						citizen.setPowerAdded(true);
 						citizen.setPreviousPower(citizen.getPower());
@@ -145,7 +149,8 @@ public class Ticker {
 						//When a citizen joins an empire their power should be added.
 						//So lets do that elsewhere.
 						
-						
+					}
+					
 					}
 				}				
 			}
