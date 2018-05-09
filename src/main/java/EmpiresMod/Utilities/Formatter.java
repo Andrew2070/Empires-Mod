@@ -22,7 +22,7 @@ public class Formatter {
 	}
 
 	public static String formatBlockInfo(EmpireBlock block) {
-		return String.format(" ---------- Claimed Chunk----------\nEmpire: %1$s\nCurrent Power: %2$s\nMax Power: %3$s\nMax Claims: %4$s\nDimension: %5$s\nCoordinates: %6$s",
+		return String.format(" ---------- Claimed Chunk----------\nEmpire: %1$s\nPower: %2$s/%3$s\nMax Claims: %4$s\nDimension: %5$s\nCoordinates: %6$s",
 				block.getEmpire().getName(), block.getEmpire().getPower(), block.getEmpire().getMaxPower(), block.getEmpire().getMaxBlocks(), block.getDim(), block.getCoordString());
 	}
 
