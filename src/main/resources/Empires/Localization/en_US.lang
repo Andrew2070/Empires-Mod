@@ -55,6 +55,7 @@ Empires.format.group.short={c|%s}
 Empires.format.group.parent={c|%s}
 Empires.format.user.long={a|%s}{7| ( }{%s}{7| )}
 Empires.format.user.short={c|%s}
+Empires.format.flags.linesecond={%s}
 Empires.format.permission={7| - %s}
 
 # Other

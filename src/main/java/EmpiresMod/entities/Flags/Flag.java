@@ -15,6 +15,7 @@ import com.google.gson.JsonSerializationContext;
 import EmpiresMod.API.Chat.IChatFormat;
 import EmpiresMod.API.Chat.Component.ChatComponentFormatted;
 import EmpiresMod.API.Chat.Component.ChatComponentList;
+import EmpiresMod.API.Chat.Component.ChatManager;
 import EmpiresMod.API.JSON.API.SerializerTemplate;
 import EmpiresMod.Localization.LocalizationManager;
 import net.minecraft.util.IChatComponent;
@@ -149,11 +150,15 @@ public class Flag<T> implements Comparable<Flag>, IChatFormat {
 		public IChatComponent toChatMessage() {
 			IChatComponent root = new ChatComponentList();
 
-			root.appendSibling(LocalizationManager.get("Empires.format.list.header",
-					new ChatComponentFormatted("{9|CURRENT FLAGS}")));
+			root.appendSibling(LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|CURRENT FLAGS}")));
+			//root.appendSibling(LocalizationManager.get("Empires.format.flags.linesecond", new ChatComponentFormatted("{9| CITIZENS - NEUTRALS - TRUCE - ALLIES - ENEMIES}")));
+			//Use This When Relationships Work ^
+			//Also need to make flags for each relationship^
 
 			for (Flag flag : this) {
 				root.appendSibling(flag.toChatMessage());
+				
+				
 			}
 
 			return root;

@@ -22,8 +22,8 @@ public class Formatter {
 	}
 
 	public static String formatBlockInfo(EmpireBlock block) {
-		return String.format(" ---------- Claimed Chunk----------\nEmpire: %1$s\nDimension: %2$s\nCoordinates: %3$s",
-				block.getEmpire().getName(), block.getDim(), block.getCoordString());
+		return String.format(" ---------- Claimed Chunk----------\nEmpire: %1$s\nCurrent Power: %2$s\nMax Power: %3$s\nMax Claims: %4$s\nDimension: %5$s\nCoordinates: %6$s",
+				block.getEmpire().getName(), block.getEmpire().getPower(), block.getEmpire().getMaxPower(), block.getEmpire().getMaxBlocks(), block.getDim(), block.getCoordString());
 	}
 
 	public static void sendMap(Citizen res, int dim, int cx, int cz) {
@@ -42,6 +42,10 @@ public class Formatter {
 				boolean mid = z == cz && x == cx;
 				boolean isEmpire = b != null && b.getEmpire() != null;
 				boolean ownEmpire = isEmpire && res.empiresContainer.contains(b.getEmpire());
+				//isEnemyEmpire
+				//isAllyEmpire
+				//isTruceEmpire
+				//For When Relationships being made^
 
 				if (mid) {
 					extraBuilder.setColor(ownEmpire ? EnumChatFormatting.GREEN
