@@ -29,7 +29,7 @@ public class SignManager {
 		if (!(tileEntity instanceof TileEntitySign))
 			return null;
 
-		NBTTagCompound tagCompound = SignClassTransformer.getEmpiresDataValue(tileEntity);
+		NBTTagCompound tagCompound = SignClassTransformer.getEmpiresDataValue(tileEntity); //error here
 		if (tagCompound == null)
 			return null;
 

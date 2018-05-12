@@ -83,8 +83,8 @@ public class ProtectionParser {
 	private static Protection read(File file) {
 		try {
 			FileReader reader = new FileReader(file);
-			// Empires.instance.LOG.info("Loading protection file: {}",
-			// file.getName());
+			Empires.instance.LOG.info("Loading protection file: {}",
+			file.getName());
 			Protection protection = gson.fromJson(reader, Protection.class);
 			reader.close();
 			return protection;

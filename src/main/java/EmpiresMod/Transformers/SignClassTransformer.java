@@ -46,12 +46,12 @@ public class SignClassTransformer implements IClassTransformer {
 	 * The key that will be used to store all the sign data on a
 	 * {@link NBTTagCompound}
 	 */
-	public static final String TAG_ROOT = "EmpiresMod";
+	public static final String TAG_ROOT = "@Empires";
 	/**
 	 * The field name that will be added to the
 	 * {@link net.minecraft.tileentity.TileEntitySign}
 	 */
-	public static final String FIELD_NAME = "empiresMod";
+	public static final String FIELD_NAME = "@empires";
 
 	// ------- MOD PART ------- //
 	// This part provide read/write access to the custom field in-game.
@@ -75,7 +75,10 @@ public class SignClassTransformer implements IClassTransformer {
 	private static Field getEmpiresDataField(Object sign) {
 		if (EmpiresDataField == null)
 			try {
-				EmpiresDataField = sign.getClass().getField(FIELD_NAME);
+				System.out.println(sign.getClass().getFields());
+				EmpiresDataField = sign.getClass().getField(FIELD_NAME); //error here
+				
+				System.out.println(sign.getClass().getFields());
 			} catch (NoSuchFieldException e) {
 				throw new RuntimeException(e);
 			}
