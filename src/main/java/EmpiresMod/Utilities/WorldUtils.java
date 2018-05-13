@@ -32,7 +32,7 @@ public class WorldUtils {
 	}
 
 	/**
-	 * Drops the specified itemstack in the worls as an EntityItem
+	 * Drops the specified itemstack in the world as an EntityItem
 	 */
 	public static void dropAsEntity(World world, int x, int y, int z, ItemStack itemStack) {
 		if (itemStack == null) {

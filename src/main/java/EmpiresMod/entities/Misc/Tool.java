@@ -1,5 +1,6 @@
 package EmpiresMod.entities.Misc;
 
+import EmpiresMod.Empires;
 import EmpiresMod.Utilities.PlayerUtils;
 import EmpiresMod.entities.Position.BlockPos;
 import net.minecraft.entity.player.EntityPlayer;
@@ -54,7 +55,7 @@ public abstract class Tool {
 		}
 		itemStack.getTagCompound().getCompoundTag("display").setTag("Lore", lore);
 		PlayerUtils.giveItemStackToPlayer(owner, itemStack);
-		// owner.sendMessage(Empires.instance.LOCAL.getLocalization("Empires.notification.tool.gained"));
+		owner.addChatMessage(Empires.instance.LOCAL.getLocalization("Empires.notification.tool.gained"));
 	}
 
 	protected void updateDescription() {

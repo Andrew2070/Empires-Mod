@@ -39,6 +39,7 @@ public class SignManager {
 
 		return signType.loadData((TileEntitySign) tileEntity, tagCompound.getTag("Value"));
 	}
+	
 
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent ev) {
