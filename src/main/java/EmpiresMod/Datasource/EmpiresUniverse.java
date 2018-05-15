@@ -109,7 +109,7 @@ public class EmpiresUniverse { // TODO Allow migrating between different Datasou
         // Saving block to db and empire
         if(EmpiresUniverse.instance.blocks.contains(dim, chunkX, chunkZ)) {
             getDatasource().deleteEmpire(empire);
-            throw new CommandException("Chunk at (" + dim + "," + chunkX + "," + chunkZ + ") is already claimed");
+            throw new CommandException("Chunk @ (" + dim + "," + chunkX + "," + chunkZ + ") is already claimed");
            // throw new EmpiresCommandException("Empires.cmd.err.claim.already");
         }
 
