@@ -46,12 +46,12 @@ public class SignClassTransformer implements IClassTransformer {
 	 * The key that will be used to store all the sign data on a
 	 * {@link NBTTagCompound}
 	 */
-	public static final String TAG_ROOT = "";
+	public static final String TAG_ROOT = "EmpiresMod";
 	/**
 	 * The field name that will be added to the
 	 * {@link net.minecraft.tileentity.TileEntitySign}
 	 */
-	public static final String FIELD_NAME = "";
+	public static final String FIELD_NAME = "empiresMod";
 
 	// ------- MOD PART ------- //
 	// This part provide read/write access to the custom field in-game.

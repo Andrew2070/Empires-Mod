@@ -22,6 +22,7 @@ import EmpiresMod.entities.Empire.Relationships.RelationshipType;
 import EmpiresMod.entities.Flags.Flag;
 import EmpiresMod.entities.Flags.FlagType;
 import EmpiresMod.entities.Permissions.PermissionLevel;
+import EmpiresMod.exceptions.Empires.EmpiresCommandException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentText;
@@ -214,19 +215,35 @@ public class Empire implements Comparable<Empire>, IChatFormat {
         return leaderBlocks + citizensBlocks + citizensExtra + empireExtra;
     }
     
-    Map<Empire,RelationshipType> relationshipMap = new HashMap<Empire, RelationshipType>();
+    public static final Map<Empire,RelationshipType> relationshipMap = new HashMap<Empire, RelationshipType>();
+    
     
     public void setRelation(Empire empire, RelationshipType relation) {
     	
-    	Relationships.put(empire, relation);
+    	relationshipMap.put(empire, relation);
 }
     
-	public RelationshipType getRelation(RelationshipType relation) {
-    
-    	return relationshipMap.get(relation);
-    	
+    public static String getRelation(RelationshipType value) {
+        for (Empire empire: relationshipMap.keySet()) {
+        
+        boolean doesEmpireHaveValue = relationshipMap.get(empire).equals(value);
+          if (doesEmpireHaveValue = true) {
+            return String.valueOf(empire.getName());
+          }
+          
+          if (doesEmpireHaveValue = false) {
+              return String.valueOf(empire.getName());
+            }
+     
+        }
+        return null;
     }
     
+    public static int getNumberofRelType() { //used to find total number of relations an empire has.
+    	int size = relationshipMap.size();
+    	return size;
+    }
+
     public double getMaxPower() {
     	double maxPower = 0.00 + citizensMap.size() * Config.instance.defaultMaxPower.get();
     	
@@ -347,7 +364,7 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     @Override
     public IChatComponent toChatMessage() {
         IChatComponent header = LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|%s}", getName()));
-        IChatComponent hoverComponent = ((ChatComponentFormatted)LocalizationManager.get("Empires.format.empire.long", header, citizensMap.size(), empireBlocksContainer.size(), getMaxBlocks(), getPower(), getMaxPower(), citizensMap, ranksContainer)).applyDelimiter("\n");
+        IChatComponent hoverComponent = ((ChatComponentFormatted)LocalizationManager.get("Empires.format.empire.long", header, citizensMap.size(), empireBlocksContainer.size(),getMaxBlocks(), getPower(),getMaxPower(), getRelation(RelationshipType.ALLY),getRelation(RelationshipType.TRUCE), getRelation(RelationshipType.ENEMY), citizensMap, ranksContainer)).applyDelimiter("\n");
 
         return LocalizationManager.get("Empires.format.empire.short", name, hoverComponent);
     }

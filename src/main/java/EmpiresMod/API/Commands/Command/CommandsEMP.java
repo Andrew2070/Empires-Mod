@@ -93,7 +93,8 @@ public abstract class CommandsEMP {
 	/* ---- HELPERS ---- */
 
 	public static Empire getEmpireFromCitizen(Citizen res) {
-		Empire empire = res.empiresContainer.getMainEmpire();
+		Empire empire = res.empiresContainer.getMainEmpire(); 
+		//Todo://put try catch here to fix the internal error on executing commands outside of an empire
 		if (empire == null)
 			throw new EmpiresCommandException("Empires.cmd.err.partOfEmpire");
 		return empire;

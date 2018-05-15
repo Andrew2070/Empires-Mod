@@ -289,7 +289,7 @@ Empires.notification.empire.ranks.perm.remove={6|[Empire] }{a|Removed permission
 
 Empires.format.flag={7|%s << %s}{7|[}{a|%s}{7|]}
 Empires.format.empire.short={6|%s << %s}
-Empires.format.empire.long={%s}{2N| Citizens: %s}{2N| Claims: %s/%s}{2N| Power: %s/%s }{2N| Citizens: }{%s}{2N| Ranks: }{%s}
+Empires.format.empire.long={%s}{2N| Citizens: %s}{2N| Claims: %s/%s}{2N| Power: %s/%s }{2N| Allies: {1|%s}{2N| Truces: }{d|%s}{2N| Enemies: {c|%s}{2N| Citizens: }{%s}{2N| Ranks: }{%s}
 Empires.format.rank={l|%s}
 Empires.format.rank.long={l|%s}{7| (}{%s}{7|)}
 Empires.format.plot.short={a|%s}{7|: }{%s}
