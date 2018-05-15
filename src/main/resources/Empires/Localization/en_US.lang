@@ -359,6 +359,16 @@ Empires.notification.citizen.payment={6|[Empire] }{3|You have paid %s}
 Empires.notification.citizen.refund={6|[Empire] }{3|You have been refunded %s}
 Empires.notification.empire.payment={6|[Empire] }{3|%s has been taken from the bank}
 Empires.notification.empire.refund={6|[Empire] }{3|%s has been refunded to the bank}
+
+# Relationship Notifications
+
+Empires.notification.empire.enemied={6|[Empire] }{c|Your Empire Is Now Enemies With: }{%s}
+Empires.notification.empire.allied={6|[Empire] }{1|Your Empire Is Now Allies With: }{%s}
+Empires.notification.empire.truced={6|[Empire] }{d|You Empire Is Now Truced With: }{%s}
+Empires.notification.empire.neutral={6|[Empire] }{f|Your Empire Is Now Neutral With: }{%s}
+Empires.cmd.err.relation.ownEmpire={6|[Empire] }{c|You Cannot Set Relationships To Your Own Empire!}
+
+
 Empires.notification.plot.sender.removed={6|[Empire] }{c|%s has been removed from the plot}
 Empires.notification.plot.target.removed={6|[Empire] }{c|You have been removed from plot }{%s}
 Empires.notification.empire.bank.info={6|[Empire] }{a|Bank balance: }{7|%s}{aN|Next payment: }{7|%s}

@@ -3,26 +3,22 @@ package EmpiresMod.entities.Empire;
 public class Relationships {
 
 	private Empire empire;
-	private Relationship relation;
 	
-	public Relationships(Empire data1, Relationship data2){
 
-		empire = data1; //Name of Other Empire
-		relation = data2; //Type of Relation
-		
+	public static void put(Empire empire2, RelationshipType relation) {
+
 	}
-	
-}
 
-enum Relationship {
+public enum RelationshipType {
 	
 	ENEMY,
 	
-	PEACE,
+	TRUCE,
 	
-	ALLIANCE,
+	ALLY,
 	
 	NEUTRAL;
 	
 	
+}
 }

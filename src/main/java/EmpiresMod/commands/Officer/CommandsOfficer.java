@@ -3,6 +3,8 @@ package EmpiresMod.commands.Officer;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.management.relation.RelationType;
+
 import EmpiresMod.API.Chat.Component.ChatManager;
 import EmpiresMod.API.Commands.Command.Command;
 import EmpiresMod.API.Commands.Command.CommandResponse;
@@ -19,6 +21,8 @@ import EmpiresMod.entities.Empire.Empire;
 import EmpiresMod.entities.Empire.EmpireBlock;
 import EmpiresMod.entities.Empire.Plot;
 import EmpiresMod.entities.Empire.Rank;
+import EmpiresMod.entities.Empire.Relationships;
+import EmpiresMod.entities.Empire.Relationships.RelationshipType;
 import EmpiresMod.entities.Flags.Flag;
 import EmpiresMod.entities.Flags.FlagType;
 import EmpiresMod.entities.Managers.ToolManager;
@@ -77,6 +81,104 @@ public class CommandsOfficer extends CommandsEMP {
     }
     
     /*/
+    
+    @Command(
+            name = "enemy",
+            permission = "Empires.cmd.officer.relations.enemy.set",
+            parentName = "Empires.cmd",
+            syntax = "/empire enemy <Empire>")
+    public static CommandResponse enemyCommand(ICommandSender sender, List<String> args) {
+        EntityPlayer player = (EntityPlayer) sender;
+        Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(player);
+        Empire empire = getEmpireFromCitizen(res);
+        
+        if (args.size() < 1) {
+            return CommandResponse.SEND_SYNTAX;
+        }
+
+       Empire targetEmpire = getEmpireFromName(args.get(0));
+       if (empire.getName() == targetEmpire.getName()) {
+    	  throw new EmpiresCommandException("Empires.cmd.err.relation.ownEmpire");
+       }
+       empire.setRelation(targetEmpire, RelationshipType.ENEMY);
+
+        empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.enemied", targetEmpire));
+		return CommandResponse.DONE;
+    }
+    
+    @Command(
+            name = "ally",
+            permission = "Empires.cmd.officer.relations.ally.set",
+            parentName = "Empires.cmd",
+            syntax = "/empire ally <Empire>")
+    public static CommandResponse allyCommand(ICommandSender sender, List<String> args) {
+        EntityPlayer player = (EntityPlayer) sender;
+        Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(player);
+        Empire empire = getEmpireFromCitizen(res);
+        
+        if (args.size() < 1) {
+            return CommandResponse.SEND_SYNTAX;
+        }
+
+       Empire targetEmpire = getEmpireFromName(args.get(0));
+       
+       if (empire.getName() == targetEmpire.getName()) {
+    	  throw new EmpiresCommandException("Empires.cmd.err.relation.ownEmpire");
+       }
+       empire.setRelation(targetEmpire, RelationshipType.ALLY);
+
+        empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.allied", targetEmpire));
+		return CommandResponse.DONE;
+    }
+    @Command(
+            name = "truce",
+            permission = "Empires.cmd.officer.relations.ally.set",
+            parentName = "Empires.cmd",
+            syntax = "/empire truce <Empire>")
+    public static CommandResponse truceCommand(ICommandSender sender, List<String> args) {
+        EntityPlayer player = (EntityPlayer) sender;
+        Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(player);
+        Empire empire = getEmpireFromCitizen(res);
+        
+        if (args.size() < 1) {
+            return CommandResponse.SEND_SYNTAX;
+        }
+        
+
+       Empire targetEmpire = getEmpireFromName(args.get(0));
+       if (empire.getName() == targetEmpire.getName()) {
+    	  throw new EmpiresCommandException("Empires.cmd.err.relation.ownEmpire");
+       }
+       
+       empire.setRelation(targetEmpire, RelationshipType.TRUCE);
+
+        empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.truced", targetEmpire));
+		return CommandResponse.DONE;
+    }
+    @Command(
+            name = "neutral",
+            permission = "Empires.cmd.officer.relations.neutral.set",
+            parentName = "Empires.cmd",
+            syntax = "/empire neutral <Empire>")
+    public static CommandResponse neutralCommand(ICommandSender sender, List<String> args) {
+        EntityPlayer player = (EntityPlayer) sender;
+        Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(player);
+        Empire empire = getEmpireFromCitizen(res);
+        
+        if (args.size() < 1) {
+            return CommandResponse.SEND_SYNTAX;
+        }
+
+       Empire targetEmpire = getEmpireFromName(args.get(0));
+      
+       if (empire.getName() == targetEmpire.getName()) {
+    	  throw new EmpiresCommandException("Empires.cmd.err.relation.ownEmpire");
+       }
+       empire.setRelation(targetEmpire, RelationshipType.NEUTRAL);
+
+        empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.neutral", targetEmpire));
+		return CommandResponse.DONE;
+    }
     
     @Command(
             name = "claim",

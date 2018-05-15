@@ -2,8 +2,10 @@ package EmpiresMod.entities.Empire;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import EmpiresMod.API.Chat.IChatFormat;
 import EmpiresMod.API.Chat.Component.ChatComponentFormatted;
@@ -16,6 +18,7 @@ import EmpiresMod.Configuration.Config;
 import EmpiresMod.Localization.LocalizationManager;
 import EmpiresMod.Misc.Teleport.Teleport;
 import EmpiresMod.Utilities.PlayerUtils;
+import EmpiresMod.entities.Empire.Relationships.RelationshipType;
 import EmpiresMod.entities.Flags.Flag;
 import EmpiresMod.entities.Flags.FlagType;
 import EmpiresMod.entities.Permissions.PermissionLevel;
@@ -48,9 +51,10 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     public final Flag.Container flagsContainer = new Flag.Container();
     public final EmpireBlock.Container empireBlocksContainer = new EmpireBlock.Container();
     public final BlockWhitelist.Container blockWhitelistsContainer = new BlockWhitelist.Container();
+    public final ArrayList<Relationships> relationList = new ArrayList<Relationships>();
 
     public final Bank bank = new Bank(this);
-    ArrayList<Relationships> relationList = new ArrayList<Relationships>();
+    
 
     public Empire(String name) {
         this.name = name;
@@ -210,12 +214,18 @@ public class Empire implements Comparable<Empire>, IChatFormat {
         return leaderBlocks + citizensBlocks + citizensExtra + empireExtra;
     }
     
-    public void setRelation(Empire empire, Relationship relation) {
+    Map<Empire,RelationshipType> relationshipMap = new HashMap<Empire, RelationshipType>();
+    
+    public void setRelation(Empire empire, RelationshipType relation) {
     	
-		Relationships data = new Relationships(empire, relation);
-		
-		relationList.add(data);
+    	Relationships.put(empire, relation);
 }
+    
+	public RelationshipType getRelation(RelationshipType relation) {
+    
+    	return relationshipMap.get(relation);
+    	
+    }
     
     public double getMaxPower() {
     	double maxPower = 0.00 + citizensMap.size() * Config.instance.defaultMaxPower.get();
@@ -279,6 +289,9 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     public Alliance getAlliance() {
         return alliance;
     }
+    
+    
+    
 
     public void setAlliance(Alliance alliance) {
         this.alliance = alliance;
