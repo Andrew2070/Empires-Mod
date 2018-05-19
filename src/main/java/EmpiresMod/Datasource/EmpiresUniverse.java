@@ -16,6 +16,7 @@ import EmpiresMod.Events.EmpireBlockEvent;
 import EmpiresMod.Events.EmpireEvent;
 import EmpiresMod.Events.PlotEvent;
 import EmpiresMod.Events.RankEvent;
+import EmpiresMod.Events.RelationEvent;
 import EmpiresMod.Handlers.VisualsHandler;
 import EmpiresMod.Misc.Teleport.Teleport;
 import EmpiresMod.Utilities.PlayerUtils;
@@ -27,6 +28,7 @@ import EmpiresMod.entities.Empire.Empire;
 import EmpiresMod.entities.Empire.EmpireBlock;
 import EmpiresMod.entities.Empire.Plot;
 import EmpiresMod.entities.Empire.Rank;
+import EmpiresMod.entities.Empire.Relationship;
 import EmpiresMod.entities.Flags.Flag;
 import EmpiresMod.entities.Flags.FlagType;
 import net.minecraft.command.CommandException;
@@ -163,6 +165,13 @@ public class EmpiresUniverse { // TODO Allow migrating between different Datasou
         if (RankEvent.fire(new RankEvent.RankCreateEvent(rank)))
             return null;
         return rank;
+    }
+    
+    public final Relationship newRelationship(String name, Empire empire, Relationship.Type type) {
+        Relationship rel = new Relationship(name, empire, type);
+        if (RelationEvent.fire(new RelationEvent.RelationCreateEvent(rel)))
+            return null;
+        return rel;
     }
 
     /**

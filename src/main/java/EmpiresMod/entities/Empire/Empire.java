@@ -18,7 +18,8 @@ import EmpiresMod.Configuration.Config;
 import EmpiresMod.Localization.LocalizationManager;
 import EmpiresMod.Misc.Teleport.Teleport;
 import EmpiresMod.Utilities.PlayerUtils;
-import EmpiresMod.entities.Empire.Relationships.RelationshipType;
+import EmpiresMod.API.container.relationshipMap;
+import EmpiresMod.entities.Empire.Relationship.Type;
 import EmpiresMod.entities.Flags.Flag;
 import EmpiresMod.entities.Flags.FlagType;
 import EmpiresMod.entities.Permissions.PermissionLevel;
@@ -47,16 +48,18 @@ public class Empire implements Comparable<Empire>, IChatFormat {
 
     public final TicketMap ticketMap = new TicketMap(this);
     public final CitizenRankMap citizensMap = new CitizenRankMap();
+    public final static relationshipMap relationMap = new relationshipMap();
     public final Rank.Container ranksContainer = new Rank.Container();
+    public final Relationship.Container relationContainer = new Relationship.Container();
     public final Plot.Container plotsContainer = new Plot.Container(Config.instance.defaultMaxPlots.get());
     public final Flag.Container flagsContainer = new Flag.Container();
     public final EmpireBlock.Container empireBlocksContainer = new EmpireBlock.Container();
     public final BlockWhitelist.Container blockWhitelistsContainer = new BlockWhitelist.Container();
-    public final ArrayList<Relationships> relationList = new ArrayList<Relationships>();
+   
 
     public final Bank bank = new Bank(this);
-    
 
+    
     public Empire(String name) {
         this.name = name;
     }
@@ -215,32 +218,69 @@ public class Empire implements Comparable<Empire>, IChatFormat {
         return leaderBlocks + citizensBlocks + citizensExtra + empireExtra;
     }
     
-    public static final Map<Empire,RelationshipType> relationshipMap = new HashMap<Empire, RelationshipType>();
-    
-    
-    public void setRelation(Empire empire, RelationshipType relation) {
-    	
-    	relationshipMap.put(empire, relation);
+    public void setRelation(Empire empire, Relationship rel) {
+    	relationMap.remove(empire);
+    	relationMap.put(empire, rel);
 }
     
-    public static String getRelation(RelationshipType value) {
-        for (Empire empire: relationshipMap.keySet()) {
-        
-        boolean doesEmpireHaveValue = relationshipMap.get(empire).equals(value);
+    public String getRelation(Type type) {
+        for (Empire empire: relationMap.keySet()) {
+        	
+        	
+        boolean doesEmpireHaveValue = relationMap.get(empire).equals(type);
           if (doesEmpireHaveValue = true) {
-            return String.valueOf(empire.getName());
+           Empire empire2 = (relationMap.getreltype(type));
+           return String.valueOf(empire.getName());//String.valueOf(empire.getName());
           }
           
           if (doesEmpireHaveValue = false) {
-              return String.valueOf(empire.getName());
+              return "None Established";
+            }
+          
+          if (doesEmpireHaveValue = (Boolean) null) {
+              return "None Established";
             }
      
         }
-        return null;
+        return "None Established";
     }
     
+    public Empire getRelationship(Type type) {
+    	for (Empire empire: relationMap.keySet()) {
+    		
+    		boolean doesRelationExist = relationMap.get(empire).equals(relationMap.getreltype(type));
+    		
+    		if (doesRelationExist = true) {
+    			return empire;
+    		}
+    		
+    	}
+   return null;
+  }                  
+
+    
+    
+    
+    public Relationship getAllies() {
+		return relationContainer.getAllyRelationship();
+    }
+    
+    public Relationship getEnemies() {
+		return relationContainer.getEnemyRelationship();
+    }
+    
+    public Relationship getTruce() {
+		return relationContainer.getTruceRelationship();
+    }
+    
+    public Relationship getNeutrals() {
+		return relationContainer.getNeutralRelationship();
+    }
+    
+    
+    
     public static int getNumberofRelType() { //used to find total number of relations an empire has.
-    	int size = relationshipMap.size();
+    	int size = relationMap.size();
     	return size;
     }
 
@@ -307,8 +347,7 @@ public class Empire implements Comparable<Empire>, IChatFormat {
         return alliance;
     }
     
-    
-    
+   
 
     public void setAlliance(Alliance alliance) {
         this.alliance = alliance;
@@ -359,12 +398,16 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     @Override
     public String toString() {
         return toChatMessage().getUnformattedText();
+
     }
 
+   
+    
+    
     @Override
     public IChatComponent toChatMessage() {
         IChatComponent header = LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|%s}", getName()));
-        IChatComponent hoverComponent = ((ChatComponentFormatted)LocalizationManager.get("Empires.format.empire.long", header, citizensMap.size(), empireBlocksContainer.size(),getMaxBlocks(), getPower(),getMaxPower(), getRelation(RelationshipType.ALLY),getRelation(RelationshipType.TRUCE), getRelation(RelationshipType.ENEMY), citizensMap, ranksContainer)).applyDelimiter("\n");
+        IChatComponent hoverComponent = ((ChatComponentFormatted)LocalizationManager.get("Empires.format.empire.long", header, citizensMap.size(), empireBlocksContainer.size(),getMaxBlocks(), getPower(),getMaxPower(), getRelation(Relationship.Type.ALLY),getRelation(Relationship.Type.TRUCE), getRelation(Relationship.Type.ENEMY), citizensMap, ranksContainer)).applyDelimiter("\n");
 
         return LocalizationManager.get("Empires.format.empire.short", name, hoverComponent);
     }

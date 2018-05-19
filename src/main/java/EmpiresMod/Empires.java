@@ -10,6 +10,7 @@ import EmpiresMod.API.Commands.Command.CommandsEMP;
 import EmpiresMod.API.JSON.Configuration.FlagsConfig;
 import EmpiresMod.API.JSON.Configuration.JsonConfig;
 import EmpiresMod.API.JSON.Configuration.RanksConfig;
+import EmpiresMod.API.JSON.Configuration.RelationshipsConfig;
 import EmpiresMod.API.JSON.Configuration.WildPermsConfig;
 import EmpiresMod.API.permissions.PermissionManager;
 import EmpiresMod.API.permissions.PermissionProxy;
@@ -145,6 +146,7 @@ public class Empires {
 		jsonConfigs.add(new WildPermsConfig(Constants.CONFIG_FOLDER + "/JSON/WildPerms.json"));
 		jsonConfigs.add(new FlagsConfig(Constants.CONFIG_FOLDER + "/JSON/DefaultFlags.json"));
 		jsonConfigs.add(new RanksConfig(Constants.CONFIG_FOLDER + "/JSON/DefaultEmpireRanks.json"));
+		jsonConfigs.add(new RelationshipsConfig(Constants.CONFIG_FOLDER + "/JSON/DefaultEmpireRelationships.json"));
 		for (JsonConfig jsonConfig : jsonConfigs) {
 			jsonConfig.init();
 		}

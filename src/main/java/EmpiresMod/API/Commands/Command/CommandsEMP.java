@@ -16,6 +16,7 @@ import EmpiresMod.entities.Empire.Empire;
 import EmpiresMod.entities.Empire.EmpireBlock;
 import EmpiresMod.entities.Empire.Plot;
 import EmpiresMod.entities.Empire.Rank;
+import EmpiresMod.entities.Empire.Relationship;
 import EmpiresMod.entities.Flags.Flag;
 import EmpiresMod.entities.Flags.FlagType;
 import EmpiresMod.exceptions.Empires.EmpiresCommandException;
@@ -162,6 +163,60 @@ public abstract class CommandsEMP {
 			throw new EmpiresCommandException("Empires.cmd.err.rank.missing", rankName, empire.getName());
 		}
 		return rank;
+	}
+	
+	public static Relationship getRelationFromEmpire(Empire empire, String relation) {
+		Relationship rel = empire.relationContainer.get(relation);
+		if (rel == null) {
+			throw new EmpiresCommandException("Empires.cmd.err.rel.missing", relation, empire.getName());
+		}
+		return rel;
+	}
+	
+	
+
+	public static Relationship.Type getRelationTypeFromEmpire(Empire empire, String relationName) {
+		
+		if (relationName == "ally") {
+			return Relationship.Type.ALLY;
+		}
+		
+		if (relationName == "Ally") {
+			return Relationship.Type.ALLY;
+		}
+		
+		if (relationName == "ALLY") {
+			return Relationship.Type.ALLY;
+		}
+		
+		if (relationName == "truce") {
+			return Relationship.Type.TRUCE;
+		}
+		
+		if (relationName == "Truce") {
+			return Relationship.Type.TRUCE;
+		}
+		
+		if (relationName == "TRUCE") {
+			return Relationship.Type.TRUCE;
+		}
+		
+		if (relationName == "enemy") {
+			return Relationship.Type.ENEMY;
+		}
+		
+		if (relationName == "Enemy") {
+			return Relationship.Type.ENEMY;
+		}
+		
+		if (relationName == "ENEMY") {
+			return Relationship.Type.ENEMY;
+		}
+
+		if (relationName == null) {
+			throw new EmpiresCommandException("Empires.cmd.err.rel.missing", relationName, empire.getName());
+		}
+		return null;
 	}
 
 	public static Rank getRankFromCitizen(Citizen res) {

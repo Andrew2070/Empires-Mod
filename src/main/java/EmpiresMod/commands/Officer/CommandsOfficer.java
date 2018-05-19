@@ -9,6 +9,7 @@ import EmpiresMod.API.Chat.Component.ChatManager;
 import EmpiresMod.API.Commands.Command.Command;
 import EmpiresMod.API.Commands.Command.CommandResponse;
 import EmpiresMod.API.Commands.Command.CommandsEMP;
+import EmpiresMod.API.container.relationshipMap;
 import EmpiresMod.Configuration.Config;
 import EmpiresMod.Datasource.EmpiresUniverse;
 import EmpiresMod.Proxies.EconomyProxy;
@@ -21,8 +22,8 @@ import EmpiresMod.entities.Empire.Empire;
 import EmpiresMod.entities.Empire.EmpireBlock;
 import EmpiresMod.entities.Empire.Plot;
 import EmpiresMod.entities.Empire.Rank;
-import EmpiresMod.entities.Empire.Relationships;
-import EmpiresMod.entities.Empire.Relationships.RelationshipType;
+import EmpiresMod.entities.Empire.Relationship;
+import EmpiresMod.entities.Empire.Relationship.Type;
 import EmpiresMod.entities.Flags.Flag;
 import EmpiresMod.entities.Flags.FlagType;
 import EmpiresMod.entities.Managers.ToolManager;
@@ -83,100 +84,30 @@ public class CommandsOfficer extends CommandsEMP {
     /*/
     
     @Command(
-            name = "enemy",
+            name = "setrelation",
             permission = "Empires.cmd.officer.relations.enemy.set",
             parentName = "Empires.cmd",
-            syntax = "/empire enemy <Empire>")
+            syntax = "/empire setrelation <Empire> <enemy/ally/truce/neutral>")
     public static CommandResponse enemyCommand(ICommandSender sender, List<String> args) {
         EntityPlayer player = (EntityPlayer) sender;
         Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(player);
         Empire empire = getEmpireFromCitizen(res);
         
-        if (args.size() < 1) {
+        if (args.size() < 2) {
             return CommandResponse.SEND_SYNTAX;
         }
 
        Empire targetEmpire = getEmpireFromName(args.get(0));
+       Relationship rel = getRelationFromEmpire(empire, args.get(1));
+       
        if (empire.getName() == targetEmpire.getName()) {
     	  throw new EmpiresCommandException("Empires.cmd.err.relation.ownEmpire");
        }
-       empire.setRelation(targetEmpire, RelationshipType.ENEMY);
+       System.out.println(empire.getRelationship(Relationship.Type.ALLY));
+       empire.setRelation(targetEmpire, rel);
+   
 
         empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.enemied", targetEmpire));
-		return CommandResponse.DONE;
-    }
-    
-    @Command(
-            name = "ally",
-            permission = "Empires.cmd.officer.relations.ally.set",
-            parentName = "Empires.cmd",
-            syntax = "/empire ally <Empire>")
-    public static CommandResponse allyCommand(ICommandSender sender, List<String> args) {
-        EntityPlayer player = (EntityPlayer) sender;
-        Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(player);
-        Empire empire = getEmpireFromCitizen(res);
-        
-        if (args.size() < 1) {
-            return CommandResponse.SEND_SYNTAX;
-        }
-
-       Empire targetEmpire = getEmpireFromName(args.get(0));
-       
-       if (empire.getName() == targetEmpire.getName()) {
-    	  throw new EmpiresCommandException("Empires.cmd.err.relation.ownEmpire");
-       }
-       empire.setRelation(targetEmpire, RelationshipType.ALLY);
-
-        empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.allied", targetEmpire));
-		return CommandResponse.DONE;
-    }
-    @Command(
-            name = "truce",
-            permission = "Empires.cmd.officer.relations.ally.set",
-            parentName = "Empires.cmd",
-            syntax = "/empire truce <Empire>")
-    public static CommandResponse truceCommand(ICommandSender sender, List<String> args) {
-        EntityPlayer player = (EntityPlayer) sender;
-        Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(player);
-        Empire empire = getEmpireFromCitizen(res);
-        
-        if (args.size() < 1) {
-            return CommandResponse.SEND_SYNTAX;
-        }
-        
-
-       Empire targetEmpire = getEmpireFromName(args.get(0));
-       if (empire.getName() == targetEmpire.getName()) {
-    	  throw new EmpiresCommandException("Empires.cmd.err.relation.ownEmpire");
-       }
-       
-       empire.setRelation(targetEmpire, RelationshipType.TRUCE);
-
-        empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.truced", targetEmpire));
-		return CommandResponse.DONE;
-    }
-    @Command(
-            name = "neutral",
-            permission = "Empires.cmd.officer.relations.neutral.set",
-            parentName = "Empires.cmd",
-            syntax = "/empire neutral <Empire>")
-    public static CommandResponse neutralCommand(ICommandSender sender, List<String> args) {
-        EntityPlayer player = (EntityPlayer) sender;
-        Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(player);
-        Empire empire = getEmpireFromCitizen(res);
-        
-        if (args.size() < 1) {
-            return CommandResponse.SEND_SYNTAX;
-        }
-
-       Empire targetEmpire = getEmpireFromName(args.get(0));
-      
-       if (empire.getName() == targetEmpire.getName()) {
-    	  throw new EmpiresCommandException("Empires.cmd.err.relation.ownEmpire");
-       }
-       empire.setRelation(targetEmpire, RelationshipType.NEUTRAL);
-
-        empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.neutral", targetEmpire));
 		return CommandResponse.DONE;
     }
     
@@ -311,7 +242,10 @@ public class CommandsOfficer extends CommandsEMP {
 
         getDatasource().deleteBlock(block);
         ChatManager.send(sender, "Empires.notification.block.removed", block.getX() << 4, block.getZ() << 4, block.getX() << 4 + 15, block.getZ() << 4 + 15, empire);
+        
+        if (Config.instance.toggleRefund.get() == false) { //Toggle Refund in Config
         makeBankRefund(player, empire, block.getPricePaid());
+        }
         return CommandResponse.DONE;
     }
     
@@ -916,12 +850,15 @@ public class CommandsOfficer extends CommandsEMP {
             }
 
             empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.deleted", empire, res));
+            
+            if (Config.instance.toggleRefund.get() == false) { //toggleRefund in config, if true then don't refund.
             int refund = 0;
             for (EmpireBlock block : empire.empireBlocksContainer.values()) {
                 refund += block.getPricePaid();
             }
             refund += empire.bank.getAmount();
             makeRefund(player, refund);
+            }
             getDatasource().deleteEmpire(empire);
         }
         return CommandResponse.DONE;

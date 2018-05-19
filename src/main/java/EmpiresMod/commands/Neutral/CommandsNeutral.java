@@ -22,7 +22,8 @@ import EmpiresMod.Utilities.Formatter;
 import EmpiresMod.Utilities.StringUtils;
 import EmpiresMod.entities.Empire.Citizen;
 import EmpiresMod.entities.Empire.Empire;
-import EmpiresMod.entities.Empire.Relationships.RelationshipType;
+import EmpiresMod.entities.Empire.Relationship;
+import EmpiresMod.entities.Empire.Relationship.Type;
 import EmpiresMod.entities.Flags.FlagType;
 import EmpiresMod.exceptions.Empires.EmpiresCommandException;
 import net.minecraft.command.ICommandSender;
@@ -64,20 +65,24 @@ public class CommandsNeutral extends CommandsEMP {
         for (Empire empire : empires) {
             
         	IChatComponent header = LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|%s}", empire.getName()));
-        	 
-        			
-       
-        			
-        			 String allyEmpires = empire.getRelation(RelationshipType.ALLY);
-        			 String truceEmpires = empire.getRelation(RelationshipType.TRUCE);
-        			 String enemyEmpires = empire.getRelation(RelationshipType.ENEMY);
-        	System.out.println(empire.getNumberofRelType());
-        	System.out.println(empire.getRelation(RelationshipType.ALLY));
-           System.out.println(empire.getRelation(RelationshipType.TRUCE));
-           System.out.println(empire.getRelation(RelationshipType.ENEMY));
-         // ChatManager.send(sender, "Empires.format.empire.long", header, empire.citizensMap.size(), empire.getRelation(RelationshipType.ALLY),empire.getRelation(RelationshipType.TRUCE),empire.getRelation(RelationshipType.ENEMY), empire.empireBlocksContainer.size(), empire.getMaxBlocks(), empire.getPower(), empire.getMaxPower(), empire.citizensMap, empire.ranksContainer);
-        	ChatManager.send(sender, "Empires.format.empire.long", header, empire.citizensMap.size(), empire.empireBlocksContainer.size(), empire.getMaxBlocks(), empire.getPower(), empire.getMaxPower(), allyEmpires, truceEmpires, enemyEmpires, empire.citizensMap, empire.ranksContainer);
-           System.out.println(sender + "Empires.format.empire.long" + header + empire.citizensMap.size() + empire.getRelation(RelationshipType.ALLY) + empire.getRelation(RelationshipType.TRUCE) + empire.getRelation(RelationshipType.ENEMY) + empire.empireBlocksContainer.size() + empire.getMaxBlocks() + empire.getPower() + empire.getMaxPower() + empire.citizensMap + empire.ranksContainer);
+
+        	Relationship.Type ally = getRelationTypeFromEmpire(empire, "ally");
+        	Relationship.Type truce = getRelationTypeFromEmpire(empire, "truce");
+        	Relationship.Type enemy = getRelationTypeFromEmpire(empire, "enemy");
+        	String allyEmpires = empire.getRelation(ally);
+        	String truceEmpires = empire.getRelation(truce);
+        	String enemyEmpires = empire.getRelation(enemy);
+        			 
+        			 
+        			 //debug
+           System.out.println(empire.getNumberofRelType());
+           System.out.println(empire.getRelation(Relationship.Type.ALLY));
+           System.out.println(empire.getRelation(Relationship.Type.TRUCE));
+           System.out.println(empire.getRelation(Relationship.Type.ENEMY));
+           
+           
+           ChatManager.send(sender, "Empires.format.empire.long", header, empire.citizensMap.size(), empire.empireBlocksContainer.size(), empire.getMaxBlocks(), empire.getPower(), empire.getMaxPower(), allyEmpires, truceEmpires, enemyEmpires, empire.citizensMap, empire.ranksContainer);
+           System.out.println(sender + "Empires.format.empire.long" + header + empire.citizensMap.size() + allyEmpires + truceEmpires + enemyEmpires + empire.empireBlocksContainer.size() + empire.getMaxBlocks() + empire.getPower() + empire.getMaxPower() + empire.citizensMap + empire.ranksContainer);
         	 }
       
         
@@ -178,10 +183,19 @@ public class CommandsNeutral extends CommandsEMP {
 
         Empire empire = getUniverse().newEmpire(args.get(0), res); // Attempt to create the Empire
         empire.setPower(res.getPower()); 
-      empire.setRelation(empire, RelationshipType.ALLY);
-	empire.setRelation(empire, RelationshipType.TRUCE);
- empire.setRelation(empire, RelationshipType.ENEMY);
-     
+		 Relationship ally = new Relationship("ally", empire, Relationship.Type.ALLY);
+		 Relationship truce = new Relationship("truce", empire, Relationship.Type.TRUCE);
+		 Relationship enemy = new Relationship("enemy", empire, Relationship.Type.ENEMY);
+    	empire.relationContainer.add(ally);
+		empire.relationContainer.add(truce);
+		empire.relationContainer.add(enemy);
+		
+        Relationship rel1 = getRelationFromEmpire(empire, "ally");
+        Relationship rel2 = getRelationFromEmpire(empire, "truce");
+        Relationship rel3 = getRelationFromEmpire(empire, "enemy");
+         empire.setRelation(empire, rel1);
+         empire.setRelation(empire, rel2);
+         empire.setRelation(empire, rel3);
         if (empire == null) {
             throw new EmpiresCommandException("Empires.cmd.err.new.failed");
         }

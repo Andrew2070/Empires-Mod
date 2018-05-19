@@ -13,6 +13,9 @@ import EmpiresMod.Datasource.EmpiresUniverse;
 import EmpiresMod.entities.Empire.AdminEmpire;
 import EmpiresMod.entities.Empire.Citizen;
 import EmpiresMod.entities.Empire.Empire;
+import EmpiresMod.entities.Empire.Rank;
+import EmpiresMod.entities.Empire.Relationship;
+import EmpiresMod.entities.Empire.Relationship.Type;
 import EmpiresMod.exceptions.Command.CommandException;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -116,8 +119,25 @@ public class Ticker {
          
 		     List<Empire> allEmpires = CommandsEMP.getUniverse().empires;
 		     for (int i=0; i < allEmpires.size(); i++) {
-					
+		    	 
 					Empire empire = allEmpires.get(i);
+					 
+					/*/ Relationship ally = new Relationship("ally", empire, Relationship.Type.ALLY);
+					 Relationship truce = new Relationship("truce", empire, Relationship.Type.TRUCE);
+					 Relationship enemy = new Relationship("enemy", empire, Relationship.Type.ENEMY);
+					if (empire.getNumberofRelType() < 1) {
+					empire.relationContainer.add(ally);
+					empire.relationContainer.add(truce);
+					empire.relationContainer.add(enemy);
+					
+			        Relationship rel1 = CommandsEMP.getRelationFromEmpire(empire, "ally");
+			        Relationship rel2 = CommandsEMP.getRelationFromEmpire(empire, "truce");
+			        Relationship rel3 = CommandsEMP.getRelationFromEmpire(empire, "enemy");
+			         empire.setRelation(empire, rel1);
+			         empire.setRelation(empire, rel2);
+			         empire.setRelation(empire, rel3);
+		    	 }/*/
+					
 					
 					if (empire.getPower() - empire.getMaxPower() > 0) {
 						double difference = empire.getPower() - empire.getMaxPower();

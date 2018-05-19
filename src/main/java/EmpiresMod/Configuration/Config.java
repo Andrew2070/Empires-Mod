@@ -128,6 +128,11 @@ public class Config extends ConfigTemplate {
             200);
     
     
+    public ConfigProperty<Boolean> toggleRefund = new ConfigProperty<Boolean>(
+    		"refundDeletedTowns", "cost",
+    		"This toggles whether or not any currency will be refunded to a player when they unclaim and/or delete territory.",
+    		false);
+    
     public ConfigProperty<String> costItemName = new ConfigProperty<String>(
             "costItem", "cost",
             "The item which is used for paying for claims and making new Empires. Use $ForgeEssentials if you want to use ForgeEssentials economy or $Vault if you want Vault economy.", 

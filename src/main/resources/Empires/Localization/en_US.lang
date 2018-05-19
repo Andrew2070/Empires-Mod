@@ -149,6 +149,7 @@ Empires.cmd.err.new.tooClose={6|[Empire] }{c|You are too close to Empire }{%s}{c
 Empires.cmd.err.claim.tooClose={6|[Empire] }{c|You are too close to Empire }{%s}{c|. Please leave at least %s chunks between the Empires before trying again!!}
 Empires.cmd.err.citizen.maxEmpires={6|[Empire] }{c|You cannot create/join any more Empires, you have hit the maximum amount of Empires you can be in!}
 Empires.cmd.err.new.nameTooLong={6|[Empire] }{c|The name of the Empire is too long (32 characters maximum)}
+Empires.cmd.err.rel.missing={6|[Empire] }{c|Relationship Missing! Type: }{%s}{c|Empire:}{%s}
 Empires.notification.empire.created={6|[Empire]}{a| New Empire }{%s}{a| created successfully!}
 Empires.notification.empire.deleted={6|[Empire]}{a| The Empire }{%s}{a| was deleted!}
 Empires.notification.empire.overclaimed.deleted={6|[Empire]}{a| The Empire }{%s}{a| was deleted because it's spawn was captured!}
