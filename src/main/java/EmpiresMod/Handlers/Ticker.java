@@ -189,6 +189,13 @@ public class Ticker {
 		}
 	 
     		Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(ev.player);
+    		
+    		if (Config.instance.sendToEmpireSpawn.get() == true) {
+        	Empire empire = CommandsEMP.getEmpireFromCitizen(res);
+    		empire.sendToSpawn(res);
+    		}
+    		
+    		
     		res.subtractPower(Config.instance.PowerPerDeath.get());
     		Empires.instance.datasource.saveCitizen(res);
     	    ChatManager.send(ev.player, "Empires.notification.ciz.powerLostOnDeath", Config.instance.PowerPerDeath.get(), res.getPower());

@@ -128,6 +128,11 @@ public class Config extends ConfigTemplate {
             200);
     
     
+    public ConfigProperty<Boolean> sendToEmpireSpawn= new ConfigProperty<Boolean>(
+            "sendToEmpireSpawn", "Citizens",
+            "Toggles whether a citizen should be sent to the Empire spawn on death.",
+            true);
+    
     public ConfigProperty<Boolean> toggleRefund = new ConfigProperty<Boolean>(
     		"refundDeletedTowns", "cost",
     		"This toggles whether or not any currency will be refunded to a player when they unclaim and/or delete territory.",
