@@ -4,11 +4,8 @@ about: Create a report to help us improve
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+[1] Bug Description:
 
-**To Reproduce**
-Steps to reproduce the behavior:
+[2] Reproduction Steps:
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+[3] Screenshots/Visuals:
