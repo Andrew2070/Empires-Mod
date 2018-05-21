@@ -13,8 +13,7 @@ public class Constants {
 	public static final String DEPENDENCIES = "";
 
 	public static final String EDIT_TOOL_NAME = EnumChatFormatting.BLUE + "Selector"; // TODO:
-																						// Get
-																						// localization
+																						// Get																				// localization
 																						// for
 																						// it,
 																						// maybe?
