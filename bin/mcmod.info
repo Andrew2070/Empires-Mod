@@ -1,9 +1,9 @@
 [
 {
-  "modid": "Empires",
-  "name": "Empires",
+  "modid": "EmpiresMod",
+  "name": "EmpiresMod",
   "description": "A Realistic Protection System For Heavily Modified MineCraft",
-  "version": "1.0.0-Alpha",
+  "version": "1.0.0",
   "minecraft_version": "${minecraft_version}",
   "url": "https://www.technicpack.net/modpack/nuclear-revolution.689897",
   "updateUrl": "",
