@@ -164,13 +164,13 @@ public class EmpiresSchematic extends BaseSchematic {
                 "FOREIGN KEY(empireName) REFERENCES " + bridge.prefix + "Empires(name) ON DELETE CASCADE ON UPDATE CASCADE)"));
 
         // Table Modifications
-        updates.add(new DBUpdate("06.28.2017", "Add 'power' to citizens", "ALTER TABLE " + bridge.prefix +
+        updates.add(new DBUpdate("06.28.2017.1", "Add 'power' to citizens", "ALTER TABLE " + bridge.prefix +
         		"Citizens ADD power DOUBLE DEFAULT 0.00;"));
         
-        updates.add(new DBUpdate("06.28.2017", "Add 'currentPower' to empires", "ALTER TABLE " + bridge.prefix +
+        updates.add(new DBUpdate("06.28.2017.2", "Add 'currentPower' to empires", "ALTER TABLE " + bridge.prefix +
         		"Empires ADD currentPower DOUBLE DEFAULT 0.00"));
         
-        updates.add(new DBUpdate("06.28.2017", "Add 'maxPower' to empires", "ALTER TABLE " + bridge.prefix +
+        updates.add(new DBUpdate("06.28.2017.3", "Add 'maxPower' to empires", "ALTER TABLE " + bridge.prefix +
         		"Empires ADD maxPower DOUBLE DEFAULT 0.00"));
         
         updates.add(new DBUpdate("10.18.2014.1", "Add 'extraBlocks' to empires", "ALTER TABLE " + bridge.prefix +
