@@ -21,4 +21,4 @@ Jack202020 - Graphics/UI
 # Links
 Main Repository: https://github.com/Andrew2070/Empires-Mod/
 Protection Files:https://github.com/Andrew2070/Empires-Mod-Protection-Files
-Discord: https://discord.gg/p6Vsdqq
+Discord Link: https://discord.gg/p6Vsdqq
