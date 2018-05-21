@@ -1,4 +1,4 @@
-# Empires-Mod
+# Empires-Mod [![Build Status](https://travis-ci.org/Andrew2070/Empires-Mod.svg?branch=master)](https://travis-ci.org/Andrew2070/Empires-Mod)
 The Empires Mod is a protection system mod for heavily modded minecraft.
 The Mod is designed to allow players maximum protection yet still be able to raid one another.
 Essentially players are safe until they lack the stregnth to defend their territory from raids.
