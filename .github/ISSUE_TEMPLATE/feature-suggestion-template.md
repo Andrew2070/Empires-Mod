@@ -4,8 +4,10 @@ about: Suggest Features
 
 ---
 
-[1] Feature Name:
+[1] Name:
+[2] Discord:
+[3] Feature Name:
 
-[2] Feature Description:
+[4] Feature Description:
 
-[3] Screenshots/Visuals:
+[5] Screenshots/Visuals:
