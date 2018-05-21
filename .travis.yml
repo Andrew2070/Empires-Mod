@@ -8,7 +8,7 @@ cache:
 deploy:
   - provider: releases
     api_key:
-      secure: CtARi6nS8KlmR1_fTpoyCg
+      secure: 867be1c23c0b7684e85e9bfe602bee0135c6fb84
     file: build/libs/*
     file_glob: true
     skip_cleanup: true
