@@ -9,7 +9,7 @@ import EmpiresMod.Configuration.UserConfig;
 import EmpiresMod.entities.Permissions.Group;
 import EmpiresMod.entities.Permissions.User;
 
-public class MyPermissionsBridge implements IPermissionBridge {
+public class EmpiresBridge implements IPermissionBridge {
 
 	private static final String DEFAULT_GROUP_NAME = "default";
 
@@ -19,7 +19,7 @@ public class MyPermissionsBridge implements IPermissionBridge {
 	public final GroupConfig groupConfig = new GroupConfig(Constants.CONFIG_FOLDER + "JSON/GroupConfig.json", this);
 	public final UserConfig userConfig = new UserConfig(Constants.CONFIG_FOLDER + "JSON/UserConfig.json", this);
 
-	public MyPermissionsBridge() {
+	public EmpiresBridge() {
 	}
 
 	public void loadConfigs() {

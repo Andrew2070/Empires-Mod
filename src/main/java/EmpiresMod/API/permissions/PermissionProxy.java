@@ -3,7 +3,7 @@ package EmpiresMod.API.permissions;
 import EmpiresMod.Empires;
 import EmpiresMod.API.permissions.Bridges.BukkitPermissionBridge;
 import EmpiresMod.API.permissions.Bridges.ForgeEssentialsPermissionBridge;
-import EmpiresMod.API.permissions.Bridges.MyPermissionsBridge;
+import EmpiresMod.API.permissions.Bridges.EmpiresBridge;
 import EmpiresMod.API.permissions.Bridges.ServerToolsPermissionBridge;
 import EmpiresMod.Configuration.Config;
 import EmpiresMod.Utilities.ClassUtils;
@@ -13,7 +13,7 @@ import cpw.mods.fml.common.Loader;
 public class PermissionProxy {
 	public static final String PERM_SYSTEM_BUKKIT = "$Bukkit";
 	public static final String PERM_SYSTEM_FORGE_ESSENTIALS = "$ForgeEssentials";
-	public static final String PERM_SYSTEM_MY_PERMISSIONS = "$MyPermissions";
+	public static final String PERM_SYSTEM_EMPIRES = "$Empires";
 	public static final String PERM_SYSTEM_SERVER_TOOLS = "$ServerTools";
 
 	private static IPermissionBridge permissionManager;
@@ -45,8 +45,8 @@ public class PermissionProxy {
 			permissionManager = new ServerToolsPermissionBridge();
 			Empires.instance.LOG.info("Successfully linked to ServerTools' permission system");
 		} else {
-			permissionManager = new MyPermissionsBridge();
-			((MyPermissionsBridge) permissionManager).loadConfigs();
+			permissionManager = new EmpiresBridge();
+			((EmpiresBridge) permissionManager).loadConfigs();
 			Empires.instance.LOG.info("Currently using built-in permission system.");
 			Empires.instance.LOG.info("This is not fully functional and only works for mods that use this API.");
 			Empires.instance.LOG.info("If you have Bukkit or ForgeEssentials installed please use that instead.");

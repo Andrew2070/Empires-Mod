@@ -10,7 +10,7 @@ import EmpiresMod.API.Chat.Component.ChatManager;
 import EmpiresMod.API.Commands.Command.Command;
 import EmpiresMod.API.Commands.Command.CommandResponse;
 import EmpiresMod.API.permissions.PermissionProxy;
-import EmpiresMod.API.permissions.Bridges.MyPermissionsBridge;
+import EmpiresMod.API.permissions.Bridges.EmpiresBridge;
 import EmpiresMod.Localization.LocalizationManager;
 import EmpiresMod.Utilities.ColorUtils;
 import EmpiresMod.Utilities.PlayerUtils;
@@ -56,8 +56,8 @@ public class PermCommands {
 		Empires.instance.loadConfig();
 		// REF: Change these to localized versions of themselves
 		ChatManager.send(sender, "Empires.notification.config.reloaded");
-		if (PermissionProxy.getPermissionManager() instanceof MyPermissionsBridge) {
-			((MyPermissionsBridge) PermissionProxy.getPermissionManager()).loadConfigs();
+		if (PermissionProxy.getPermissionManager() instanceof EmpiresBridge) {
+			((EmpiresBridge) PermissionProxy.getPermissionManager()).loadConfigs();
 			ChatManager.send(sender, "Empires.notification.permissions.config.reloaded");
 		} else {
 			ChatManager.send(sender, "Empires.notification.permissions.third_party");
@@ -291,7 +291,7 @@ public class PermCommands {
 		}
 	}
 
-	private static MyPermissionsBridge getManager() {
-		return (MyPermissionsBridge) PermissionProxy.getPermissionManager();
+	private static EmpiresBridge getManager() {
+		return (EmpiresBridge) PermissionProxy.getPermissionManager();
 	}
 }

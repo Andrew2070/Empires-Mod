@@ -4,15 +4,15 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.GsonBuilder;
 
 import EmpiresMod.API.JSON.Configuration.JsonConfig;
-import EmpiresMod.API.permissions.Bridges.MyPermissionsBridge;
+import EmpiresMod.API.permissions.Bridges.EmpiresBridge;
 import EmpiresMod.entities.Permissions.Group;
 import EmpiresMod.entities.Permissions.Meta;
 
 public class GroupConfig extends JsonConfig<Group, Group.Container> {
 
-	private MyPermissionsBridge permissionManager;
+	private EmpiresBridge permissionManager;
 
-	public GroupConfig(String path, MyPermissionsBridge permissionManager) {
+	public GroupConfig(String path, EmpiresBridge permissionManager) {
 		super(path, "GroupConfig");
 		this.permissionManager = permissionManager;
 		this.gsonType = new TypeToken<Group.Container>() {

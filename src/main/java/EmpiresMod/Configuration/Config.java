@@ -23,7 +23,7 @@ public class Config extends ConfigTemplate {
     public ConfigProperty<String> permissionSystem = new ConfigProperty<String>(
             "permissionSystem", "general",
             "The permission system it should be used as default. $ForgeEssentials for FE permission system, $Bukkit for Bukkit permission system, and $Empires for our own permission system.",
-            "$Empires Permissions");
+            "$Empires");
 
     public ConfigProperty<String> localization = new ConfigProperty<String>(
             "localization", "general",

@@ -15,7 +15,7 @@ import EmpiresMod.API.JSON.Configuration.WildPermsConfig;
 import EmpiresMod.API.permissions.PermissionManager;
 import EmpiresMod.API.permissions.PermissionProxy;
 import EmpiresMod.API.permissions.RankPermissionManager;
-import EmpiresMod.API.permissions.Bridges.MyPermissionsBridge;
+import EmpiresMod.API.permissions.Bridges.EmpiresBridge;
 import EmpiresMod.Configuration.Config;
 import EmpiresMod.Datasource.DatasourceCrashCallable;
 import EmpiresMod.Datasource.EmpiresDatasource;
@@ -139,7 +139,7 @@ public class Empires {
 		System.out.println("Empires Mod: Server Detected, Registering Commands...");
 		loadConfig();
 		CommandManager.registerCommands(PermCommands.class, null, Empires.instance.LOCAL, null);
-		if (PermissionProxy.getPermissionManager() instanceof MyPermissionsBridge) {
+		if (PermissionProxy.getPermissionManager() instanceof EmpiresBridge) {
 			CommandManager.registerCommands(PermissionManager.class, "Empires.cmd", Empires.instance.LOCAL, null);
 
 		}

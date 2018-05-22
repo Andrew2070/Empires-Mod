@@ -17,7 +17,7 @@ import EmpiresMod.API.Chat.Component.ChatComponentFormatted;
 import EmpiresMod.API.JSON.API.SerializerTemplate;
 import EmpiresMod.API.permissions.PermissionProxy;
 import EmpiresMod.API.permissions.PermissionsContainer;
-import EmpiresMod.API.permissions.Bridges.MyPermissionsBridge;
+import EmpiresMod.API.permissions.Bridges.EmpiresBridge;
 import EmpiresMod.Configuration.Config;
 import EmpiresMod.Localization.LocalizationManager;
 import EmpiresMod.Utilities.PlayerUtils;
@@ -85,7 +85,7 @@ public class User implements IChatFormat {
 			}
 			JsonElement group = jsonObject.get("group");
 			if (group != null) {
-				user.group = ((MyPermissionsBridge) PermissionProxy.getPermissionManager()).groups
+				user.group = ((EmpiresBridge) PermissionProxy.getPermissionManager()).groups
 						.get(group.getAsString());
 			}
 			if (jsonObject.has("permissions")) {
@@ -127,7 +127,7 @@ public class User implements IChatFormat {
 		public boolean add(UUID uuid) {
 			if (get(uuid) == null) {
 				Group group = (defaultGroup == null)
-						? ((MyPermissionsBridge) PermissionProxy.getPermissionManager()).groups.get("default")
+						? ((EmpiresBridge) PermissionProxy.getPermissionManager()).groups.get("default")
 						: defaultGroup;
 				User newUser = new User(uuid, group);
 				add(newUser);

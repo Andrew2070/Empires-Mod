@@ -71,6 +71,7 @@ dependencies {
     compile "com.forgeessentials:forgeessentials:1.4.1-SNAPSHOT:dev"
     compile "org.spongepowered:mixin:0.4.4-SNAPSHOT"
     compile files("libs/bukkit-1.7.9-R0.2.jar")
+    compile files("libs/PermissionsEx-1.22.9.jar")
     compile "com.sk89q.worldedit:worldedit-forge-mc1.7.10:6.0.2-SNAPSHOT:dev"
 
     // Other deps
