@@ -56,16 +56,20 @@ public class ChatHandler {
 					String empireChat = "[" + empire + "]";
 					if (ClassUtils.isBukkitLoaded() == true) {
 
-					
 					if (Bukkit.getPluginManager().getPlugin("PermissionsEx").isEnabled() == true) {	
 						Empires.instance.LOG.warn("[Empires Mod] PermissiosnEX detected.. Applying hooks");
 						//get pex prefix below					
 					Player bukkitplayer = Bukkit.getPlayer(target.getUniqueID());
 					String pexPrefix = ChatComponentPEX.getPrefix(bukkitplayer);
+					String pexSuffix = ChatComponentPEX.getSuffix(bukkitplayer);
 
+					
+					
+					
+					
 					Method method = ChatComponentPEX.class.getDeclaredMethod("getPrefix", Player.class);
-					String chat = EnumChatFormatting.RED + rankChat + EnumChatFormatting.GOLD + empireChat + " "
-								+ EnumChatFormatting.WHITE + player.getDisplayName() + pexPrefix + ": " + event.message;
+					String chat = pexPrefix + EnumChatFormatting.RED + rankChat + EnumChatFormatting.GOLD + empireChat + " "
+								+ EnumChatFormatting.WHITE + player.getDisplayName() + pexSuffix + ": " + event.message;
 						//add pex prefix here ^
 
 						target.addChatMessage(new ChatComponentTranslation(chat));
