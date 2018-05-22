@@ -17,6 +17,7 @@ import EmpiresMod.entities.Empire.Empire;
 import EmpiresMod.entities.Empire.Rank;
 import EmpiresMod.exceptions.Command.CommandException;
 import EmpiresMod.exceptions.Permission.PermissionException;
+import cpw.mods.fml.common.BukkitPluginRef;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
@@ -57,17 +58,19 @@ public class ChatHandler {
 					if (ClassUtils.isBukkitLoaded() == true) {
 
 					if (Bukkit.getPluginManager().getPlugin("PermissionsEx").isEnabled() == true) {	
-						Empires.instance.LOG.warn("[Empires Mod] PermissiosnEX detected.. Applying hooks");
+						Empires.instance.LOG.info("[Empires Mod] PermissionsEX detected.. Applying hooks");
 						//get pex prefix below					
+					
 					Player bukkitplayer = Bukkit.getPlayer(target.getUniqueID());
+					Method prefix = ChatComponentPEX.class.getDeclaredMethod("getPrefix", Player.class);
+					Method suffix = ChatComponentPEX.class.getDeclaredMethod("getSuffix", Player.class);
+					
+					prefix.invoke(instance, Player.class);
+					suffix.invoke(instance, Player.class);
+					
 					String pexPrefix = ChatComponentPEX.getPrefix(bukkitplayer);
 					String pexSuffix = ChatComponentPEX.getSuffix(bukkitplayer);
 
-					
-					
-					
-					
-					Method method = ChatComponentPEX.class.getDeclaredMethod("getPrefix", Player.class);
 					String chat = pexPrefix + EnumChatFormatting.RED + rankChat + EnumChatFormatting.GOLD + empireChat + " "
 								+ EnumChatFormatting.WHITE + player.getDisplayName() + pexSuffix + ": " + event.message;
 						//add pex prefix here ^
@@ -86,6 +89,15 @@ public class ChatHandler {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (SecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
