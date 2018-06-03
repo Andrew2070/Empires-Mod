@@ -25,6 +25,7 @@ import cpw.mods.fml.relauncher.Side;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
 public class Ticker {
@@ -121,22 +122,6 @@ public class Ticker {
 		     for (int i=0; i < allEmpires.size(); i++) {
 		    	 
 					Empire empire = allEmpires.get(i);
-					 
-					/*/ Relationship ally = new Relationship("ally", empire, Relationship.Type.ALLY);
-					 Relationship truce = new Relationship("truce", empire, Relationship.Type.TRUCE);
-					 Relationship enemy = new Relationship("enemy", empire, Relationship.Type.ENEMY);
-					if (empire.getNumberofRelType() < 1) {
-					empire.relationContainer.add(ally);
-					empire.relationContainer.add(truce);
-					empire.relationContainer.add(enemy);
-					
-			        Relationship rel1 = CommandsEMP.getRelationFromEmpire(empire, "ally");
-			        Relationship rel2 = CommandsEMP.getRelationFromEmpire(empire, "truce");
-			        Relationship rel3 = CommandsEMP.getRelationFromEmpire(empire, "enemy");
-			         empire.setRelation(empire, rel1);
-			         empire.setRelation(empire, rel2);
-			         empire.setRelation(empire, rel3);
-		    	 }/*/
 					
 					
 					if (empire.getPower() - empire.getMaxPower() > 0) {
@@ -181,39 +166,38 @@ public class Ticker {
 }
 
     
-    
- @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void onPlayerDeath(PlayerEvent.PlayerRespawnEvent ev) {
-		if(ev.player.worldObj.isRemote || ev.isCanceled()) {
-			return;
-		}
-	 
-    		Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(ev.player);
-    		
-    		if (Config.instance.sendToEmpireSpawn.get() == true) {
-        	Empire empire = CommandsEMP.getEmpireFromCitizen(res);
-    		empire.sendToSpawn(res);
-    		}
-    		
-    		
-    		res.subtractPower(Config.instance.PowerPerDeath.get());
-    		Empires.instance.datasource.saveCitizen(res);
-    	    ChatManager.send(ev.player, "Empires.notification.ciz.powerLostOnDeath", Config.instance.PowerPerDeath.get(), res.getPower());
-    	     //Weird bug subtracts power twice.
-    	    	try {
-    	    	Empire empire = CommandsEMP.getEmpireFromCitizen(res);
-    	    	empire.subtractPower(Config.instance.PowerPerDeath.get());	
-    	    	}catch (CommandException e) {
-
-    	    	}
-    	    	
-    	    	if (res.getPower() < Config.instance.minPower.get()) {
-    	    		res.setPower(Config.instance.minPower.get()); //Just a check + fix to make sure a player's power is not too negative. 
-    	    	}
-    	    	
-    	    	return;
-
-    }
+//    
+// @SubscribeEvent(priority = EventPriority.HIGHEST)
+//    public void onPlayerDeath(PlayerEvent.PlayerRespawnEvent ev) {
+//		if(ev.player.worldObj.isRemote || ev.isCanceled()) {
+//			return;
+//		}
+//	 
+//    		Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(ev.player);
+//    		
+//    		if (Config.instance.sendToEmpireSpawn.get() == true) {
+//        	Empire empire = CommandsEMP.getEmpireFromCitizen(res);
+//    		empire.sendToSpawn(res);
+//    		}
+//
+//    		res.subtractPower(Config.instance.PowerPerDeath.get());
+//    		Empires.instance.datasource.saveCitizen(res);
+//    	    ChatManager.send(ev.player, "Empires.notification.ciz.powerLostOnDeath", Config.instance.PowerPerDeath.get(), res.getPower());
+//    	     //Weird bug subtracts power twice.
+//    	    	try {
+//    	    	Empire empire = CommandsEMP.getEmpireFromCitizen(res);
+//    	    	empire.subtractPower(Config.instance.PowerPerDeath.get());	
+//    	    	}catch (CommandException e) {
+//
+//    	    	}
+//    	    	
+//    	    	if (res.getPower() < Config.instance.minPower.get()) {
+//    	    		res.setPower(Config.instance.minPower.get()); //Just a check + fix to make sure a player's power is not too negative. 
+//    	    	}
+//    	    	
+//    	    	return;
+//
+//    }
   
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent ev) {

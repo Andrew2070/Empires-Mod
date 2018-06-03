@@ -24,7 +24,18 @@ public class Config extends ConfigTemplate {
             "permissionSystem", "general",
             "The permission system it should be used as default. $ForgeEssentials for FE permission system, $Bukkit for Bukkit permission system, and $Empires for our own permission system.",
             "$Empires");
+    
+    public ConfigProperty<String> HeroChatDefaultMessageFormat= new ConfigProperty<String>(
+            "HeroChatformat", "general",
+            "The HeroChat Format",
+            "{color}[{nick}] &f{prefix}{player}{suffix}{color}");
 
+    public ConfigProperty<String> HeroChatDefaultChatChannel= new ConfigProperty<String>(
+            "HeroChatChannel", "general",
+            "The HeroChat channel to be made default",
+            "{color}[{nick}] &f{prefix}{player}{suffix}{color}");
+
+    
     public ConfigProperty<String> localization = new ConfigProperty<String>(
             "localization", "general",
             "The localization file used, currently we only support English.",
@@ -93,6 +104,21 @@ public class Config extends ConfigTemplate {
             "The default maximum amount of power are allowed per player, be vary that claim blocks should equal the number to the nearest whole number.",
             20.00);
     
+    public ConfigProperty<Double> pvpPowerTransfer = new ConfigProperty<Double>(
+            "pvpPowerTransfer", "Citizens",
+            "The amount of power transferred from a killed player to the attacker (Adds to their maxpower)",
+            0.05);
+    
+    public ConfigProperty<Boolean> exceedMaxPowerLimit = new ConfigProperty<Boolean>(
+            "exceedMaxPowerLimit", "Citizens",
+            "Should players be able to exceed the set max power through killing players/entities",
+            true);
+    
+    public ConfigProperty<Double> entityPowerTransfer = new ConfigProperty<Double>(
+            "entityPowerTransfer", "Citizens",
+            "The amount of power gained from killing an entity",
+            0.005);
+   
     public ConfigProperty<Double> defaultPower = new ConfigProperty<Double>(
             "defaultPowers", "Citizens",
             "The default amount of power each player starts with (Normally 1.00) (To Defend Initial Claim):",

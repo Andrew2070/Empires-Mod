@@ -13,6 +13,7 @@ import EmpiresMod.Events.ModifyBlockEvent;
 import EmpiresMod.Events.ProjectileImpactEvent;
 import EmpiresMod.Thread.ThreadPlacementCheck;
 import EmpiresMod.Utilities.EmpireUtils;
+import EmpiresMod.Utilities.PvPUtils;
 import EmpiresMod.entities.Empire.BlockWhitelist;
 import EmpiresMod.entities.Empire.Citizen;
 import EmpiresMod.entities.Empire.Empire;
@@ -440,6 +441,7 @@ public class ProtectionHandlers {
 					int x = (int) Math.floor(ev.entityLiving.posX);
 					int y = (int) Math.floor(ev.entityLiving.posY);
 					int z = (int) Math.floor(ev.entityLiving.posZ);
+					PvPUtils.deathProcess(ev.source.getEntity(), ev.entity, ev.ammount);
 					if (!ProtectionManager.getFlagValueAtLocation(FlagType.PVP, ev.entityLiving.dimension, x, y, z)) {
 						ev.setCanceled(true);
 					}
@@ -447,6 +449,7 @@ public class ProtectionHandlers {
 					// Entity vs Player (Check for Player owned Entity)
 					Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(ev.entity);
 					ProtectionManager.checkPVP(ev.source.getEntity(), res, ev);
+					PvPUtils.deathProcess(null, ev.entity, ev.ammount);
 				}
 
 				// Changed to EmpiresUniverse.instance from Empires.instance in
@@ -456,12 +459,14 @@ public class ProtectionHandlers {
 					// Player vs Living Entity
 					Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(ev.source.getEntity());
 					ProtectionManager.checkInteraction(ev.entity, res, ev);
+					PvPUtils.deathProcess(null, ev.entity, ev.ammount);
 				} else {
 					// Entity vs Living Entity
 				}
 			}
 		} else {
 			// Non-Entity Damage
+			PvPUtils.deathProcess(null, ev.entity, ev.ammount);
 		}
 	}
 
