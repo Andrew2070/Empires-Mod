@@ -1,0 +1,247 @@
+groups:
+  default:
+    build: true
+    permissions:
+    - essentials.*
+    options:
+      prefix: '&e'
+      default: true
+  vip:
+    inheritance:
+    - default
+    build: true
+    permissions:
+    - essentials.*  
+    options:
+      prefix: '&3[VIP] '
+      default: false
+  premium:
+    inheritance:
+    - vip
+    - default
+    build: true
+    permissions:
+    - essentials.*   
+    options:
+      prefix: '&9[Premium] '
+      default: false
+  premium+:
+    inheritance:
+    - premium
+    - vip
+    - default
+    build: true
+    permissions:
+    - essentials.*    
+    options:
+      prefix: '&9[Premium&6+&9] '
+      default: false
+  Sponsor:
+    inheritance:
+    - premium+
+    - premium
+    - vip
+    - default
+    build: true
+    permissions:
+    - -globalmarket.limits.premium+
+    options:
+      prefix: '&6[Sponsor] '
+      default: false
+  Sponsor+:
+    inheritance:
+    - sponsor
+    - premium+
+    - premium
+    - vip
+    - default
+    build: true
+    permissions:
+    - essentials.world
+    options:
+      prefix: '&6[Sponsor&4+&6] '
+      default: false
+  Developer:
+    inheritance:
+    - sponsor+
+    - sponsor
+    - premium+
+    - premium
+    - vip
+    - default
+    build: true
+    permissions:
+    - essentials.*
+    options:
+      prefix: '&5[Dev] '
+      default: false
+  helper:
+    inheritance:
+    - default
+    build: true
+    permissions:
+    - essentials.*
+    options:
+      prefix: '&b[Helper] '
+      default: false
+  judge:
+    inheritance:
+    - helper
+    - default
+    build: true
+    permissions:
+    - litebans.kick
+    options:
+      prefix: '&d[Judge] '
+      default: false
+  moderator:
+    inheritance:
+    - judge
+    - helper
+    - default
+    build: true
+    permissions:
+    - essentials.teleport.timer.bypass
+    options:
+      prefix: '&5[Mod] '
+      default: false
+  admin:
+    inheritance:
+    - moderator
+    - judge
+    - helper
+    - default
+    build: true
+    permissions:
+    - essentials.*
+    - essentials.sethome.multiple.Administrator
+    options:
+      prefix: '&c[Admin] '
+      default: false
+  gm:
+    inheritance:
+    - admin
+    - moderator
+    - judge
+    - helper
+    - default
+    build: true
+    permissions:
+    - essentials.sethome.multiple.GameMaster
+    options:
+      prefix: '&4[GM] '
+      default: false
+  gm+:
+    inheritance:
+    - gm
+    - admin
+    - moderator
+    - judge
+    - helper
+    - default
+    build: true
+    permissions:
+    - essentials.*
+    - worldguard.*
+    - litebans.*
+    - OpenInv.*
+    - coreprotect.*
+    - globalmarket.*
+    options:
+      prefix: '&4[GM&c+&4] '
+      default: false
+  ServerManager:
+    inheritance:
+    - GameMaster+
+    - GameMaster
+    - Administrator
+    - Moderator
+    - Judge
+    - Helper
+    - Member
+    build: true
+    permissions:
+    - -empires.adm.&
+    - empiresmod.*
+    - empires.*
+    - EmpiresMod.adm.cmd.*
+    - Empires.adm.cmd.*
+    - empires.adm.*
+    - '*'
+    options:
+      prefix: '&4[SM] '
+      default: false
+schema-version: 1
+users:
+  d62adc1d-62f4-357d-acb0-35091d583617:
+    options:
+      name: ZeeDerpMaster
+    group: []
+  ec8c36d7-8495-370e-8a85-ff8cf63fc294:
+    group: []
+    options:
+      name: Andrew2070
+  andrew2070pex:
+    worlds:
+      groups:
+        group:
+        - gamemaster
+  ts_gaming:
+    permissions:
+    - worldedit.*
+    - essentials.gamemode
+  ts-gaming:
+    permissions:
+    - worldedit.*
+  2b881570-19ca-3e20-8185-72102ca5b564:
+    permissions:
+    - worldedit.*
+    - essentials.gamemode
+    options:
+      name: jack202020
+    group:
+    - judge
+    - Developer
+    worlds:
+      '&5[Dev]&d[Helper]':
+        options:
+          prefix: set
+  597a2c2b-3aad-34ef-95da-56d3707ec2c3:
+    group:
+    - helper
+    options:
+      name: Vaske99
+  th3fanbus:
+    group:
+    - helper
+    options:
+      name: Th3Fanbus
+  b5eb8d5b-2a59-34fe-a138-e5d14674491a:
+    group:
+    - judge
+    options:
+      name: Th3Fanbus
+  b0ea4427-1f39-3d89-99ca-abe2bf0e5b24:
+    group:
+    - judge
+    options:
+      name: Imperatus
+  c8a1a219-e25c-314c-a730-ae9dc9f15252:
+    group:
+    - Developer
+    options:
+      name: Timur
+  f2f97689-3eb8-38bf-bc39-c5a1c4d921b6:
+    group:
+    - helper
+    options:
+      name: Sharingan_eyes
+  f2b6d33d-10d8-3a78-b4bf-81cee6c51557:
+    options:
+      name: HaoSs07
+    group:
+    - default
+  a710ace7-013d-395c-b7f1-d5cbfa22f30d:
+    options:
+      name: dagger
+  1644f736-d4c4-39ae-adbc-c2801a146929:

@@ -1,0 +1,595 @@
+groups:
+  default:
+    build: true
+    permissions:
+    - ds.create-ticket
+    - cofh.command.CommandHandler
+    - herochat.speak.*
+    - herochat.join.Global
+    - herochat.message
+    - herochat.msg
+    - herochat.join.Local
+    - herochat.join.Trade
+    - herochat.autojoin.Global
+    - herochat.join.Faction
+    - herochat.pm
+    - herochat.info.*
+    - essentials.warps
+    - mycommand.sign.use
+    - automessage.receive.default
+    - automessage.receive.regular
+    - RandomLocationTeleporter.rlt
+    - factions.kit.default
+    - factions.kit.rank0
+    - factions.relation
+    - litebans.history
+    - globalmarket.pricecheck
+    - globalmarket.history
+    - globalmarket.create
+    - globalmarket.send
+    - voteroulette.votecommand
+    - litebans.checkban
+    - essentials.silentjoin
+    - essentials.silentquit
+    - essentials.signs.use.mail
+    - essentials.signs.use.repair
+    - essentials.signs.use.sell
+    - essentials.signs.use.buy
+    - essentials.whois.nickname
+    - essentials.warp
+    - essentials.warp.end
+    - essentials.suicide
+    - essentials.afk.auto
+    - essentials.motd
+    - essentials.kits.food
+    - essentials.kits.starter
+    - essentials.kit
+    - essentials.signs.use.warp
+    - essentials.signs.use.info
+    - essentials.signs.use.disposal
+    - essentials.signs.use.balance
+    - essentials.tpdeny
+    - essentials.tpahere
+    - essentials.tpaccept
+    - essentials.tpa
+    - essentials.sethome
+    - essentials.home
+    - essentials.delhome
+    - essentials.back.ondeath
+    - essentials.back
+    - essentials.spawn
+    - essentials.seen
+    - essentials.rules
+    - essentials.recipe
+    - essentials.realname
+    - essentials.me
+    - essentials.mail.send
+    - essentials.mail
+    - essentials.list
+    - essentials.info
+    - essentials.ignore
+    - essentials.help
+    - essentials.customtext
+    - essentials.pay
+    - essentials.balancetop
+    - essentials.balance
+    - essentials.gc
+    - automessage.receive.regular
+    - authme.player.*
+    - factionsplus.createwarp
+    - factionsplus.warp
+    - factionsplus.listwarps
+    - factionsplus.announce
+    - factionsplus.jail
+    - factionsplus.setjail
+    - factionsplus.ban
+    - factionsplus.rules
+    - factionsplus.modifyrules
+    - factionsplus.chest
+    - factionsplus.clearlwclocks
+    - factionsplus.factionhome
+    options:
+      prefix: '&e'
+      default: true
+  vip:
+    inheritance:
+    - default
+    build: true
+    permissions:
+    - essentials.invsee
+    - globalmarket.limits.vip
+    - essentials.afk.kickexempt
+    - essentials.warp.list
+    - essentials.warps.vip
+    - essentials.warp
+    - essentials.sethome.multiple.vip2
+    - essentials.sethome.multiple
+    - essentials.joinfullserver
+    - essentials.chat.format
+    - essentials.chat.color
+    - herochat.color.*
+    - herochat.color.colortype.*
+    - essentials.nick.color
+    - essentials.nick
+    - essentials.msg.url
+    - essentials.chat.url
+    - herochat.emote.*
+    - essentials.me
+    - herochat.emote
+    - essentials.balance.others
+    - essentials.ptime
+    - essentials.feed
+    options:
+      prefix: '&3[VIP] '
+      default: false
+  premium:
+    inheritance:
+    - vip
+    - default
+    build: true
+    permissions:
+    - essentials.fly.safelogin
+    - -globalmarket.limits.vip
+    - globalmarket.limits.premium
+    - essentials.keepxp
+    - essentials.fly
+    - essentials.sethome.multiple.vip3
+    - essentials.hat
+    - essentials.signs.magic
+    - essentials.signs.format
+    - essentials.signs.color
+    - essentials.enderchest
+    - essentials.workbench
+    - essentials.nick.magic
+    - essentials.nick.format
+    - essentials.heal
+    - essentials.warps.premium
+    options:
+      prefix: '&9[Premium] '
+      default: false
+  premium+:
+    inheritance:
+    - premium
+    - vip
+    - default
+    build: true
+    permissions:
+    - -globalmarket.limits.premium
+    - globalmarket.limits.premium+
+    - CreativeItemTag.use
+    - limitedcreative.nolimit.chest
+    - pwnfilter.admin
+    - essentials.firework.fire
+    - essentials.firework
+    - essentials.item
+    - essentials.gamemode
+    options:
+      prefix: '&9[Premium&6+&9] '
+      default: false
+  Sponsor:
+    inheritance:
+    - premium+
+    - premium
+    - vip
+    - default
+    build: true
+    permissions:
+    - -globalmarket.limits.premium+
+    - essentials.clearinventory
+    - globalmarket.limits.sponsor
+    - essentials.item
+    - essentials.tptoggle
+    - bukkit.command.toggledownfall
+    - essentials.thunder
+    - essentials.weather
+    - worldedit.navigation.jumpto.tool
+    - essentials.powertool
+    - essentials.repair
+    - essentials.exp.give
+    - essentials.exp
+    options:
+      prefix: '&6[Sponsor] '
+      default: false
+  Sponsor+:
+    inheritance:
+    - sponsor
+    - premium+
+    - premium
+    - vip
+    - default
+    build: true
+    permissions:
+    - essentials.world
+    options:
+      prefix: '&6[Sponsor&4+&6] '
+      default: false
+  Developer:
+    inheritance:
+    - sponsor+
+    - sponsor
+    - premium+
+    - premium
+    - vip
+    - default
+    build: true
+    permissions:
+    - essentials.*
+    options:
+      prefix: '&5[Dev] '
+      default: false
+  helper:
+    inheritance:
+    - default
+    build: true
+    permissions:
+    - ds.mod
+    - essentials.clearinventory
+    - essentials.clear
+    - essentials.msg.url
+    - essentials.chat.url
+    - herochat.join.staff
+    - litebans.unmute
+    - litebans.tempmute
+    - litebans.lastuuid
+    - litebans.banlist
+    - litebans.staffhistory
+    - litebans.warnings
+    - litebans.unwarn
+    - litebans.warn
+    - essentials.warp
+    - essentials.seen.*
+    - essentials.chat.color
+    - essentials.plugins
+    - essentials.workbench
+    - essentials.joinfullserver
+    - essentials.enderchest
+    - essentials.invsee.preventmodify
+    - essentials.afk.kickexempt
+    - herochat.color.*
+    - herochat.color.colortype.*
+    options:
+      prefix: '&b[Helper] '
+      default: false
+  judge:
+    inheritance:
+    - helper
+    - default
+    build: true
+    permissions:
+    - litebans.kick
+    - litebans.unmute
+    - litebans.tempmute
+    - litebans.unban
+    - litebans.tempban
+    - essentials.top
+    - essentials.mute
+    - essentials.unmute
+    - essentials.weather
+    - essentials.tempban
+    - essentials.ban.notify
+    - essentials.unban
+    - essentials.kick
+    - essentials.heal
+    - essentials.nick
+    - essentials.jail
+    - essentials.jails
+    - essentials.unjail
+    - essentials.socialspy
+    - essentials.tempmute
+    - essentials.tptoggle
+    - essentials.sethome.multiple.Judge
+    options:
+      prefix: '&d[Judge] '
+      default: false
+  moderator:
+    inheritance:
+    - judge
+    - helper
+    - default
+    build: true
+    permissions:
+    - essentials.teleport.timer.bypass
+    - factions.access.any
+    - factions.join.others
+    - factions.officer.any
+    - factions.leader.any
+    - factions.money.f2f
+    - factions.money.f2p
+    - factions.money.p2f
+    - essentials.nick
+    - essentials.warp
+    - essentials.time
+    - essentials.time.set
+    - essentials.warp.list
+    - essentials.weather
+    - essentials.item
+    - essentials.fly
+    - essentials.god
+    - essentials.tp
+    - essentials.tphere
+    - essentials.gamemode
+    - essentials.togglejail
+    - essentials.ptime.others
+    - essentials.balance.others
+    - essentials.heal.others
+    - essentials.feed.others
+    - essentials.home.others
+    - essentials.invsee.modify
+    - essentials.sethome.multiple.staff
+    - coreprotect.inspect
+    - coreprotect.lookup
+    - coreprotect.help
+    - litebans.clearchat
+    - litebans.clearchat.bypass
+    - litebans.dupeip
+    - litebans.geoip
+    - litebans.lastuuid
+    - litebans.staffhistory
+    - litebans.warnings
+    - litebans.checkban
+    - litebans.iphistory
+    - OpenInv.editender
+    - OpenInv.openenderall
+    - OpenInv.openender
+    - OpenInv.editinv
+    - OpenInv.openself
+    - OpenInv.openinv
+    - pwnfilter.admin
+    - essentials.sethome.multiple.staff
+    - litebans.clearchat
+    - CreativeItemTag.bypass
+    options:
+      prefix: '&5[Mod] '
+      default: false
+  admin:
+    inheritance:
+    - moderator
+    - judge
+    - helper
+    - default
+    build: true
+    permissions:
+    - essentials.tp.position
+    - essentials.tp.others
+    - essentials.v
+    - essentials.vanish
+    - cofh.*
+    - authme.*
+    - litebans.notify.silent
+    - OpenInv.openinv
+    - OpenInv.openself
+    - OpenInv.editinv
+    - OpenInv.openender
+    - OpenInv.openenderal
+    - OpenInv.editender
+    - OpenInv.crossworld
+    - OpenInv.exempt
+    - OpenInv.anychest
+    - OpenInv.silent
+    - ds.admin
+    - essentials.exp
+    - essentials.eco
+    - essentials.kill
+    - essentials.tppos
+    - essentials.summon
+    - essentials.near
+    - essentials.enchant
+    - essentials.repair
+    - essentials.killall
+    - essentials.getpos
+    - essentials.braodcast
+    - essentials.butcher
+    - essentials.mute
+    - essentials.pardon
+    - essentials.world
+    - essentials.spawner
+    - essentials.nick.others
+    - essentials.homes.others
+    - essentials.helpop.receive
+    - essentials.ptime.others
+    - mycommand.gamemode
+    - mycommand.gm
+    - factions.*
+    - factions.kit.op
+    - coreprotect.rollback
+    - essentials.sethome.multiple.Administrator
+    options:
+      prefix: '&c[Admin] '
+      default: false
+  gm:
+    inheritance:
+    - admin
+    - moderator
+    - judge
+    - helper
+    - default
+    build: true
+    permissions:
+    - andrew2070
+    - essentials.smite
+    - essentials.invsee
+    - essentials.invsee.modify
+    - Worldedit.*
+    - essentials.ban
+    - essentials.banip
+    - essentials.unbanip
+    - essentials.give
+    - essentials.break
+    - essentials.powertool
+    - essentials.gamemode.others
+    - essentials.sudo
+    - essentials.sethome.multiple.GameMaster
+    options:
+      prefix: '&4[GM] '
+      default: false
+  gm+:
+    inheritance:
+    - gm
+    - admin
+    - moderator
+    - judge
+    - helper
+    - default
+    build: true
+    permissions:
+    - essentials.*
+    - worldguard.*
+    - litebans.*
+    - OpenInv.*
+    - coreprotect.*
+    - globalmarket.*
+    options:
+      prefix: '&4[GM&c+&4] '
+      default: false
+  ServerManager:
+    inheritance:
+    - GameMaster+
+    - GameMaster
+    - Administrator
+    - Moderator
+    - Judge
+    - Helper
+    - Member
+    build: true
+    permissions:
+    - -empires.adm.&
+    - empiresmod.*
+    - empires.*
+    - EmpiresMod.adm.cmd.*
+    - Empires.adm.cmd.*
+    - empires.adm.*
+    - '*'
+    options:
+      prefix: '&4[SM] '
+      default: false
+schema-version: 1
+users:
+  d62adc1d-62f4-357d-acb0-35091d583617:
+    options:
+      name: ZeeDerpMaster
+    group: []
+  ec8c36d7-8495-370e-8a85-ff8cf63fc294:
+    group: []
+    options:
+      name: Andrew2070
+  andrew2070pex:
+    worlds:
+      groups:
+        group:
+        - gamemaster
+  ts_gaming:
+    permissions:
+    - worldedit.*
+    - essentials.gamemode
+  ts-gaming:
+    permissions:
+    - worldedit.*
+  2b881570-19ca-3e20-8185-72102ca5b564:
+    permissions:
+    - worldedit.*
+    - essentials.gamemode
+    options:
+      name: jack202020
+    group:
+    - judge
+    - Developer
+    worlds:
+      '&5[Dev]&d[Helper]':
+        options:
+          prefix: set
+  597a2c2b-3aad-34ef-95da-56d3707ec2c3:
+    group:
+    - helper
+    options:
+      name: Vaske99
+  th3fanbus:
+    group:
+    - helper
+    options:
+      name: Th3Fanbus
+  b5eb8d5b-2a59-34fe-a138-e5d14674491a:
+    group:
+    - judge
+    options:
+      name: Th3Fanbus
+  b0ea4427-1f39-3d89-99ca-abe2bf0e5b24:
+    group:
+    - judge
+    options:
+      name: Imperatus
+  c8a1a219-e25c-314c-a730-ae9dc9f15252:
+    group:
+    - Developer
+    options:
+      name: Timur
+  f2f97689-3eb8-38bf-bc39-c5a1c4d921b6:
+    group:
+    - helper
+    options:
+      name: Sharingan_eyes
+  f2b6d33d-10d8-3a78-b4bf-81cee6c51557:
+    options:
+      name: HaoSs07
+    group:
+    - default
+  a710ace7-013d-395c-b7f1-d5cbfa22f30d:
+    options:
+      name: dagger
+  1644f736-d4c4-39ae-adbc-c2801a146929:
+    options:
+      name: Ploxer
+  e1b62e19-846a-35f9-974d-8f7ae6e7b8cf:
+    group:
+    - gm+
+    options:
+      name: Zyko
+  c485d2ea-264d-306d-8d9d-bbf5de861a97:
+    group:
+    - ServerManager
+    options:
+      name: Player522
+  1c3a2857-e7ef-32a0-829f-3ff0829e8487:
+    group:
+    - admin
+    options:
+      name: Player826
+  37e4a5df-2479-34b7-be52-2f491341f6b1:
+    group:
+    - admin
+    options:
+      name: Player137
+  25b11e49-a7c5-3d9c-8271-d4f68f211051:
+    group:
+    - admin
+    options:
+      name: Player578
+  bd0d6de2-7897-388f-8c0f-71e10002b81c:
+    group:
+    - ServerManager
+    options:
+      name: Player844
+  11827876-1185-3f24-850d-d0e7a71b9795:
+    group:
+    - ServerManager
+    options:
+      name: Player535
+  317a8ad6-0e94-3efc-b65d-ee1610ecfadc:
+    group:
+    - ServerManager
+    options:
+      name: Player182
+  b4af1ef6-4402-3592-bf8a-f26295105c46:
+    group:
+    - ServerManager
+    options:
+      name: Player664
+  8dea17cd-e1ef-3064-95ba-e1811660f4f6:
+    group:
+    - ServerManager
+    options:
+      name: Player872
+  08b67744-0be2-3e10-bbbd-71a464b4b0c1:
+    group:
+    - admin
+    options:
+      name: Player926

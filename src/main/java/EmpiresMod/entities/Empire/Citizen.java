@@ -294,6 +294,13 @@ public class Citizen implements IChatFormat {
  	
 } 	
  
+ 
+ public void addMaxPower(double value) {
+	 double currentmaxpower = this.maxPower;
+	 double newmaxpower = currentmaxpower + value;
+	 this.maxPower = newmaxpower;
+ }
+ 
  long powerUpdateTime = 0;
  public void resetTime(long Time) {
 	 
@@ -318,6 +325,14 @@ public class Citizen implements IChatFormat {
 		this.Power = Power;
 	}
 
+	public void addPower(double Power) {
+		Double currentPower = this.Power;
+		Double newPower = currentPower + Power;
+		this.Power = newPower;
+		
+	}
+	
+	
     @Override
     public IChatComponent toChatMessage() {
         return LocalizationManager.get("Empires.format.citizen.short", playerName);

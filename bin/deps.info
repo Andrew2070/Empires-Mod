@@ -20,9 +20,9 @@
         "class": "bsh.Interpreter"
     }
     {
-    	"repo": "http://pex-repo.aoeu.xyz/ru/tehkode/PermissionsEx/1.22.7/"
+    	"repo": "http://pex-repo.aoeu.xyz/ru/tehkode/PermissionsEx/1.22.7/PermissionsEx-1.22.7.jar"
     	"file": "PermissionsEx-1.22.7.jar"
-    	"class": "ru.tehkode.PermissionsEx"
+    	"class": "ru.tehkode.permissions.bukkit.PermissionsEx"
 
 
     }

@@ -1,10 +1,13 @@
 package EmpiresMod;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.Logger;
+import org.bukkit.Bukkit;
 
+import EmpiresMod.API.ForgeChatHandler;
 import EmpiresMod.API.Commands.Command.CommandManager;
 import EmpiresMod.API.Commands.Command.CommandsEMP;
 import EmpiresMod.API.JSON.Configuration.FlagsConfig;
@@ -19,7 +22,7 @@ import EmpiresMod.API.permissions.Bridges.EmpiresBridge;
 import EmpiresMod.Configuration.Config;
 import EmpiresMod.Datasource.DatasourceCrashCallable;
 import EmpiresMod.Datasource.EmpiresDatasource;
-import EmpiresMod.Handlers.ChatHandler;
+import EmpiresMod.Handlers.BukkitChatCompat;
 import EmpiresMod.Handlers.EmpiresLoadingCallback;
 import EmpiresMod.Handlers.ExtraEventsHandler;
 import EmpiresMod.Handlers.PlayerTracker;
@@ -29,6 +32,7 @@ import EmpiresMod.Handlers.VisualsHandler;
 import EmpiresMod.Localization.Localization;
 import EmpiresMod.Localization.LocalizationManager;
 import EmpiresMod.Proxies.EconomyProxy;
+import EmpiresMod.Utilities.ClassUtils;
 import EmpiresMod.Utilities.StringUtils;
 import EmpiresMod.commands.Admin.CommandsAdmin;
 import EmpiresMod.commands.Neutral.CommandsNeutral;
@@ -76,6 +80,8 @@ public class Empires {
 		Constants.CONFIG_FOLDER = ev.getModConfigurationDirectory().getPath() + "/Empires Mod/";
 		Constants.DATABASE_FOLDER = ev.getModConfigurationDirectory().getParent() + "/databases/";
 		// Load Configs
+		
+		String pexFilePath = "/permissions.yml";
 
 		Config.instance.init(Constants.CONFIG_FOLDER + "/Empires.cfg", "Empires Mod");
 
@@ -90,8 +96,11 @@ public class Empires {
 		FMLCommonHandler.instance().bus().register(PlayerTracker.instance);
 		MinecraftForge.EVENT_BUS.register(PlayerTracker.instance);
 
-		FMLCommonHandler.instance().bus().register(ChatHandler.instance);
-		MinecraftForge.EVENT_BUS.register(ChatHandler.instance);
+	    FMLCommonHandler.instance().bus().register(BukkitChatCompat.instance);
+		MinecraftForge.EVENT_BUS.register(BukkitChatCompat.instance);
+
+		FMLCommonHandler.instance().bus().register(ForgeChatHandler.instance);
+		MinecraftForge.EVENT_BUS.register(ForgeChatHandler.instance);
 
 		FMLCommonHandler.instance().bus().register(Ticker.instance);
 		MinecraftForge.EVENT_BUS.register(Ticker.instance);
@@ -147,6 +156,7 @@ public class Empires {
 		jsonConfigs.add(new FlagsConfig(Constants.CONFIG_FOLDER + "/JSON/DefaultFlags.json"));
 		jsonConfigs.add(new RanksConfig(Constants.CONFIG_FOLDER + "/JSON/DefaultEmpireRanks.json"));
 		jsonConfigs.add(new RelationshipsConfig(Constants.CONFIG_FOLDER + "/JSON/DefaultEmpireRelationships.json"));
+		
 		for (JsonConfig jsonConfig : jsonConfigs) {
 			jsonConfig.init();
 		}
