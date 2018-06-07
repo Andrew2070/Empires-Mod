@@ -194,6 +194,16 @@ public class EmpiresSchematic extends BaseSchematic {
                 "y INT NOT NULL," +
                 "z INT NOT NULL, " +
                 "FOREIGN KEY(citizen) REFERENCES " + bridge.prefix + "Citizens(UUID) ON DELETE CASCADE)"));
+        updates.add(new DBUpdate("7.07.2018.1", "Add 'Warps' table", "CREATE TABLE IF NOT EXISTS " + bridge.prefix + "Warps(" +
+                "empireName VARCHAR(50), "+
+        		"dim INT NOT NULL, " +
+                "x FLOAT NOT NULL, " +
+                "y FLOAT NOT NULL, " +
+                "z FLOAT NOT NULL, " +
+                "yaw FLOAT NOT NULL, " +
+                "pitch FLOAT NOT NULL, " +
+                "PRIMARY KEY(empireName), " +
+                "FOREIGN KEY(empireName) REFERENCES " + bridge.prefix + "Empires(name) ON DELETE CASCADE ON UPDATE CASCADE)"));
         updates.add(new DBUpdate("3.27.2014.1", "Add 'EmpireBanks' table", "CREATE TABLE IF NOT EXISTS " + bridge.prefix + "EmpireBanks(" +
                 "empireName VARCHAR(50), " +
                 "amount INT NOT NULL, " +
@@ -204,9 +214,6 @@ public class EmpiresSchematic extends BaseSchematic {
                 "amount INT NOT NULL, " +
                 "PRIMARY KEY(plotID), " +
                 "FOREIGN KEY(plotID) REFERENCES " + bridge.prefix + "Plots(ID) ON DELETE CASCADE ON UPDATE CASCADE)"));
-        
-        
-        
         updates.add(new DBUpdate("4.1.2015.1", "Add 'daysNotPaid' to EmpireBanks", "ALTER TABLE " + bridge.prefix +
                 "EmpireBanks ADD daysNotPaid INTEGER DEFAULT 0"));
         updates.add(new DBUpdate("4.12.2015.1", "Add 'isFarClaim' to Blocks", "ALTER TABLE " + bridge.prefix +

@@ -75,6 +75,10 @@ public class CommandsOfficer extends CommandsEMP {
             return CommandResponse.SEND_SYNTAX;
         }
         
+        if(empire.getNumberofWarps() > Config.instance.maxWarps.get()) {
+        	throw new EmpiresCommandException("Empires.cmd.err.warp.maximum");
+        }
+
         String warpname = args.get(0).toString();
         
         if (empire.hasWarp(warpname) == true ) {

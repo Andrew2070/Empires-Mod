@@ -157,10 +157,6 @@ public class CommandsRecruit extends CommandsEMP {
             throw new EmpiresCommandException("Empires.cmd.err.spawn.cooldown", res.getTeleportCooldown(), res.getTeleportCooldown() / 20);
         }
         
-        if(empire.getNumberofWarps() > Config.instance.maxWarps.get()) {
-        	throw new EmpiresCommandException("Empires.cmd.err.warp.maximum");
-        }
-
         makePayment(player, amount);
         empire.bank.addAmount(amount);
         getDatasource().saveEmpireBank(empire.bank);

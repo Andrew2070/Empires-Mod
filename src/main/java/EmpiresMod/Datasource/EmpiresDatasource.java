@@ -27,6 +27,7 @@ import EmpiresMod.entities.Empire.Plot;
 import EmpiresMod.entities.Empire.Rank;
 import EmpiresMod.entities.Flags.Flag;
 import EmpiresMod.entities.Flags.FlagType;
+import EmpiresMod.exceptions.Command.CommandException;
 import EmpiresMod.protection.ProtectionManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
@@ -44,7 +45,7 @@ public class EmpiresDatasource extends DatasourceSQL {
     @Override
     public boolean loadAll() {
         return loadWorlds() && loadEmpires() && loadRanks() && loadBlocks() && loadCitizens() &&
-                loadPlots() && /*loadNations() &&*/ loadEmpireFlags() && loadPlotFlags() &&
+                loadPlots() && loadWarps() && /*loadNations() &&*/ loadEmpireFlags() && loadPlotFlags() &&
                 loadBlockWhitelists() &&  loadEmpireInvites() && loadBlockOwners() && loadEmpireBanks() &&
                 loadRankPermissions() && loadCitizensToEmpires() && /*loadEmpiresToNations() &&*/
                 loadCitizensToPlots() && loadSelectedEmpires();
@@ -138,7 +139,38 @@ public class EmpiresDatasource extends DatasourceSQL {
 
         return true;
     }
+    
+    protected boolean loadWarps() {
+        try {
+            PreparedStatement loadWarpStatement = prepare("SELECT * FROM " + prefix + "Warps", true);
+            ResultSet rs = loadWarpStatement.executeQuery();
 
+            while (rs.next()) {
+                Empire empire = getUniverse().empires.get(rs.getString("empireName"));
+               
+                EmpireBlock block = new EmpireBlock(rs.getInt("dim"), rs.getInt("x"), rs.getInt("z"), rs.getBoolean("isFarClaim"), rs.getInt("pricePaid"), empire);
+                String warpname = rs.getString("name");
+                int dimension = rs.getInt("dim");
+                float posX = rs.getFloat("x");
+                float posY = rs.getFloat("y");
+                float posZ = rs.getFloat("z");
+                float yaw = rs.getFloat("yaw");
+                float pitch = rs.getFloat("pitch");
+                
+                Teleport Warp = new Teleport((String) warpname, dimension, (float) posX, (float) posY, (float) posZ, (float) yaw, (float) pitch);        
+                Warp.setDim(dimension).setPosition((float) posX, (float) posY, (float) posZ).setRotation(yaw, pitch);
+                empire.Warps.add(Warp);
+
+              //  EmpiresUniverse.instance.addEmpireBlock(block);
+            }
+        } catch (SQLException e) {
+            LOG.error("Failed to load warps!");
+            LOG.error(ExceptionUtils.getStackTrace(e));
+            return false;
+        }
+
+        return true;
+    }
     
     protected boolean loadRanks() {
         try {
@@ -588,7 +620,7 @@ public class EmpiresDatasource extends DatasourceSQL {
 
         return true;
     }
-
+    
     
     public boolean saveBlock(EmpireBlock block) {
         LOG.debug("Saving EmpireBlock {}", block.getKey());
@@ -822,7 +854,35 @@ public class EmpiresDatasource extends DatasourceSQL {
         return true;
     }
 
-    
+    public boolean saveWarps(Empire empire) {
+        LOG.debug("Saving Empire Warps ");
+        try {
+            	for (Teleport Warp : empire.Warps) {
+                PreparedStatement insertStatement = prepare("INSERT INTO " + prefix + "Warps (name, dim, x, y, z, yaw, pitch, empireName) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", true);
+                insertStatement.setString(1, Warp.getName());
+                insertStatement.setInt(2, Warp.getDim());
+                insertStatement.setFloat(3, Warp.getX());
+                insertStatement.setFloat(4, Warp.getY());
+                insertStatement.setFloat(5, Warp.getZ());
+                insertStatement.setFloat(6, Warp.getYaw());
+                insertStatement.setFloat(7, Warp.getPitch());
+                insertStatement.setString(8, empire.getName());
+                insertStatement.executeUpdate();
+
+                //   Put in the Map
+                //   EmpiresUniverse.instance.addEmpireBlock(block);
+                //   EmpiresUniverse.instance.empires.getMainEmpire().Warps.add(Warp);
+                //   block.getEmpire().empireBlocksContainer.add(block);
+            	}
+      
+        } catch (SQLException e) {
+            LOG.error("Failed to save warps for empire {}!", empire.getName());
+            LOG.error(ExceptionUtils.getStackTrace(e));
+            return false;
+        }
+        return true;
+    }
+ 
     public boolean saveFlag(Flag flag, Plot plot) {
         LOG.debug("Saving Flag {} for Plot {}", flag.flagType.name, plot.getKey());
         try {

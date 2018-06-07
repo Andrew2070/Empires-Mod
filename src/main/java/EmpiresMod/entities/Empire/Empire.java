@@ -482,7 +482,6 @@ public class Empire implements Comparable<Empire>, IChatFormat {
         return LocalizationManager.get("Empires.format.empire.short", name, hoverComponent);
     }
     
-    
     public void setPower(double Power) {
     	
     	Double target = Power;
