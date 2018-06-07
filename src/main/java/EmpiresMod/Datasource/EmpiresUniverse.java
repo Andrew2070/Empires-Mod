@@ -93,10 +93,12 @@ public class EmpiresUniverse { // TODO Allow migrating between different Datasou
             }
         }
         */
-
         // Setting spawn before saving
-        empire.setSpawn(new Teleport(creator.getPlayer().dimension, (float) creator.getPlayer().posX, (float) creator.getPlayer().posY, (float) creator.getPlayer().posZ, creator.getPlayer().cameraYaw, creator.getPlayer().cameraPitch));
-
+        Teleport Spawn = new Teleport((String) "spawn", creator.getPlayer().dimension, (float) creator.getPlayer().posX, (float) creator.getPlayer().posY, (float) creator.getPlayer().posZ, (float) creator.getPlayer().cameraYaw, (float) creator.getPlayer().cameraPitch);
+        Teleport Warp = Spawn;
+        Warp.setDim(creator.getPlayer().dimension).setPosition((float) creator.getPlayer().posX, (float) creator.getPlayer().posY, (float) creator.getPlayer().posZ).setRotation(creator.getPlayer().cameraYaw, creator.getPlayer().cameraPitch);
+        empire.setSpawn(Spawn);
+        empire.setWarps(Spawn);
         // Saving empire to database
         if (!getDatasource().saveEmpire(empire))
             throw new CommandException("Failed to save Empire");

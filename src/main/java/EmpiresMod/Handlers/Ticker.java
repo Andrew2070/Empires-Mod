@@ -165,7 +165,7 @@ public class Ticker {
 		     	
 }
 
-    
+// 			Incorporated into PvPUtils and ProtectionHandler  
 //    
 // @SubscribeEvent(priority = EventPriority.HIGHEST)
 //    public void onPlayerDeath(PlayerEvent.PlayerRespawnEvent ev) {

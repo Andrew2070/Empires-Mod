@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import EmpiresMod.Empires;
 import EmpiresMod.API.Chat.IChatFormat;
 import EmpiresMod.API.Chat.Component.ChatComponentFormatted;
 import EmpiresMod.API.Chat.Component.ChatManager;
@@ -23,6 +24,7 @@ import EmpiresMod.entities.Empire.Relationship.Type;
 import EmpiresMod.entities.Flags.Flag;
 import EmpiresMod.entities.Flags.FlagType;
 import EmpiresMod.entities.Permissions.PermissionLevel;
+import EmpiresMod.exceptions.Command.CommandException;
 import EmpiresMod.exceptions.Empires.EmpiresCommandException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -45,7 +47,7 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     private Alliance alliance;
     private Teleport spawn;
     private Teleport jail;
-
+    public final static List<Teleport> Warps = new ArrayList<Teleport>();
     public final TicketMap ticketMap = new TicketMap(this);
     public final CitizenRankMap citizensMap = new CitizenRankMap();
     public final static relationshipMap relationMap = new relationshipMap();
@@ -58,7 +60,6 @@ public class Empire implements Comparable<Empire>, IChatFormat {
    
 
     public final Bank bank = new Bank(this);
-
     
     public Empire(String name) {
         this.name = name;
@@ -190,6 +191,31 @@ public class Empire implements Comparable<Empire>, IChatFormat {
             PlayerUtils.teleport((EntityPlayerMP)pl, spawn.getDim(), spawn.getX(), spawn.getY(), spawn.getZ());
             res.setTeleportCooldown(Config.instance.teleportCooldown.get());
         }
+    }
+    
+    public void sendToWarp(Citizen res, String warpname) {
+    	Empires.instance.LOG.info("DEBUG: Line 197 CHECK");
+    	EntityPlayer player = res.getPlayer();
+    	Empires.instance.LOG.info("DEBUG: Line 199 CHECK");
+    	if (player != null) {
+        	Empires.instance.LOG.info("DEBUG: Line 201 CHECK");
+    	for (int i=0; i<Warps.size();i++) {
+        	Empires.instance.LOG.info("DEBUG: Line 203 CHECK");
+    		Teleport warp = Warps.get(i);
+        	Empires.instance.LOG.info("DEBUG: Line 206 CHECK");
+    		if (warp.getName().equals(warpname)) {
+    			Empires.instance.LOG.info(warp.getName());
+    			Empires.instance.LOG.info(warpname);
+    			PlayerUtils.teleport((EntityPlayerMP)player, warp.getDim() , warp.getX(), warp.getY(), warp.getZ());
+    			res.setTeleportCooldown(Config.instance.teleportCooldown.get());
+    	}
+    	}
+    }
+   }
+   
+    public int getNumberofWarps() {
+    	int warpsize = Warps.size();
+    	return warpsize;
     }
 
     
@@ -362,13 +388,58 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     public boolean hasSpawn() {
         return spawn != null;
     }
-
+    
+    public boolean hasWarp(String warpname) {
+    	try {
+    	if (Warps.isEmpty() == false) {
+        	for (int i=0; i < Warps.size(); i++) {
+        		Teleport warp = Warps.get(i);
+        	if (warp.getName().equals( warpname)) {
+        		return true;
+        	}
+        	
+        	if (warp.getName() == null) {
+        		return false;
+        	}
+        	}
+    	}
+    	} catch (NullPointerException e) {
+    		e.printStackTrace();
+    		return false;
+    	}
+        	return false;
+   }
     public Teleport getSpawn() {
         return spawn;
     }
 
     public void setSpawn(Teleport spawn) {
         this.spawn = spawn;
+    }
+    
+    public Teleport getallWarps() {
+    if (Warps.isEmpty() == false) {
+    	for (int i=0; i < Warps.size(); i++) {
+    	return Warps.get(i);
+    	}
+    }
+    	return null;
+    }
+    
+    public Teleport getWarp(String warpname) {
+    if (Warps.isEmpty() == false) {
+    	for (int i=0; i < Warps.size(); i++) {
+    		Teleport warp = Warps.get(i);
+    	if (warp.getName() == warpname) {
+    		return warp;
+    	}
+    	}
+    }
+    	return null;
+    }
+    
+    public void setWarps(Teleport Warp) {
+    	this.Warps.add(Warp);
     }
     
     
@@ -402,7 +473,6 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     }
 
    
-    
     
     @Override
     public IChatComponent toChatMessage() {
@@ -503,7 +573,7 @@ public class Empire implements Comparable<Empire>, IChatFormat {
 
             return mainEmpire;
         }
-
+		
         @Override
         public IChatComponent toChatMessage() {
             IChatComponent root = new ChatComponentText("");
@@ -518,4 +588,6 @@ public class Empire implements Comparable<Empire>, IChatFormat {
             return root;
         }
     }
+
+	
 }

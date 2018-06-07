@@ -98,6 +98,10 @@ public class Config extends ConfigTemplate {
             "The maximum amount of chunks not attached to any other claimed chunk that are allowed per Empire. Set to 0 to disable far claims altogether.",
             10);
     
+    public ConfigProperty<Integer> maxWarps = new ConfigProperty<Integer> (
+    		"maxWarps", "Empires",
+    		"The maximum amount of warps that an empire can have.",
+    		5);
     
     public ConfigProperty<Double> defaultMaxPower = new ConfigProperty<Double>(
             "defaultMaxPower", "Citizens",
@@ -193,6 +197,10 @@ public class Config extends ConfigTemplate {
             "The amount of the cost item you need to warp to the Empire's spawn point.",
             0);
     
+    public ConfigProperty<Integer> costAmountSetWarp = new ConfigProperty<Integer> (
+    		"costAmountSetWarp", "cost",
+    		"The amount of the cost item you need to warp to an Empire's custom warp point.",
+    		5);
     
     public ConfigProperty<Integer> costAmountOtherSpawn = new ConfigProperty<Integer>(
             "costAmountOtherSpawn", "cost",

@@ -1,8 +1,12 @@
 package EmpiresMod.Misc.Teleport;
 
+import EmpiresMod.API.Chat.Component.ChatComponentFormatted;
+import EmpiresMod.Localization.LocalizationManager;
+import EmpiresMod.entities.Empire.Relationship;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.IChatComponent;
 
 /**
  * Retains the needed information for the action of teleporting a player to a
@@ -10,16 +14,18 @@ import net.minecraft.server.MinecraftServer;
  */
 public class Teleport {
 	private int dim;
+	private String name;
 	private float x, y, z, yaw, pitch;
 
-	public Teleport(int dim, float x, float y, float z, float yaw, float pitch) {
+	public Teleport(String name, int dim, float x, float y, float z, float yaw, float pitch) {
+		setName(name);
 		setDim(dim);
 		setPosition(x, y, z);
 		setRotation(yaw, pitch);
 	}
 
-	public Teleport(int dim, float x, float y, float z) {
-		this(dim, x, y, z, 0, 0);
+	public Teleport(String name, int dim, float x, float y, float z) {
+		this(name, dim, x, y, z, 0, 0);
 	}
 
 	// Used when a player is riding an entity. eg pig, horse
@@ -39,7 +45,7 @@ public class Teleport {
 	public void teleport(EntityPlayer pl) {
 		teleport(pl, false);
 	}
-
+	
 	public Teleport setDim(int dim) {
 		this.dim = dim;
 		return this;
@@ -57,7 +63,15 @@ public class Teleport {
 		this.pitch = pitch;
 		return this;
 	}
-
+	public Teleport setName(String name) {
+		this.name = name;
+		return this;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
 	public int getDim() {
 		return dim;
 	}

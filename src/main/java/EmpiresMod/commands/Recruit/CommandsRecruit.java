@@ -1,10 +1,14 @@
 package EmpiresMod.commands.Recruit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import EmpiresMod.API.Chat.Component.ChatComponentContainer;
+import EmpiresMod.API.Chat.Component.ChatComponentEmpireList;
 import EmpiresMod.API.Chat.Component.ChatComponentFormatted;
 import EmpiresMod.API.Chat.Component.ChatComponentList;
+import EmpiresMod.API.Chat.Component.ChatComponentMultiPage;
+import EmpiresMod.API.Chat.Component.ChatComponentWarpList;
 import EmpiresMod.API.Chat.Component.ChatManager;
 import EmpiresMod.API.Commands.Command.Command;
 import EmpiresMod.API.Commands.Command.CommandResponse;
@@ -12,6 +16,7 @@ import EmpiresMod.API.Commands.Command.CommandsEMP;
 import EmpiresMod.Configuration.Config;
 import EmpiresMod.Datasource.EmpiresUniverse;
 import EmpiresMod.Localization.LocalizationManager;
+import EmpiresMod.Misc.Teleport.Teleport;
 import EmpiresMod.Proxies.EconomyProxy;
 import EmpiresMod.entities.Empire.AdminEmpire;
 import EmpiresMod.entities.Empire.Citizen;
@@ -129,6 +134,65 @@ public class CommandsRecruit extends CommandsEMP {
     }
 
 */
+    @Command(
+            name = "warp",
+            permission = "Empires.cmd.everyone.warp",
+            parentName = "Empires.cmd",
+            syntax = "/empire warp [warpname]",
+            completionKeys = {"empireCompletion"})
+    public static CommandResponse warpCommand(ICommandSender sender, List<String> args) {
+        EntityPlayer player = (EntityPlayer)sender;
+        Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(sender);
+        Empire empire;
+        int amount;
+        empire = getEmpireFromCitizen(res);
+        amount = Config.instance.costAmountSpawn.get(); //create custom config for warp costs.
+        
+        String warpname = args.get(0).toString();
+        if (!empire.hasWarp(warpname)) {
+            throw new EmpiresCommandException("Empires.cmd.err.warp.missing"); //needs localization work
+        }
+
+        if(res.getTeleportCooldown() > 0) {
+            throw new EmpiresCommandException("Empires.cmd.err.spawn.cooldown", res.getTeleportCooldown(), res.getTeleportCooldown() / 20);
+        }
+        
+        if(empire.getNumberofWarps() > Config.instance.maxWarps.get()) {
+        	throw new EmpiresCommandException("Empires.cmd.err.warp.maximum");
+        }
+
+        makePayment(player, amount);
+        empire.bank.addAmount(amount);
+        getDatasource().saveEmpireBank(empire.bank);
+        ChatManager.send(sender, "Empires.notification.warp.succesful");
+        empire.sendToWarp(res, warpname);
+        return CommandResponse.DONE;
+    }
+    @Command(
+            name = "warps",
+            permission = "Empires.cmd.everyone.warps",
+            parentName = "Empires.cmd",
+            syntax = "/empire warps",
+            completionKeys = {"empireCompletion"})
+    public static CommandResponse warpInfo(ICommandSender sender, List<String> args) {
+        EntityPlayer player = (EntityPlayer)sender;
+        Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(sender);
+        Empire empire;
+        empire = getEmpireFromCitizen(res);
+       // String warpsname = "";
+       // IChatComponent header = LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|WARPS}"));      
+       // ChatManager.send(sender, "Empires.format.empire.warps", header, warpsname);
+        int page = 1;
+        if (args.size() >= 1) {
+            page = Integer.parseInt(args.get(0));
+        }
+        if (page <= 0) {
+            page = 1;
+        }
+        ChatComponentMultiPage WarpList = new ChatComponentWarpList(empire);
+        WarpList.sendPage(sender, page);
+       return CommandResponse.DONE;
+    }
     @Command(
             name = "territory",
             permission = "Empires.cmd.everyone.blocks",

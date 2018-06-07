@@ -22,7 +22,7 @@ public class ChatComponentMultiPage extends ChatComponentContainer {
 	public ChatComponentContainer getHeader(int page) {
 		ChatComponentContainer header = new ChatComponentContainer();
 		header.add(
-				new ChatComponentFormatted("{6| [Empire] - [Command Menu] - [Page: %s/%s]}", page, getNumberOfPages()));
+				new ChatComponentFormatted("{6| ==========[Empires]====[Menu]====[Page: %s/%s]==========}", page, getNumberOfPages()));
 
 		return header;
 	}

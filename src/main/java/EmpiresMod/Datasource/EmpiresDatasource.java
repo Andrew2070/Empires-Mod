@@ -92,7 +92,7 @@ public class EmpiresDatasource extends DatasourceSQL {
                 } else {
                     empire = new Empire(rs.getString("name"));
                 }
-                empire.setSpawn(new Teleport(rs.getInt("spawnDim"), rs.getFloat("spawnX"), rs.getFloat("spawnY"), rs.getFloat("spawnZ"), rs.getFloat("cameraYaw"), rs.getFloat("cameraPitch")));
+                empire.setSpawn(new Teleport(rs.getString("warpname"), rs.getInt("spawnDim"), rs.getFloat("spawnX"), rs.getFloat("spawnY"), rs.getFloat("spawnZ"), rs.getFloat("cameraYaw"), rs.getFloat("cameraPitch")));
                 empire.empireBlocksContainer.setExtraBlocks(rs.getInt("extraBlocks"));
                 empire.empireBlocksContainer.setExtraFarClaims(rs.getInt("extraFarClaims"));
                 empire.plotsContainer.setMaxPlots(rs.getInt("maxPlots"));
@@ -527,18 +527,19 @@ public class EmpiresDatasource extends DatasourceSQL {
         LOG.debug("Saving Empire {}", empire.getName());
         try {
             if (getUniverse().empires.contains(empire)) { // Update
-                PreparedStatement updateStatement = prepare("UPDATE " + prefix + "Empires SET name=?, spawnDim=?, spawnX=?, spawnY=?, spawnZ=?, cameraYaw=?, cameraPitch=?, extraBlocks=?, maxPlots=?, extraFarClaims=?, currentPower=? WHERE name=?", true);
+                PreparedStatement updateStatement = prepare("UPDATE " + prefix + "Empires SET name=?, warpname=?, spawnDim=?, spawnX=?, spawnY=?, spawnZ=?, cameraYaw=?, cameraPitch=?, extraBlocks=?, maxPlots=?, extraFarClaims=?, currentPower=? WHERE name=?", true);
                 updateStatement.setString(1, empire.getName());
-                updateStatement.setInt(2, empire.getSpawn().getDim());
-                updateStatement.setFloat(3, empire.getSpawn().getX());
-                updateStatement.setFloat(4, empire.getSpawn().getY());
-                updateStatement.setFloat(5, empire.getSpawn().getZ());
-                updateStatement.setFloat(6, empire.getSpawn().getYaw());
-                updateStatement.setFloat(7, empire.getSpawn().getPitch());
-                updateStatement.setInt(8, empire.empireBlocksContainer.getExtraBlocks());
-                updateStatement.setInt(9, empire.plotsContainer.getMaxPlots());
-                updateStatement.setInt(10, empire.empireBlocksContainer.getExtraFarClaims());
-                updateStatement.setDouble(11, empire.getPower());
+                updateStatement.setString(2, "spawn");
+                updateStatement.setInt(3, empire.getSpawn().getDim());
+                updateStatement.setFloat(4, empire.getSpawn().getX());
+                updateStatement.setFloat(5, empire.getSpawn().getY());
+                updateStatement.setFloat(6, empire.getSpawn().getZ());
+                updateStatement.setFloat(7, empire.getSpawn().getYaw());
+                updateStatement.setFloat(8, empire.getSpawn().getPitch());
+                updateStatement.setInt(9, empire.empireBlocksContainer.getExtraBlocks());
+                updateStatement.setInt(10, empire.plotsContainer.getMaxPlots());
+                updateStatement.setInt(11, empire.empireBlocksContainer.getExtraFarClaims());
+                updateStatement.setDouble(12, empire.getPower());
                 
                 LOG.info(empire.getName() + " " + empire.getSpawn().getDim() + " " + empire.getSpawn().getX() + " " + empire.getSpawn().getY() + " " + empire.getSpawn().getZ() + " " + empire.getSpawn().getYaw() + " " + empire.getSpawn().getPitch() + " " + empire.empireBlocksContainer.getExtraBlocks() + " " + empire.plotsContainer.getMaxPlots() + " " + empire.empireBlocksContainer.getExtraFarClaims() + " " + empire.getPower() + " " + empire.getMaxPower());
                 
@@ -558,19 +559,20 @@ public class EmpiresDatasource extends DatasourceSQL {
                 }
                 empire.resetOldName();
             } else { // Insert
-                PreparedStatement insertStatement = prepare("INSERT INTO " + prefix + "Empires (name, spawnDim, spawnX, spawnY, spawnZ, cameraYaw, cameraPitch, isAdminEmpire, extraBlocks, maxPlots, extraFarClaims, currentPower) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", true);
+                PreparedStatement insertStatement = prepare("INSERT INTO " + prefix + "Empires (name, warpname, spawnDim, spawnX, spawnY, spawnZ, cameraYaw, cameraPitch, isAdminEmpire, extraBlocks, maxPlots, extraFarClaims, currentPower) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", true);
                 insertStatement.setString(1, empire.getName());
-                insertStatement.setInt(2, empire.getSpawn().getDim());
-                insertStatement.setFloat(3, empire.getSpawn().getX());
-                insertStatement.setFloat(4, empire.getSpawn().getY());
-                insertStatement.setFloat(5, empire.getSpawn().getZ());
-                insertStatement.setFloat(6, empire.getSpawn().getYaw());
-                insertStatement.setFloat(7, empire.getSpawn().getPitch());
-                insertStatement.setBoolean(8, empire instanceof AdminEmpire);
-                insertStatement.setInt(9, empire.empireBlocksContainer.getExtraBlocks());
-                insertStatement.setInt(10, empire.plotsContainer.getMaxPlots());
-                insertStatement.setInt(11, empire.empireBlocksContainer.getExtraFarClaims());
-                insertStatement.setDouble(12, empire.getPower());
+                insertStatement.setString(2, "spawn");
+                insertStatement.setInt(3, empire.getSpawn().getDim());
+                insertStatement.setFloat(4, empire.getSpawn().getX());
+                insertStatement.setFloat(5, empire.getSpawn().getY());
+                insertStatement.setFloat(6, empire.getSpawn().getZ());
+                insertStatement.setFloat(7, empire.getSpawn().getYaw());
+                insertStatement.setFloat(8, empire.getSpawn().getPitch());
+                insertStatement.setBoolean(9, empire instanceof AdminEmpire);
+                insertStatement.setInt(10, empire.empireBlocksContainer.getExtraBlocks());
+                insertStatement.setInt(11, empire.plotsContainer.getMaxPlots());
+                insertStatement.setInt(12, empire.empireBlocksContainer.getExtraFarClaims());
+                insertStatement.setDouble(13, empire.getPower());
                 LOG.info("New Empire" + empire.getName() + " Created " + " World: " + empire.getSpawn().getDim() + " X Coord: " + empire.getSpawn().getX() + " Y Coord: " + empire.getSpawn().getY() + " Z Coord: " + empire.getSpawn().getZ() + " YAW: " + empire.getSpawn().getYaw() + " PITCH: " + empire.getSpawn().getPitch() + " EXTRA CLAIMS: " + empire.empireBlocksContainer.getExtraBlocks() + " PLOTS: " + empire.plotsContainer.getMaxPlots() + " FAR CLAIMS: " + empire.empireBlocksContainer.getExtraFarClaims() + " POWER: " + empire.getPower() + " MAX POWER: " + empire.getMaxPower());
 
                 insertStatement.executeUpdate();

@@ -12,6 +12,7 @@ import EmpiresMod.API.Commands.Command.CommandsEMP;
 import EmpiresMod.API.container.relationshipMap;
 import EmpiresMod.Configuration.Config;
 import EmpiresMod.Datasource.EmpiresUniverse;
+import EmpiresMod.Misc.Teleport.Teleport;
 import EmpiresMod.Proxies.EconomyProxy;
 import EmpiresMod.Utilities.EmpireUtils;
 import EmpiresMod.Utilities.MathUtils;
@@ -26,9 +27,11 @@ import EmpiresMod.entities.Empire.Relationship;
 import EmpiresMod.entities.Empire.Relationship.Type;
 import EmpiresMod.entities.Flags.Flag;
 import EmpiresMod.entities.Flags.FlagType;
+import EmpiresMod.entities.Guards.Guard;
 import EmpiresMod.entities.Managers.ToolManager;
 import EmpiresMod.entities.Position.ChunkPos;
 import EmpiresMod.entities.Tools.WhitelisterTool;
+import EmpiresMod.exceptions.Command.CommandException;
 import EmpiresMod.exceptions.Empires.EmpiresCommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
@@ -59,7 +62,61 @@ public class CommandsOfficer extends CommandsEMP {
         ChatManager.send(sender, "Empires.notification.empire.setspawn");
         return CommandResponse.DONE;
     }
-
+    @Command(
+            name = "setwarp",
+            permission = "Empires.cmd.officer.setwarp",
+            parentName = "Empires.cmd",
+            syntax = "/empire setwarp <name>")
+    public static CommandResponse setWarpCommand(ICommandSender sender, List<String> args) {
+        EntityPlayer player = (EntityPlayer) sender;
+        Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(player);
+        Empire empire = getEmpireFromCitizen(res);
+        if (args.size() < 0) {          
+            return CommandResponse.SEND_SYNTAX;
+        }
+        
+        String warpname = args.get(0).toString();
+        
+        if (empire.hasWarp(warpname) == true ) {
+        	throw new EmpiresCommandException("Empires.cmd.err.warpname.exists");
+        }
+        
+        if (!empire.isPointInEmpire(player.dimension, (int) player.posX, (int) player.posZ)) {
+            throw new EmpiresCommandException("Empires.cmd.err.setspawn.notInEmpire", empire);
+        }
+        makePayment(player, Config.instance.costAmountSetWarp.get()); 
+        
+        Teleport Warp = new Teleport((String) warpname, player.dimension, (float) player.posX, (float) player.posY, (float) player.posZ, (float) player.cameraYaw, (float) player.cameraPitch);
+        Warp.setDim(player.dimension).setPosition((float) player.posX, (float) player.posY, (float) player.posZ).setRotation(player.cameraYaw, player.cameraPitch);
+        System.out.println(Warp + " Name:"+ Warp.getName());
+        empire.setWarps(Warp);
+        
+        getDatasource().saveEmpire(empire);
+        ChatManager.send(sender, "Empires.notification.empire.setwarp");
+        return CommandResponse.DONE;
+    }
+//TODO: Finish This Command/Guard Entity:
+//    @Command(
+//            name = "guard",
+//            permission = "Empires.cmd.officer.guard",
+//            parentName = "Empires.cmd",
+//            syntax = "/empire guard")
+//    public static CommandResponse spawnGuardCommand(ICommandSender sender, List<String> args) {
+//        EntityPlayer player = (EntityPlayer) sender;
+//        Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(player);
+//        Empire empire = getEmpireFromCitizen(res);
+//
+//        if (!empire.isPointInEmpire(player.dimension, (int) player.posX, (int) player.posZ)) {
+//            throw new EmpiresCommandException("Empires.cmd.err.notInEmpire", empire);
+//        }
+//
+//       // makePayment(player, Config.instance.costAmountSetSpawn.get());
+//        Guard.createFrom(player, empire);
+//        getDatasource().saveEmpire(empire);
+//        //ChatManager.send(sender, "Empires.notification.empire.setspawn");
+//        return CommandResponse.DONE;
+//    }
+    
    /*/ @Command(
             name = "setJail",
             permission = "Empires.cmd.officer.jail.set",

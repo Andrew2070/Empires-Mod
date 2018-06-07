@@ -244,7 +244,7 @@ Empires.cmd.promote.success.sender={6|[Empire] }{%s}{3| has been }{a|promoted}{3
 Empires.cmd.promote.success.target={6|[Empire] }{a|You have been promoted to the rank }{%s}
 
 # /empire setspawn
-Empires.cmd.err.setspawn.notInEmpire={6|[Empire] }{c|The position that you're at is not inside the Empire }{%s}
+Empires.cmd.err.setspawn.notInEmpire={6|[Empire] }{c|The Position That You're At Is Not Inside: }{%s}
 
 # /empire spawn
 Empires.cmd.err.spawn.missing={6|[Empire] }{c|The claim that the spawn of }{%s}{ was on got deleted or the spawn wasn't set! }{3|Please use }{3o|"/empire setspawn"}{3| to set another one}
@@ -292,6 +292,7 @@ Empires.format.flag={7|%s << %s}{7|[}{a|%s}{7|]}
 Empires.format.empire.short={6|%s << %s}
 Empires.format.empire.long={%s}{2N| Citizens: %s}{2N| Claims: %s/%s}{2N| Power: %s/%s }{2N| Allies: {1|%s}{2N| Truces: }{d|%s}{2N| Enemies: {c|%s}{2N| Citizens: }{%s}{2N| Ranks: }{%s}
 Empires.format.rank={l|%s}
+Empires.format.empire.warps={%s}{2N|-->%s}
 Empires.format.rank.long={l|%s}{7| (}{%s}{7|)}
 Empires.format.plot.short={a|%s}{7|: }{%s}
 Empires.format.plot.long={%s}{2N|Owners: }{%s}{2N|Borders: }{%s}
@@ -367,6 +368,8 @@ Empires.notification.empire.enemied={6|[Empire] }{c|Your Empire Is Now Enemies W
 Empires.notification.empire.allied={6|[Empire] }{1|Your Empire Is Now Allies With: }{%s}
 Empires.notification.empire.truced={6|[Empire] }{d|You Empire Is Now Truced With: }{%s}
 Empires.notification.empire.neutral={6|[Empire] }{f|Your Empire Is Now Neutral With: }{%s}
+Empires.notification.warp.succesful={6|[Empire] }{d|Commencing Warp... }
+Empires.notification.empire.setwarp={6|[Empire] }{d|Warp Point Succesfully Set!}
 Empires.cmd.err.relation.ownEmpire={6|[Empire] }{c|You Cannot Set Relationships To Your Own Empire!}
 
 
@@ -404,9 +407,16 @@ Empires.notification.claim.chunkunload={6|[Empire] }{3|Successfully removed chun
 Empires.notification.claim.chunkunload.all={6|[Empire] }{3|Successfully removed chunkloading from all (}{a|%s}{3| chunks) in this Empire}
 Empires.notification.empire.owners={6|[Empire] }{c| Leader: }{%s}
 Empires.notification.ciz.powerLostOnDeath={6|[Empire] }{d|%s }{c|Power Lost Upon Death, Remaining: }{d|%s }{c|Power}
-
+Empires.notification.pvp.kill.success.event={6|[Empire] }{c|Killed: }{d|%s}{d|%s}{c| Power Gained: }{d|%s}
+Empires.cmd.err.notInEmpire={6|[Empire] }{c|You cannot spawn a guard in territory that is not yours.}
+Empires.cmd.err.warp.missing={6|[Empire] }{c|That Warp Doesn't exist, or hasn't been set yet.}
+Empires.cmd.err.warpname.exists={6|[Empire] }{c|That Warpname Already Exists}
+Empires.cmd.err.warp.maximum={6|[Empire] }{c|You Have Reached The Maximum Value Of Warps Available!}
 # Help for commands
 Empires.cmd.officer.blocks.help={6|[Empire] }{|Everything related to EmpireBlocks (chunks in Empire)}
+Empires.cmd.everyone.warp.help={6|[Empire] }{|Teleport To Any Empire Warp}
+Empires.cmd.everyone.setwarp.help={6|[Empire] }{|Set A Warp For Your Empire}
+Empires.cmd.everyone.warps.help={6|[Empire] }{|Returns list of all available warps}
 Empires.cmd.officer.overclaim.help={6|[Empire] }{|Allows a player to un-claim territory of another (weaker) Empire}
 Empires.cmd.officer.ban.help={6|[Empire] }{|W.I.P/UNTESTED: Let's you ban a player from your Empire}
 Empires.cmd.officer.unban.help={6|[Empire] }{|W.I.P/UNTESTED: Let's you unban a player from your Empire}
