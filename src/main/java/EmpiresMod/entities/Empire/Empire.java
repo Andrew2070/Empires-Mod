@@ -16,6 +16,7 @@ import EmpiresMod.API.container.CitizenRankMap;
 import EmpiresMod.API.container.TicketMap;
 import EmpiresMod.API.permissions.PermissionProxy;
 import EmpiresMod.Configuration.Config;
+import EmpiresMod.Datasource.EmpiresUniverse;
 import EmpiresMod.Localization.LocalizationManager;
 import EmpiresMod.Misc.Teleport.Teleport;
 import EmpiresMod.Utilities.PlayerUtils;
@@ -194,18 +195,16 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     }
     
     public void sendToWarp(Citizen res, String warpname) {
-    	Empires.instance.LOG.info("DEBUG: Line 197 CHECK");
+    	
     	EntityPlayer player = res.getPlayer();
-    	Empires.instance.LOG.info("DEBUG: Line 199 CHECK");
+    	
     	if (player != null) {
-        	Empires.instance.LOG.info("DEBUG: Line 201 CHECK");
+        	
     	for (int i=0; i<Warps.size();i++) {
-        	Empires.instance.LOG.info("DEBUG: Line 203 CHECK");
+        	
     		Teleport warp = Warps.get(i);
-        	Empires.instance.LOG.info("DEBUG: Line 206 CHECK");
+        	
     		if (warp.getName().equals(warpname)) {
-    			Empires.instance.LOG.info(warp.getName());
-    			Empires.instance.LOG.info(warpname);
     			PlayerUtils.teleport((EntityPlayerMP)player, warp.getDim() , warp.getX(), warp.getY(), warp.getZ());
     			res.setTeleportCooldown(Config.instance.teleportCooldown.get());
     	}
@@ -426,11 +425,12 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     	return null;
     }
     
+    
     public Teleport getWarp(String warpname) {
     if (Warps.isEmpty() == false) {
     	for (int i=0; i < Warps.size(); i++) {
     		Teleport warp = Warps.get(i);
-    	if (warp.getName() == warpname) {
+    	if (warp.getName().equals(warpname)) {
     		return warp;
     	}
     	}
@@ -442,6 +442,9 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     	this.Warps.add(Warp);
     }
     
+    public void delWarp(Teleport Warp) {
+    	Warps.remove(Warp);
+    }
     
     public boolean hasJail() {
     	return jail != null;
@@ -471,9 +474,6 @@ public class Empire implements Comparable<Empire>, IChatFormat {
         return toChatMessage().getUnformattedText();
 
     }
-
-   
-    
     @Override
     public IChatComponent toChatMessage() {
         IChatComponent header = LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|%s}", getName()));

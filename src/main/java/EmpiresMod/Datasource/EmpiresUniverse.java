@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.http.util.Args;
+
 import com.mojang.authlib.GameProfile;
 
 import EmpiresMod.Empires;
@@ -51,6 +53,7 @@ public class EmpiresUniverse { // TODO Allow migrating between different Datasou
     public final Rank.Container ranks = new Rank.Container();
     public final Bank.Container banks = new Bank.Container();
     public final List<Integer> worlds = new ArrayList<Integer>();
+    public String theempirename = "";
 
     public EmpiresUniverse() {
 
@@ -64,6 +67,7 @@ public class EmpiresUniverse { // TODO Allow migrating between different Datasou
     public final Empire newEmpire(String name, Citizen creator) {
         Empire empire = new Empire(name);
         configureEmpire(empire, creator);
+        this.theempirename = name;
         return empire;
     }
 
@@ -94,7 +98,7 @@ public class EmpiresUniverse { // TODO Allow migrating between different Datasou
         }
         */
         // Setting spawn before saving
-        Teleport Spawn = new Teleport((String) "spawn", creator.getPlayer().dimension, (float) creator.getPlayer().posX, (float) creator.getPlayer().posY, (float) creator.getPlayer().posZ, (float) creator.getPlayer().cameraYaw, (float) creator.getPlayer().cameraPitch);
+        Teleport Spawn = new Teleport((String) "spawn", (String) this.theempirename ,creator.getPlayer().dimension, (float) creator.getPlayer().posX, (float) creator.getPlayer().posY, (float) creator.getPlayer().posZ, (float) creator.getPlayer().cameraYaw, (float) creator.getPlayer().cameraPitch);
         Teleport Warp = Spawn;
         Warp.setDim(creator.getPlayer().dimension).setPosition((float) creator.getPlayer().posX, (float) creator.getPlayer().posY, (float) creator.getPlayer().posZ).setRotation(creator.getPlayer().cameraYaw, creator.getPlayer().cameraPitch);
         empire.setSpawn(Spawn);

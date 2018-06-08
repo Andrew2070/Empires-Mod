@@ -25,7 +25,8 @@ public class EmpiresSchematic extends BaseSchematic {
                 "dim INT," +
                 "PRIMARY KEY(dim))"));
         updates.add(new DBUpdate("07.25.2018.3", "Add Empires Table", "CREATE TABLE IF NOT EXISTS " + bridge.prefix + "Empires (" +
-                "name VARCHAR(32) NOT NULL," + // TODO Allow larger empire names?
+                "name VARCHAR(32) NOT NULL,"+
+                "warpname VARCHAR(32) NOT NULL,"+ // TODO Allow larger empire names?
                 "isAdminEmpire BOOLEAN, " +
                 "spawnDim INT NOT NULL, " +
                 "spawnX FLOAT NOT NULL, " +
@@ -175,8 +176,6 @@ public class EmpiresSchematic extends BaseSchematic {
         
         updates.add(new DBUpdate("10.18.2014.1", "Add 'extraBlocks' to empires", "ALTER TABLE " + bridge.prefix +
                 "Empires ADD extraBlocks INTEGER DEFAULT 0;"));
-        updates.add(new DBUpdate("06.06.2018.1", "Add 'warpname' to empires", "ALTER TABLE " + bridge.prefix +
-                "Empires ADD warpname FLOAT DEFAULT 0.0F;"));
 
         updates.add(new DBUpdate("10.23.2014.1", "Add 'maxPlots' to empires", "ALTER TABLE " + bridge.prefix +
                 "Empires ADD maxPlots INTEGER DEFAULT " + Config.instance.defaultMaxPlots.get() + ""));
@@ -194,15 +193,16 @@ public class EmpiresSchematic extends BaseSchematic {
                 "y INT NOT NULL," +
                 "z INT NOT NULL, " +
                 "FOREIGN KEY(citizen) REFERENCES " + bridge.prefix + "Citizens(UUID) ON DELETE CASCADE)"));
-        updates.add(new DBUpdate("7.07.2018.1", "Add 'Warps' table", "CREATE TABLE IF NOT EXISTS " + bridge.prefix + "Warps(" +
-                "empireName VARCHAR(50), "+
+        updates.add(new DBUpdate("7.08.2018.3", "Add 'Warps' table", "CREATE TABLE IF NOT EXISTS " + bridge.prefix + "Warps(" +
+                "empireName VARCHAR(36), "+
+        		"warpname VARCHAR(32) NOT NULL," +
         		"dim INT NOT NULL, " +
                 "x FLOAT NOT NULL, " +
                 "y FLOAT NOT NULL, " +
                 "z FLOAT NOT NULL, " +
                 "yaw FLOAT NOT NULL, " +
                 "pitch FLOAT NOT NULL, " +
-                "PRIMARY KEY(empireName), " +
+                "PRIMARY KEY(warpname, empireName), " +
                 "FOREIGN KEY(empireName) REFERENCES " + bridge.prefix + "Empires(name) ON DELETE CASCADE ON UPDATE CASCADE)"));
         updates.add(new DBUpdate("3.27.2014.1", "Add 'EmpireBanks' table", "CREATE TABLE IF NOT EXISTS " + bridge.prefix + "EmpireBanks(" +
                 "empireName VARCHAR(50), " +

@@ -14,18 +14,20 @@ import net.minecraft.util.IChatComponent;
  */
 public class Teleport {
 	private int dim;
+	private String empirename;
 	private String name;
 	private float x, y, z, yaw, pitch;
 
-	public Teleport(String name, int dim, float x, float y, float z, float yaw, float pitch) {
+	public Teleport(String name, String empirename, int dim, float x, float y, float z, float yaw, float pitch) {
 		setName(name);
+		setEmpirename(empirename);
 		setDim(dim);
 		setPosition(x, y, z);
 		setRotation(yaw, pitch);
 	}
 
-	public Teleport(String name, int dim, float x, float y, float z) {
-		this(name, dim, x, y, z, 0, 0);
+	public Teleport(String name, String empirename, int dim, float x, float y, float z) {
+		this(name, empirename, dim, x, y, z, 0, 0);
 	}
 
 	// Used when a player is riding an entity. eg pig, horse
@@ -50,7 +52,15 @@ public class Teleport {
 		this.dim = dim;
 		return this;
 	}
+	
+	public Teleport setEmpirename(String empirename) {
+		this.empirename = empirename;
+		return this;
+	}
 
+	public String getEmpirename() {
+		return empirename;
+	}
 	public Teleport setPosition(float x, float y, float z) {
 		this.x = x;
 		this.y = y;

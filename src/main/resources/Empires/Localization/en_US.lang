@@ -369,6 +369,7 @@ Empires.notification.empire.allied={6|[Empire] }{1|Your Empire Is Now Allies Wit
 Empires.notification.empire.truced={6|[Empire] }{d|You Empire Is Now Truced With: }{%s}
 Empires.notification.empire.neutral={6|[Empire] }{f|Your Empire Is Now Neutral With: }{%s}
 Empires.notification.warp.succesful={6|[Empire] }{d|Commencing Warp... }
+Empires.notification.empire.delwarp={6|[Empire] }{d|Warp Point Succesfully Deleted!}
 Empires.notification.empire.setwarp={6|[Empire] }{d|Warp Point Succesfully Set!}
 Empires.cmd.err.relation.ownEmpire={6|[Empire] }{c|You Cannot Set Relationships To Your Own Empire!}
 
@@ -414,6 +415,7 @@ Empires.cmd.err.warpname.exists={6|[Empire] }{c|That Warpname Already Exists}
 Empires.cmd.err.warp.maximum={6|[Empire] }{c|You Have Reached The Maximum Value Of Warps Available!}
 # Help for commands
 Empires.cmd.officer.blocks.help={6|[Empire] }{|Everything related to EmpireBlocks (chunks in Empire)}
+Empires.cmd.officer.setwarp.help={6|[Empire] }{|Remove The Empire's Warp point}
 Empires.cmd.everyone.warp.help={6|[Empire] }{|Teleport To Any Empire Warp}
 Empires.cmd.everyone.setwarp.help={6|[Empire] }{|Set A Warp For Your Empire}
 Empires.cmd.everyone.warps.help={6|[Empire] }{|Returns list of all available warps}

@@ -90,13 +90,35 @@ public class CommandsOfficer extends CommandsEMP {
         }
         makePayment(player, Config.instance.costAmountSetWarp.get()); 
         
-        Teleport Warp = new Teleport((String) warpname, player.dimension, (float) player.posX, (float) player.posY, (float) player.posZ, (float) player.cameraYaw, (float) player.cameraPitch);
+        Teleport Warp = new Teleport((String) warpname,(String) empire.getName(), player.dimension, (float) player.posX, (float) player.posY, (float) player.posZ, (float) player.cameraYaw, (float) player.cameraPitch);
         Warp.setDim(player.dimension).setPosition((float) player.posX, (float) player.posY, (float) player.posZ).setRotation(player.cameraYaw, player.cameraPitch);
         System.out.println(Warp + " Name:"+ Warp.getName());
         empire.setWarps(Warp);
         
         getDatasource().saveEmpire(empire);
         ChatManager.send(sender, "Empires.notification.empire.setwarp");
+        return CommandResponse.DONE;
+    }
+    @Command(
+            name = "delwarp",
+            permission = "Empires.cmd.officer.setwarp",
+            parentName = "Empires.cmd",
+            syntax = "/empire delwarp <name>")
+    public static CommandResponse delWarpCommand(ICommandSender sender, List<String> args) {
+        EntityPlayer player = (EntityPlayer) sender;
+        Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(player);
+        Empire empire = getEmpireFromCitizen(res);
+        if (args.size() < 0) {          
+            return CommandResponse.SEND_SYNTAX;
+        }
+        String warpname = args.get(0).toString();    
+        if (empire.hasWarp(warpname) == true ) {
+        Teleport warp = empire.getWarp(warpname);
+        empire.delWarp(warp);
+        getDatasource().saveEmpire(empire);
+        getDatasource().saveWarps(empire, warp);
+        ChatManager.send(sender, "Empires.notification.empire.delwarp");
+        }
         return CommandResponse.DONE;
     }
 //TODO: Finish This Command/Guard Entity:
