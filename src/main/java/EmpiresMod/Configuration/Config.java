@@ -27,12 +27,12 @@ public class Config extends ConfigTemplate {
     
     public ConfigProperty<String> HeroChatDefaultMessageFormat= new ConfigProperty<String>(
             "HeroChatformat", "general",
-            "The HeroChat Format",
+            "WIP The HeroChat Format",
             "{color}[{nick}] &f{prefix}{player}{suffix}{color}");
 
     public ConfigProperty<String> HeroChatDefaultChatChannel= new ConfigProperty<String>(
             "HeroChatChannel", "general",
-            "The HeroChat channel to be made default",
+            "WIP The HeroChat channel to be made default",
             "{color}[{nick}] &f{prefix}{player}{suffix}{color}");
 
     
@@ -45,6 +45,11 @@ public class Config extends ConfigTemplate {
             "fullAccessForOPS", "permissions",
             "Players that have operator level permissions will have access to any command.",
             true);
+    
+    public ConfigProperty<Boolean> disableEmpireChatHandler = new ConfigProperty<Boolean>(
+            "disableEmpireChat", "general",
+            "Setting this to true will cancel forge chat events, and use bukkit's instead (useful to show PEX prefixes/herochat stuff)",
+            false);
 
     public ConfigProperty<String> defaultGroup = new ConfigProperty<String>(
             "defaultGroup", "groups",

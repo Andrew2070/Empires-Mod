@@ -11,6 +11,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import EmpiresMod.Empires;
 import EmpiresMod.API.ForgeChatHandler;
 import EmpiresMod.API.Commands.Command.CommandsEMP;
+import EmpiresMod.Configuration.Config;
 import EmpiresMod.Datasource.EmpiresUniverse;
 import EmpiresMod.Utilities.ClassUtils;
 import EmpiresMod.entities.Empire.Citizen;
@@ -27,6 +28,7 @@ public class BukkitChatCompat {
 	public String message = "";
 	public static final BukkitChatCompat instance = new BukkitChatCompat();
 	public void onBukkitServerChatReceivedEvent(AsyncPlayerChatEvent event) {
+		if (Config.instance.disableEmpireChatHandler.get() == true) {
 		if (ClassUtils.isBukkitLoaded() == true) {
 		EntityPlayer player = (EntityPlayer) event.getPlayer();
 		event.setCancelled(true);
@@ -92,6 +94,7 @@ public class BukkitChatCompat {
 		} catch (Exception e) {
 			e.printStackTrace(); 
 		  }
+		}
 		}
 		}
 		
