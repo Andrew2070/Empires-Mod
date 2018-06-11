@@ -1256,8 +1256,9 @@ public class EmpiresDatasource extends DatasourceSQL {
                 res.empiresContainer.remove(empire);
             }
             
-            for (Teleport warp: empire.Warps ) {
-            	empire.Warps.remove(warp);
+            for (int i=1; i< empire.Warps.size(); i++ ) {
+            	Teleport warp = empire.Warps.get(i);
+            	empire.delWarp(warp);
             }
             // Remove the Empire from the Map
             EmpiresUniverse.instance.removeEmpire(empire);

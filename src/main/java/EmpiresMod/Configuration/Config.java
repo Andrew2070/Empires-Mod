@@ -97,7 +97,6 @@ public class Config extends ConfigTemplate {
             "If true Citizens with permission can modify the ranks of their Empires. This feature hasn't been fully tested yet and it might cause problems!",
             true);
     
-    
     public ConfigProperty<Integer> maxFarClaims = new ConfigProperty<Integer>(
             "maxFarClaims", "Empires",
             "The maximum amount of chunks not attached to any other claimed chunk that are allowed per Empire. Set to 0 to disable far claims altogether.",
@@ -105,8 +104,8 @@ public class Config extends ConfigTemplate {
     
     public ConfigProperty<Integer> maxDescChars = new ConfigProperty<Integer>(
             "maxDescChars", "Empires",
-            "The maximum amount of characters allowed for empire descriptions, default = 54",
-            48);
+            "The maximum amount of characters allowed for empire descriptions, default = 53",
+            53);
     
     public ConfigProperty<Integer> maxWarps = new ConfigProperty<Integer> (
     		"maxWarps", "Empires",
