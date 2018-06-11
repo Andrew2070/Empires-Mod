@@ -75,6 +75,7 @@ public class CommandsOfficer extends CommandsEMP {
             return CommandResponse.SEND_SYNTAX;
         }
         
+        
         if(empire.getNumberofWarps() > Config.instance.maxWarps.get()) {
         	throw new EmpiresCommandException("Empires.cmd.err.warp.maximum");
         }
@@ -92,10 +93,13 @@ public class CommandsOfficer extends CommandsEMP {
         
         Teleport Warp = new Teleport((String) warpname,(String) empire.getName(), player.dimension, (float) player.posX, (float) player.posY, (float) player.posZ, (float) player.cameraYaw, (float) player.cameraPitch);
         Warp.setDim(player.dimension).setPosition((float) player.posX, (float) player.posY, (float) player.posZ).setRotation(player.cameraYaw, player.cameraPitch);
+        Warp.setEmpirename(empire.getName());
+        
         System.out.println(Warp + " Name:"+ Warp.getName());
         empire.setWarps(Warp);
         
         getDatasource().saveEmpire(empire);
+        getDatasource().saveWarps(empire, Warp);
         ChatManager.send(sender, "Empires.notification.empire.setwarp");
         return CommandResponse.DONE;
     }
@@ -306,13 +310,29 @@ public class CommandsOfficer extends CommandsEMP {
             name = "unclaim",
             permission = "Empires.cmd.officer.unclaim",
             parentName = "Empires.cmd",
-            syntax = "/empire unclaim")
+            syntax = "/empire unclaim <all>")
     public static CommandResponse unclaimCommand(ICommandSender sender, List<String> args) {
         EntityPlayer player = (EntityPlayer) sender;
         Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(sender);
         EmpireBlock block = getBlockAtCitizen(res);
         Empire empire = getEmpireFromCitizen(res);
-
+        
+        if (args.get(0).equals("all")) {
+        	for (EmpireBlock selectedblock : empire.empireBlocksContainer.values()) {
+        		
+        		getDatasource().deleteBlock(selectedblock);
+        		
+        		if (Config.instance.toggleRefund.get() == false) {
+        			int refund = empire.empireBlocksContainer.size() * block.getPricePaid();
+        			makeBankRefund(player, empire, refund);
+        			ChatManager.send(sender, "Empires.notification.block.removed.all");
+        		}
+                if (empire != block.getEmpire()) {
+                    throw new EmpiresCommandException("Empires.cmd.err.unclaim.notInEmpire");
+                }
+        	}
+        }
+        
         if (empire != block.getEmpire()) {
             throw new EmpiresCommandException("Empires.cmd.err.unclaim.notInEmpire");
         }
@@ -326,7 +346,7 @@ public class CommandsOfficer extends CommandsEMP {
         getDatasource().deleteBlock(block);
         ChatManager.send(sender, "Empires.notification.block.removed", block.getX() << 4, block.getZ() << 4, block.getX() << 4 + 15, block.getZ() << 4 + 15, empire);
         
-        if (Config.instance.toggleRefund.get() == false) { //Toggle Refund in Config
+        if (Config.instance.toggleRefund.get() == true) { //Toggle Refund in Config
         makeBankRefund(player, empire, block.getPricePaid());
         }
         return CommandResponse.DONE;
@@ -806,6 +826,33 @@ public class CommandsOfficer extends CommandsEMP {
         ChatManager.send(sender, rank.permissionsContainer.toChatMessage());
         return CommandResponse.DONE;
     }
+    
+    @Command(
+            name = "desc",
+            permission = "Empires.cmd.officer.desc",
+            parentName = "Empires.cmd",
+            syntax = "/empire desc ")
+    public static CommandResponse setDesc(ICommandSender sender, List<String> args) {
+        Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(sender);
+        Empire empire = getEmpireFromCitizen(res);
+        String desc = "";
+        if (args.isEmpty()) {
+            return CommandResponse.SEND_SYNTAX;
+        } 
+        
+        for (int i=0; i < args.size(); i++) {
+        	String newdesc = args.get(i);
+        	desc = desc + " " + newdesc;
+        }
+        
+        if (desc.length() > Config.instance.maxDescChars.get()) {
+        	throw new EmpiresCommandException("Empires.cmd.err.desc.maxChars");
+        }
+        empire.setDesc(desc);
+        ChatManager.send(sender, "Empires.notification.desc.succesful");
+        empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.desc", sender.getCommandSenderName(), desc));
+        return CommandResponse.DONE;
+    }
 
     @Command(
             name = "abdicate",
@@ -943,6 +990,7 @@ public class CommandsOfficer extends CommandsEMP {
             makeRefund(player, refund);
             }
             getDatasource().deleteEmpire(empire);
+            empire.Warps.clear();
         }
         return CommandResponse.DONE;
     }

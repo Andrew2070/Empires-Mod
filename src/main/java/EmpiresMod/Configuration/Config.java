@@ -103,6 +103,11 @@ public class Config extends ConfigTemplate {
             "The maximum amount of chunks not attached to any other claimed chunk that are allowed per Empire. Set to 0 to disable far claims altogether.",
             10);
     
+    public ConfigProperty<Integer> maxDescChars = new ConfigProperty<Integer>(
+            "maxDescChars", "Empires",
+            "The maximum amount of characters allowed for empire descriptions, default = 54",
+            48);
+    
     public ConfigProperty<Integer> maxWarps = new ConfigProperty<Integer> (
     		"maxWarps", "Empires",
     		"The maximum amount of warps that an empire can have.",
@@ -171,7 +176,7 @@ public class Config extends ConfigTemplate {
     public ConfigProperty<Boolean> toggleRefund = new ConfigProperty<Boolean>(
     		"refundDeletedTowns", "cost",
     		"This toggles whether or not any currency will be refunded to a player when they unclaim and/or delete territory.",
-    		false);
+    		true);
     
     public ConfigProperty<String> costItemName = new ConfigProperty<String>(
             "costItem", "cost",

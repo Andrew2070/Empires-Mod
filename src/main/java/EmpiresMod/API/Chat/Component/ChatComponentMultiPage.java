@@ -21,8 +21,8 @@ public class ChatComponentMultiPage extends ChatComponentContainer {
 
 	public ChatComponentContainer getHeader(int page) {
 		ChatComponentContainer header = new ChatComponentContainer();
-		header.add(
-				new ChatComponentFormatted("{6| ==========[Empires]<<<>>>[Menu]<<<>>>[Page: %s/%s]==========}", page, getNumberOfPages()));
+		header.add(					
+				new ChatComponentFormatted("{6|==========[Empires]=====}{9|[Menu]}{6|=====[Page: %s/%s]==========}", page, getNumberOfPages()));
 
 		return header;
 	}

@@ -193,16 +193,17 @@ public class EmpiresSchematic extends BaseSchematic {
                 "y INT NOT NULL," +
                 "z INT NOT NULL, " +
                 "FOREIGN KEY(citizen) REFERENCES " + bridge.prefix + "Citizens(UUID) ON DELETE CASCADE)"));
-        updates.add(new DBUpdate("7.08.2018.3", "Add 'Warps' table", "CREATE TABLE IF NOT EXISTS " + bridge.prefix + "Warps(" +
+        updates.add(new DBUpdate("6.8.2018.1", "Add 'Warps' table", "CREATE TABLE IF NOT EXISTS " + bridge.prefix + "Warps(" +
                 "empireName VARCHAR(36), "+
-        		"warpname VARCHAR(32) NOT NULL," +
+        		"warpname VARCHAR(32) NOT NULL, " +
+                "warpempirename VARCHAR(32) NOT NULL, " +
         		"dim INT NOT NULL, " +
                 "x FLOAT NOT NULL, " +
                 "y FLOAT NOT NULL, " +
                 "z FLOAT NOT NULL, " +
                 "yaw FLOAT NOT NULL, " +
                 "pitch FLOAT NOT NULL, " +
-                "PRIMARY KEY(warpname, empireName), " +
+                "PRIMARY KEY(warpname), " +
                 "FOREIGN KEY(empireName) REFERENCES " + bridge.prefix + "Empires(name) ON DELETE CASCADE ON UPDATE CASCADE)"));
         updates.add(new DBUpdate("3.27.2014.1", "Add 'EmpireBanks' table", "CREATE TABLE IF NOT EXISTS " + bridge.prefix + "EmpireBanks(" +
                 "empireName VARCHAR(50), " +
@@ -228,7 +229,8 @@ public class EmpiresSchematic extends BaseSchematic {
                 "Empires ADD extraFarClaims INTEGER DEFAULT 0"));
         updates.add(new DBUpdate("12.16.2015.1", "Add 'fakePlayer to citizens", "ALTER TABLE " + bridge.prefix +
                 "Citizens ADD fakePlayer BOOLEAN DEFAULT false"));
-        
+        updates.add(new DBUpdate("06.06.2018.1", "Add 'desc' to empires", "ALTER TABLE " + bridge.prefix +
+                "Empires ADD desc VARCHAR(32) DEFAULT Nothing;"));
         updates.add(new DBUpdate("8.12.2017, ", "Add 'isBanned to citizens", "ALTER TABLE " + bridge.prefix +
         		"Citizens ADD isBanned BOOLEAN DEFAULT false"));
     }

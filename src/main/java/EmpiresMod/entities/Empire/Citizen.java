@@ -37,12 +37,13 @@ public class Citizen implements IChatFormat {
     private int extraBlocks = 0;
     private double previousPower = 0.00;
     private int powerID = 0;
-    
+
     private double Power = Math.floor(0.00 + Config.instance.defaultPower.get());
     private double maxPower = 0.00 + Config.instance.defaultMaxPower.get();
     private boolean isFakePlayer = false;
     private boolean isBanned = false;
     private boolean powerAdded = false;
+    private boolean isEmpireChatEnabled = false;
     
     public final Plot.Container plotsContainer = new Plot.Container(Config.instance.defaultMaxPlots.get());
     public final Empire.Container empireInvitesContainer = new Empire.Container();
@@ -194,7 +195,14 @@ public class Citizen implements IChatFormat {
     public UUID getUUID() {
         return playerUUID;
     }
-
+    
+    public boolean getChannelStatus() {
+    	return this.isEmpireChatEnabled;
+    }
+    
+    public void setChannelStatus(Boolean value) {
+    	this.isEmpireChatEnabled = value;
+    }
     /**
      * Returns the name of the player for display purposes. <br/>
      * NEVER rely on this to store info against. The player name can change at any point, use the UUID instead.

@@ -98,7 +98,7 @@ public class EmpiresUniverse { // TODO Allow migrating between different Datasou
         }
         */
         // Setting spawn before saving
-        Teleport Spawn = new Teleport((String) "spawn", (String) this.theempirename ,creator.getPlayer().dimension, (float) creator.getPlayer().posX, (float) creator.getPlayer().posY, (float) creator.getPlayer().posZ, (float) creator.getPlayer().cameraYaw, (float) creator.getPlayer().cameraPitch);
+        Teleport Spawn = new Teleport((String) "", (String) this.theempirename ,creator.getPlayer().dimension, (float) creator.getPlayer().posX, (float) creator.getPlayer().posY, (float) creator.getPlayer().posZ, (float) creator.getPlayer().cameraYaw, (float) creator.getPlayer().cameraPitch);
         Teleport Warp = Spawn;
         Warp.setDim(creator.getPlayer().dimension).setPosition((float) creator.getPlayer().posX, (float) creator.getPlayer().posY, (float) creator.getPlayer().posZ).setRotation(creator.getPlayer().cameraYaw, creator.getPlayer().cameraPitch);
         empire.setSpawn(Spawn);

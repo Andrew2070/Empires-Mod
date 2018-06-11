@@ -108,6 +108,7 @@ public class Ticker {
 									res.resetTime(FinishTime);
 									res.setPowerAdded(false);
 									Empires.instance.datasource.saveCitizen(res);
+									
 									}
 
 							return;
@@ -122,25 +123,24 @@ public class Ticker {
 		     for (int i=0; i < allEmpires.size(); i++) {
 		    	 
 					Empire empire = allEmpires.get(i);
-					
+				//	empire.findAndKillRandomWarps();
 					
 					if (empire.getPower() - empire.getMaxPower() > 0) {
 						double difference = empire.getPower() - empire.getMaxPower();
 						double currentmax = empire.getMaxPower();
 						empire.subtractPower(difference);
 					}
-					
+					if (empire.getPower() > empire.getMaxPower()) {
+						double currpower = empire.getPower();
+						empire.setMaxPower(currpower);
+					}
 					if (empire.getPower() < empire.getMaxPower()) {
 						for (int c=0; c < empire.citizensMap.size(); c++) {
-							
-						
 						ArrayList<Citizen> empireCitizens = new ArrayList<Citizen>(empire.citizensMap.keySet());
 						Citizen citizen = empireCitizens.get(c);
 						
 					if (citizen.getPower() <= citizen.getMaxPower()) {
-						
 					if (citizen.getPowerAdded() == false) {
-						
 					if (citizen.getPower() != citizen.getPreviousPower()) {
 						
 						if (citizen.getPower()>=0) {

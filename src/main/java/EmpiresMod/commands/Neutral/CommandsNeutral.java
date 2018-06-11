@@ -3,6 +3,7 @@ package EmpiresMod.commands.Neutral;
 import java.util.ArrayList;
 import java.util.List;
 
+import EmpiresMod.API.Chat.Component.ChatComponentBorders;
 import EmpiresMod.API.Chat.Component.ChatComponentEmpireList;
 import EmpiresMod.API.Chat.Component.ChatComponentFormatted;
 import EmpiresMod.API.Chat.Component.ChatComponentMultiPage;
@@ -64,7 +65,8 @@ public class CommandsNeutral extends CommandsEMP {
 
         for (Empire empire : empires) {
             
-        	IChatComponent header = LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{9|%s}", empire.getName()));
+        	IChatComponent header = LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{6|%s}", ChatComponentBorders.borderEditor(empire.getName())));
+        	
 
         	Relationship.Type ally = getRelationTypeFromEmpire(empire, "ally");
         	Relationship.Type truce = getRelationTypeFromEmpire(empire, "truce");
@@ -72,6 +74,7 @@ public class CommandsNeutral extends CommandsEMP {
         	String allyEmpires = empire.getRelation(ally);
         	String truceEmpires = empire.getRelation(truce);
         	String enemyEmpires = empire.getRelation(enemy);
+        	String description = empire.getDesc();
         			 
         			 
         			 //debug
@@ -81,14 +84,10 @@ public class CommandsNeutral extends CommandsEMP {
            System.out.println(empire.getRelation(Relationship.Type.ENEMY));
            
            
-           ChatManager.send(sender, "Empires.format.empire.long", header, empire.citizensMap.size(), empire.empireBlocksContainer.size(), empire.getMaxBlocks(), empire.getPower(), empire.getMaxPower(), allyEmpires, truceEmpires, enemyEmpires, empire.citizensMap, empire.ranksContainer);
-           System.out.println(sender + "Empires.format.empire.long" + header + empire.citizensMap.size() + allyEmpires + truceEmpires + enemyEmpires + empire.empireBlocksContainer.size() + empire.getMaxBlocks() + empire.getPower() + empire.getMaxPower() + empire.citizensMap + empire.ranksContainer);
+           ChatManager.send(sender, "Empires.format.empire.long", header, description, empire.citizensMap.size(), empire.empireBlocksContainer.size(), empire.getMaxBlocks(), empire.getPower(), empire.getMaxPower(), allyEmpires, truceEmpires, enemyEmpires, empire.citizensMap, empire.ranksContainer);
+           //System.out.println(sender + "Empires.format.empire.long" + header + empire.citizensMap.size() + allyEmpires + truceEmpires + enemyEmpires + empire.empireBlocksContainer.size() + empire.getMaxBlocks() + empire.getPower() + empire.getMaxPower() + empire.citizensMap + empire.ranksContainer);
         	 }
-      
-        
-       
         return CommandResponse.DONE;
-    
 }
 
     @Command(

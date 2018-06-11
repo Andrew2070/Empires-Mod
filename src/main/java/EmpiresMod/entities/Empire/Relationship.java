@@ -28,8 +28,7 @@ public class Relationship implements IChatFormat {
      * All the default ranks that are added to each empire on creation (except AdminEmpires)
      */
     public static final Container defaultRelations = new Container();
-    
-
+   
     public static void initDefaultRelationships() {
 
         Relationship AllyRelation = new Relationship("ally", null, Type.ALLY);
@@ -37,8 +36,7 @@ public class Relationship implements IChatFormat {
         Relationship NeutralRelation = new Relationship("neutral", null, Type.NEUTRAL);
         Relationship EnemyRelation = new Relationship("enemy", null, Type.ENEMY);
 
-        
-       AllyRelation.permissionsContainer.add("Empires.bypass.*");
+        AllyRelation.permissionsContainer.add("Empires.bypass.*");
         
         Relationship.defaultRelations.clear();
         Relationship.defaultRelations.add(AllyRelation);
@@ -108,9 +106,7 @@ public class Relationship implements IChatFormat {
          */
         ALLY(EnumChatFormatting.BLUE, true),
         
-        
         TRUCE(EnumChatFormatting.LIGHT_PURPLE, true),
-
         /**
          * DEFAULT RANK (NO SPECIAL POWERS, DEFAULT CITIZENS)
          */
@@ -121,8 +117,6 @@ public class Relationship implements IChatFormat {
          */
         ENEMY(EnumChatFormatting.RED, true);
     
-    	
-
         @Override
         public IChatComponent toChatMessage() {
             IChatComponent name = new ChatComponentFormatted("{" + color.getFormattingCode() + "|%s}", name());
@@ -172,9 +166,7 @@ public class Relationship implements IChatFormat {
 
     
     public static class Container extends ArrayList<Relationship> implements IChatFormat {
-    	
-    	
-        
+
         public boolean contains(String relationshipName) {
             for (Relationship relationship : this) {
                 if (relationship.getName().equals(relationshipName))

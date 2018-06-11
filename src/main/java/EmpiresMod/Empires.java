@@ -7,7 +7,9 @@ import java.util.List;
 import org.apache.logging.log4j.Logger;
 import org.bukkit.Bukkit;
 
-import EmpiresMod.API.ForgeChatHandler;
+import EmpiresMod.API.Chat.BukkitChatCompat;
+import EmpiresMod.API.Chat.EmpireChatChannel;
+import EmpiresMod.API.Chat.ForgeChatHandler;
 import EmpiresMod.API.Commands.Command.CommandManager;
 import EmpiresMod.API.Commands.Command.CommandsEMP;
 import EmpiresMod.API.JSON.Configuration.FlagsConfig;
@@ -22,7 +24,6 @@ import EmpiresMod.API.permissions.Bridges.EmpiresBridge;
 import EmpiresMod.Configuration.Config;
 import EmpiresMod.Datasource.DatasourceCrashCallable;
 import EmpiresMod.Datasource.EmpiresDatasource;
-import EmpiresMod.Handlers.BukkitChatCompat;
 import EmpiresMod.Handlers.EmpiresLoadingCallback;
 import EmpiresMod.Handlers.ExtraEventsHandler;
 import EmpiresMod.Handlers.PlayerTracker;
@@ -101,6 +102,9 @@ public class Empires {
 
 		FMLCommonHandler.instance().bus().register(ForgeChatHandler.instance);
 		MinecraftForge.EVENT_BUS.register(ForgeChatHandler.instance);
+		
+		FMLCommonHandler.instance().bus().register(EmpireChatChannel.instance);
+		MinecraftForge.EVENT_BUS.register(EmpireChatChannel.instance);
 
 		FMLCommonHandler.instance().bus().register(Ticker.instance);
 		MinecraftForge.EVENT_BUS.register(Ticker.instance);

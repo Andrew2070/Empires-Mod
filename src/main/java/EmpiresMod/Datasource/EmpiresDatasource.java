@@ -98,8 +98,7 @@ public class EmpiresDatasource extends DatasourceSQL {
                 empire.empireBlocksContainer.setExtraFarClaims(rs.getInt("extraFarClaims"));
                 empire.plotsContainer.setMaxPlots(rs.getInt("maxPlots"));
                 empire.setPower(rs.getDouble("currentPower"));
-                
-                
+
                 for (ForgeChunkManager.Ticket ticket : EmpiresLoadingCallback.tickets) {
                     if (ticket.getModData().getString("empireName").equals(empire.getName())) {
                         empire.ticketMap.put(ticket.world.provider.dimensionId, ticket);
@@ -140,16 +139,15 @@ public class EmpiresDatasource extends DatasourceSQL {
         return true;
     }
     
-    protected boolean loadWarps() {
+   protected boolean loadWarps() {
         try {
             PreparedStatement loadWarpStatement = prepare("SELECT * FROM " + prefix + "Warps", true);
             ResultSet rs = loadWarpStatement.executeQuery();
 
             while (rs.next()) {
-                String empirename = rs.getString("empireName");
+                String empirename = rs.getString("warpempirename");
                 Empire empire = getUniverse().empires.get(rs.getString("empireName"));
-                if (empire.getName().equals(empirename)) {
-                
+
                 String warpname = rs.getString("warpname");
                 int dimension = rs.getInt("dim");
                 float posX = rs.getFloat("x");
@@ -160,9 +158,11 @@ public class EmpiresDatasource extends DatasourceSQL {
                 
                 Teleport Warp = new Teleport((String) warpname, (String) empirename, dimension, (float) posX, (float) posY, (float) posZ, (float) yaw, (float) pitch);        
                 Warp.setDim(dimension).setPosition((float) posX, (float) posY, (float) posZ).setRotation(yaw, pitch);
-                empire.Warps.add(Warp);
+                System.out.println("SQL: line 164 :DEBUG: loadwarps(): " + " NAME: "+ warpname + " SelectedSQLEmpire: "+ empire.getName() +" WarpsEmpire: " + empirename + " Dim: "+ dimension + " X: " + posX + " Y: " + posY + " Z: "+ posZ + " YAW: " + yaw + " PITCH: " + pitch);
+                if (empire.getName().equals(empirename)) {
+                	empire.setWarps(Warp);
                 }
-              //  EmpiresUniverse.instance.addEmpireBlock(block);
+            
             }
         } catch (SQLException e) {
             LOG.error("Failed to load warps!");
@@ -171,8 +171,8 @@ public class EmpiresDatasource extends DatasourceSQL {
         }
 
         return true;
-    }
-    
+  }
+
     protected boolean loadRanks() {
         try {
             PreparedStatement loadRanksStatement = prepare("SELECT * FROM " + prefix + "Ranks", true);
@@ -858,15 +858,16 @@ public class EmpiresDatasource extends DatasourceSQL {
     public boolean saveWarps(Empire empire, Teleport Warp) {
         LOG.debug("Saving Empire Warps ");
         try {
-                PreparedStatement insertStatement = prepare("INSERT INTO " + prefix + "Warps (warpname, dim, x, y, z, yaw, pitch, empireName) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", true);
+                PreparedStatement insertStatement = prepare("INSERT INTO " + prefix + "Warps (warpname, warpempirename, dim, x, y, z, yaw, pitch, empireName) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", true);
                 insertStatement.setString(1, Warp.getName());
-                insertStatement.setInt(2, Warp.getDim());
-                insertStatement.setFloat(3, Warp.getX());
-                insertStatement.setFloat(4, Warp.getY());
-                insertStatement.setFloat(5, Warp.getZ());
-                insertStatement.setFloat(6, Warp.getYaw());
-                insertStatement.setFloat(7, Warp.getPitch());
-                insertStatement.setString(8, empire.getName());
+                insertStatement.setString(2, Warp.getEmpirename());
+                insertStatement.setInt(3, Warp.getDim());
+                insertStatement.setFloat(4, Warp.getX());
+                insertStatement.setFloat(5, Warp.getY());
+                insertStatement.setFloat(6, Warp.getZ());
+                insertStatement.setFloat(7, Warp.getYaw());
+                insertStatement.setFloat(8, Warp.getPitch());
+                insertStatement.setString(9, empire.getName());
                 insertStatement.executeUpdate();
 
                 //   Put in the Map
@@ -1254,6 +1255,10 @@ public class EmpiresDatasource extends DatasourceSQL {
                     deleteSelectedEmpire(res);
                 res.empiresContainer.remove(empire);
             }
+            
+            for (Teleport warp: empire.Warps ) {
+            	empire.Warps.remove(warp);
+            }
             // Remove the Empire from the Map
             EmpiresUniverse.instance.removeEmpire(empire);
         } catch (SQLException e) {
@@ -1265,7 +1270,6 @@ public class EmpiresDatasource extends DatasourceSQL {
         return true;
     }
 
-    
     public boolean deleteBlock(EmpireBlock block) {
         try {
             // Delete Block from Datasource

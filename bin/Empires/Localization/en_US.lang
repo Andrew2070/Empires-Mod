@@ -1,7 +1,7 @@
 Empires.format.volume={7|(}{9|%s}{7|, }{9|%s}{7|, }{9|%s}{7|) -> (}{9|%s}{7|, }{9|%s}{7|, }{9|%s}{7|) }
 Empires.format.blockpos={7|(}{9|%s}{7|, }{9|%s}{7|, }{9|%s}{7|)}
 Empires.format.chunkpos={7|(}{9|%s}{7|, }{9|%s}{7|)}
-Empires.format.list.header={6|---------------[}{%s}{6|]---------------}
+Empires.format.list.header={%s}
 Empires.tool.name={6|[Empire] }{9|TOOL: }{%s}
 Empires.tool.mode={6|[Empire] }{3|Changed '}{%s}{3|' to %s}
 Empires.tool.gained={6|[Empire] }{3|You have been given a tool}
@@ -154,7 +154,7 @@ Empires.notification.empire.created={6|[Empire]}{a| New Empire }{%s}{a| created 
 Empires.notification.empire.deleted={6|[Empire]}{a| The Empire }{%s}{a| was deleted!}
 Empires.notification.empire.overclaimed.deleted={6|[Empire]}{a| The Empire }{%s}{a| was deleted because it's spawn was captured!}
 Empires.notification.empire.deleted.withplots={6|[Empire] }{c|You cannot delete an Empire with plots that you don't own.}
-Empires.notification.citizen.powerboost={6|[Empire] }{Power Boosted By [}{%s}{] For Citizen}{%s}
+Empires.notification.citizen.powerboost={6|[Empire] }{c|Power Boosted By [}{%s}{c|] For Citizen}{%s}
 
 
 # /empire invite
@@ -184,6 +184,7 @@ Empires.cmd.err.claim.unchunkload.missing={6|[Empire] }{c|This chunk is not chun
 Empires.cmd.err.unclaim.notInEmpire={6|[Empire] }{c|The block you want to unclaim is not in the Empire you've selected}
 Empires.cmd.err.unclaim.spawnPoint={6|[Empire] }{c|You cannot delete the claim containing the spawn point}
 Empires.cmd.err.unclaim.lastClaim={6|[Empire] }{c|Your Empire must at least have 1 chunk. Use }{co|"/empire leave delete"}{c| to remove the Empire}
+
 
 # /empire info
 Empires.cmd.err.info.notpart={6|[Empire] }{c|You are not part of a Empire. }{3|Alternative usage: }{3o|"/empire info <empirename>"}
@@ -290,7 +291,7 @@ Empires.notification.empire.ranks.perm.remove={6|[Empire] }{a|Removed permission
 
 Empires.format.flag={7|%s << %s}{7|[}{a|%s}{7|]}
 Empires.format.empire.short={6|%s << %s}
-Empires.format.empire.long={%s}{2N| Citizens: %s}{2N| Claims: %s/%s}{2N| Power: %s/%s }{2N| Allies: {1|%s}{2N| Truces: }{d|%s}{2N| Enemies: {c|%s}{2N| Citizens: }{%s}{2N| Ranks: }{%s}
+Empires.format.empire.long={%s}{2N|%s}{9N|-----------------------------------------------------}{2N| Citizens: %s}{2N| Claims: %s/%s}{2N| Power: %s/%s }{2N| Allies: {1|%s}{2N| Truces: }{d|%s}{2N| Enemies: {c|%s}{2N| Citizens: }{%s}{2N| Ranks: }{%s}{9N|-----------------------------------------------------}
 Empires.format.rank={l|%s}
 Empires.format.empire.warps={%s}{2N|-->%s}
 Empires.format.rank.long={l|%s}{7| (}{%s}{7|)}
@@ -310,6 +311,7 @@ Empires.format.rank.type.short={%s}
 
 Empires.notification.block.added={6|[Empire] }{a|A New Chunk Was Added To Your Territory from (%s, %s) to (%s, %s) [}{%s}{a|]}
 Empires.notification.block.removed={6|[Empire] }{a|Territory From (%s, %s) to (%s, %s) Has Been Removed From Empire }{%s}
+Empires.notification.block.removed.all={6|[Empire] }{a|All Territory Has Been Removed!}
 Empires.notification.block.overclaimed={6|[Empire] }{a|Territory From (%s, %s) to (%s, %s) Has Been over-claimed From Empire }{%s}
 Empires.notification.plot.start={6|[Empire] }{3|Right click 2 corners with the Selector to create a plot. Use }{3o|"/empire plot select reset"}{3| to reset selection}
 Empires.notification.plot.selectionStart={6|[Empire] }{9|First}{f| corner selected}
@@ -369,6 +371,8 @@ Empires.notification.empire.allied={6|[Empire] }{1|Your Empire Is Now Allies Wit
 Empires.notification.empire.truced={6|[Empire] }{d|You Empire Is Now Truced With: }{%s}
 Empires.notification.empire.neutral={6|[Empire] }{f|Your Empire Is Now Neutral With: }{%s}
 Empires.notification.warp.succesful={6|[Empire] }{d|Commencing Warp... }
+Empires.notification.desc.succesful={6|[Empire] }{d|Description Has Been Set!}
+Empires.notification.empire.desc=6|[Empire] }{6|%s}{c| Has Set Your Empire's Description To: }{d|%s}
 Empires.notification.empire.delwarp={6|[Empire] }{d|Warp Point Succesfully Deleted!}
 Empires.notification.empire.setwarp={6|[Empire] }{d|Warp Point Succesfully Set!}
 Empires.cmd.err.relation.ownEmpire={6|[Empire] }{c|You Cannot Set Relationships To Your Own Empire!}
@@ -382,6 +386,7 @@ Empires.notification.empire.upkeep.failed={6|[Empire] }{c|A new day has passed b
 Empires.notification.empire.blocks.extra.set={6|[Empire] }{3|The amount of extra claimable blocks has been set to %s for Empire }{%s}
 Empires.notification.empire.blocks.farClaims.set={6|[Empire] }{3|The amount of extra far claims has been set to %s for Empire }{%s}
 Empires.cmd.err.ban.notBanned={6|[Empire] }{d|That User Is Not Banned From The Empire!}
+Empires.cmd.err.desc.maxChars={6|[Empire] }{d|You're description exceeds the configurated maximum characters.}
 Empires.cmd.err.ban.self={6|[Empire] }{d|You Cannot Ban Yourself From The Empire!}
 Empires.cmd.err.ban.leader={6|[Empire] }{d|You Cannot Ban The Leader From The Empire!}
 Empires.cmd.err.ban.existing={6|[Empire] }{d|That Person Is Already Banned From The Empire!}

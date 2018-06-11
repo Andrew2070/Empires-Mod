@@ -1,4 +1,4 @@
-package EmpiresMod.API;
+package EmpiresMod.API.Chat;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class ForgeChatHandler {
 							rank = CommandsEMP.getRankFromCitizen(res);
 							String rankChat = "[" + rank.getChatName() + "]";
 							String empireChat = "[" + empire + "]";
-							String appliedChatMsg = "EnumChatFormatting.RED + rankChat + EnumChatFormatting.GOLD + empireChat";
+							String appliedChatMsg = EnumChatFormatting.RED + rankChat + EnumChatFormatting.GOLD + empireChat;
 				
 							String chat =  EnumChatFormatting.RED + rankChat + EnumChatFormatting.GOLD + empireChat + " "
 								+ EnumChatFormatting.WHITE + player.getDisplayName() + ": " + event.message;

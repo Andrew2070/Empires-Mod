@@ -1,4 +1,4 @@
-package EmpiresMod.Handlers;
+package EmpiresMod.API.Chat;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import EmpiresMod.Empires;
-import EmpiresMod.API.ForgeChatHandler;
 import EmpiresMod.API.Commands.Command.CommandsEMP;
 import EmpiresMod.Configuration.Config;
 import EmpiresMod.Datasource.EmpiresUniverse;

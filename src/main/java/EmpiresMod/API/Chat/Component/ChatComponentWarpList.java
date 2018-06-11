@@ -18,10 +18,12 @@ public class ChatComponentWarpList extends ChatComponentMultiPage {
 
 	private void construct() {
 		for (Teleport warp : empire.Warps) {
+			if (warp.getEmpirename().equals(empire.getName())) {
 			IChatComponent warpname = new ChatComponentFormatted("");
 			warpname.appendSibling(new ChatComponentFormatted("{7| }"));
 			warpname.appendSibling(new ChatComponentFormatted("{7| " + warp.getName().toString() +" }"));
 			this.add(new ChatComponentFormatted("{7| --> }{%s}", warpname));
+			}
 		}
 	}
 

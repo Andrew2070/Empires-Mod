@@ -21,6 +21,7 @@ import EmpiresMod.Proxies.EconomyProxy;
 import EmpiresMod.entities.Empire.AdminEmpire;
 import EmpiresMod.entities.Empire.Citizen;
 import EmpiresMod.entities.Empire.Empire;
+import EmpiresMod.entities.Empire.EmpireBlock;
 import EmpiresMod.entities.Empire.Plot;
 import EmpiresMod.entities.Empire.Rank;
 import EmpiresMod.entities.Empire.Wild;
@@ -92,7 +93,7 @@ public class CommandsRecruit extends CommandsEMP {
             empire = getEmpireFromName(args.get(0));
             amount = Config.instance.costAmountOtherSpawn.get();
         }
-
+//TODO: Add config to disable teleportation to other empires spawn points.
         if (!empire.hasSpawn()) {
             throw new EmpiresCommandException("Empires.cmd.err.spawn.missing", empire);
         }
@@ -104,9 +105,10 @@ public class CommandsRecruit extends CommandsEMP {
         if(res.getTeleportCooldown() > 0) {
             throw new EmpiresCommandException("Empires.cmd.err.spawn.cooldown", res.getTeleportCooldown(), res.getTeleportCooldown() / 20);
         }
-
+        
         makePayment(player, amount);
         empire.bank.addAmount(amount);
+        ChatManager.send(sender, "Empires.notification.warp.succesful");
         getDatasource().saveEmpireBank(empire.bank);
         empire.sendToSpawn(res);
         return CommandResponse.DONE;
@@ -147,22 +149,48 @@ public class CommandsRecruit extends CommandsEMP {
         int amount;
         empire = getEmpireFromCitizen(res);
         amount = Config.instance.costAmountSpawn.get(); //create custom config for warp costs.
-        
         String warpname = args.get(0).toString();
-        if (!empire.hasWarp(warpname)) {
-            throw new EmpiresCommandException("Empires.cmd.err.warp.missing"); //needs localization work
-        }
-
-        if(res.getTeleportCooldown() > 0) {
+        Teleport warp = empire.getWarp(warpname);
+        EmpireBlock block = getBlockAtCitizen(res);
+        
+        if (res.getTeleportCooldown() > 0) {
             throw new EmpiresCommandException("Empires.cmd.err.spawn.cooldown", res.getTeleportCooldown(), res.getTeleportCooldown() / 20);
         }
-        
-        makePayment(player, amount);
-        empire.bank.addAmount(amount);
-        getDatasource().saveEmpireBank(empire.bank);
-        ChatManager.send(sender, "Empires.notification.warp.succesful");
-        empire.sendToWarp(res, warpname);
+       
+        for (Teleport warps : empire.Warps) {
+        	String name = warps.getName();
+        	String empirename = warps.getEmpirename();
+        	List<Teleport> matches = new ArrayList<Teleport>();
+        	Teleport ReplacementWarp = warps;
+        	if (name.equals(warp.getName())) {
+        		matches.add(warp);
+        		for (Teleport matchWarp : matches) {
+        		int localdim = matchWarp.getDim();
+        		float localX = matchWarp.getX();
+        		float localY = matchWarp.getY();
+        		float localZ = matchWarp.getZ();
+        		float localYaw = matchWarp.getYaw();
+        		float localPitch = matchWarp.getPitch();
+        		//Basically This Checks For Identical Warps Of Other Empires, and selects the one present in the current empire, and teleports to it.
+        		if (block.isPointIn(localdim, localX, localZ)) {
+        			 ReplacementWarp = new Teleport((String) warpname, (String) empire.getName(), localdim, (float) localX, (float) localY, (float) localZ, (float) localYaw, (float) localPitch);
+        	        ReplacementWarp.setDim(localdim).setPosition((float) localX, (float) localY, (float) localZ).setRotation(localYaw, localPitch);
+        	        ReplacementWarp.setEmpirename(empire.getName());
+        	     
+        		}
+        		 
+    	        makePayment(player, amount);
+    	        empire.bank.addAmount(amount);
+    	        getDatasource().saveEmpireBank(empire.bank);
+    	        ChatManager.send(sender, "Empires.notification.warp.succesful");
+    	        //System.out.println("SQL: line 164 :DEBUG: loadwarps(): " + " NAME: "+ warpname + " SelectedSQLEmpire: "+ empire.getName() +" WarpsEmpire: " + warp.getEmpirename()+ " Dim: "+ warp.getDim() + " X: " + warp.getX()+ " Y: " + warp.getY() + " Z: "+ warp.getZ() + " YAW: " + warp.getYaw() + " PITCH: " + warp.getPitch());
+    	        empire.sendToWarpCiz(res, ReplacementWarp);     	
+        		}
+        	}
+        }
+     
         return CommandResponse.DONE;
+        
     }
     @Command(
             name = "warps",
@@ -248,7 +276,23 @@ public class CommandsRecruit extends CommandsEMP {
     public static CommandResponse permCommand(ICommandSender sender, List<String> args) {
         return CommandResponse.SEND_HELP_MESSAGE;
     }
-
+    @Command(
+            name = "chat",
+            permission = "Empires.cmd.everyone.chat",
+            parentName = "Empires.cmd",
+            syntax = "/empire chat <on/off>")
+    public static CommandResponse chatCommand(ICommandSender sender, List<String> args) {
+    	Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(sender);
+    	
+    	if (args.get(0).equals("on")) {
+    		res.setChannelStatus(true);
+    	}
+    	
+    	if (args.get(0).equals("off")) {
+    		res.setChannelStatus(false);
+    	}
+        return CommandResponse.DONE;
+    }
     @Command(
             name = "list",
             permission = "Empires.cmd.everyone.perm.list",
