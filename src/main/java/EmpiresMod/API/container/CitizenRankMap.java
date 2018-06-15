@@ -10,6 +10,7 @@ import EmpiresMod.Localization.LocalizationManager;
 import EmpiresMod.entities.Empire.Citizen;
 import EmpiresMod.entities.Empire.Rank;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 
 public class CitizenRankMap extends HashMap<Citizen, Rank> implements IChatFormat {
@@ -44,31 +45,54 @@ public class CitizenRankMap extends HashMap<Citizen, Rank> implements IChatForma
         return null;
     }
 
-        	
+    public String abbrieviate(Rank rank) {
+    	String rankab = rank.getName().substring(0,1);
+    	String abbriev = "[" +rankab+ "]";
+    	
+    	if (rank.getType() == Rank.Type.LEADER) {
+    		String abbrievL = EnumChatFormatting.RED +"[" +rankab+ "]";
+    		return abbrievL;
+    	}
+    	if (rank.getType() == Rank.Type.OFFICER) {
+    		String abbrievO = EnumChatFormatting.BLUE +"[" +rankab+ "]";
+    		return abbrievO;
+    	}
+    	if (rank.getType() == Rank.Type.DEFAULT) {
+    		String abbrievD = EnumChatFormatting.DARK_GREEN +"[" +rankab+ "]";
+    		return abbrievD;
+    	}
+    	return abbriev;
+    }
+    
 
     @Override
     public String toString() {
         return toChatMessage().getUnformattedText();
     }
+    
 
     @Override
     public IChatComponent toChatMessage() {
         IChatComponent root = new ChatComponentText("");
-        String abbrievRank = "";
 
         for (Map.Entry<Citizen, Rank> entry : entrySet()) {
+            String abbrievRank = "";
             if (root.getSiblings().size() > 0) {
-                root.appendSibling(new ChatComponentFormatted("{7|, }"));
+                root.appendSibling(new ChatComponentFormatted("{7|,}"));
             }
             if (entry.getValue().getType() == Rank.Type.LEADER) {
-            	abbrievRank = "[L";
+            	abbrievRank = "[L]";
             }
             
             if (entry.getValue().getType() == Rank.Type.OFFICER) {
-            	abbrievRank = "O";
+            	abbrievRank = "[O]";
+            }
+            
+            if (entry.getValue().getType() == Rank.Type.DEFAULT) {
+            	abbrievRank = "[C]";
             }
             		
-            root.appendSibling(LocalizationManager.get("Empires.format.citizen.withRank", entry.getKey(), entry.getValue()));
+            root.appendSibling(LocalizationManager.get("Empires.format.citizen.withRank",  abbrieviate(entry.getValue()), entry.getKey()));
         }  //the thing that ranks citizens EXAMPLE: /empire info --> Player10101(LEADER)
 
         return root;

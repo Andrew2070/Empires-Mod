@@ -3,7 +3,6 @@ package EmpiresMod.commands.Recruit;
 import java.util.ArrayList;
 import java.util.List;
 
-import EmpiresMod.WarpTest;
 import EmpiresMod.API.Chat.Component.ChatComponentContainer;
 import EmpiresMod.API.Chat.Component.ChatComponentEmpireList;
 import EmpiresMod.API.Chat.Component.ChatComponentFormatted;
@@ -18,6 +17,7 @@ import EmpiresMod.Configuration.Config;
 import EmpiresMod.Datasource.EmpiresUniverse;
 import EmpiresMod.Localization.LocalizationManager;
 import EmpiresMod.Misc.Teleport.Teleport;
+import EmpiresMod.Misc.Teleport.WarpTest;
 import EmpiresMod.Proxies.EconomyProxy;
 import EmpiresMod.entities.Empire.AdminEmpire;
 import EmpiresMod.entities.Empire.Citizen;

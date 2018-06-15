@@ -6,7 +6,6 @@ import java.util.List;
 import javax.management.relation.RelationType;
 
 import EmpiresMod.Empires;
-import EmpiresMod.WarpTest;
 import EmpiresMod.API.Chat.Component.ChatManager;
 import EmpiresMod.API.Commands.Command.Command;
 import EmpiresMod.API.Commands.Command.CommandResponse;
@@ -15,6 +14,7 @@ import EmpiresMod.API.container.relationshipMap;
 import EmpiresMod.Configuration.Config;
 import EmpiresMod.Datasource.EmpiresUniverse;
 import EmpiresMod.Misc.Teleport.Teleport;
+import EmpiresMod.Misc.Teleport.WarpTest;
 import EmpiresMod.Proxies.EconomyProxy;
 import EmpiresMod.Utilities.EmpireUtils;
 import EmpiresMod.Utilities.MathUtils;
@@ -94,7 +94,7 @@ public class CommandsOfficer extends CommandsEMP {
         Teleport Warp = new Teleport((String) warpname,(Empire) empire, player.dimension, (float) player.posX, (float) player.posY, (float) player.posZ, (float) player.cameraYaw, (float) player.cameraPitch);
         Warp.setDim(player.dimension).setPosition((float) player.posX, (float) player.posY, (float) player.posZ).setRotation(player.cameraYaw, player.cameraPitch);
         Warp.setEmpire(empire);
-        System.out.println("DEBUG: /setwarp command -- > Name: " + Warp.getName() + " DbID: " + Warp.getDbID()+ " Key: " + Warp.getKey()+ " Empire: " + Warp.getEmpire()+ " X: " + Warp.getX()+ " Z: " + Warp.getZ());
+        //System.out.println("DEBUG: /setwarp command -- > Name: " + Warp.getName() + " DbID: " + Warp.getDbID()+ " Key: " + Warp.getKey()+ " Empire: " + Warp.getEmpire()+ " X: " + Warp.getX()+ " Z: " + Warp.getZ());
         empire.setWarps(Warp);
         
         getDatasource().saveEmpire(empire);
@@ -849,10 +849,9 @@ public class CommandsOfficer extends CommandsEMP {
         }
         empire.setDesc(desc);
         getDatasource().saveEmpire(empire);
-        Empires.instance.datasource.saveEmpire(empire);
-        empire.setDesc(desc);
+        System.out.println("DescDebug: After Save command: " + desc);
         ChatManager.send(sender, "Empires.notification.desc.succesful");
-        empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.desc", sender.getCommandSenderName(), desc));
+        empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.desc", sender.getCommandSenderName(), empire.getDesc()));
         return CommandResponse.DONE;
     }
 

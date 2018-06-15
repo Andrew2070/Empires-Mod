@@ -104,7 +104,6 @@ public class EmpiresUniverse { // TODO Allow migrating between different Datasou
         Warp.setDim(creator.getPlayer().dimension).setPosition((float) creator.getPlayer().posX, (float) creator.getPlayer().posY, (float) creator.getPlayer().posZ).setRotation(creator.getPlayer().cameraYaw, creator.getPlayer().cameraPitch);
         empire.setSpawn(Spawn);
         empire.setWarps(Spawn);
-        empire.setDesc(Config.instance.defaultDesc.get());
         // Saving empire to database
         if (!getDatasource().saveEmpire(empire))
             throw new CommandException("Failed to save Empire");
@@ -131,6 +130,7 @@ public class EmpiresUniverse { // TODO Allow migrating between different Datasou
                 getDatasource().saveFlag(new Flag(type, type.defaultValue), empire);
             }
         }
+        
 
         if (!(empire instanceof AdminEmpire)) {
             // Saving all ranks to database and empire

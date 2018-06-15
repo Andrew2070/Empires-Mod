@@ -1,7 +1,6 @@
-package EmpiresMod;
+package EmpiresMod.Misc.Teleport;
 
 import EmpiresMod.API.Commands.Command.CommandsEMP;
-import EmpiresMod.Misc.Teleport.Teleport;
 import EmpiresMod.entities.Empire.Citizen;
 import EmpiresMod.entities.Empire.Empire;
 import EmpiresMod.entities.Empire.EmpireBlock;

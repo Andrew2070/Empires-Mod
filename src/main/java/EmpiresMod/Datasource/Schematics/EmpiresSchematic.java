@@ -27,7 +27,6 @@ public class EmpiresSchematic extends BaseSchematic {
         updates.add(new DBUpdate("06.14.2018.1", "Add Empires Table", "CREATE TABLE IF NOT EXISTS " + bridge.prefix + "Empires (" +
                 "name VARCHAR(32) NOT NULL,"+
                 "warpname VARCHAR(32) NOT NULL,"+ // TODO Allow larger empire names?
-                "desc VARCHAR(52) NOT NULL,"+
                 "isAdminEmpire BOOLEAN, " +
                 "spawnDim INT NOT NULL, " +
                 "spawnX FLOAT NOT NULL, " +
@@ -192,7 +191,7 @@ public class EmpiresSchematic extends BaseSchematic {
                 "z INT NOT NULL, " +
                 "FOREIGN KEY(citizen) REFERENCES " + bridge.prefix + "Citizens(UUID) ON DELETE CASCADE)"));
         updates.add(new DBUpdate("6.8.2018.1", "Add 'Warps' table", "CREATE TABLE IF NOT EXISTS " + bridge.prefix + "Warps(" +
-                "ID INTEGER NOT NULL" + bridge.getAutoIncrement() + "," +
+                "ID INTEGER NOT NULL " + bridge.getAutoIncrement() + "," +
         		"empireName VARCHAR(50), "+
         		"name VARCHAR(32) NOT NULL, " +
         		"dim INT NOT NULL, " +
@@ -232,6 +231,8 @@ public class EmpiresSchematic extends BaseSchematic {
         
         updates.add(new DBUpdate("8.12.2017, ", "Add 'isBanned to citizens", "ALTER TABLE " + bridge.prefix +
         		"Citizens ADD isBanned BOOLEAN DEFAULT false"));
+        updates.add(new DBUpdate("6.16.2018, ", "Add 'desc' to Empires", "ALTER TABLE " + bridge.prefix +
+        		"Empires ADD desc VARCHAR(54) DEFAULT '" + Config.instance.defaultDesc.get() + "'"));
     }
 
 }

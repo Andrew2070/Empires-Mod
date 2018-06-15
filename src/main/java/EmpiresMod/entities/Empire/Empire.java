@@ -48,7 +48,7 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     private Alliance alliance;
     private Teleport spawn;
     private Teleport jail;
-    private String description;
+    private String description = "" + Config.instance.defaultDesc.get();
     public final static List<Teleport> Warps = new ArrayList<Teleport>();
     public final TicketMap ticketMap = new TicketMap(this);
     public final CitizenRankMap citizensMap = new CitizenRankMap();
