@@ -4,6 +4,7 @@ package EmpiresMod.Datasource;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.UUID;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -12,6 +13,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonSyntaxException;
 
 import EmpiresMod.Empires;
+import EmpiresMod.API.Commands.Command.CommandsEMP;
 import EmpiresMod.Configuration.Config;
 import EmpiresMod.Datasource.Schematics.DatasourceSQL;
 import EmpiresMod.Datasource.Schematics.EmpiresSchematic;
@@ -93,17 +95,20 @@ public class EmpiresDatasource extends DatasourceSQL {
                 } else {
                     empire = new Empire(rs.getString("name"));
                 }
-                empire.setSpawn(new Teleport(rs.getString("warpname"), empire.getName(), rs.getInt("spawnDim"), rs.getFloat("spawnX"), rs.getFloat("spawnY"), rs.getFloat("spawnZ"), rs.getFloat("cameraYaw"), rs.getFloat("cameraPitch")));
+                empire.setSpawn(new Teleport(rs.getString("warpname"), empire, rs.getInt("spawnDim"), rs.getFloat("spawnX"), rs.getFloat("spawnY"), rs.getFloat("spawnZ"), rs.getFloat("cameraYaw"), rs.getFloat("cameraPitch")));
                 empire.empireBlocksContainer.setExtraBlocks(rs.getInt("extraBlocks"));
                 empire.empireBlocksContainer.setExtraFarClaims(rs.getInt("extraFarClaims"));
                 empire.plotsContainer.setMaxPlots(rs.getInt("maxPlots"));
                 empire.setPower(rs.getDouble("currentPower"));
+                empire.setDesc(rs.getString("desc"));
+                System.out.println("SQL: Empire: " + empire + " Desc: " + rs.getString("desc"));
 
                 for (ForgeChunkManager.Ticket ticket : EmpiresLoadingCallback.tickets) {
                     if (ticket.getModData().getString("empireName").equals(empire.getName())) {
                         empire.ticketMap.put(ticket.world.provider.dimensionId, ticket);
                     }
                 }
+                System.out.println("Empire: " + empire + " Desc: " + rs.getString("desc"));
 
                 EmpiresUniverse.instance.addEmpire(empire);
             }
@@ -145,25 +150,27 @@ public class EmpiresDatasource extends DatasourceSQL {
             ResultSet rs = loadWarpStatement.executeQuery();
 
             while (rs.next()) {
-                String empirename = rs.getString("warpempirename");
                 Empire empire = getUniverse().empires.get(rs.getString("empireName"));
-
-                String warpname = rs.getString("warpname");
+                String warpname = rs.getString("name");
                 int dimension = rs.getInt("dim");
+                String empirename = empire.getName();
                 float posX = rs.getFloat("x");
                 float posY = rs.getFloat("y");
                 float posZ = rs.getFloat("z");
                 float yaw = rs.getFloat("yaw");
                 float pitch = rs.getFloat("pitch");
+                int id = rs.getInt("ID");
                 
-                Teleport Warp = new Teleport((String) warpname, (String) empirename, dimension, (float) posX, (float) posY, (float) posZ, (float) yaw, (float) pitch);        
+                Teleport Warp = new Teleport((String) warpname,(Empire) empire, dimension, (float) posX, (float) posY, (float) posZ, (float) yaw, (float) pitch);        
                 Warp.setDim(dimension).setPosition((float) posX, (float) posY, (float) posZ).setRotation(yaw, pitch);
-                System.out.println("SQL: line 164 :DEBUG: loadwarps(): " + " NAME: "+ warpname + " SelectedSQLEmpire: "+ empire.getName() +" WarpsEmpire: " + empirename + " Dim: "+ dimension + " X: " + posX + " Y: " + posY + " Z: "+ posZ + " YAW: " + yaw + " PITCH: " + pitch);
-                if (empire.getName().equals(empirename)) {
-                	empire.setWarps(Warp);
-                }
-            
+              //  System.out.println("SQL: line 164 :DEBUG: loadwarps(): " + " NAME: "+ warpname + " SelectedSQLEmpire: "+ empire.getName() +" WarpsEmpire: " + empirename + " Dim: "+ dimension + " X: " + posX + " Y: " + posY + " Z: "+ posZ + " YAW: " + yaw + " PITCH: " + pitch);
+                Warp.setDbID(id);
+                
+                empire.setWarps(Warp);
+             //   System.out.println("DEBUG SQL: load warp-- > Name: " + Warp.getName() + " DbID: " + Warp.getDbID()+ " Key: " + Warp.getKey()+ " Empire: " + Warp.getEmpire()+ " X: " + Warp.getX()+ " Z: " + Warp.getZ());
+                
             }
+            
         } catch (SQLException e) {
             LOG.error("Failed to load warps!");
             LOG.error(ExceptionUtils.getStackTrace(e));
@@ -560,7 +567,7 @@ public class EmpiresDatasource extends DatasourceSQL {
         LOG.debug("Saving Empire {}", empire.getName());
         try {
             if (getUniverse().empires.contains(empire)) { // Update
-                PreparedStatement updateStatement = prepare("UPDATE " + prefix + "Empires SET name=?, warpname=?, spawnDim=?, spawnX=?, spawnY=?, spawnZ=?, cameraYaw=?, cameraPitch=?, extraBlocks=?, maxPlots=?, extraFarClaims=?, currentPower=? WHERE name=?", true);
+                PreparedStatement updateStatement = prepare("UPDATE " + prefix + "Empires SET name=?, warpname=?, spawnDim=?, spawnX=?, spawnY=?, spawnZ=?, cameraYaw=?, cameraPitch=?, extraBlocks=?, maxPlots=?, extraFarClaims=?, currentPower=?, desc=? WHERE name=?", true);
                 updateStatement.setString(1, empire.getName());
                 updateStatement.setString(2, "spawn");
                 updateStatement.setInt(3, empire.getSpawn().getDim());
@@ -573,8 +580,9 @@ public class EmpiresDatasource extends DatasourceSQL {
                 updateStatement.setInt(10, empire.plotsContainer.getMaxPlots());
                 updateStatement.setInt(11, empire.empireBlocksContainer.getExtraFarClaims());
                 updateStatement.setDouble(12, empire.getPower());
+                updateStatement.setString(13, empire.getDesc());
                 
-                LOG.info(empire.getName() + " " + empire.getSpawn().getDim() + " " + empire.getSpawn().getX() + " " + empire.getSpawn().getY() + " " + empire.getSpawn().getZ() + " " + empire.getSpawn().getYaw() + " " + empire.getSpawn().getPitch() + " " + empire.empireBlocksContainer.getExtraBlocks() + " " + empire.plotsContainer.getMaxPlots() + " " + empire.empireBlocksContainer.getExtraFarClaims() + " " + empire.getPower() + " " + empire.getMaxPower());
+               // LOG.info(empire.getName() + " " + empire.getSpawn().getDim() + " " + empire.getSpawn().getX() + " " + empire.getSpawn().getY() + " " + empire.getSpawn().getZ() + " " + empire.getSpawn().getYaw() + " " + empire.getSpawn().getPitch() + " " + empire.empireBlocksContainer.getExtraBlocks() + " " + empire.plotsContainer.getMaxPlots() + " " + empire.empireBlocksContainer.getExtraFarClaims() + " " + empire.getPower() + " " + empire.getMaxPower());
                 
 
                 if (empire.getOldName() == null)
@@ -592,7 +600,7 @@ public class EmpiresDatasource extends DatasourceSQL {
                 }
                 empire.resetOldName();
             } else { // Insert
-                PreparedStatement insertStatement = prepare("INSERT INTO " + prefix + "Empires (name, warpname, spawnDim, spawnX, spawnY, spawnZ, cameraYaw, cameraPitch, isAdminEmpire, extraBlocks, maxPlots, extraFarClaims, currentPower) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", true);
+                PreparedStatement insertStatement = prepare("INSERT INTO " + prefix + "Empires (name, warpname, spawnDim, spawnX, spawnY, spawnZ, cameraYaw, cameraPitch, isAdminEmpire, extraBlocks, maxPlots, extraFarClaims, currentPower, desc) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", true);
                 insertStatement.setString(1, empire.getName());
                 insertStatement.setString(2, "spawn");
                 insertStatement.setInt(3, empire.getSpawn().getDim());
@@ -606,7 +614,8 @@ public class EmpiresDatasource extends DatasourceSQL {
                 insertStatement.setInt(11, empire.plotsContainer.getMaxPlots());
                 insertStatement.setInt(12, empire.empireBlocksContainer.getExtraFarClaims());
                 insertStatement.setDouble(13, empire.getPower());
-                LOG.info("New Empire" + empire.getName() + " Created " + " World: " + empire.getSpawn().getDim() + " X Coord: " + empire.getSpawn().getX() + " Y Coord: " + empire.getSpawn().getY() + " Z Coord: " + empire.getSpawn().getZ() + " YAW: " + empire.getSpawn().getYaw() + " PITCH: " + empire.getSpawn().getPitch() + " EXTRA CLAIMS: " + empire.empireBlocksContainer.getExtraBlocks() + " PLOTS: " + empire.plotsContainer.getMaxPlots() + " FAR CLAIMS: " + empire.empireBlocksContainer.getExtraFarClaims() + " POWER: " + empire.getPower() + " MAX POWER: " + empire.getMaxPower());
+                insertStatement.setString(14, empire.getDesc());
+                LOG.info("New Empire" + empire.getName() + " Created " + " World: " + empire.getSpawn().getDim() + " X Coord: " + empire.getSpawn().getX() + " Y Coord: " + empire.getSpawn().getY() + " Z Coord: " + empire.getSpawn().getZ() + " YAW: " + empire.getSpawn().getYaw() + " PITCH: " + empire.getSpawn().getPitch() + " EXTRA CLAIMS: " + empire.empireBlocksContainer.getExtraBlocks() + " PLOTS: " + empire.plotsContainer.getMaxPlots() + " FAR CLAIMS: " + empire.empireBlocksContainer.getExtraFarClaims() + " POWER: " + empire.getPower() + " MAX POWER: " + empire.getMaxPower() + " DESC: " + empire.getDesc());
 
                 insertStatement.executeUpdate();
 
@@ -855,34 +864,52 @@ public class EmpiresDatasource extends DatasourceSQL {
         return true;
     }
 
-    public boolean saveWarps(Empire empire, Teleport Warp) {
+    public boolean saveWarps(Teleport Warp) {
         LOG.debug("Saving Empire Warps ");
         try {
-                PreparedStatement insertStatement = prepare("INSERT INTO " + prefix + "Warps (warpname, warpempirename, dim, x, y, z, yaw, pitch, empireName) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", true);
-                insertStatement.setString(1, Warp.getName());
-                insertStatement.setString(2, Warp.getEmpirename());
-                insertStatement.setInt(3, Warp.getDim());
-                insertStatement.setFloat(4, Warp.getX());
-                insertStatement.setFloat(5, Warp.getY());
-                insertStatement.setFloat(6, Warp.getZ());
-                insertStatement.setFloat(7, Warp.getYaw());
-                insertStatement.setFloat(8, Warp.getPitch());
-                insertStatement.setString(9, empire.getName());
-                insertStatement.executeUpdate();
+        	if (getUniverse().Warps.contains(Warp)) {
 
-                //   Put in the Map
-                //   EmpiresUniverse.instance.addEmpireBlock(block);
-                //   EmpiresUniverse.instance.empires.getMainEmpire().Warps.add(Warp);
-                //   block.getEmpire().empireBlocksContainer.add(block);
+        		 PreparedStatement updateStatement = prepare("UPDATE " + prefix + "Warps SET name=?, dim=?, x=?, y=?, z=?, yaw=?, pitch=? WHERE ID=? AND empireName=?", true);
+                 updateStatement.setString(1, Warp.getName());
+        		 updateStatement.setInt(2, Warp.getDim());
+                 updateStatement.setFloat(3, Warp.getX());
+                 updateStatement.setFloat(4, Warp.getY());
+                 updateStatement.setFloat(5, Warp.getZ());
+                 updateStatement.setFloat(6, Warp.getYaw());
+                 updateStatement.setFloat(7, Warp.getPitch());
+                 updateStatement.setInt(8, Warp.getDbID());
+                 updateStatement.setString(9, Warp.getEmpire().getName());
+                 updateStatement.executeUpdate();
+                 //System.out.println("DEBUG SQL saveWarp:update: save command -- > Name: " + Warp.getName() + " DbID: " + Warp.getDbID()+ " Key: " + Warp.getKey()+ " Empire: " + Warp.getEmpire()+ " X: " + Warp.getX()+ " Z: " + Warp.getZ());
+              
+        	} else {
+        		  PreparedStatement insertStatement = prepare("INSERT INTO " + prefix + "Warps(name, dim, x, y, z, yaw, pitch, ID, empireName) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", true);
+                  insertStatement.setString(1, Warp.getName());
+                  insertStatement.setInt(2, Warp.getDim());
+                  insertStatement.setFloat(3, Warp.getX());
+                  insertStatement.setFloat(4, Warp.getY());
+                  insertStatement.setFloat(5, Warp.getZ());
+                  insertStatement.setFloat(6, Warp.getYaw());
+                  insertStatement.setFloat(7, Warp.getPitch());
+                  insertStatement.setInt(8, Warp.getDbID());
+                  insertStatement.setString(9, Warp.getEmpire().getName());
+                  insertStatement.executeUpdate();
+                  ResultSet generatedKeys = insertStatement.getGeneratedKeys();
+                  if (generatedKeys.next()) {
+                	  Warp.setDbID(generatedKeys.getInt(1));
+                  	 Warp.getEmpire().setWarps(Warp);
+                  	  //System.out.println("DEBUG SQL saveWarp:insert: save command -- > Name: " + Warp.getName() + " DbID: " + Warp.getDbID()+ " Key: " + Warp.getKey()+ " Empire: " + Warp.getEmpire()+ " X: " + Warp.getX()+ " Z: " + Warp.getZ());
+                  }
+                  
+        	}
       
         } catch (SQLException e) {
-            LOG.error("Failed to save warps for empire {}!", empire.getName());
+            LOG.error("Failed to save warps for empire {}!", Warp.getEmpire().getName());
             LOG.error(ExceptionUtils.getStackTrace(e));
             return false;
         }
         return true;
     }
- 
     public boolean saveFlag(Flag flag, Plot plot) {
         LOG.debug("Saving Flag {} for Plot {}", flag.flagType.name, plot.getKey());
         try {
@@ -1358,9 +1385,25 @@ public class EmpiresDatasource extends DatasourceSQL {
         }
         return true;
     }
-
-
     
+    public boolean deleteWarp(Teleport Warp) {
+        try {
+            // Delete Plot from Datasource
+            PreparedStatement deleteWarpStatement = prepare("DELETE FROM " + prefix + "Warps WHERE ID=?", true);
+            deleteWarpStatement.setInt(1, Warp.getDbID());
+            deleteWarpStatement.execute();
+
+            // Remove Plot from Map
+            EmpiresUniverse.instance.Warps.remove(Warp);
+            Warp.getEmpire().Warps.remove(Warp);
+        } catch (SQLException e) {
+            LOG.error("Failed to delete Plot {}!", Warp.getKey());
+            LOG.error(ExceptionUtils.getStackTrace(e));
+            return false;
+        }
+        return true;
+    }
+ 
     public boolean deleteBlockWhitelist(BlockWhitelist bw, Empire empire) {
         try {
             PreparedStatement deleteStatement = prepare("DELETE FROM " + prefix + "BlockWhitelists WHERE ID=?", false);

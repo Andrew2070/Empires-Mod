@@ -46,6 +46,7 @@ public class EmpiresUniverse { // TODO Allow migrating between different Datasou
     public static final EmpiresUniverse instance = new EmpiresUniverse();
 
     public final Citizen.Container citizens = new Citizen.Container();
+    public final static List<Teleport> Warps = new ArrayList<Teleport>();
     public final Empire.Container empires = new Empire.Container();
    // public final Map<String, Alliance> alliances = new HashMap<String, Alliance>();
     public final EmpireBlock.Container blocks = new EmpireBlock.Container();
@@ -98,11 +99,12 @@ public class EmpiresUniverse { // TODO Allow migrating between different Datasou
         }
         */
         // Setting spawn before saving
-        Teleport Spawn = new Teleport((String) "", (String) this.theempirename ,creator.getPlayer().dimension, (float) creator.getPlayer().posX, (float) creator.getPlayer().posY, (float) creator.getPlayer().posZ, (float) creator.getPlayer().cameraYaw, (float) creator.getPlayer().cameraPitch);
+        Teleport Spawn = new Teleport((String) "", (Empire) empire ,creator.getPlayer().dimension, (float) creator.getPlayer().posX, (float) creator.getPlayer().posY, (float) creator.getPlayer().posZ, (float) creator.getPlayer().cameraYaw, (float) creator.getPlayer().cameraPitch);
         Teleport Warp = Spawn;
         Warp.setDim(creator.getPlayer().dimension).setPosition((float) creator.getPlayer().posX, (float) creator.getPlayer().posY, (float) creator.getPlayer().posZ).setRotation(creator.getPlayer().cameraYaw, creator.getPlayer().cameraPitch);
         empire.setSpawn(Spawn);
         empire.setWarps(Spawn);
+        empire.setDesc(Config.instance.defaultDesc.get());
         // Saving empire to database
         if (!getDatasource().saveEmpire(empire))
             throw new CommandException("Failed to save Empire");
@@ -220,6 +222,25 @@ public class EmpiresUniverse { // TODO Allow migrating between different Datasou
         //TODO: Fire event
         return flag;
     }
+    public Teleport getWarp(String warpname) {
+        if (Warps.isEmpty() == false) {
+        	for (int i=0; i < Warps.size(); i++) {
+        		Teleport warp = Warps.get(i);
+        	if (warp.getName().equals(warpname)) {
+        		return warp;
+        	}
+        	}
+        }
+        	return null;
+        }
+        
+        public void setWarps(Teleport Warp) {
+        	this.Warps.add(Warp);
+        }
+        
+        public void delWarp(Teleport Warp) {
+        	Warps.remove(Warp);
+        }
 
     public Citizen getOrMakeCitizen(UUID uuid, String playerName, boolean isFakePlayer) {
         Citizen res = instance.citizens.get(uuid);
@@ -386,6 +407,7 @@ public class EmpiresUniverse { // TODO Allow migrating between different Datasou
     public final void clear() {
         banks.clear();
         empires.clear();
+        Warps.clear();
         plots.clear();
         citizens.clear();
         blocks.clear();

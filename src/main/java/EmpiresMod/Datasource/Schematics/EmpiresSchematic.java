@@ -24,9 +24,10 @@ public class EmpiresSchematic extends BaseSchematic {
         updates.add(new DBUpdate("10.05.2014", "Add Worlds", "CREATE TABLE IF NOT EXISTS " + bridge.prefix + "Worlds(" +
                 "dim INT," +
                 "PRIMARY KEY(dim))"));
-        updates.add(new DBUpdate("07.25.2018.3", "Add Empires Table", "CREATE TABLE IF NOT EXISTS " + bridge.prefix + "Empires (" +
+        updates.add(new DBUpdate("06.14.2018.1", "Add Empires Table", "CREATE TABLE IF NOT EXISTS " + bridge.prefix + "Empires (" +
                 "name VARCHAR(32) NOT NULL,"+
                 "warpname VARCHAR(32) NOT NULL,"+ // TODO Allow larger empire names?
+                "desc VARCHAR(52) NOT NULL,"+
                 "isAdminEmpire BOOLEAN, " +
                 "spawnDim INT NOT NULL, " +
                 "spawnX FLOAT NOT NULL, " +
@@ -34,7 +35,7 @@ public class EmpiresSchematic extends BaseSchematic {
                 "spawnZ FLOAT NOT NULL, " +
                 "cameraYaw FLOAT NOT NULL, " +
                 "cameraPitch FLOAT NOT NULL, " +
-                "PRIMARY KEY(name), " +
+                "PRIMARY KEY(name)," +
                 "FOREIGN KEY(spawnDim) REFERENCES " + bridge.prefix + " Worlds(dim) ON DELETE CASCADE" +
                 ");"));
         updates.add(new DBUpdate("07.25.2014.4", "Add Ranks Table", "CREATE TABLE IF NOT EXISTS " + bridge.prefix + "Ranks (" +
@@ -171,9 +172,6 @@ public class EmpiresSchematic extends BaseSchematic {
         updates.add(new DBUpdate("06.28.2017.2", "Add 'currentPower' to empires", "ALTER TABLE " + bridge.prefix +
         		"Empires ADD currentPower DOUBLE DEFAULT 0.00"));
         
-        updates.add(new DBUpdate("06.28.2017.3", "Add 'maxPower' to empires", "ALTER TABLE " + bridge.prefix +
-        		"Empires ADD maxPower DOUBLE DEFAULT 0.00"));
-        
         updates.add(new DBUpdate("10.18.2014.1", "Add 'extraBlocks' to empires", "ALTER TABLE " + bridge.prefix +
                 "Empires ADD extraBlocks INTEGER DEFAULT 0;"));
 
@@ -194,16 +192,16 @@ public class EmpiresSchematic extends BaseSchematic {
                 "z INT NOT NULL, " +
                 "FOREIGN KEY(citizen) REFERENCES " + bridge.prefix + "Citizens(UUID) ON DELETE CASCADE)"));
         updates.add(new DBUpdate("6.8.2018.1", "Add 'Warps' table", "CREATE TABLE IF NOT EXISTS " + bridge.prefix + "Warps(" +
-                "empireName VARCHAR(36), "+
-        		"warpname VARCHAR(32) NOT NULL, " +
-                "warpempirename VARCHAR(32) NOT NULL, " +
+                "ID INTEGER NOT NULL" + bridge.getAutoIncrement() + "," +
+        		"empireName VARCHAR(50), "+
+        		"name VARCHAR(32) NOT NULL, " +
         		"dim INT NOT NULL, " +
                 "x FLOAT NOT NULL, " +
                 "y FLOAT NOT NULL, " +
                 "z FLOAT NOT NULL, " +
                 "yaw FLOAT NOT NULL, " +
                 "pitch FLOAT NOT NULL, " +
-                "PRIMARY KEY(warpname), " +
+                "PRIMARY KEY(ID, empireName), " +
                 "FOREIGN KEY(empireName) REFERENCES " + bridge.prefix + "Empires(name) ON DELETE CASCADE ON UPDATE CASCADE)"));
         updates.add(new DBUpdate("3.27.2014.1", "Add 'EmpireBanks' table", "CREATE TABLE IF NOT EXISTS " + bridge.prefix + "EmpireBanks(" +
                 "empireName VARCHAR(50), " +
@@ -223,14 +221,15 @@ public class EmpiresSchematic extends BaseSchematic {
                 "Empires ADD maxFarClaims INTEGER DEFAULT " + Config.instance.maxFarClaims.get()));
         updates.add(new DBUpdate("4.12.2015.3", "Add 'pricePaid' to Blocks", "ALTER TABLE " + bridge.prefix +
                 "Blocks ADD pricePaid INTEGER DEFAULT " + Config.instance.costAmountClaim.get()));
+
         updates.add(new DBUpdate("8.21.2015.1", "Add 'type' to Ranks", "ALTER TABLE " + bridge.prefix +
                 "Ranks ADD type VARCHAR(50) DEFAULT '" + Rank.Type.OFFICER + "'"));
+        
         updates.add(new DBUpdate("11.11.2015.1", "Add 'extraFarClaims' to Empires", "ALTER TABLE " + bridge.prefix +
                 "Empires ADD extraFarClaims INTEGER DEFAULT 0"));
         updates.add(new DBUpdate("12.16.2015.1", "Add 'fakePlayer to citizens", "ALTER TABLE " + bridge.prefix +
                 "Citizens ADD fakePlayer BOOLEAN DEFAULT false"));
-        updates.add(new DBUpdate("06.06.2018.1", "Add 'desc' to empires", "ALTER TABLE " + bridge.prefix +
-                "Empires ADD desc VARCHAR(32) DEFAULT Nothing;"));
+        
         updates.add(new DBUpdate("8.12.2017, ", "Add 'isBanned to citizens", "ALTER TABLE " + bridge.prefix +
         		"Citizens ADD isBanned BOOLEAN DEFAULT false"));
     }

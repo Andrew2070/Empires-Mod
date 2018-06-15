@@ -156,6 +156,14 @@ public abstract class CommandsEMP {
 					res.empiresContainer.getMainEmpire().getName());
 		return block;
 	}
+	
+	public static EmpireBlock getBlockFromPoint(int dim, float posX, float posZ) {
+		EmpireBlock block = getUniverse().blocks.get(dim, ((int) posX) >> 4,
+				((int) posZ >> 4));
+		if (block == null)
+			throw new EmpiresCommandException("Empires.cmd.err.claim.missing");
+		return block;
+	}
 
 	public static Rank getRankFromEmpire(Empire empire, String rankName) {
 		Rank rank = empire.ranksContainer.get(rankName);

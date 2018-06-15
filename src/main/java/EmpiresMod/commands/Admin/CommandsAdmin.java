@@ -36,6 +36,7 @@ import EmpiresMod.entities.Flags.FlagType;
 import EmpiresMod.entities.Managers.ToolManager;
 import EmpiresMod.entities.Position.ChunkPos;
 import EmpiresMod.entities.Tools.WhitelisterTool;
+import EmpiresMod.exceptions.Command.CommandException;
 import EmpiresMod.exceptions.Empires.EmpiresCommandException;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
@@ -271,8 +272,9 @@ public class CommandsAdmin extends CommandsEMP {
         if (!empire.citizensMap.containsKey(target)) {
             throw new EmpiresCommandException("Empires.adm.cmd.err.kick.citizen", target, empire);
         }
-
+        empire.subtractPower(target.getPower());
         getDatasource().unlinkCitizenFromEmpire(target, empire);
+        getDatasource().saveEmpire(empire);
         ChatManager.send(sender, "Empires.notification.empire.citizen.remove", target, empire);
         return CommandResponse.DONE;
     }
@@ -371,12 +373,22 @@ public class CommandsAdmin extends CommandsEMP {
 
         checkPositiveInteger(args.get(1));
         Citizen citizen = getCitizenFromName(args.get(0));
-        double boostValue = Integer.parseInt(args.get(1));
-        citizen.setPower(boostValue);
+        int boostValue1 = Integer.parseInt(args.get(1));
+        double boostValue = (double) boostValue1 - citizen.getPower();
         citizen.setMaxPower(boostValue);
+        citizen.setPower(boostValue);
         getDatasource().saveCitizen(citizen);
+        Empires.instance.datasource.saveCitizen(citizen);
+     /*/   try {
+        Empire empire = CommandsEMP.getEmpireFromCitizen(citizen);
+        empire.setMaxPower(boostValue);
+        empire.addPower(boostValue);
+        getDatasource().saveEmpire(empire);
         
-        ChatManager.send(sender, "Empires.notification.citizen.powerboost", boostValue, citizen.getPower());
+        } catch (CommandException e) {
+        	
+        } /*/
+        ChatManager.send(sender, "Empires.notification.citizen.powerboost", boostValue, citizen.getPlayerName());
         return CommandResponse.DONE;
     }
 

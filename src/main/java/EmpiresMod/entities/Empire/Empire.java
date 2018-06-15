@@ -40,7 +40,6 @@ public class Empire implements Comparable<Empire>, IChatFormat {
 	
     private double CitizensPower = 0.00;
 	
-	private double maxPower = 0.00;
 	
     private String name, oldName = null;
 
@@ -49,7 +48,7 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     private Alliance alliance;
     private Teleport spawn;
     private Teleport jail;
-    private String description = "This Empire Hasn't Set A Description Yet :(";
+    private String description;
     public final static List<Teleport> Warps = new ArrayList<Teleport>();
     public final TicketMap ticketMap = new TicketMap(this);
     public final CitizenRankMap citizensMap = new CitizenRankMap();
@@ -60,7 +59,7 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     public final Flag.Container flagsContainer = new Flag.Container();
     public final EmpireBlock.Container empireBlocksContainer = new EmpireBlock.Container();
     public final BlockWhitelist.Container blockWhitelistsContainer = new BlockWhitelist.Container();
-
+    private double maxPower = 0.00 + citizensMap.size() * Config.instance.defaultMaxPower.get();
     public final Bank bank = new Bank(this);
     
     public Empire(String name) {
@@ -221,7 +220,7 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     	int correctwarpcounter = 0;
     	for (int i=0; i < Warps.size(); i++) {
     		Teleport Warp = Warps.get(i);
-    		if (Warp.getEmpirename().equals(getName())) {
+    		if (Warp.getEmpire().getName().equals(getName())) {
     			correctwarpcounter++;
     		}
     	}
@@ -243,15 +242,13 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     }
 
     public int getMaxBlocks() {
-        int leaderBlocks = Config.instance.blocksLeader.get();
-        int citizensBlocks = Config.instance.blocksCitizen.get() * (citizensMap.size() - 1);
         int citizensExtra = 0;
         for(Citizen res : citizensMap.keySet()) {
-            citizensExtra += res.getExtraBlocks();
+            citizensExtra += (int) Math.round(res.getMaxPower());
         }
         int empireExtra = empireBlocksContainer.getExtraBlocks();
 
-        return leaderBlocks + citizensBlocks + citizensExtra + empireExtra;
+        return citizensExtra;
     }
     
     public void setRelation(Empire empire, Relationship rel) {
@@ -295,7 +292,7 @@ public class Empire implements Comparable<Empire>, IChatFormat {
   }                  
 
     public Boolean warpValidator(Teleport warp) {
-    	if (warp.getEmpirename().equals(getName())) {
+    	if (warp.getEmpire().getName().equals(getName())) {
     	return true;
     	}
 	return false;
@@ -325,15 +322,12 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     	return size;
     }
 
-    public double getMaxPower() {
-    	double maxPower = 0.00 + citizensMap.size() * Config.instance.defaultMaxPower.get();
-    	
-	return maxPower;
+    public double getMaxPower() {	
+    	return this.maxPower;
     }
     
     public double getMaxPowerLocal(Empire empire) {
-    	double maxPower = 0.00 + empire.citizensMap.size() * Config.instance.defaultMaxPower.get();
-    	return maxPower;
+    	return empire.getMaxPower();
     }
     
          
@@ -410,10 +404,26 @@ public class Empire implements Comparable<Empire>, IChatFormat {
         	for (int i=0; i < Warps.size(); i++) {
         		Teleport warp = Warps.get(i);
         	if (warp.getName().equals( warpname)) {
-   	
-        		if (warp.getEmpirename().equals(getName())) {
-        			return true;
-        		}
+        		return true;
+        	} else {
+        	return false;
+        	}
+        	}
+    	}
+    	} catch (NullPointerException e) {
+    		e.printStackTrace();
+    		return false;
+    	}
+        	return false;
+   }
+    
+    public boolean hasWarp(Teleport Warp) {
+    	try {
+    	if (Warps.isEmpty() == false) {
+        	for (int i=0; i < Warps.size(); i++) {
+        		Teleport warp = Warps.get(i);
+        	if (warp == Warp) {
+        		return true;
         	} else {
         	return false;
         	}
@@ -446,15 +456,18 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     }
 
     public String getDesc() {
-    	return this.description;
+    	return description;
     }
+    
     
     public Teleport getWarp(String warpname) {
     if (Warps.isEmpty() == false) {
     	for (int i=0; i < Warps.size(); i++) {
     		Teleport warp = Warps.get(i);
     	if (warp.getName().equals(warpname)) {
+    		if (warp.getEmpire().getName() == getName()) {
     		return warp;
+    		}
     	}
     	}
     }
@@ -595,6 +608,7 @@ public class Empire implements Comparable<Empire>, IChatFormat {
 
             return mainEmpire;
         }
+
 		
         @Override
         public IChatComponent toChatMessage() {

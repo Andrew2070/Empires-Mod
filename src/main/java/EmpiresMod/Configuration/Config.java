@@ -73,25 +73,17 @@ public class Config extends ConfigTemplate {
             "The Default Minimum distance (in chunks) between 2 Empires. Prevents Empire's from being too close on creation.",
             1);
     
+    public ConfigProperty<String> defaultDesc = new ConfigProperty<String>(
+            "defaultDesc", "Empires",
+            "The default description set for an empire before a leader/officer changes it.",
+            "This Empire Has Not Set A Description Yet :(");
     
-    public ConfigProperty<Integer> blocksLeader = new ConfigProperty<Integer>(
-            "blocksLeader", "Empires",
-            "The amount of maximum claims a Empire gets from the leader, this should match the defaultMaxPower statement.",
-            20);
-    
-    
-    public ConfigProperty<Integer> blocksCitizen = new ConfigProperty<Integer>(
-            "blocksCitizens", "Empires",
-            "The amount of maximum claims a Empire gets from each player, set this value to be equal to the defaultMaxPower statement.",
-            20);
-    
-    
+   
     public ConfigProperty<Integer> placeProtectionRange = new ConfigProperty<Integer>(
             "placeProtectionRange", "Empires",
             "The distance in blocks from a protected Empire where you can't place a block in the Wild.",
             4);
-    
-    
+     
     public ConfigProperty<Boolean> modifiableRanks = new ConfigProperty<Boolean>(
             "modifiableRanks", "Empires",
             "If true Citizens with permission can modify the ranks of their Empires. This feature hasn't been fully tested yet and it might cause problems!",
@@ -172,6 +164,10 @@ public class Config extends ConfigTemplate {
             "Toggles whether a citizen should be sent to the Empire spawn on death.",
             true);
     
+    public ConfigProperty<Boolean> allowForeignEmpireSpawning= new ConfigProperty<Boolean>(
+            "foreignEmpireSpawn", "Citizens",
+            "Toggles whether a citizen should be able to teleport to another empire's spawnpoint.",
+            false);
     public ConfigProperty<Boolean> toggleRefund = new ConfigProperty<Boolean>(
     		"refundDeletedTowns", "cost",
     		"This toggles whether or not any currency will be refunded to a player when they unclaim and/or delete territory.",

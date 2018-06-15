@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.management.relation.RelationType;
 
+import EmpiresMod.Empires;
+import EmpiresMod.WarpTest;
 import EmpiresMod.API.Chat.Component.ChatManager;
 import EmpiresMod.API.Commands.Command.Command;
 import EmpiresMod.API.Commands.Command.CommandResponse;
@@ -71,18 +73,16 @@ public class CommandsOfficer extends CommandsEMP {
         EntityPlayer player = (EntityPlayer) sender;
         Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(player);
         Empire empire = getEmpireFromCitizen(res);
-        if (args.size() < 0) {          
+        if (args.size() < 1) {          
             return CommandResponse.SEND_SYNTAX;
         }
-        
-        
         if(empire.getNumberofWarps() > Config.instance.maxWarps.get()) {
         	throw new EmpiresCommandException("Empires.cmd.err.warp.maximum");
         }
 
         String warpname = args.get(0).toString();
         
-        if (empire.hasWarp(warpname) == true ) {
+        if (empire.hasWarp(WarpTest.filterWarp(empire, empire.getWarp(warpname))) == true ) {
         	throw new EmpiresCommandException("Empires.cmd.err.warpname.exists");
         }
         
@@ -91,15 +91,14 @@ public class CommandsOfficer extends CommandsEMP {
         }
         makePayment(player, Config.instance.costAmountSetWarp.get()); 
         
-        Teleport Warp = new Teleport((String) warpname,(String) empire.getName(), player.dimension, (float) player.posX, (float) player.posY, (float) player.posZ, (float) player.cameraYaw, (float) player.cameraPitch);
+        Teleport Warp = new Teleport((String) warpname,(Empire) empire, player.dimension, (float) player.posX, (float) player.posY, (float) player.posZ, (float) player.cameraYaw, (float) player.cameraPitch);
         Warp.setDim(player.dimension).setPosition((float) player.posX, (float) player.posY, (float) player.posZ).setRotation(player.cameraYaw, player.cameraPitch);
-        Warp.setEmpirename(empire.getName());
-        
-        System.out.println(Warp + " Name:"+ Warp.getName());
+        Warp.setEmpire(empire);
+        System.out.println("DEBUG: /setwarp command -- > Name: " + Warp.getName() + " DbID: " + Warp.getDbID()+ " Key: " + Warp.getKey()+ " Empire: " + Warp.getEmpire()+ " X: " + Warp.getX()+ " Z: " + Warp.getZ());
         empire.setWarps(Warp);
         
         getDatasource().saveEmpire(empire);
-        getDatasource().saveWarps(empire, Warp);
+        getDatasource().saveWarps(Warp);
         ChatManager.send(sender, "Empires.notification.empire.setwarp");
         return CommandResponse.DONE;
     }
@@ -119,8 +118,8 @@ public class CommandsOfficer extends CommandsEMP {
         if (empire.hasWarp(warpname) == true ) {
         Teleport warp = empire.getWarp(warpname);
         empire.delWarp(warp);
+        getDatasource().deleteWarp(warp);
         getDatasource().saveEmpire(empire);
-        getDatasource().saveWarps(empire, warp);
         ChatManager.send(sender, "Empires.notification.empire.delwarp");
         }
         return CommandResponse.DONE;
@@ -849,6 +848,9 @@ public class CommandsOfficer extends CommandsEMP {
         	throw new EmpiresCommandException("Empires.cmd.err.desc.maxChars");
         }
         empire.setDesc(desc);
+        getDatasource().saveEmpire(empire);
+        Empires.instance.datasource.saveEmpire(empire);
+        empire.setDesc(desc);
         ChatManager.send(sender, "Empires.notification.desc.succesful");
         empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.desc", sender.getCommandSenderName(), desc));
         return CommandResponse.DONE;
@@ -955,8 +957,9 @@ public class CommandsOfficer extends CommandsEMP {
         if(empire.citizensMap.get(target) == empire.ranksContainer.getLeaderRank()) {
             throw new EmpiresCommandException("Empires.cmd.err.kick.leader");
         }
-
+        empire.subtractPower(target.getPower());
         getDatasource().unlinkCitizenFromEmpire(target, empire);
+        getDatasource().saveEmpire(empire);
         ChatManager.send(target.getPlayer(), "Empires.notification.empire.kicked", empire);
         empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.left", target, empire));
         return CommandResponse.DONE;

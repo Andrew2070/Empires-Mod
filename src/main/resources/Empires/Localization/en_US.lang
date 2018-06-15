@@ -154,7 +154,7 @@ Empires.notification.empire.created={6|[Empire]}{a| New Empire }{%s}{a| created 
 Empires.notification.empire.deleted={6|[Empire]}{a| The Empire }{%s}{a| was deleted!}
 Empires.notification.empire.overclaimed.deleted={6|[Empire]}{a| The Empire }{%s}{a| was deleted because it's spawn was captured!}
 Empires.notification.empire.deleted.withplots={6|[Empire] }{c|You cannot delete an Empire with plots that you don't own.}
-Empires.notification.citizen.powerboost={6|[Empire] }{c|Power Boosted By [}{%s}{c|] For Citizen}{%s}
+Empires.notification.citizen.powerboost={6|[Empire] }{c| Power Boosted By }{6|%s}{c| For Citizen: }{6|%s}
 
 
 # /empire invite

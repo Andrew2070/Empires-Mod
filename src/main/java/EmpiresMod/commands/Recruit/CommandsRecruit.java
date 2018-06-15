@@ -3,6 +3,7 @@ package EmpiresMod.commands.Recruit;
 import java.util.ArrayList;
 import java.util.List;
 
+import EmpiresMod.WarpTest;
 import EmpiresMod.API.Chat.Component.ChatComponentContainer;
 import EmpiresMod.API.Chat.Component.ChatComponentEmpireList;
 import EmpiresMod.API.Chat.Component.ChatComponentFormatted;
@@ -66,8 +67,9 @@ public class CommandsRecruit extends CommandsEMP {
         if (empire.citizensMap.get(res) != null && empire.citizensMap.get(res).getType() == Rank.Type.LEADER) {
             throw new EmpiresCommandException("Empires.notification.empire.left.asLeader");
         }
-
+        empire.subtractPower(res.getPower());
         getDatasource().unlinkCitizenFromEmpire(res, empire);
+        getDatasource().saveEmpire(empire);
         empire.subtractPower(res.getPower()); //make sure the empire loses power when the citizen leaves.
         ChatManager.send(sender, "Empires.notification.empire.left.self", empire);
         empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.left", res, empire));
@@ -86,13 +88,16 @@ public class CommandsRecruit extends CommandsEMP {
         Empire empire;
         int amount;
 
-        if (args.isEmpty()) {
             empire = getEmpireFromCitizen(res);
             amount = Config.instance.costAmountSpawn.get();
-        } else {
-            empire = getEmpireFromName(args.get(0));
-            amount = Config.instance.costAmountOtherSpawn.get();
-        }
+            
+        	if (Config.instance.allowForeignEmpireSpawning.get() == true ) {
+        		if (!args.isEmpty()) {
+        			empire = getEmpireFromName(args.get(0));
+        			amount = Config.instance.costAmountOtherSpawn.get();
+        		}
+        	}
+        
 //TODO: Add config to disable teleportation to other empires spawn points.
         if (!empire.hasSpawn()) {
             throw new EmpiresCommandException("Empires.cmd.err.spawn.missing", empire);
@@ -143,6 +148,9 @@ public class CommandsRecruit extends CommandsEMP {
             syntax = "/empire warp [warpname]",
             completionKeys = {"empireCompletion"})
     public static CommandResponse warpCommand(ICommandSender sender, List<String> args) {
+    	if (args.size() < 1) {
+    		return CommandResponse.SEND_SYNTAX;
+    	}
         EntityPlayer player = (EntityPlayer)sender;
         Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(sender);
         Empire empire;
@@ -151,44 +159,24 @@ public class CommandsRecruit extends CommandsEMP {
         amount = Config.instance.costAmountSpawn.get(); //create custom config for warp costs.
         String warpname = args.get(0).toString();
         Teleport warp = empire.getWarp(warpname);
-        EmpireBlock block = getBlockAtCitizen(res);
         
         if (res.getTeleportCooldown() > 0) {
             throw new EmpiresCommandException("Empires.cmd.err.spawn.cooldown", res.getTeleportCooldown(), res.getTeleportCooldown() / 20);
         }
-       
-        for (Teleport warps : empire.Warps) {
-        	String name = warps.getName();
-        	String empirename = warps.getEmpirename();
-        	List<Teleport> matches = new ArrayList<Teleport>();
-        	Teleport ReplacementWarp = warps;
-        	if (name.equals(warp.getName())) {
-        		matches.add(warp);
-        		for (Teleport matchWarp : matches) {
-        		int localdim = matchWarp.getDim();
-        		float localX = matchWarp.getX();
-        		float localY = matchWarp.getY();
-        		float localZ = matchWarp.getZ();
-        		float localYaw = matchWarp.getYaw();
-        		float localPitch = matchWarp.getPitch();
-        		//Basically This Checks For Identical Warps Of Other Empires, and selects the one present in the current empire, and teleports to it.
-        		if (block.isPointIn(localdim, localX, localZ)) {
-        			 ReplacementWarp = new Teleport((String) warpname, (String) empire.getName(), localdim, (float) localX, (float) localY, (float) localZ, (float) localYaw, (float) localPitch);
-        	        ReplacementWarp.setDim(localdim).setPosition((float) localX, (float) localY, (float) localZ).setRotation(localYaw, localPitch);
-        	        ReplacementWarp.setEmpirename(empire.getName());
-        	     
-        		}
-        		 
-    	        makePayment(player, amount);
-    	        empire.bank.addAmount(amount);
-    	        getDatasource().saveEmpireBank(empire.bank);
-    	        ChatManager.send(sender, "Empires.notification.warp.succesful");
+
+    	        //System.out.println("DEBUG: /warp command -- > Name: "+warp.getName() + " DbID: " + warp.getDbID()+ " Key: " + warp.getKey()+ " Empire: " + warp.getEmpire()+ " X: " + warp.getX()+ " Z: " + warp.getZ());
     	        //System.out.println("SQL: line 164 :DEBUG: loadwarps(): " + " NAME: "+ warpname + " SelectedSQLEmpire: "+ empire.getName() +" WarpsEmpire: " + warp.getEmpirename()+ " Dim: "+ warp.getDim() + " X: " + warp.getX()+ " Y: " + warp.getY() + " Z: "+ warp.getZ() + " YAW: " + warp.getYaw() + " PITCH: " + warp.getPitch());
-    	        empire.sendToWarpCiz(res, ReplacementWarp);     	
-        		}
-        	}
-        }
-     
+
+    	        if (warp.getEmpire() == empire) {
+    	        	makePayment(player, amount);
+        	        empire.bank.addAmount(amount);
+        	        getDatasource().saveEmpireBank(empire.bank);
+        	        empire.sendToWarpCiz(res, warp);
+        	        res.setTeleportCooldown(Config.instance.teleportCooldown.get());
+        	        ChatManager.send(sender, "Empires.notification.warp.succesful");
+    	        }
+    	        
+        	
         return CommandResponse.DONE;
         
     }

@@ -1,7 +1,11 @@
 package EmpiresMod.Misc.Teleport;
 
 import EmpiresMod.API.Chat.Component.ChatComponentFormatted;
+import EmpiresMod.API.Commands.Command.CommandsEMP;
+import EmpiresMod.Datasource.EmpiresUniverse;
 import EmpiresMod.Localization.LocalizationManager;
+import EmpiresMod.entities.Empire.Empire;
+import EmpiresMod.entities.Empire.Plot;
 import EmpiresMod.entities.Empire.Relationship;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -13,21 +17,24 @@ import net.minecraft.util.IChatComponent;
  * certain position.
  */
 public class Teleport {
+	private int dbID;
+	private String key;
 	private int dim;
-	private String empirename;
+	private Empire empire;
 	private String name;
 	private float x, y, z, yaw, pitch;
 
-	public Teleport(String name, String empirename, int dim, float x, float y, float z, float yaw, float pitch) {
+	public Teleport(String name, Empire empire, int dim, float x, float y, float z, float yaw, float pitch) {
 		setName(name);
-		setEmpirename(empirename);
+		setEmpire(empire);
 		setDim(dim);
 		setPosition(x, y, z);
 		setRotation(yaw, pitch);
+		updateKey();
 	}
 
-	public Teleport(String name, String empirename, int dim, float x, float y, float z) {
-		this(name, empirename, dim, x, y, z, 0, 0);
+	public Teleport(String name, Empire empire, int dim, float x, float y, float z) {
+		this(name, empire, dim, x, y, z, 0, 0);
 	}
 
 	// Used when a player is riding an entity. eg pig, horse
@@ -53,13 +60,13 @@ public class Teleport {
 		return this;
 	}
 	
-	public Teleport setEmpirename(String empirename) {
-		this.empirename = empirename;
+	public Teleport setEmpire(Empire empire) {
+		this.empire = empire;
 		return this;
 	}
 
-	public String getEmpirename() {
-		return empirename;
+	public Empire getEmpire() {
+		return empire;
 	}
 	public Teleport setPosition(float x, float y, float z) {
 		this.x = x;
@@ -104,5 +111,27 @@ public class Teleport {
 
 	public float getPitch() {
 		return pitch;
+	}
+	private void updateKey() {
+		key = String.format("%s;%s;%s;%s", dim, x, y, z);
+	}
+	
+	public String getKey() {
+		return key;
+	}
+	public Teleport get(int warpID) {
+		for (Teleport warp : empire.Warps) {
+			if (warp.getDbID() == warpID) {
+				return warp;
+			}
+		}
+		return null;
+	}
+	public void setDbID(int id) {
+		this.dbID = id;
+	}
+
+	public int getDbID() {
+		return this.dbID;
 	}
 }

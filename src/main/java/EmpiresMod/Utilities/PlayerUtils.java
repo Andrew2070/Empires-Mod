@@ -293,7 +293,6 @@ public class PlayerUtils {
 		if (player.getGameProfile() == null) {
 			return false;
 		}
-
 		return isOp(player.getGameProfile());
 	}
 
@@ -305,7 +304,6 @@ public class PlayerUtils {
 
 		return isOp(gameProfile);
 	}
-
 	@SuppressWarnings("unchecked")
 	public static boolean isOp(GameProfile gameProfile) {
 		UserListOps ops = MinecraftServer.getServer().getConfigurationManager().func_152603_m();
