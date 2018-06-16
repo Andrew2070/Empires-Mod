@@ -1,5 +1,5 @@
 package EmpiresMod.API.Chat;
-
+/*/
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -23,16 +23,16 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
 
-public class BukkitChatCompat {
-	public String message = "";
+/*/public class BukkitChatCompat {
+	/*/public String message = "";
 	public static final BukkitChatCompat instance = new BukkitChatCompat();
 	public void onBukkitServerChatReceivedEvent(AsyncPlayerChatEvent event) {
+		if (ClassUtils.isBukkitLoaded()) {
 		if (Config.instance.disableEmpireChatHandler.get() == true) {
 		EntityPlayer player = (EntityPlayer) event.getPlayer();
 		event.setCancelled(true);
 		if (player != null) {
 			event.setCancelled(true);
-
 			List players = MinecraftServer.getServer().getConfigurationManager().playerEntityList;
 			for (int i = 0; i < +players.size(); i++) {
 				EntityPlayer target = (EntityPlayer) players.get(i);
@@ -97,5 +97,8 @@ public class BukkitChatCompat {
 		}
 		
 		}
+	}
 		
+}
+/*/
 }

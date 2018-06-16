@@ -26,7 +26,7 @@ public class ForgeChatHandler {
 			
 	@SubscribeEvent
 	public void onServerChatReceivedEvent(ServerChatEvent event) {
-		if (ClassUtils.isBukkitLoaded() == false) {
+		//if (ClassUtils.isBukkitLoaded() == false) {
 
 		EntityPlayer player = (EntityPlayer) event.player;
 		if (event.player != null) {
@@ -60,7 +60,7 @@ public class ForgeChatHandler {
 		
 
 	}
-	}
+	//}
 
 }
 
