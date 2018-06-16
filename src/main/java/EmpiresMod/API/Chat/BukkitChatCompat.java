@@ -28,7 +28,6 @@ public class BukkitChatCompat {
 	public static final BukkitChatCompat instance = new BukkitChatCompat();
 	public void onBukkitServerChatReceivedEvent(AsyncPlayerChatEvent event) {
 		if (Config.instance.disableEmpireChatHandler.get() == true) {
-		if (ClassUtils.isBukkitLoaded() == true) {
 		EntityPlayer player = (EntityPlayer) event.getPlayer();
 		event.setCancelled(true);
 		if (player != null) {
@@ -99,5 +98,4 @@ public class BukkitChatCompat {
 		
 		}
 		
-	}
 }
