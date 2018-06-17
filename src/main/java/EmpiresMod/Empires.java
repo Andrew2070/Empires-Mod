@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.logging.log4j.Logger;
 import org.bukkit.Bukkit;
 
-import EmpiresMod.API.Chat.BukkitChatCompat;
+//import EmpiresMod.API.Chat.BukkitChatCompat;
 import EmpiresMod.API.Chat.EmpireChatChannel;
 import EmpiresMod.API.Chat.ForgeChatHandler;
 import EmpiresMod.API.Commands.Command.CommandManager;
@@ -96,16 +96,12 @@ public class Empires {
 		// Register handlers/trackers
 		FMLCommonHandler.instance().bus().register(PlayerTracker.instance);
 		MinecraftForge.EVENT_BUS.register(PlayerTracker.instance);
-		if (ClassUtils.isBukkitLoaded() == true) {
-	    FMLCommonHandler.instance().bus().register(BukkitChatCompat.instance);
-		MinecraftForge.EVENT_BUS.register(BukkitChatCompat.instance);
-		}
 		
-		if (ClassUtils.isBukkitLoaded() == false) {
-
+	    //FMLCommonHandler.instance().bus().register(BukkitChatCompat.instance);
+		//MinecraftForge.EVENT_BUS.register(BukkitChatCompat.instance);
+		
 		FMLCommonHandler.instance().bus().register(ForgeChatHandler.instance);
 		MinecraftForge.EVENT_BUS.register(ForgeChatHandler.instance);
-		}
 		
 		FMLCommonHandler.instance().bus().register(EmpireChatChannel.instance);
 		MinecraftForge.EVENT_BUS.register(EmpireChatChannel.instance);
