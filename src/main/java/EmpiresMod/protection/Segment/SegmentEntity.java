@@ -27,6 +27,7 @@ public class SegmentEntity extends Segment {
 		if (!shouldCheck(entity)) {
 			return true;
 		}
+		
 
 		Citizen owner = getOwner(entity);
 		int range = getRange(entity);

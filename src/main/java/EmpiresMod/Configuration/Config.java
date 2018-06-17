@@ -331,6 +331,11 @@ public class Config extends ConfigTemplate {
             "Allow Thaumcraft Taint biomes to spread in all Empires and plots on the server.",
             false);
     
+    public ConfigProperty<Boolean> icbmMissilesExplosion = new ConfigProperty<Boolean>(
+            "icbmMissilesExplosion", "protection",
+            "Allow ICBM missiles to fly through claims.",
+            true);
+    
     
     public ConfigProperty<Boolean> mobTravelInEmpires = new ConfigProperty<Boolean>(
             "mobTravelInEmpires", "protection",

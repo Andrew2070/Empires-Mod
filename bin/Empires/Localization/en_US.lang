@@ -363,6 +363,7 @@ Empires.notification.citizen.payment={6|[Empire] }{3|You have paid %s}
 Empires.notification.citizen.refund={6|[Empire] }{3|You have been refunded %s}
 Empires.notification.empire.payment={6|[Empire] }{3|%s has been taken from the bank}
 Empires.notification.empire.refund={6|[Empire] }{3|%s has been refunded to the bank}
+Empires.notification.ICBM.explosion.stopped6|[Empire] }{3|An ICBM explosion Has Been Stopped!}
 
 # Relationship Notifications
 

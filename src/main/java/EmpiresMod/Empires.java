@@ -33,6 +33,7 @@ import EmpiresMod.Handlers.VisualsHandler;
 import EmpiresMod.Localization.Localization;
 import EmpiresMod.Localization.LocalizationManager;
 import EmpiresMod.Proxies.EconomyProxy;
+import EmpiresMod.Proxies.icbmClassicProxy;
 import EmpiresMod.Utilities.ClassUtils;
 import EmpiresMod.Utilities.StringUtils;
 import EmpiresMod.commands.Admin.CommandsAdmin;
@@ -48,6 +49,7 @@ import EmpiresMod.protection.ProtectionHandlers;
 import EmpiresMod.protection.ProtectionManager;
 import EmpiresMod.protection.JSON.ProtectionParser;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -102,6 +104,10 @@ public class Empires {
 		
 		FMLCommonHandler.instance().bus().register(ForgeChatHandler.instance);
 		MinecraftForge.EVENT_BUS.register(ForgeChatHandler.instance);
+		if (Loader.isModLoaded("voltzengine")) {
+		FMLCommonHandler.instance().bus().register(icbmClassicProxy.instance);
+		MinecraftForge.EVENT_BUS.register(icbmClassicProxy.instance);
+		}
 		
 		FMLCommonHandler.instance().bus().register(EmpireChatChannel.instance);
 		MinecraftForge.EVENT_BUS.register(EmpireChatChannel.instance);
@@ -118,8 +124,8 @@ public class Empires {
 		registerHandlers();
 
 		FMLCommonHandler.instance().registerCrashCallable(new DatasourceCrashCallable());
-
-	}
+		
+		// Mods:
 
 	public void loadConfig() {
 		Config.instance.reload();

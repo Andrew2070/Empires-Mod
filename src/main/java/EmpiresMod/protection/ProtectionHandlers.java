@@ -20,6 +20,7 @@ import EmpiresMod.entities.Empire.Empire;
 import EmpiresMod.entities.Flags.FlagType;
 import EmpiresMod.entities.Misc.Volume;
 import EmpiresMod.entities.Position.BlockPos;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -152,10 +153,11 @@ public class ProtectionHandlers {
 		// lines^
 		ProtectionManager.checkInteraction(ev.target, res, ev);
 	}
-
+	
 	@SubscribeEvent
 	public void onBlockPlacement(BlockEvent.PlaceEvent ev) {
 		onAnyBlockPlacement(ev.player, ev);
+		
 	}
 
 	@SubscribeEvent
