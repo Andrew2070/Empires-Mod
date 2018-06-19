@@ -1,5 +1,6 @@
 package EmpiresMod.API.container;
 
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +18,12 @@ public class relationshipMap extends HashMap<Empire, Relationship> implements IC
     public void remove(Empire empire) {
         for (Empire empire2: super.keySet()) {
         	if (empire2 == empire) {
+        		try {	
         		super.remove(empire);
+            	} catch (ConcurrentModificationException e) {
+            		e.printStackTrace();
+            		super.remove(empire);
+            	}
         	}
         }
     }

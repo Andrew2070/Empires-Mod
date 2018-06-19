@@ -26,7 +26,7 @@ public class PermCommands {
 	protected static Group getGroupFromName(String name) {
 		Group group = getManager().groups.get(name);
 		if (group == null) {
-			throw new PermissionCommandException("Empires.cmd.err.group.notExist",
+			throw new PermissionCommandException("Empires.perm.cmd.err.group.notExist",
 					LocalizationManager.get("Empires.format.group.short", name));
 		}
 		return group;
@@ -35,23 +35,23 @@ public class PermCommands {
 	protected static UUID getUUIDFromUsername(String username) {
 		UUID uuid = PlayerUtils.getUUIDFromUsername(username);
 		if (uuid == null) {
-			throw new PermissionCommandException("Empires.cmd.err.player.notExist",
+			throw new PermissionCommandException("Empires.perm.cmd.err.player.notExist",
 					LocalizationManager.get("Empires.format.user.short", username));
 		}
 		return uuid;
 	}
 
-	@Command(name = "empireperm", permission = "Empires.cmd", syntax = "/empireperm <command>", alias = { "p", "perm" })
+	@Command(name = "empireperm", permission = "Empires.perm.cmd", syntax = "/empireperm <command>", alias = { "empp", "empperm" })
 	public static CommandResponse permCommand(ICommandSender sender, List<String> args) {
 		return CommandResponse.SEND_HELP_MESSAGE;
 	}
 
-	@Command(name = "config", permission = "Empires.cmd.config", parentName = "Empires.cmd", syntax = "/empireperm config <command>")
+	@Command(name = "config", permission = "Empires.perm.cmd", parentName = "Empires.perm.cmd", syntax = "/empireperm config <command>")
 	public static CommandResponse configCommand(ICommandSender sender, List<String> args) {
 		return CommandResponse.SEND_HELP_MESSAGE;
 	}
 
-	@Command(name = "reload", permission = "Empires.cmd.config.reload", parentName = "Empires.cmd.config", syntax = "/empireperm config reload")
+	@Command(name = "reload", permission = "Empires.perm.cmd.config.reload", parentName = "Empires.perm.cmd.config", syntax = "/empireperm config reload")
 	public static CommandResponse configReloadCommand(ICommandSender sender, List<String> args) {
 		Empires.instance.loadConfig();
 		// REF: Change these to localized versions of themselves
@@ -65,13 +65,12 @@ public class PermCommands {
 		return CommandResponse.DONE;
 	}
 
-	public static class MyPermissionManagerCommands {
-		@Command(name = "group", permission = "Empires.cmd.group", parentName = "Empires.cmd", syntax = "/perm group <command>")
+		@Command(name = "group", permission = "Empires.perm.cmd.group", parentName = "Empires.perm.cmd", syntax = "/empireperm group <command>")
 		public static CommandResponse groupCommand(ICommandSender sender, List<String> args) {
 			return CommandResponse.SEND_HELP_MESSAGE;
 		}
 
-		@Command(name = "add", permission = "Empires.cmd.group.add", parentName = "Empires.cmd.group", syntax = "/perm group add <name> [parents]")
+		@Command(name = "add", permission = "Empires.perm.cmd.group.add", parentName = "Empires.perm.cmd.group", syntax = "/empireperm group add <name> [parents]")
 		public static CommandResponse groupAddCommand(ICommandSender sender, List<String> args) {
 			if (args.size() < 1) {
 				return CommandResponse.SEND_SYNTAX;
@@ -85,7 +84,7 @@ public class PermCommands {
 			return CommandResponse.DONE;
 		}
 
-		@Command(name = "delete", permission = "Empires.cmd.group.delete", parentName = "Empires.cmd.group", syntax = "/perm group delete <name>")
+		@Command(name = "delete", permission = "Empires.perm.cmd.group.delete", parentName = "Empires.perm.cmd.group", syntax = "/empireperm group delete <name>")
 		public static CommandResponse groupDeleteCommand(ICommandSender sender, List<String> args) {
 			if (args.size() < 1) {
 				return CommandResponse.SEND_SYNTAX;
@@ -98,7 +97,7 @@ public class PermCommands {
 			return CommandResponse.DONE;
 		}
 
-		@Command(name = "rename", permission = "Empires.cmd.group.rename", parentName = "Empires.cmd.group", syntax = "/perm group rename <group> <name>")
+		@Command(name = "rename", permission = "Empires.perm.cmd.group.rename", parentName = "Empires.perm.cmd.group", syntax = "/empireperm group rename <group> <name>")
 		public static CommandResponse groupRenameCommand(ICommandSender sender, List<String> args) {
 			if (args.size() < 2) {
 				return CommandResponse.SEND_SYNTAX;
@@ -111,7 +110,7 @@ public class PermCommands {
 			return CommandResponse.DONE;
 		}
 
-		@Command(name = "list", permission = "Empires.cmd.group.list", parentName = "Empires.cmd.group", syntax = "/perm group list")
+		@Command(name = "list", permission = "Empires.perm.cmd.group.list", parentName = "Empires.perm.cmd.group", syntax = "/empireperm group list")
 		public static CommandResponse groupListCommand(ICommandSender sender, List<String> args) {
 			IChatComponent root = new ChatComponentList();
 			root.appendSibling(
@@ -137,12 +136,12 @@ public class PermCommands {
 			return CommandResponse.DONE;
 		}
 
-		@Command(name = "perm", permission = "Empires.cmd.group.perm", parentName = "Empires.cmd.group", syntax = "/perm group perm <command>")
+		@Command(name = "perm", permission = "Empires.perm.cmd.group.perm", parentName = "Empires.perm.cmd.group", syntax = "/empireperm group perm <command>")
 		public static CommandResponse groupPermCommand(ICommandSender sender, List<String> args) {
 			return CommandResponse.SEND_HELP_MESSAGE;
 		}
 
-		@Command(name = "add", permission = "Empires.cmd.group.perm.add", parentName = "Empires.cmd.group.perm", syntax = "/perm group perm add <group> <perm>")
+		@Command(name = "add", permission = "Empires.perm.cmd.group.perm.add", parentName = "Empires.perm.cmd.group.perm", syntax = "/empireperm group perm add <group> <perm>")
 		public static CommandResponse groupPermAddCommand(ICommandSender sender, List<String> args) {
 			if (args.size() < 2) {
 				return CommandResponse.SEND_SYNTAX;
@@ -156,7 +155,7 @@ public class PermCommands {
 			return CommandResponse.DONE;
 		}
 
-		@Command(name = "remove", permission = "Empires.cmd.group.perm.remove", parentName = "Empires.cmd.group.perm", syntax = "/perm group perm remove <group> <perm>")
+		@Command(name = "remove", permission = "Empires.perm.cmd.group.perm.remove", parentName = "Empires.perm.cmd.group.perm", syntax = "/empireperm group perm remove <group> <perm>")
 		public static CommandResponse groupPermRemoveCommand(ICommandSender sender, List<String> args) {
 			if (args.size() < 2) {
 				return CommandResponse.SEND_SYNTAX;
@@ -170,7 +169,7 @@ public class PermCommands {
 			return CommandResponse.DONE;
 		}
 
-		@Command(name = "list", permission = "Empires.cmd.group.perm.list", parentName = "Empires.cmd.group.perm", syntax = "/perm group perm list <group>")
+		@Command(name = "list", permission = "Empires.perm.cmd.group.perm.list", parentName = "Empires.perm.cmd.group.perm", syntax = "/empireperm group perm list <group>")
 		public static CommandResponse groupPermListCommand(ICommandSender sender, List<String> args) {
 			if (args.size() < 1) {
 				return CommandResponse.SEND_SYNTAX;
@@ -181,17 +180,17 @@ public class PermCommands {
 			return CommandResponse.DONE;
 		}
 
-		@Command(name = "user", permission = "Empires.cmd.user", parentName = "Empires.cmd", syntax = "/perm user <command>")
+		@Command(name = "user", permission = "Empires.perm.cmd.user", parentName = "Empires.perm.cmd", syntax = "/empireperm user <command>")
 		public static CommandResponse userCommand(ICommandSender sender, List<String> args) {
 			return CommandResponse.SEND_HELP_MESSAGE;
 		}
 
-		@Command(name = "group", permission = "Empires.cmd.user.group", parentName = "Empires.cmd.user", syntax = "/perm user group <command>")
+		@Command(name = "group", permission = "Empires.perm.cmd.user.group", parentName = "Empires.perm.cmd.user", syntax = "/empireperm user group <command>")
 		public static CommandResponse userGroupCommand(ICommandSender sender, List<String> args) {
 			return CommandResponse.SEND_HELP_MESSAGE;
 		}
 
-		@Command(name = "show", permission = "Empires.cmd.user.group.show", parentName = "Empires.cmd.user.group", syntax = "/perm user group show <player>")
+		@Command(name = "show", permission = "Empires.perm.cmd.user.group.show", parentName = "Empires.perm.cmd.user.group", syntax = "/empireperm user group show <player>")
 		public static CommandResponse userGroupShowCommand(ICommandSender sender, List<String> args) {
 			if (args.size() < 1) {
 				return CommandResponse.SEND_SYNTAX;
@@ -205,7 +204,7 @@ public class PermCommands {
 			return CommandResponse.DONE;
 		}
 
-		@Command(name = "set", permission = "Empires.cmd.user.group.set", parentName = "Empires.cmd.user.group", syntax = "/perm user group set <player> <group>")
+		@Command(name = "set", permission = "Empires.perm.cmd.user.group.set", parentName = "Empires.perm.cmd.user.group", syntax = "/empireperm user group set <player> <group>")
 		public static CommandResponse userGroupSetCommand(ICommandSender sender, List<String> args) {
 			if (args.size() < 2) {
 				return CommandResponse.SEND_SYNTAX;
@@ -226,7 +225,7 @@ public class PermCommands {
 			return CommandResponse.DONE;
 		}
 
-		@Command(name = "list", permission = "Empires.cmd.user.list", parentName = "Empires.cmd.user", syntax = "/perm user list")
+		@Command(name = "list", permission = "Empires.perm.cmd.user.list", parentName = "Empires.perm.cmd.user", syntax = "/empireperm user list")
 		public static CommandResponse userListCommand(ICommandSender sender, List<String> args) {
 			ChatComponentList root = new ChatComponentList();
 			root.appendSibling(
@@ -240,12 +239,12 @@ public class PermCommands {
 			return CommandResponse.DONE;
 		}
 
-		@Command(name = "perm", permission = "Empires.cmd.user.perm", parentName = "Empires.cmd.user", syntax = "/perm user perm <command>")
+		@Command(name = "perm", permission = "Empires.perm.cmd.user.perm", parentName = "Empires.perm.cmd.user", syntax = "/empireperm user perm <command>")
 		public static CommandResponse userPermCommand(ICommandSender sender, List<String> args) {
 			return CommandResponse.SEND_HELP_MESSAGE;
 		}
 
-		@Command(name = "add", permission = "Empires.cmd.user.perm.add", parentName = "Empires.cmd.user.perm", syntax = "/perm user perm add <player> <perm>")
+		@Command(name = "add", permission = "Empires.perm.cmd.user.perm.add", parentName = "Empires.perm.cmd.user.perm", syntax = "/empireperm user perm add <player> <perm>")
 		public static CommandResponse userPermAddCommand(ICommandSender sender, List<String> args) {
 			if (args.size() < 2) {
 				return CommandResponse.SEND_SYNTAX;
@@ -260,7 +259,7 @@ public class PermCommands {
 			return CommandResponse.DONE;
 		}
 
-		@Command(name = "remove", permission = "Empires.cmd.user.perm.remove", parentName = "Empires.cmd.user.perm", syntax = "/perm user perm remove <player> <perm>")
+		@Command(name = "remove", permission = "Empires.perm.cmd.user.perm.remove", parentName = "Empires.perm.cmd.user.perm", syntax = "/empireperm user perm remove <player> <perm>")
 		public static CommandResponse userPermRemoveCommand(ICommandSender sender, List<String> args) {
 			if (args.size() < 2) {
 				return CommandResponse.SEND_SYNTAX;
@@ -275,7 +274,7 @@ public class PermCommands {
 			return CommandResponse.DONE;
 		}
 
-		@Command(name = "list", permission = "Empires.cmd.user.perm.list", parentName = "Empires.cmd.user.perm", syntax = "/perm user perm list <player>")
+		@Command(name = "list", permission = "Empires.perm.cmd.user.perm.list", parentName = "Empires.perm.cmd.user.perm", syntax = "/empireperm user perm list <player>")
 		public static CommandResponse userPermListCommand(ICommandSender sender, List<String> args) {
 			if (args.size() < 1) {
 				return CommandResponse.SEND_SYNTAX;
@@ -289,7 +288,6 @@ public class PermCommands {
 
 			return CommandResponse.DONE;
 		}
-	}
 
 	private static EmpiresBridge getManager() {
 		return (EmpiresBridge) PermissionProxy.getPermissionManager();
