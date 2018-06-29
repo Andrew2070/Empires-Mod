@@ -8,22 +8,19 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import com.mysql.jdbc.Driver;
 
 import EmpiresMod.Empires;
+import EmpiresMod.Configuration.Config;
 import EmpiresMod.Configuration.ConfigProperty;
 import EmpiresMod.Configuration.ConfigTemplate;
 
 public class BridgeMySQL extends BridgeSQL {
 
-	public ConfigProperty<String> username = new ConfigProperty<String>("username", "datasource",
-			"Username to use when connecting", "");
+	public ConfigProperty<String> username = Config.instance.username;
 
-	public ConfigProperty<String> password = new ConfigProperty<String>("password", "datasource",
-			"Password to use when connecting", "");
+	public ConfigProperty<String> password = Config.instance.password;
 
-	public ConfigProperty<String> host = new ConfigProperty<String>("host", "datasource",
-			"Hostname (format: 'host:port') to use when connecting", "localhost");
+	public ConfigProperty<String> host = Config.instance.host;
 
-	public ConfigProperty<String> database = new ConfigProperty<String>("database", "datasource", "The database name",
-			"Empires");
+	public ConfigProperty<String> database = Config.instance.database;
 
 	public BridgeMySQL(ConfigTemplate config) {
 		config.addBinding(username);

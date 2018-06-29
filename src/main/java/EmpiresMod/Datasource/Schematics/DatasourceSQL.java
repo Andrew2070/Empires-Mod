@@ -12,6 +12,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.Logger;
 
 import EmpiresMod.Empires;
+import EmpiresMod.Configuration.Config;
 import EmpiresMod.Configuration.ConfigProperty;
 import EmpiresMod.Configuration.ConfigTemplate;
 import EmpiresMod.Datasource.Bridge.BridgeMySQL;
@@ -32,8 +33,7 @@ public abstract class DatasourceSQL {
 	protected BridgeSQL bridge;
 	protected BaseSchematic schema;
 
-	public ConfigProperty<String> databaseType = new ConfigProperty<String>("type", "datasource",
-			"Specifies the database engine that is being used. ie SQLite, mysql, etc", "SQLite");
+	public ConfigProperty<String> databaseType = Config.instance.databaseType;
 
 	public DatasourceSQL(Logger log, ConfigTemplate config, BaseSchematic schema) {
 		this.LOG = log;

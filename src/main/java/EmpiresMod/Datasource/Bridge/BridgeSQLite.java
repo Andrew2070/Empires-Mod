@@ -9,13 +9,13 @@ import org.sqlite.JDBC;
 
 import EmpiresMod.Constants;
 import EmpiresMod.Empires;
+import EmpiresMod.Configuration.Config;
 import EmpiresMod.Configuration.ConfigProperty;
 import EmpiresMod.Configuration.ConfigTemplate;
 
 public class BridgeSQLite extends BridgeSQL {
 
-	public ConfigProperty<String> dbPath = new ConfigProperty<String>("path", "datasource",
-			"The path to the database file.", "");
+	public ConfigProperty<String> dbPath = Config.instance.dbPath;
 
 	public BridgeSQLite(ConfigTemplate config) {
 		dbPath.set(Constants.DATABASE_FOLDER + config.getModID() + "/data.db");
