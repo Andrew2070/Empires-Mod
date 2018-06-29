@@ -26,7 +26,7 @@ public class EmpiresSchematic extends BaseSchematic {
                 "PRIMARY KEY(dim))"));
         updates.add(new DBUpdate("06.14.2018.1", "Add Empires Table", "CREATE TABLE IF NOT EXISTS " + bridge.prefix + "Empires (" +
                 "name VARCHAR(32) NOT NULL,"+    
-                "desc VARCHAR(54) NOT NULL,"+
+                "desc VARCHAR(54) NOT NULL, "+
                 "isAdminEmpire BOOLEAN, " +
                 "spawnDim INT NOT NULL, " +
                 "spawnX FLOAT NOT NULL, " +

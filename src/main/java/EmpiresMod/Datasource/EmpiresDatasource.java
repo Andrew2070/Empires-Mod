@@ -586,9 +586,9 @@ public class EmpiresDatasource extends DatasourceSQL {
                 
 
                 if (empire.getOldName() == null)
-                    updateStatement.setString(12, empire.getName());
+                    updateStatement.setString(13, empire.getName());
                 else
-                    updateStatement.setString(12, empire.getOldName());
+                    updateStatement.setString(13, empire.getOldName());
 
                 updateStatement.executeUpdate();
 

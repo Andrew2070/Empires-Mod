@@ -25,17 +25,6 @@ public class Config extends ConfigTemplate {
             "The permission system it should be used as default. $ForgeEssentials for FE permission system, $Bukkit for Bukkit permission system, and $Empires for our own permission system.",
             "$Empires");
     
-    public ConfigProperty<String> HeroChatDefaultMessageFormat= new ConfigProperty<String>(
-            "HeroChatformat", "general",
-            "WIP The HeroChat Format",
-            "{color}[{nick}] &f{prefix}{player}{suffix}{color}");
-
-    public ConfigProperty<String> HeroChatDefaultChatChannel= new ConfigProperty<String>(
-            "HeroChatChannel", "general",
-            "WIP The HeroChat channel to be made default",
-            "{color}[{nick}] &f{prefix}{player}{suffix}{color}");
-
-    
     public ConfigProperty<String> localization = new ConfigProperty<String>(
             "localization", "general",
             "The localization file used, currently we only support English.",
@@ -111,35 +100,42 @@ public class Config extends ConfigTemplate {
             "The maximum amount of chunks not attached to any other claimed chunk that are allowed per Empire. Set to 0 to disable far claims altogether.",
             10);
     
+    
     public ConfigProperty<Integer> maxDescChars = new ConfigProperty<Integer>(
             "maxDescChars", "Empires",
             "The maximum amount of characters allowed for empire descriptions, default = 53",
             53);
+    
     
     public ConfigProperty<Integer> maxWarps = new ConfigProperty<Integer> (
     		"maxWarps", "Empires",
     		"The maximum amount of warps that an empire can have.",
     		5);
     
+    
     public ConfigProperty<Double> defaultMaxPower = new ConfigProperty<Double>(
             "defaultMaxPower", "Citizens",
             "The default maximum amount of power are allowed per player, be vary that claim blocks should equal the number to the nearest whole number.",
             20.00);
+    
     
     public ConfigProperty<Double> pvpPowerTransfer = new ConfigProperty<Double>(
             "pvpPowerTransfer", "Citizens",
             "The amount of power transferred from a killed player to the attacker (Adds to their maxpower)",
             0.05);
     
+    
     public ConfigProperty<Boolean> exceedMaxPowerLimit = new ConfigProperty<Boolean>(
             "exceedMaxPowerLimit", "Citizens",
             "Should players be able to exceed the set max power through killing players/entities",
             true);
     
+    
     public ConfigProperty<Double> entityPowerTransfer = new ConfigProperty<Double>(
             "entityPowerTransfer", "Citizens",
             "The amount of power gained from killing an entity",
             0.005);
+    
    
     public ConfigProperty<Double> defaultPower = new ConfigProperty<Double>(
             "defaultPowers", "Citizens",
@@ -164,6 +160,7 @@ public class Config extends ConfigTemplate {
             "The amount of power a player loses when they die:",
             2.50);
     
+    
     public ConfigProperty<Double> PowerUpdateTime = new ConfigProperty<Double>(
             "PowerUpdateTime", "Citizens",
             "The amount of time in milliseconds that power should update (default = 600000 a.k.a 10 min)",
@@ -181,14 +178,18 @@ public class Config extends ConfigTemplate {
             "Toggles whether a citizen should be sent to the Empire spawn on death.",
             true);
     
+    
     public ConfigProperty<Boolean> allowForeignEmpireSpawning= new ConfigProperty<Boolean>(
             "foreignEmpireSpawn", "Citizens",
             "Toggles whether a citizen should be able to teleport to another empire's spawnpoint.",
             false);
+    
+    
     public ConfigProperty<Boolean> toggleRefund = new ConfigProperty<Boolean>(
     		"refundDeletedTowns", "cost",
     		"This toggles whether or not any currency will be refunded to a player when they unclaim and/or delete territory.",
     		true);
+    
     
     public ConfigProperty<String> costItemName = new ConfigProperty<String>(
             "costItem", "cost",
@@ -328,9 +329,9 @@ public class Config extends ConfigTemplate {
             "defaultPlotHeightDependence", "plots",
             "This sets if the plot selection tool defaults to height dependent or not",
             true
-    );
+    );  
     
-    
+  
     public ConfigProperty<Integer> defaultProtectionSize = new ConfigProperty<Integer>(
             "defaultProtectionSize", "protection",
             "The range that it's going to check in if a protection's segment that has a tileentity does not provide getters for its area of influence.",
@@ -348,6 +349,7 @@ public class Config extends ConfigTemplate {
             "Allow Thaumcraft Taint biomes to spread in all Empires and plots on the server.",
             false);
     
+    
     public ConfigProperty<Boolean> icbmMissilesExplosion = new ConfigProperty<Boolean>(
             "icbmMissilesExplosion", "protection",
             "Allow ICBM missiles to fly through claims.",
@@ -358,5 +360,6 @@ public class Config extends ConfigTemplate {
             "mobTravelInEmpires", "protection",
             "Allow mobs to travel into, but not spawn in a mob protected Empires and plots on the server.",
             false);
+    
     
 }
