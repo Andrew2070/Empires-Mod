@@ -34,19 +34,25 @@ public class ChatComponentWarpList extends ChatComponentMultiPage {
 			if (warp.getEmpire() == empire) {
 					String oldwarpname = dupeWarpCheck();
 					if (warp.getName() != oldwarpname) {
+						if (warp.getName() != "") {
 						IChatComponent warpname = new ChatComponentFormatted("");
 						warpname.appendSibling(new ChatComponentFormatted("{7| }"));
 						warpname.appendSibling(new ChatComponentFormatted("{7| " + warp.getName().toString() +" }"));
 						this.add(new ChatComponentFormatted("{7| --> }{%s}", warpname));
 						printedWarps.add(warp.getName());
+						}
 					} 
 					
 					if (oldwarpname == "null") {
+						if (warp.getName() != "") {
+							
 						IChatComponent warpname = new ChatComponentFormatted("");
 						warpname.appendSibling(new ChatComponentFormatted("{7| }"));
 						warpname.appendSibling(new ChatComponentFormatted("{7| " + warp.getName().toString() +" }"));
 						this.add(new ChatComponentFormatted("{7| --> }{%s}", warpname));
+
 						printedWarps.add(warp.getName());
+						}
 					}
 				}
 			}
