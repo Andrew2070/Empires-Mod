@@ -66,7 +66,7 @@ dependencies {
     // Database engines
     compile "org.xerial:sqlite-jdbc:3.8.5-pre1"
     compile "mysql:mysql-connector-java:5.1.32"
-
+    compile files("libs/VoltzEngine-1.7.10-1.10.5b444.jar")
     // Minecraft related deps
     compile "com.forgeessentials:forgeessentials:1.4.1-SNAPSHOT:dev"
     compile "org.spongepowered:mixin:0.4.4-SNAPSHOT"

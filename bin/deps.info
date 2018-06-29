@@ -18,5 +18,10 @@
         "repo": "http://central.maven.org/maven2/org/beanshell/bsh/2.0b5",
         "file": "bsh-2.0b5.jar",
         "class": "bsh.Interpreter"
+    },
+    {
+        "repo": "http://api.dmodoomsirius.me/com/builtbroken/voltzengine/VoltzEngine/1.7.10-1.10.8b449/",
+        "file": "VoltzEngine-1.7.10-1.10.8b449.jar",
+        "class": "com.builtbroken.mc.api.event.blast.BlastEventBlockEdit"
     }
 ]

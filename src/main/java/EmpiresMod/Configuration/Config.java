@@ -66,8 +66,25 @@ public class Config extends ConfigTemplate {
     public ConfigProperty<String> dbType = new ConfigProperty<String>(
             "type", "datasource", "Datasource Type. Eg: MySQL, SQLite, etc.",
             "SQLite");
+    
+	public ConfigProperty<String> dbPath = new ConfigProperty<String>("path", "datasource",
+			"The path to the database file.", "");
+    
+	public ConfigProperty<String> database = new ConfigProperty<String>("database", "datasource", "The database name",
+			"Empires");
+    
+	public ConfigProperty<String> databaseType = new ConfigProperty<String>("type", "datasource",
+			"Specifies the database engine that is being used. ie SQLite, mysql, etc", "SQLite");
+	
+	public ConfigProperty<String> username = new ConfigProperty<String>("username", "datasource",
+			"[For MySql Use Only] Username to use when connecting", "");
 
+	public ConfigProperty<String> password = new ConfigProperty<String>("password", "datasource",
+			"[For MySql Use Only] Password to use when connecting", "");
 
+	public ConfigProperty<String> host = new ConfigProperty<String>("host", "datasource",
+			"[For MySql Use Only] Hostname (format: 'host:port') to use when connecting", "localhost");
+	
     public ConfigProperty<Integer> distanceBetweenEmpires = new ConfigProperty<Integer>(
             "distance", "Empires",
             "The Default Minimum distance (in chunks) between 2 Empires. Prevents Empire's from being too close on creation.",

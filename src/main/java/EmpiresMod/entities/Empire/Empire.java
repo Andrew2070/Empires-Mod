@@ -26,6 +26,9 @@ import EmpiresMod.entities.Empire.Relationship.Type;
 import EmpiresMod.entities.Flags.Flag;
 import EmpiresMod.entities.Flags.FlagType;
 import EmpiresMod.entities.Permissions.PermissionLevel;
+import EmpiresMod.entities.Relationships.RelationArray;
+import EmpiresMod.entities.Relationships.RelationType;
+import EmpiresMod.entities.Relationships.Relations;
 import EmpiresMod.exceptions.Command.CommandException;
 import EmpiresMod.exceptions.Empires.EmpiresCommandException;
 import net.minecraft.entity.player.EntityPlayer;
@@ -38,9 +41,8 @@ import net.minecraft.util.IChatComponent;
  */
 public class Empire implements Comparable<Empire>, IChatFormat {
 	
-    private double CitizensPower = 0.00;
-	
-	
+    private double CitizensPower = Config.instance.defaultPower.get();
+
     private String name, oldName = null;
 
     protected int maxFarClaims = Config.instance.maxFarClaims.get();
@@ -49,6 +51,7 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     private Teleport spawn;
     private Teleport jail;
     private String description = "" + Config.instance.defaultDesc.get();
+    private RelationArray relationList = new RelationArray();
     public final static List<Teleport> Warps = new ArrayList<Teleport>();
     public final TicketMap ticketMap = new TicketMap(this);
     public final CitizenRankMap citizensMap = new CitizenRankMap();
@@ -65,7 +68,26 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     public Empire(String name) {
         this.name = name;
     }
+  /*/  
+    public void setRel(Empire foreignEmpire, RelationType.Type type) {
+    	Boolean mutuality = false;
+    	Empire localEmpire = CommandsEMP.getEmpireFromName(this.getName());
+    	Relations rel = new Relations(localEmpire, foreignEmpire, type, mutuality);
+    	
+    	if (this.relationList.mutualityChecks(rel, rel2)) {
+    		mutuality = true;
+    	}
+    	
+    	
+    	this.relationList.setRelations(rel); 
+    }
     
+    public Empire getEmpiresByRelation(RelationType.Type type) {
+    	Empire LocalEmpire = CommandsEMP.getEmpireFromName(this.getName());
+    	Empire empire = this.relationList.getAllEmpires(LocalEmpire, type, false);
+    	return empire;
+    }
+    /*/
     /**
      * Notifies every citizen in this empire sending a message.
      */

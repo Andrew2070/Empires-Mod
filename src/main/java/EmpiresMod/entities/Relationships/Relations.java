@@ -10,7 +10,7 @@ public class Relations {
 	private Empire empire2;
 	private RelationType.Type type;
 	private Boolean mutuality = false;
-	
+
 	public Relations(Empire empire1, Empire empire2, RelationType.Type type, Boolean mutuality) {
 		setEmpire1(empire1);
 		setEmpire2(empire2);
@@ -27,7 +27,7 @@ public class Relations {
 		this.empire2 = empire2;
 		return this;
 	}
-	
+	 
 	public Relations setRelationshipType(RelationType.Type type) {
 		this.type = type;
 		return this;

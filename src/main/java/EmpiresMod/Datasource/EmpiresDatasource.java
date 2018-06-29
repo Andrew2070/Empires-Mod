@@ -569,18 +569,17 @@ public class EmpiresDatasource extends DatasourceSQL {
             if (getUniverse().empires.contains(empire)) { // Update
                 PreparedStatement updateStatement = prepare("UPDATE " + prefix + "Empires SET name=?, desc=?, spawnDim=?, spawnX=?, spawnY=?, spawnZ=?, cameraYaw=?, cameraPitch=?, extraBlocks=?, maxPlots=?, extraFarClaims=?, currentPower=? WHERE name=?", true);
                 updateStatement.setString(1, empire.getName());
-                updateStatement.setString(2, "spawn");
-                updateStatement.setString(3, empire.getDesc());
-                updateStatement.setInt(4, empire.getSpawn().getDim());
-                updateStatement.setFloat(5, empire.getSpawn().getX());
-                updateStatement.setFloat(6, empire.getSpawn().getY());
-                updateStatement.setFloat(7, empire.getSpawn().getZ());
-                updateStatement.setFloat(8, empire.getSpawn().getYaw());
-                updateStatement.setFloat(9, empire.getSpawn().getPitch());
-                updateStatement.setInt(10, empire.empireBlocksContainer.getExtraBlocks());
-                updateStatement.setInt(11, empire.plotsContainer.getMaxPlots());
-                updateStatement.setInt(12, empire.empireBlocksContainer.getExtraFarClaims());
-                updateStatement.setDouble(13, empire.getPower());
+                updateStatement.setString(2, empire.getDesc());
+                updateStatement.setInt(3, empire.getSpawn().getDim());
+                updateStatement.setFloat(4, empire.getSpawn().getX());
+                updateStatement.setFloat(5, empire.getSpawn().getY());
+                updateStatement.setFloat(6, empire.getSpawn().getZ());
+                updateStatement.setFloat(7, empire.getSpawn().getYaw());
+                updateStatement.setFloat(8, empire.getSpawn().getPitch());
+                updateStatement.setInt(9, empire.empireBlocksContainer.getExtraBlocks());
+                updateStatement.setInt(10, empire.plotsContainer.getMaxPlots());
+                updateStatement.setInt(11, empire.empireBlocksContainer.getExtraFarClaims());
+                updateStatement.setDouble(12, empire.getPower());
                 System.out.println("DescDebug: After datasource save: " + empire.getDesc());
                 	
                // LOG.info(empire.getName() + " " + empire.getSpawn().getDim() + " " + empire.getSpawn().getX() + " " + empire.getSpawn().getY() + " " + empire.getSpawn().getZ() + " " + empire.getSpawn().getYaw() + " " + empire.getSpawn().getPitch() + " " + empire.empireBlocksContainer.getExtraBlocks() + " " + empire.plotsContainer.getMaxPlots() + " " + empire.empireBlocksContainer.getExtraFarClaims() + " " + empire.getPower() + " " + empire.getMaxPower());

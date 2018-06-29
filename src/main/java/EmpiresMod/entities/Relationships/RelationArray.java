@@ -12,37 +12,30 @@ public class RelationArray  {
 	public void setRelations(Relations relation) {
 		this.RelationArray.add(relation);
 	}
-	
-	public Empire getAllEmpires(Empire empire1, Empire empire2, RelationType.Type type, Boolean mutuality) {
-		Relations relation = new Relations(empire1, empire2, type, mutuality);
+	//Returns specific empire names by the relation specified
+	public Empire getAllEmpiresByType(Empire empire1, RelationType.Type type, Boolean mutuality) {
 		for (int i=0; i < this.RelationArray.size(); i++) {
 			Relations selectedRelationship = RelationArray.get(i);
-			if (relation == selectedRelationship) {
+			if (selectedRelationship.getRelationshipType() == type) {
 			return selectedRelationship.getEmpire2();
 			}
 		}
 		return null;
 	}
-	//Returns specific empire names by the relation specified
-	public Empire getSpecificRelationEmpires(Empire empire1, Empire empire2, RelationType.Type type, Boolean mutuality) {
-		Relations relation = new Relations(empire1, empire2, type, mutuality);
-		for (int i=0; i < this.RelationArray.size(); i++) {
-			Relations selectedRelationship = RelationArray.get(i);
-		if (relation == selectedRelationship) {
-			if (selectedRelationship.getRelationshipType() == type) {
-				return selectedRelationship.getEmpire2();
-			}
-		}
-			
-	}
-		return null;
-	}
-	
 	//Create A New Relationship within the Array.
 	public void setRelationship(Relations relation) {
 		RelationArray.add(relation);
 	}
-
+	
+	public RelationType.Type getSpecificRelationByEmpire(Empire foreignEmpire, RelationType.Type type, Boolean mutuality) {
+		for (int i=0; i < this.RelationArray.size(); i++) {
+			Relations selectedRelationship = RelationArray.get(i);
+			if (selectedRelationship.getEmpire2() == foreignEmpire) {
+				return selectedRelationship.getRelationshipType();
+			}
+		}
+		return null;
+	}
 	//Must Remove Previous Relationship Status, Before Changing To New One, Avoids Duplicate statuses.
 	public void removeRelationship(Empire empire2) {
 		for (int i=0; i < this.RelationArray.size(); i++) {
@@ -53,23 +46,13 @@ public class RelationArray  {
 		}
 	}
 	//Cross Check IF Two Empires Have Mutual Statuses Set For Each Other.
-	public void mutualityChecks(Relations relation1, Relations relation2) {
-		RelationType.Type relation1Type;
-		RelationType.Type relation2Type;
+	public Boolean mutualityChecks(Relations relation1, Relations relation2) {
 		for (int i=0; i < this.RelationArray.size(); i++) {
 			Relations selectedRelationship = RelationArray.get(i);
-
-			
-			//Relation1     Relation 2
-			//Empire 2      Empire1
-			
-			if (selectedRelationship.getEmpire2() == relation1.getEmpire2()) {
-				relation1Type = selectedRelationship.getRelationshipType();
+			if (relation1.getEmpire2() == relation2.getEmpire1()) {
+				return true;
 			}
-			
-			if (selectedRelationship.getEmpire2() == relation2.getEmpire2()); 
-			
-			
-	}
+		}
+	  return false;
 	}
 }

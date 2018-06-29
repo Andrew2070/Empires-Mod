@@ -33,7 +33,7 @@ public abstract class DatasourceSQL {
 	protected BaseSchematic schema;
 
 	public ConfigProperty<String> databaseType = new ConfigProperty<String>("type", "datasource",
-			"Specifies the database engine that is being used.", "SQLite");
+			"Specifies the database engine that is being used. ie SQLite, mysql, etc", "SQLite");
 
 	public DatasourceSQL(Logger log, ConfigTemplate config, BaseSchematic schema) {
 		this.LOG = log;
