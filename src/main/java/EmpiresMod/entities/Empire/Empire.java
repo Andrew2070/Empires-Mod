@@ -425,18 +425,18 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     	if (Warps.isEmpty() == false) {
         	for (int i=0; i < Warps.size(); i++) {
         		Teleport warp = Warps.get(i);
-        	if (warp.getName().equals( warpname)) {
+        	if (warp.getName().equals(warpname)) {
+        		if (warp.getDbID() == getWarp(warpname).getDbID()) {
         		return true;
-        	} else {
-        	return false;
-        	}
+        		}
+        	} 
         	}
     	}
     	} catch (NullPointerException e) {
     		e.printStackTrace();
     		return false;
     	}
-        	return false;
+        return false;
    }
     
     public boolean hasWarp(Teleport Warp) {

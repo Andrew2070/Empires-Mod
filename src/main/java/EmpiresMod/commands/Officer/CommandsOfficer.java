@@ -82,7 +82,7 @@ public class CommandsOfficer extends CommandsEMP {
 
         String warpname = args.get(0).toString();
         
-        if (empire.hasWarp(WarpTest.filterWarp(empire, empire.getWarp(warpname))) == true ) {
+        if (empire.hasWarp(warpname) == true ) {
         	throw new EmpiresCommandException("Empires.cmd.err.warpname.exists");
         }
         
@@ -114,7 +114,8 @@ public class CommandsOfficer extends CommandsEMP {
         if (args.size() < 0) {          
             return CommandResponse.SEND_SYNTAX;
         }
-        String warpname = args.get(0).toString();    
+        String warpname = args.get(0).toString();
+        
         if (empire.hasWarp(warpname) == true ) {
         Teleport warp = empire.getWarp(warpname);
         empire.delWarp(warp);
