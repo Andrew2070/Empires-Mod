@@ -38,29 +38,30 @@ repositories {
 }
 ext.configFile = file "build.properties"
 
+ext.configFile.withReader {
+    def prop = new Properties()
+    prop.load(it)
+    ext.config = new ConfigSlurper().parse prop
+}
 
 if (System.env.TRAVIS_TAG != null && !System.env.TRAVIS_TAG.isEmpty()) {
-    ext.build_number = System.env.TRAVIS_TAG.substring(0, System.env.TRAVIS_TAG.length()-1)
-    ext.build_type = System.env.TRAVIS_TAG.substring(System.env.TRAVIS_TAG.length()-1)
+    ext.config.build_number = System.env.TRAVIS_TAG.substring(0, System.env.TRAVIS_TAG.length()-1)
+    ext.config.build_type = System.env.TRAVIS_TAG.substring(System.env.TRAVIS_TAG.length()-1)
 } else {
-    ext.build_number = "0000"
-    ext.build_type = "r"
+    ext.config.build_number = "1.0.1"
+    ext.config.build_type = "r"
 }
 
 // Apply Plugins
 apply plugin: 'forge'
-apply plugin: 'curseforge'
 
 // Configure Everything
 //version = "${minecraft.version}-${build_number}${build_type}"
 println "reflectasmversion is " + reflectasmversion
-
+version = "${config.minecraft_version}-${config.build_number}${config.build_type}"
 minecraft {
+   replace "@VERSION@", "${project.version}"
    version = "1.7.10-10.13.4.1614-1.7.10"
-   runDir = "run"
-   replace "@MAJOR@", version_major
-   replace "@MINOR@", version_minor
-   replace "@REVIS@", version_revis
 }
 
 
@@ -99,21 +100,11 @@ processResources {
 }
 
 jar {
-    classifier = 'universal'
+    classifier = ''
     manifest {
         attributes (
            'FMLCorePlugin': 'EmpiresMod.DependencyLoader',
             'FMLCorePluginContainsFMLMod': 'true'
         )
-    }
-}
-// Setup Curse Upload task
-curseforge {
-    project {
-        id = project_id
-        changelog = file('changelog.html')
-        changelogType = 'html'
-      releaseType = build_type.equals('a') ? "alpha" : (build_type.equals('b') ? "beta" : "release")
-
     }
 }

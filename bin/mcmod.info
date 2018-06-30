@@ -3,7 +3,7 @@
   "modid": "EmpiresMod",
   "name": "EmpiresMod",
   "description": "A Realistic Protection System For Heavily Modified MineCraft",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "minecraft_version": "${minecraft_version}",
   "url": "https://minecraft.curseforge.com/projects/empires-mod",
   "updateUrl": "",

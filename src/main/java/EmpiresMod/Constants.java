@@ -7,7 +7,7 @@ public class Constants {
 	public static String CONFIG_FOLDER = "";
 	public static String DATABASE_FOLDER = "";
 
-	public static final String VERSION = "1.1.0";
+	public static final String VERSION = "1.1.2";
 	public static final String MODID = "EmpiresMod";
 	public static final String MODNAME = MODID;
 	public static final String DEPENDENCIES = "";
