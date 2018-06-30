@@ -850,7 +850,6 @@ public class CommandsOfficer extends CommandsEMP {
         }
         empire.setDesc(desc);
         getDatasource().saveEmpire(empire);
-        System.out.println("DescDebug: After Save command: " + desc);
         ChatManager.send(sender, "Empires.notification.desc.succesful");
         empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.desc", sender.getCommandSenderName(), empire.getDesc()));
         return CommandResponse.DONE;

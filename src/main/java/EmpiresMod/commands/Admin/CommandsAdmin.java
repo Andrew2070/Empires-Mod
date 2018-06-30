@@ -16,6 +16,7 @@ import EmpiresMod.API.JSON.Configuration.FlagsConfig;
 import EmpiresMod.API.permissions.CommandTree;
 import EmpiresMod.API.permissions.CommandTreeNode;
 import EmpiresMod.API.permissions.PermissionProxy;
+import EmpiresMod.Configuration.Config;
 import EmpiresMod.Datasource.EmpiresDatasource;
 import EmpiresMod.Datasource.EmpiresUniverse;
 import EmpiresMod.Handlers.SafemodeHandler;
@@ -89,6 +90,34 @@ public class CommandsAdmin extends CommandsEMP {
         Empires.instance.loadConfigs();
         getDatasource().checkAll();
         ChatManager.send(sender, "Empires.cmd.config.load.stop");
+        return CommandResponse.DONE;
+    }
+    @Command(
+            name = "desc",
+            permission = "Empires.adm.cmd.desc",
+            parentName = "Empires.adm.cmd.",
+            syntax = "/empireadmin desc empire newdesc",
+            console = true)
+    public static CommandResponse desc(ICommandSender sender, List<String> args) {
+    	
+    	 Empire empire = getEmpireFromName(args.get(0));
+         String desc = "";
+         if (args.isEmpty()) {
+             return CommandResponse.SEND_SYNTAX;
+         } 
+         
+         for (int i=1; i < args.size(); i++) {
+         	String newdesc = args.get(i);
+         	desc = desc + " " + newdesc;
+         }
+         
+         if (desc.length() > Config.instance.maxDescChars.get()) {
+         	throw new EmpiresCommandException("Empires.cmd.err.desc.maxChars");
+         }
+         empire.setDesc(desc);
+         getDatasource().saveEmpire(empire);
+         ChatManager.send(sender, "Empires.notification.desc.succesful");
+         empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.desc", sender.getCommandSenderName(), empire.getDesc()));
         return CommandResponse.DONE;
     }
 

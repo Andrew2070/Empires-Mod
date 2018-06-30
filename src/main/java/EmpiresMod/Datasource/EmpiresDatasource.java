@@ -580,7 +580,6 @@ public class EmpiresDatasource extends DatasourceSQL {
                 updateStatement.setInt(10, empire.plotsContainer.getMaxPlots());
                 updateStatement.setInt(11, empire.empireBlocksContainer.getExtraFarClaims());
                 updateStatement.setDouble(12, empire.getPower());
-                System.out.println("DescDebug: After datasource save: " + empire.getDesc());
                 	
                // LOG.info(empire.getName() + " " + empire.getSpawn().getDim() + " " + empire.getSpawn().getX() + " " + empire.getSpawn().getY() + " " + empire.getSpawn().getZ() + " " + empire.getSpawn().getYaw() + " " + empire.getSpawn().getPitch() + " " + empire.empireBlocksContainer.getExtraBlocks() + " " + empire.plotsContainer.getMaxPlots() + " " + empire.empireBlocksContainer.getExtraFarClaims() + " " + empire.getPower() + " " + empire.getMaxPower());
                 
@@ -615,7 +614,6 @@ public class EmpiresDatasource extends DatasourceSQL {
                 insertStatement.setInt(12, empire.empireBlocksContainer.getExtraFarClaims());
                 insertStatement.setDouble(13, empire.getPower());
                 LOG.info("New Empire" + empire.getName() + " Created " + " World: " + empire.getSpawn().getDim() + " X Coord: " + empire.getSpawn().getX() + " Y Coord: " + empire.getSpawn().getY() + " Z Coord: " + empire.getSpawn().getZ() + " YAW: " + empire.getSpawn().getYaw() + " PITCH: " + empire.getSpawn().getPitch() + " EXTRA CLAIMS: " + empire.empireBlocksContainer.getExtraBlocks() + " PLOTS: " + empire.plotsContainer.getMaxPlots() + " FAR CLAIMS: " + empire.empireBlocksContainer.getExtraFarClaims() + " POWER: " + empire.getPower() + " MAX POWER: " + empire.getMaxPower() + " DESC: " + empire.getDesc());
-                System.out.println("DescDebug: After datasource save: " + empire.getDesc());
                 insertStatement.executeUpdate();
 
                 // Put the Empire in the Map
