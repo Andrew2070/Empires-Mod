@@ -99,18 +99,15 @@ public class EmpiresDatasource extends DatasourceSQL {
                 empire.empireBlocksContainer.setExtraFarClaims(rs.getInt("extraFarClaims"));
                 empire.plotsContainer.setMaxPlots(rs.getInt("maxPlots"));
                 empire.setPower(rs.getDouble("currentPower"));
-                empire.setDesc(rs.getString("desc"));
-                System.out.println("SQL: Empire: " + empire + " Desc: " + rs.getString("desc"));
+                empire.setDesc(rs.getString("description"));
 
                 for (ForgeChunkManager.Ticket ticket : EmpiresLoadingCallback.tickets) {
                     if (ticket.getModData().getString("empireName").equals(empire.getName())) {
                         empire.ticketMap.put(ticket.world.provider.dimensionId, ticket);
                     }
                 }
-                System.out.println("Empire: " + empire + " Desc: " + rs.getString("desc"));
 
                 EmpiresUniverse.instance.addEmpire(empire);
-                System.out.println("DescDebug: After datasource load: " + empire.getDesc());
             }
         } catch (SQLException e) {
             LOG.error("Failed to load Empires!");
@@ -567,7 +564,7 @@ public class EmpiresDatasource extends DatasourceSQL {
         LOG.debug("Saving Empire {}", empire.getName());
         try {
             if (getUniverse().empires.contains(empire)) { // Update
-                PreparedStatement updateStatement = prepare("UPDATE " + prefix + "Empires SET name=?, desc=?, spawnDim=?, spawnX=?, spawnY=?, spawnZ=?, cameraYaw=?, cameraPitch=?, extraBlocks=?, maxPlots=?, extraFarClaims=?, currentPower=? WHERE name=?", true);
+                PreparedStatement updateStatement = prepare("UPDATE " + prefix + "Empires SET name=?, description=?, spawnDim=?, spawnX=?, spawnY=?, spawnZ=?, cameraYaw=?, cameraPitch=?, extraBlocks=?, maxPlots=?, extraFarClaims=?, currentPower=? WHERE name=?", true);
                 updateStatement.setString(1, empire.getName());
                 updateStatement.setString(2, empire.getDesc());
                 updateStatement.setInt(3, empire.getSpawn().getDim());
@@ -599,7 +596,7 @@ public class EmpiresDatasource extends DatasourceSQL {
                 }
                 empire.resetOldName();
             } else { // Insert
-                PreparedStatement insertStatement = prepare("INSERT INTO " + prefix + "Empires (name, desc, spawnDim, spawnX, spawnY, spawnZ, cameraYaw, cameraPitch, isAdminEmpire, extraBlocks, maxPlots, extraFarClaims, currentPower) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", true);
+                PreparedStatement insertStatement = prepare("INSERT INTO " + prefix + "Empires (name, description, spawnDim, spawnX, spawnY, spawnZ, cameraYaw, cameraPitch, isAdminEmpire, extraBlocks, maxPlots, extraFarClaims, currentPower) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", true);
                 insertStatement.setString(1, empire.getName());
                 insertStatement.setString(2, empire.getDesc());
                 insertStatement.setInt(3, empire.getSpawn().getDim());
