@@ -76,6 +76,7 @@ public class EmpiresDatasource extends DatasourceSQL {
         for (World world : MinecraftServer.getServer().worldServers) {
             if (!EmpiresUniverse.instance.worlds.contains(world.provider.dimensionId)) {
                 saveWorld(world.provider.dimensionId);
+                //Test
             }
         }
 

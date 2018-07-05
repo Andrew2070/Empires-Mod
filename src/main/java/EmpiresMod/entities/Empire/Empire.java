@@ -257,8 +257,6 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     	}
     }
     
-    
-    
     public int getMaxFarClaims() {
         return maxFarClaims + empireBlocksContainer.getExtraFarClaims();
     }
@@ -323,6 +321,7 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     
     public Relationship getAllies() {
 		return relationContainer.getAllyRelationship();
+		
     }
     
     public Relationship getEnemies() {

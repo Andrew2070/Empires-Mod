@@ -31,10 +31,24 @@ public class Relationship implements IChatFormat {
    
     public static void initDefaultRelationships() {
 
-        Relationship AllyRelation = new Relationship("ally", null, Type.ALLY);
-        Relationship TruceRelation = new Relationship("truce", null, Type.TRUCE);
-        Relationship NeutralRelation = new Relationship("neutral", null, Type.NEUTRAL);
-        Relationship EnemyRelation = new Relationship("enemy", null, Type.ENEMY);
+        Relationship AllyRelation = new Relationship("Ally", null, Type.ALLY);
+        Relationship TruceRelation = new Relationship("Truce", null, Type.TRUCE);
+        Relationship NeutralRelation = new Relationship("Neutral", null, Type.NEUTRAL);
+        Relationship EnemyRelation = new Relationship("Enemy", null, Type.ENEMY);
+        
+       /*/ leaderRank.permissionsContainer.add("Empires.cmd*");
+        leaderRank.permissionsContainer.add("Empires.bypass.*");
+
+        officerRank.permissionsContainer.add("Empires.cmd*");
+        officerRank.permissionsContainer.add("-Empires.cmd.leader");
+        officerRank.permissionsContainer.add("Empires.bypass.plot");
+        officerRank.permissionsContainer.add("Empires.bypass.flag.*");
+
+        citizenRank.permissionsContainer.add("Empires.cmd.everyone.*");
+        citizenRank.permissionsContainer.add("Empires.cmd.outsider.*");
+        citizenRank.permissionsContainer.add("Empires.bypass.flag.*");
+        citizenRank.permissionsContainer.add("Empires.bypass.flag.restrictions");
+        /*/
 
         AllyRelation.permissionsContainer.add("Empires.bypass.*");
         
