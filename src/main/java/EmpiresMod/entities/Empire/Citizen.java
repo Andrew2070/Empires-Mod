@@ -285,7 +285,10 @@ public class Citizen implements IChatFormat {
     	double currentPower = this.Power;
     	this.Power = currentPower - Power;  	
     }
-    
+    public void subtractMaxPower(double maxPower) {
+    	double currentMaxP = this.maxPower;
+    	this.maxPower = currentMaxP - maxPower;
+    }
     public void setBanned(boolean ban) {
     	
     	this.isBanned = ban;

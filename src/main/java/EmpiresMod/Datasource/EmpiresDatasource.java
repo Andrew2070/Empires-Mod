@@ -565,7 +565,7 @@ public class EmpiresDatasource extends DatasourceSQL {
         LOG.debug("Saving Empire {}", empire.getName());
         try {
             if (getUniverse().empires.contains(empire)) { // Update
-                PreparedStatement updateStatement = prepare("UPDATE " + prefix + "Empires SET name=?, description=?, spawnDim=?, spawnX=?, spawnY=?, spawnZ=?, cameraYaw=?, cameraPitch=?, extraBlocks=?, maxPlots=?, extraFarClaims=?, currentPower=? WHERE name=?", true);
+                PreparedStatement updateStatement = prepare("UPDATE " + prefix + "Empires SET name=?, description=?, spawnDim=?, spawnX=?, spawnY=?, spawnZ=?, cameraYaw=?, cameraPitch=?, extraBlocks=?, maxPlots=?, extraFarClaims=?, currentPower=? maxPower=? WHERE name=?", true);
                 updateStatement.setString(1, empire.getName());
                 updateStatement.setString(2, empire.getDesc());
                 updateStatement.setInt(3, empire.getSpawn().getDim());
@@ -578,14 +578,15 @@ public class EmpiresDatasource extends DatasourceSQL {
                 updateStatement.setInt(10, empire.plotsContainer.getMaxPlots());
                 updateStatement.setInt(11, empire.empireBlocksContainer.getExtraFarClaims());
                 updateStatement.setDouble(12, empire.getPower());
+                updateStatement.setDouble(13, empire.getMaxPower());
                 	
                // LOG.info(empire.getName() + " " + empire.getSpawn().getDim() + " " + empire.getSpawn().getX() + " " + empire.getSpawn().getY() + " " + empire.getSpawn().getZ() + " " + empire.getSpawn().getYaw() + " " + empire.getSpawn().getPitch() + " " + empire.empireBlocksContainer.getExtraBlocks() + " " + empire.plotsContainer.getMaxPlots() + " " + empire.empireBlocksContainer.getExtraFarClaims() + " " + empire.getPower() + " " + empire.getMaxPower());
                 
 
                 if (empire.getOldName() == null)
-                    updateStatement.setString(13, empire.getName());
+                    updateStatement.setString(14, empire.getName());
                 else
-                    updateStatement.setString(13, empire.getOldName());
+                    updateStatement.setString(14, empire.getOldName());
 
                 updateStatement.executeUpdate();
 
@@ -597,7 +598,7 @@ public class EmpiresDatasource extends DatasourceSQL {
                 }
                 empire.resetOldName();
             } else { // Insert
-                PreparedStatement insertStatement = prepare("INSERT INTO " + prefix + "Empires (name, description, spawnDim, spawnX, spawnY, spawnZ, cameraYaw, cameraPitch, isAdminEmpire, extraBlocks, maxPlots, extraFarClaims, currentPower) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", true);
+                PreparedStatement insertStatement = prepare("INSERT INTO " + prefix + "Empires (name, description, spawnDim, spawnX, spawnY, spawnZ, cameraYaw, cameraPitch, isAdminEmpire, extraBlocks, maxPlots, extraFarClaims, currentPower, maxPower) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", true);
                 insertStatement.setString(1, empire.getName());
                 insertStatement.setString(2, empire.getDesc());
                 insertStatement.setInt(3, empire.getSpawn().getDim());
@@ -611,6 +612,7 @@ public class EmpiresDatasource extends DatasourceSQL {
                 insertStatement.setInt(11, empire.plotsContainer.getMaxPlots());
                 insertStatement.setInt(12, empire.empireBlocksContainer.getExtraFarClaims());
                 insertStatement.setDouble(13, empire.getPower());
+                insertStatement.setDouble(14, empire.getMaxPower());
                 LOG.info("New Empire" + empire.getName() + " Created " + " World: " + empire.getSpawn().getDim() + " X Coord: " + empire.getSpawn().getX() + " Y Coord: " + empire.getSpawn().getY() + " Z Coord: " + empire.getSpawn().getZ() + " YAW: " + empire.getSpawn().getYaw() + " PITCH: " + empire.getSpawn().getPitch() + " EXTRA CLAIMS: " + empire.empireBlocksContainer.getExtraBlocks() + " PLOTS: " + empire.plotsContainer.getMaxPlots() + " FAR CLAIMS: " + empire.empireBlocksContainer.getExtraFarClaims() + " POWER: " + empire.getPower() + " MAX POWER: " + empire.getMaxPower() + " DESC: " + empire.getDesc());
                 insertStatement.executeUpdate();
 

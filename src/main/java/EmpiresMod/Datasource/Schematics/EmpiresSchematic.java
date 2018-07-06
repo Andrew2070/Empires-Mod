@@ -231,8 +231,11 @@ public class EmpiresSchematic extends BaseSchematic {
         
         updates.add(new DBUpdate("8.12.2017, ", "Add 'isBanned to citizens", "ALTER TABLE " + bridge.prefix +
         		"Citizens ADD isBanned BOOLEAN DEFAULT false"));
-        //updates.add(new DBUpdate("6.16.2018, ", "Add 'desc' to Empires", "ALTER TABLE " + bridge.prefix +
-        //		"Empires ADD desc VARCHAR(54) DEFAULT '" + Config.instance.defaultDesc.get() + "'"));
+        
+        updates.add(new DBUpdate("07.6.2018", "Add 'maxPower' to empires", "ALTER TABLE " + bridge.prefix +
+        		"Empires ADD maxPower DOUBLE DEFAULT 0.00"));
+        
+        
     }
 
 }

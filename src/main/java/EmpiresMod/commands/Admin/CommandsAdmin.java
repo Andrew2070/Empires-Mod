@@ -302,6 +302,7 @@ public class CommandsAdmin extends CommandsEMP {
         if (!empire.citizensMap.containsKey(target)) {
             throw new EmpiresCommandException("Empires.adm.cmd.err.kick.citizen", target, empire);
         }
+        
         empire.subtractPower(target.getPower());
         empire.subtractMaxPower(target.getMaxPower());
         getDatasource().unlinkCitizenFromEmpire(target, empire);
@@ -402,10 +403,24 @@ public class CommandsAdmin extends CommandsEMP {
         if(args.size() < 2) {
             return CommandResponse.SEND_SYNTAX;
         }
+        
 
         checkPositiveInteger(args.get(1));
         Citizen citizen = getCitizenFromName(args.get(0));
         double boostValue = Integer.parseInt(args.get(1));
+        
+        if (boostValue < citizen.getPower()) {
+        	double difference = citizen.getPower() - boostValue;
+        	citizen.subtractPower(difference);
+        	citizen.subtractMaxPower(difference);
+        	try {
+        	Empire empire = CommandsEMP.getEmpireFromCitizen(citizen);
+        	empire.subtractPower(difference);
+        	empire.subtractMaxPower(difference);
+        	} catch (CommandException e) {
+        		//keep it from breaking if a player has no empire
+        	}
+        }
         citizen.setOldPower(citizen.getPower());
         citizen.setOldMaxPower(citizen.getMaxPower());
         citizen.setMaxPower(boostValue);
@@ -418,7 +433,7 @@ public class CommandsAdmin extends CommandsEMP {
         getDatasource().saveEmpire(empire);
         
         } catch (CommandException e) {
-        	
+        	//keep it from breaking if a player has no empire
         } 
         ChatManager.send(sender, "Empires.notification.citizen.powerboost", boostValue, citizen.getPlayerName());
         return CommandResponse.DONE;
