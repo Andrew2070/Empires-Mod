@@ -46,10 +46,11 @@ public class PvPUtils {
 			EntityPlayer defendingPlayer = (EntityPlayer) defender;
 			Citizen defendingCitizen = EmpiresUniverse.instance.getOrMakeCitizen(defender);
 			if (attacker != null) {
-			if (attacker instanceof EntityPlayer) { //PVP
+			if (attacker instanceof EntityPlayer) {
+				//Player Versus Player
 				EntityPlayer attackingPlayer = (EntityPlayer) attacker;
 				Citizen attackerCitizen = EmpiresUniverse.instance.getOrMakeCitizen(attacker);
-				if (defendingPlayer.capabilities.isCreativeMode = false) {
+				if (defendingPlayer.capabilities.isCreativeMode != true) {
 					if (damage >= defendingPlayer.getHealth()) {
 						if (defendingCitizen.getPower() < Config.instance.minPower.get()) {
 							defendingCitizen.setPower(Config.instance.minPower.get());
@@ -65,6 +66,7 @@ public class PvPUtils {
 					ChatManager.send(defendingPlayer, "Empires.notification.ciz.powerLostOnDeath", Config.instance.PowerPerDeath.get(), defendingCitizen.getPower());
 					ChatManager.send(attackingPlayer, "Empires.notification.pvp.kill.success.event", defenderEmpire, defendingCitizen, Config.instance.pvpPowerTransfer.get());
 					defenderEmpire.sendToSpawn(defendingCitizen);
+					defenderEmpire.subtractPower(Config.instance.PowerPerDeath.get());
 					Empires.instance.datasource.saveCitizen(defendingCitizen);
 					Empires.instance.datasource.saveCitizen(attackerCitizen);
 				} catch (CommandException e) {
@@ -75,7 +77,8 @@ public class PvPUtils {
 			}
 			}
 			}
-		if (defendingPlayer.capabilities.isCreativeMode = false) {
+			//Player Versus Anything Else:
+		if (defendingPlayer.capabilities.isCreativeMode != true) {
 			if (damage >= defendingPlayer.getHealth()) {
 				if (defendingCitizen.getPower() < Config.instance.minPower.get()) {
 					defendingCitizen.setPower(Config.instance.minPower.get());
@@ -87,6 +90,7 @@ public class PvPUtils {
 				if (Config.instance.sendToEmpireSpawn.get() == true) {
 				try {
 					Empire defenderEmpire = CommandsEMP.getEmpireFromCitizen(defendingCitizen);
+					defenderEmpire.subtractPower(Config.instance.PowerPerDeath.get());
 					defenderEmpire.sendToSpawn(defendingCitizen); //Send Player To Empire Spawn Point
 				} catch (CommandException e) {
 				//TODO Tell Player they got sent to spawn, because they don't have an Empire to teleport to.

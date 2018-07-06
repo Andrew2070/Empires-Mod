@@ -68,6 +68,8 @@ public class CommandsRecruit extends CommandsEMP {
             throw new EmpiresCommandException("Empires.notification.empire.left.asLeader");
         }
         empire.subtractPower(res.getPower());
+        empire.subtractMaxPower(res.getMaxPower());
+        
         getDatasource().unlinkCitizenFromEmpire(res, empire);
         getDatasource().saveEmpire(empire);
         empire.subtractPower(res.getPower()); //make sure the empire loses power when the citizen leaves.

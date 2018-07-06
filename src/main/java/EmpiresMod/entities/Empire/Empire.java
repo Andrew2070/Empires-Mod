@@ -62,7 +62,7 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     public final Flag.Container flagsContainer = new Flag.Container();
     public final EmpireBlock.Container empireBlocksContainer = new EmpireBlock.Container();
     public final BlockWhitelist.Container blockWhitelistsContainer = new BlockWhitelist.Container();
-    private double maxPower = 0.00 + citizensMap.size() * Config.instance.defaultMaxPower.get();
+    private double maxPower = 0;
     public final Bank bank = new Bank(this);
     
     public Empire(String name) {
@@ -570,6 +570,22 @@ public class Empire implements Comparable<Empire>, IChatFormat {
     	return CitizensPower;
     }
 
+    
+    public void subtractMaxPower(double value) {
+    	double newValue = this.maxPower - value;
+    	this.maxPower = newValue;
+    }
+    public void recalculatePower(Citizen citizen) {
+    	if (citizen.getPower() != citizen.getOldPower()) {
+    		double newpower = (this.getPower() - citizen.getOldPower()) + citizen.getPower();
+    		addPower(newpower);
+    		addMaxPower(citizen.getMaxPower());
+    		subtractMaxPower(citizen.getOldMaxPower());
+    	}
+    	
+    }
+    
+    
     public static class Container extends ArrayList<Empire> implements IChatFormat {
 
         private Empire mainEmpire;
@@ -615,7 +631,7 @@ public class Empire implements Comparable<Empire>, IChatFormat {
                 mainEmpire = empire;
             }
         }
-        
+     
 
 
 		public Empire getMainEmpire() {

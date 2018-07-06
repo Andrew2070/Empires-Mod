@@ -11,7 +11,12 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import com.mojang.authlib.GameProfile;
 
 import EmpiresMod.Empires;
+import EmpiresMod.API.Commands.Command.CommandsEMP;
+import EmpiresMod.Configuration.Config;
 import EmpiresMod.Handlers.WorldUtils;
+import EmpiresMod.entities.Empire.Citizen;
+import EmpiresMod.entities.Empire.Empire;
+import EmpiresMod.exceptions.Command.CommandException;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.entity.player.EntityPlayer;
@@ -60,6 +65,48 @@ public class PlayerUtils {
 	public static boolean takeItemFromPlayer(EntityPlayer player, Item item, int amount, int meta) {
 		return takeItemFromPlayer(player, new ItemStack(item, 1, meta), amount);
 	}
+	
+	
+	public static void recalculatePower(Citizen res) {
+		double powerPerHour = Config.instance.PowerPerHour.get();
+		double powerUpdateTime = Config.instance.PowerUpdateTime.get();
+		double newPower = res.getPower() + powerPerHour;
+	    if (res.getPower() > res.getMaxPower()) {
+				double newMaxPower = res.getPower();
+				res.setMaxPower(newMaxPower);
+			}
+		if (res.getPower() < Config.instance.minPower.get()) {
+			res.setPower(Config.instance.minPower.get());
+			}
+	    
+		//Calculate New Power For This Selected Player:
+	    long FinishTime = System.currentTimeMillis();
+		if (FinishTime - res.getLastPowerUpdateTime()  >= Config.instance.PowerUpdateTime.get() ) { 	
+
+			if (res.getPower() < res.getMaxPower()) {
+				res.setOldPower(res.getPower());
+				res.setPower(newPower);	
+				res.resetTime(FinishTime);
+				res.setPowerAdded(false);
+				Empires.instance.datasource.saveCitizen(res);
+				try {
+				Empire empire = CommandsEMP.getEmpireFromCitizen(res);
+				empire.addPower(newPower-res.getOldPower());
+				} catch (CommandException e) {
+					//In Case User Has No Empire.
+				}
+				}
+
+		return;
+			}
+		
+		if (res.getOldPower() + Config.instance.PowerPerHour.get() != res.getPower()) {
+			
+		}
+	}
+	
+	
+	
 
 	/**
 	 * Takes a specified amount of the itemStack from the player's inventory.

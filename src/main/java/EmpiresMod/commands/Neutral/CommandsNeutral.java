@@ -176,6 +176,7 @@ public class CommandsNeutral extends CommandsEMP {
 
         Empire empire = getUniverse().newEmpire(args.get(0), res); // Attempt to create the Empire
         empire.setPower(res.getPower()); 
+        empire.setMaxPower(res.getMaxPower());
 		 Relationship ally = new Relationship("ally", empire, Relationship.Type.ALLY);
 		 Relationship truce = new Relationship("truce", empire, Relationship.Type.TRUCE);
 		 Relationship enemy = new Relationship("enemy", empire, Relationship.Type.ENEMY);
@@ -246,6 +247,7 @@ public class CommandsNeutral extends CommandsEMP {
         getDatasource().deleteEmpireInvite(res, empire, true);
         
         empire.addPower(res.getPower()); 
+        empire.addMaxPower(res.getMaxPower());
 
         // Notify everyone
         ChatManager.send(sender, "Empires.notification.empire.invited.accept", empire);

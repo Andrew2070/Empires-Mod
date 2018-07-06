@@ -23,6 +23,7 @@ import EmpiresMod.Handlers.SafemodeHandler;
 import EmpiresMod.Handlers.VisualsHandler;
 import EmpiresMod.Localization.LocalizationManager;
 import EmpiresMod.Utilities.ChatUtils;
+import EmpiresMod.Utilities.PlayerUtils;
 import EmpiresMod.Utilities.StringUtils;
 import EmpiresMod.Utilities.WorldUtils;
 import EmpiresMod.commands.Officer.CommandsOfficer;
@@ -95,17 +96,17 @@ public class CommandsAdmin extends CommandsEMP {
     @Command(
             name = "desc",
             permission = "Empires.adm.cmd.desc",
-            parentName = "Empires.adm.cmd.",
-            syntax = "/empireadmin desc empire newdesc",
+            parentName = "Empires.adm.cmd",
+            syntax = "/empireadmin desc <empire> <newdesc>",
             console = true)
     public static CommandResponse desc(ICommandSender sender, List<String> args) {
-    	
-    	 Empire empire = getEmpireFromName(args.get(0));
-         String desc = "";
+
          if (args.isEmpty()) {
              return CommandResponse.SEND_SYNTAX;
          } 
-         
+     	
+    	 Empire empire = getEmpireFromName(args.get(0));
+         String desc = "";
          for (int i=1; i < args.size(); i++) {
          	String newdesc = args.get(i);
          	desc = desc + " " + newdesc;
@@ -302,6 +303,7 @@ public class CommandsAdmin extends CommandsEMP {
             throw new EmpiresCommandException("Empires.adm.cmd.err.kick.citizen", target, empire);
         }
         empire.subtractPower(target.getPower());
+        empire.subtractMaxPower(target.getMaxPower());
         getDatasource().unlinkCitizenFromEmpire(target, empire);
         getDatasource().saveEmpire(empire);
         ChatManager.send(sender, "Empires.notification.empire.citizen.remove", target, empire);
@@ -356,8 +358,8 @@ public class CommandsAdmin extends CommandsEMP {
         ChatManager.send(sender, "Empires.notification.blocks.info", header, blocks, extraBlocks, extraBlocksSources, farBlocks);
         return CommandResponse.DONE;
     }
-
-    @Command(
+//Deprecated
+   /*/ @Command(
             name = "extra",
             permission = "Empires.adm.cmd.blocks.extra",
             parentName = "Empires.adm.cmd.blocks",
@@ -387,6 +389,7 @@ public class CommandsAdmin extends CommandsEMP {
         ChatManager.send(sender, "Empires.notification.empire.blocks.extra.set", empire.empireBlocksContainer.getExtraBlocks(), empire);
         return CommandResponse.DONE;
     }
+    /*/
   
     @Command(
             name = "powerboost",
@@ -402,25 +405,27 @@ public class CommandsAdmin extends CommandsEMP {
 
         checkPositiveInteger(args.get(1));
         Citizen citizen = getCitizenFromName(args.get(0));
-        int boostValue1 = Integer.parseInt(args.get(1));
-        double boostValue = (double) boostValue1 - citizen.getPower();
+        double boostValue = Integer.parseInt(args.get(1));
+        citizen.setOldPower(citizen.getPower());
+        citizen.setOldMaxPower(citizen.getMaxPower());
         citizen.setMaxPower(boostValue);
         citizen.setPower(boostValue);
         getDatasource().saveCitizen(citizen);
         Empires.instance.datasource.saveCitizen(citizen);
-     /*/   try {
+        try {
         Empire empire = CommandsEMP.getEmpireFromCitizen(citizen);
-        empire.setMaxPower(boostValue);
-        empire.addPower(boostValue);
+        empire.recalculatePower(citizen);
         getDatasource().saveEmpire(empire);
         
         } catch (CommandException e) {
         	
-        } /*/
+        } 
         ChatManager.send(sender, "Empires.notification.citizen.powerboost", boostValue, citizen.getPlayerName());
         return CommandResponse.DONE;
     }
-
+    
+//Deprecated
+/*/
     @Command(
             name = "add",
             permission = "Empires.adm.cmd.blocks.extra.add",
@@ -464,6 +469,7 @@ public class CommandsAdmin extends CommandsEMP {
         ChatManager.send(sender, "Empires.notification.empire.blocks.extra.set", empire.empireBlocksContainer.getExtraBlocks(), empire);
         return CommandResponse.DONE;
     }
+    /*/
 
     @Command(
             name = "far",
@@ -538,8 +544,8 @@ public class CommandsAdmin extends CommandsEMP {
         ChatManager.send(sender, "Empires.notification.empire.blocks.farClaims.set", empire.empireBlocksContainer.getExtraFarClaims(), empire);
         return CommandResponse.DONE;
     }
-
-
+//Deprecated
+/*/
     @Command(
             name = "blocks",
             permission = "Empires.adm.cmd.res.blocks",
@@ -625,6 +631,7 @@ public class CommandsAdmin extends CommandsEMP {
         ChatManager.send(sender, "Empires.notification.res.blocks.extra.set", target.getExtraBlocks(), target);
         return CommandResponse.DONE;
     }
+/*/
 
     @Command(
             name = "ranks",

@@ -10,6 +10,7 @@ import EmpiresMod.API.Commands.Command.CommandsEMP;
 import EmpiresMod.Configuration.Config;
 import EmpiresMod.Datasource.EmpiresDatasource;
 import EmpiresMod.Datasource.EmpiresUniverse;
+import EmpiresMod.Utilities.PlayerUtils;
 import EmpiresMod.entities.Empire.AdminEmpire;
 import EmpiresMod.entities.Empire.Citizen;
 import EmpiresMod.entities.Empire.Empire;
@@ -86,100 +87,16 @@ public class Ticker {
 							Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(playerName); 
 							Citizen citizen = res;
 							//Essentially a bunch of mathematical equations from here on:
-							double powerPerHour = Config.instance.PowerPerHour.get();
-							double powerUpdateTime = Config.instance.PowerUpdateTime.get();
-							double newPower = res.getPower() + powerPerHour;
-							
-						    if (res.getPower() > res.getMaxPower()) {
-									double newMaxPower = res.getPower();
-									res.setMaxPower(newMaxPower);
-								}
-						    
-							if (res.getPower() < Config.instance.minPower.get()) {
-								res.setPower(Config.instance.minPower.get());
-							}
-						    
-							//Calculate New Power For This Selected Player:
-						    long FinishTime = System.currentTimeMillis();
-							if (FinishTime - res.getLastPowerUpdateTime()  >= Config.instance.PowerUpdateTime.get() ) { 	
-
-								if (res.getPower() < res.getMaxPower()) {
-									res.setPower(newPower);		
-									res.resetTime(FinishTime);
-									res.setPowerAdded(false);
-									Empires.instance.datasource.saveCitizen(res);
-									
-									}
-
-							return;
-								}
+							PlayerUtils.recalculatePower(res);
 						}
 	
 					}	
 				
 				}
-         
-
-		     List<Empire> allEmpires = CommandsEMP.getUniverse().empires;
-		     for (int i=0; i < allEmpires.size(); i++) {
-		    	 
-					Empire empire = allEmpires.get(i);
-				//	empire.findAndKillRandomWarps();
-					
-					if (empire.getPower() > empire.getMaxPower()) {
-						double currpower = empire.getPower();
-						empire.setMaxPower(currpower);
-						Empires.instance.datasource.saveEmpire(empire);
-					}
-					
-					for (Citizen citizen : empire.citizensMap.keySet()) {
-						if (citizen.getPower() > Config.instance.defaultMaxPower.get()) {
-			    			double newmaxpower = citizen.getPower();
-			    				empire.setMaxPower(newmaxpower);
-			    				empire.setPower(newmaxpower);
-			    				 Empires.instance.datasource.saveEmpire(empire);
-			    
-			    				 Empires.instance.datasource.saveEmpire(empire);
-						}
-						
-						if (citizen.getPower() > empire.getMaxPower()) {
-							double diff = citizen.getPower() - empire.getMaxPower();
-							empire.addPower(diff);
-						}
-					}
-					if (empire.getPower() < empire.getMaxPower()) {
-						for (int c=0; c < empire.citizensMap.size(); c++) {
-						ArrayList<Citizen> empireCitizens = new ArrayList<Citizen>(empire.citizensMap.keySet());
-						Citizen citizen = empireCitizens.get(c);
-						
-						if (citizen.getPower() <= citizen.getMaxPower()) {
-							if (citizen.getPowerAdded() == false) {
-								if (citizen.getPower() != citizen.getPreviousPower()) {	
-									if (citizen.getPower()>=0) {
-										double result = (citizen.getPower() - citizen.getPreviousPower());			
-										empire.addPower(result);
-										citizen.setPowerAdded(true);
-										citizen.setPreviousPower(citizen.getPower());
-										Empires.instance.datasource.saveEmpire(empire);
-										Empires.instance.datasource.saveCitizen(citizen);
-									}
-						
-								}
-					
-							}
-						}
-						
-						if (citizen.getPower() > citizen.getMaxPower()) {
-							citizen.setMaxPower(citizen.getPower());
-							Empires.instance.datasource.saveCitizen(citizen);
-						}
-						}
-							
-					}	     
-		     }
-		     	
+     
     }
     
+
 
 // 			Incorporated into PvPUtils and ProtectionHandler  
 //    

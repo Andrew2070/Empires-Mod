@@ -39,7 +39,9 @@ public class Citizen implements IChatFormat {
     private int powerID = 0;
 
     private double Power = Math.floor(0.00 + Config.instance.defaultPower.get());
+    private double oldPower = 0;
     private double maxPower = 0.00 + Config.instance.defaultMaxPower.get();
+    private double oldMaxPower = 0;
     private boolean isFakePlayer = false;
     private boolean isBanned = false;
     private boolean powerAdded = false;
@@ -91,7 +93,7 @@ public class Citizen implements IChatFormat {
         if(teleportCooldown > 0)
             teleportCooldown--;
     }
-
+    
     /* ----- Map ----- */
 
     /**
@@ -225,6 +227,22 @@ public class Citizen implements IChatFormat {
     public long getJoinTime() {
 		return PowerTime;
 
+    }
+    
+    public void setOldPower(double power) {
+    	this.oldPower = power;
+    }
+    
+    public double getOldPower() {
+    	return this.oldPower;
+    }
+    
+    public void setOldMaxPower(double maxpower) {
+    	this.oldMaxPower = maxpower;
+    }
+    
+    public double getOldMaxPower() {
+    	return this.oldMaxPower;
     }
 
     public void setLastOnline(Date date) {
