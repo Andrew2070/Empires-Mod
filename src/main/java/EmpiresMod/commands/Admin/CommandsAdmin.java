@@ -417,6 +417,7 @@ public class CommandsAdmin extends CommandsEMP {
         	Empire empire = CommandsEMP.getEmpireFromCitizen(citizen);
         	empire.subtractPower(difference);
         	empire.subtractMaxPower(difference);
+        	getDatasource().saveEmpire(empire);
         	} catch (CommandException e) {
         		//keep it from breaking if a player has no empire
         	}
@@ -430,6 +431,7 @@ public class CommandsAdmin extends CommandsEMP {
         try {
         Empire empire = CommandsEMP.getEmpireFromCitizen(citizen);
         empire.recalculatePower(citizen);
+        empire.subtractPower(citizen.getOldPower());
         getDatasource().saveEmpire(empire);
         
         } catch (CommandException e) {

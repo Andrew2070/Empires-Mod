@@ -166,7 +166,7 @@ public class EmpiresSchematic extends BaseSchematic {
 
         // Table Modifications
         updates.add(new DBUpdate("06.28.2017.1", "Add 'power' to citizens", "ALTER TABLE " + bridge.prefix +
-        		"Citizens ADD power DOUBLE DEFAULT 0.00;"));
+        		"Citizens ADD power DOUBLE DEFAULT 0.00"));
         
         updates.add(new DBUpdate("06.28.2017.2", "Add 'currentPower' to empires", "ALTER TABLE " + bridge.prefix +
         		"Empires ADD currentPower DOUBLE DEFAULT 0.00"));
@@ -234,6 +234,9 @@ public class EmpiresSchematic extends BaseSchematic {
         
         updates.add(new DBUpdate("07.6.2018", "Add 'maxPower' to empires", "ALTER TABLE " + bridge.prefix +
         		"Empires ADD maxPower DOUBLE DEFAULT 0.00"));
+        
+        updates.add(new DBUpdate("07.6.2018.1", "Add 'maxPower' to citizens", "ALTER TABLE " + bridge.prefix +
+        		"Citizens ADD maxPower DOUBLE DEFAULT 0.00"));
         
         
     }

@@ -75,9 +75,7 @@ public class CommandsNeutral extends CommandsEMP {
         	String truceEmpires = empire.getRelation(truce);
         	String enemyEmpires = empire.getRelation(enemy);
         	String description = empire.getDesc();
-        			 
-        			 
-        			 //debug
+
            ChatManager.send(sender, "Empires.format.empire.long", header, description, empire.citizensMap.size(), empire.empireBlocksContainer.size(), empire.getMaxBlocks(), empire.getPower(), empire.getMaxPower(), allyEmpires, truceEmpires, enemyEmpires, empire.citizensMap, empire.ranksContainer);
            //System.out.println(sender + "Empires.format.empire.long" + header + empire.citizensMap.size() + allyEmpires + truceEmpires + enemyEmpires + empire.empireBlocksContainer.size() + empire.getMaxBlocks() + empire.getPower() + empire.getMaxPower() + empire.citizensMap + empire.ranksContainer);
         	 }

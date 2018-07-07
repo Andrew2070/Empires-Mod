@@ -74,9 +74,11 @@ public class PlayerUtils {
 	    if (res.getPower() > res.getMaxPower()) {
 				double newMaxPower = res.getPower();
 				res.setMaxPower(newMaxPower);
+				Empires.instance.datasource.saveCitizen(res);
 			}
 		if (res.getPower() < Config.instance.minPower.get()) {
 			res.setPower(Config.instance.minPower.get());
+			Empires.instance.datasource.saveCitizen(res);
 			}
 	    
 		//Calculate New Power For This Selected Player:
@@ -92,6 +94,7 @@ public class PlayerUtils {
 				try {
 				Empire empire = CommandsEMP.getEmpireFromCitizen(res);
 				empire.addPower(newPower-res.getOldPower());
+				Empires.instance.datasource.saveEmpire(empire);
 				} catch (CommandException e) {
 					//In Case User Has No Empire.
 				}
@@ -100,9 +103,6 @@ public class PlayerUtils {
 		return;
 			}
 		
-		if (res.getOldPower() + Config.instance.PowerPerHour.get() != res.getPower()) {
-			
-		}
 	}
 	
 	

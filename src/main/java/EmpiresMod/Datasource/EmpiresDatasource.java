@@ -100,6 +100,7 @@ public class EmpiresDatasource extends DatasourceSQL {
                 empire.empireBlocksContainer.setExtraFarClaims(rs.getInt("extraFarClaims"));
                 empire.plotsContainer.setMaxPlots(rs.getInt("maxPlots"));
                 empire.setPower(rs.getDouble("currentPower"));
+                empire.setMaxPower(rs.getDouble("maxPower"));
                 empire.setDesc(rs.getString("description"));
 
                 for (ForgeChunkManager.Ticket ticket : EmpiresLoadingCallback.tickets) {
@@ -237,6 +238,7 @@ public class EmpiresDatasource extends DatasourceSQL {
                 res.setFakePlayer(rs.getBoolean("fakePlayer"));
                 res.setLoadPowerTime(rs.getLong("lastPowerUpdateTime"));
                 res.setBanned(rs.getBoolean("isBanned"));
+                res.setMaxPower(rs.getDouble("maxPower"));
 
                 EmpiresUniverse.instance.addCitizen(res);
             }
@@ -565,7 +567,7 @@ public class EmpiresDatasource extends DatasourceSQL {
         LOG.debug("Saving Empire {}", empire.getName());
         try {
             if (getUniverse().empires.contains(empire)) { // Update
-                PreparedStatement updateStatement = prepare("UPDATE " + prefix + "Empires SET name=?, description=?, spawnDim=?, spawnX=?, spawnY=?, spawnZ=?, cameraYaw=?, cameraPitch=?, extraBlocks=?, maxPlots=?, extraFarClaims=?, currentPower=? maxPower=? WHERE name=?", true);
+                PreparedStatement updateStatement = prepare("UPDATE " + prefix + "Empires SET name=?, description=?, spawnDim=?, spawnX=?, spawnY=?, spawnZ=?, cameraYaw=?, cameraPitch=?, extraBlocks=?, maxPlots=?, extraFarClaims=?, currentPower=?, maxPower=? WHERE name=?", true);
                 updateStatement.setString(1, empire.getName());
                 updateStatement.setString(2, empire.getDesc());
                 updateStatement.setInt(3, empire.getSpawn().getDim());
@@ -765,15 +767,16 @@ public class EmpiresDatasource extends DatasourceSQL {
         LOG.debug("Saving Citizen {} ({})", citizen.getUUID(), citizen.getPlayerName());
         try {
             if (getUniverse().citizens.contains(citizen.getUUID())) { // Update
-                PreparedStatement updateStatement = prepare("UPDATE " + prefix + "Citizens SET name=?, lastOnline=?, extraBlocks=?, power=?, lastPowerUpdateTime=?, isBanned=?, fakePlayer=? WHERE uuid=?", true);
+                PreparedStatement updateStatement = prepare("UPDATE " + prefix + "Citizens SET name=?, lastOnline=?, extraBlocks=?, power=?, maxPower=?, lastPowerUpdateTime=?, isBanned=?, fakePlayer=? WHERE uuid=?", true);
                 updateStatement.setString(1, citizen.getPlayerName());
                 updateStatement.setLong(2, citizen.getLastOnline().getTime() / 1000L); 
                 updateStatement.setInt(3, citizen.getExtraBlocks());
-                updateStatement.setBoolean(7, citizen.getFakePlayer());
-                updateStatement.setBoolean(6, citizen.getBanned());
-                updateStatement.setString(8, citizen.getUUID().toString());
                 updateStatement.setDouble(4, citizen.getPower());
-                updateStatement.setLong(5, citizen.getLastPowerUpdateTime());
+                updateStatement.setDouble(5, citizen.getMaxPower());
+                updateStatement.setLong(6, citizen.getLastPowerUpdateTime());
+                updateStatement.setBoolean(7, citizen.getBanned());
+                updateStatement.setBoolean(8, citizen.getFakePlayer());
+                updateStatement.setString(9, citizen.getUUID().toString());
                 updateStatement.executeUpdate();
                 
                 double power7 = citizen.getPower();
@@ -782,16 +785,17 @@ public class EmpiresDatasource extends DatasourceSQL {
                 //LOG.info("Power is: " + power7);
 
             } else { // Insert
-                PreparedStatement insertStatement = prepare("INSERT INTO " + prefix + "Citizens (uuid, name, joined, lastOnline, extraBlocks, power, lastPowerUpdateTime, fakePlayer, isBanned) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", true);
+                PreparedStatement insertStatement = prepare("INSERT INTO " + prefix + "Citizens (uuid, name, joined, lastOnline, extraBlocks, power, maxPower, lastPowerUpdateTime, fakePlayer, isBanned) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", true);
                 insertStatement.setString(1, citizen.getUUID().toString());
                 insertStatement.setString(2, citizen.getPlayerName());
                 insertStatement.setLong(3, citizen.getJoinDate().getTime() / 1000L);
                 insertStatement.setLong(4, citizen.getLastOnline().getTime() / 1000L); 
                 insertStatement.setInt(5, citizen.getExtraBlocks());
-                insertStatement.setBoolean(8, citizen.getFakePlayer());
-                insertStatement.setBoolean(9, citizen.getBanned());
                 insertStatement.setDouble(6, citizen.getPower());
-                insertStatement.setLong(7, citizen.getLastPowerUpdateTime());
+                insertStatement.setDouble(7, citizen.getMaxPower());
+                insertStatement.setLong(8, citizen.getLastPowerUpdateTime());
+                insertStatement.setBoolean(9, citizen.getFakePlayer());
+                insertStatement.setBoolean(10, citizen.getBanned());
                 insertStatement.executeUpdate();
 
                 // Put the Citizen in the Map
