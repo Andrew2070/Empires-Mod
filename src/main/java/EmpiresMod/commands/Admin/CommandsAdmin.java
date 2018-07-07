@@ -219,6 +219,8 @@ public class CommandsAdmin extends CommandsEMP {
         }
 
         getDatasource().linkCitizenToEmpire(target, empire, rank);
+        empire.addPower(target.getPower());
+        empire.addMaxPower(target.getMaxPower());
 
         ChatManager.send(sender, "Empires.notification.empire.citizen.add", target, empire, rank);
         ChatManager.send(target.getPlayer(), "Empires.notification.empire.added", empire);
