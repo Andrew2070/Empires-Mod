@@ -35,7 +35,7 @@ public class BlockTaintFibersTransformer implements IClassTransformer {
 				super.visitVarInsn(Opcodes.ILOAD, 7);
 				super.visitInsn(Opcodes.IADD);
 				super.visitMethodInsn(Opcodes.INVOKESTATIC, "EmpiresMod/Events/ModifyBiomeEvent", "checkBiome",
-						"(Lnet/minecraft/world/World;II)Z", false);
+						"(Lnet/minecraft/world/World;II)Z");
 
 				Label elseLabel = new Label();
 				super.visitJumpInsn(Opcodes.IFEQ, elseLabel);

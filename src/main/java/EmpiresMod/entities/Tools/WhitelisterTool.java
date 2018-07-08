@@ -11,7 +11,7 @@ import EmpiresMod.entities.Empire.Plot;
 import EmpiresMod.entities.Flags.FlagType;
 import EmpiresMod.entities.Managers.ToolManager;
 import EmpiresMod.entities.Misc.Tool;
-import EmpiresMod.entities.Position.BlockPos;
+import EmpiresMod.entities.Position.BlockPosition;
 
 /**
  * A tool that selects a block to add it to whitelists for protection.
@@ -29,7 +29,7 @@ public class WhitelisterTool extends Tool {
 	}
 
 	@Override
-	public void onItemUse(BlockPos bp, int face) {
+	public void onItemUse(BlockPosition bp, int face) {
 		Empire empire = EmpireUtils.getEmpireAtPosition(bp.getDim(), bp.getX() >> 4, bp.getZ() >> 4);
 
 		if (!hasPermission(empire, bp)) {
@@ -72,7 +72,7 @@ public class WhitelisterTool extends Tool {
 		}
 	}
 
-	protected boolean hasPermission(Empire empire, BlockPos bp) {
+	protected boolean hasPermission(Empire empire, BlockPosition bp) {
 		if (empire == null) {
 			ChatManager.send(owner.getPlayer(), "Empires.cmd.err.notInEmpire", owner.empiresContainer.getMainEmpire());
 			return false;

@@ -637,7 +637,7 @@ public class CommandsRecruit extends CommandsEMP {
                 world = MinecraftServer.getServer().worldServerForDimension(plot.getDim());
             }
 
-            plot.deleteSignBlocks(SellSign.SellSignType.instance, world);
+            //plot.deleteSignBlocks(SellSign.SellSignType.instance, world);
 
             getDatasource().deletePlot(plot);
             ChatManager.send(sender, "Empires.notification.plot.deleted", plot);

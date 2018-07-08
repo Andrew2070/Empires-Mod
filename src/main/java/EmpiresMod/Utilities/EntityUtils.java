@@ -29,7 +29,7 @@ public class EntityUtils {
 	}
 
 	public static String getEntityName(Entity e) {
-		String n = e.getCommandSenderName();
+		String n = e.getName();
 		if (n.startsWith("entity.") && n.endsWith(".name")) {
 			return EntityList.getEntityString(e);
 		} else {

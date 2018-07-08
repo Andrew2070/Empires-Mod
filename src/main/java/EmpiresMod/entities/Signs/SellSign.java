@@ -12,7 +12,7 @@ import EmpiresMod.entities.Empire.Citizen;
 import EmpiresMod.entities.Empire.Plot;
 import EmpiresMod.entities.Misc.Sign;
 import EmpiresMod.entities.Misc.SignType;
-import EmpiresMod.entities.Position.BlockPos;
+import EmpiresMod.entities.Position.BlockPosition;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,7 +24,7 @@ public class SellSign extends Sign {
 	private Citizen owner;
 	private Plot plot;
 
-	public SellSign(BlockPos bp, int face, Citizen owner, int price, boolean restricted) {
+	public SellSign(BlockPosition bp, int face, Citizen owner, int price, boolean restricted) {
 		super(SellSignType.instance);
 		this.bp = bp;
 		this.price = price;
@@ -43,7 +43,7 @@ public class SellSign extends Sign {
 
 	public SellSign(TileEntitySign te, NBTTagCompound signData) {
 		super(SellSignType.instance);
-		this.bp = new BlockPos(te.xCoord, te.yCoord, te.zCoord, te.getWorldObj().provider.dimensionId);
+		this.bp = new BlockPosition(te.xCoord, te.yCoord, te.zCoord, te.getWorldObj().provider.dimensionId);
 		this.owner = EmpiresUniverse.instance.getOrMakeCitizen(UUID.fromString(signData.getString("Owner")));
 		this.price = signData.getInteger("Price");
 		this.restricted = signData.getBoolean("Restricted");

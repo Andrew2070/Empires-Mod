@@ -238,7 +238,7 @@ public class JsonMessageBuilder {
 	 */
 	public IChatComponent build() {
 		if (parentBuilder == null) {
-			return IChatComponent.Serializer.func_150699_a(rootObj.toString());
+			return IChatComponent.Serializer.jsonToComponent(rootObj.toString());
 		} else {
 			return parentBuilder.build();
 		}

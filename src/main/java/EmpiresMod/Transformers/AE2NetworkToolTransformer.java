@@ -9,8 +9,11 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.commons.GeneratorAdapter;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.launchwrapper.IClassTransformer;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -35,16 +38,17 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
  * </pre>
  */
 public class AE2NetworkToolTransformer implements IClassTransformer {
-	public static boolean onItemUse(Block block, World world, int x, int y, int z, EntityPlayer player, int side,
+	public static boolean onItemUse(IBlockState iBlockState, World world, int x, int y, int z, EntityPlayer player, int side,
 			float hitX, float hitY, float hitZ) {
-		return MinecraftForge.EVENT_BUS.post(new PlayerInteractEvent(player,
-				side == -1 ? PlayerInteractEvent.Action.RIGHT_CLICK_AIR : PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK,
-				x, y, z, side, world));
+		
+		return MinecraftForge.EVENT_BUS.post(new PlayerInteractEvent(player, side == -1 ? PlayerInteractEvent.Action.RIGHT_CLICK_AIR : PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK,
+				new BlockPos(x,y,z), EnumFacing.getFacingFromVector((float)player.getLookVec().xCoord, (float)player.getLookVec().yCoord,(float) player.getLookVec().zCoord), world));
+		
 	}
 
 	public static boolean onItemUse(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
 			float hitY, float hitZ) {
-		return onItemUse(world.getBlock(x, y, z), world, x, y, z, player, side, hitX, hitY, hitZ);
+		return onItemUse(world.getBlockState(new BlockPos(x, y, z)), world, x, y, z, player, side, hitX, hitY, hitZ);
 	}
 
 	private class Generator extends GeneratorAdapter {
@@ -71,8 +75,7 @@ public class AE2NetworkToolTransformer implements IClassTransformer {
 			super.visitVarInsn(Opcodes.FLOAD, 9);
 			super.visitVarInsn(Opcodes.FLOAD, 10);
 			super.visitMethodInsn(Opcodes.INVOKESTATIC, "EmpiresMod/Transformers/AE2NetworkToolTransformer",
-					"onItemUse", "(Lnet/minecraft/world/World;IIILnet/minecraft/entity/player/EntityPlayer;IFFF)Z",
-					false);
+					"onItemUse", "(Lnet/minecraft/world/World;IIILnet/minecraft/entity/player/EntityPlayer;IFFF)Z");
 			Label allowed = new Label();
 			super.visitJumpInsn(Opcodes.IFEQ, allowed);
 			super.visitInsn(Opcodes.ICONST_0);

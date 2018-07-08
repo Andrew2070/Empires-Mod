@@ -19,7 +19,7 @@ import EmpiresMod.API.permissions.IPermissionBridge;
 import EmpiresMod.Localization.Localization;
 import EmpiresMod.Utilities.ClassUtils;
 import EmpiresMod.exceptions.Command.CommandException;
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraft.command.ICommandSender;
 
 public class CommandManager {

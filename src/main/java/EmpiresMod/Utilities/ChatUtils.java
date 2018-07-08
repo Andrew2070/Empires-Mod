@@ -26,7 +26,7 @@ public class ChatUtils {
 			22);
 	static {
 		for (EnumChatFormatting formatting : EnumChatFormatting.values()) {
-			formattingMap.put(formatting.getFormattingCode(), formatting);
+			formattingMap.put((char) formatting.getColorIndex(), formatting);
 		}
 	}
 

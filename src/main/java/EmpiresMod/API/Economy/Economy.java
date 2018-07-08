@@ -7,7 +7,7 @@ import EmpiresMod.Utilities.ClassUtils;
 import EmpiresMod.Utilities.ItemUtils;
 import EmpiresMod.Utilities.PlayerUtils;
 import EmpiresMod.exceptions.Economy.EconomyException;
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class Economy {

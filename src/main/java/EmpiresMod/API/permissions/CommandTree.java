@@ -27,7 +27,7 @@ public class CommandTree extends Tree<CommandTreeNode> {
 		this.customManager = customManager;
 	}
 
-	public void commandCall(ICommandSender sender, List<String> args) {
+	public void commandCall(ICommandSender sender, List<String> args) throws CommandException {
 		CommandTreeNode node = getRoot();
 		while (!args.isEmpty() && node.getChild(args.get(0)) != null) {
 			node = node.getChild(args.get(0));

@@ -126,7 +126,7 @@ public class Rank implements IChatFormat {
 
         @Override
         public IChatComponent toChatMessage() {
-            IChatComponent name = new ChatComponentFormatted("{" + color.getFormattingCode() + "|%s}", name());
+            IChatComponent name = new ChatComponentFormatted("{" + color.getColorIndex() + "|%s}", name());
             return LocalizationManager.get("Empires.format.rank.type.short", name);
         }
 

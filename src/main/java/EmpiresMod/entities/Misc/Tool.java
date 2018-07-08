@@ -2,13 +2,14 @@ package EmpiresMod.entities.Misc;
 
 import EmpiresMod.Empires;
 import EmpiresMod.Utilities.PlayerUtils;
-import EmpiresMod.entities.Position.BlockPos;
+import EmpiresMod.entities.Position.BlockPosition;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.EnumFacing;
 
 /**
  * A wrapper class for an instance of an itemstack which executes only on the
@@ -35,7 +36,7 @@ public abstract class Tool {
 		this.toolName = IDENTIFIER + toolName;
 	}
 
-	public abstract void onItemUse(BlockPos bp, int face);
+	public abstract void onItemUse(BlockPosition bp, EnumFacing face);
 
 	protected abstract String[] getDescription();
 

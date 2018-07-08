@@ -7,6 +7,7 @@ import EmpiresMod.entities.Position.ChunkPos;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 /**
@@ -53,7 +54,7 @@ public class WorldUtils {
 	public static int getMaxHeightWithSolid(int dim, int x, int z) {
 		World world = MinecraftServer.getServer().worldServerForDimension(dim);
 		int y = world.getActualHeight();
-		while (!world.getBlock(x, y, z).getMaterial().isOpaque() && y > 0)
+		while (!world.getBlockState( new BlockPos(x, y, z)).getBlock().isOpaqueCube() && y > 0)
 			y--;
 		return y;
 	}

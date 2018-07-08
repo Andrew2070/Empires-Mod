@@ -19,14 +19,19 @@ import EmpiresMod.entities.Empire.Citizen;
 import EmpiresMod.entities.Empire.Empire;
 import EmpiresMod.entities.Flags.FlagType;
 import EmpiresMod.entities.Misc.Volume;
-import EmpiresMod.entities.Position.BlockPos;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.eventhandler.Event;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.relauncher.Side;
+import EmpiresMod.entities.Position.BlockPosition;
+
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.Side;
+
+
+
+
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -171,40 +176,40 @@ public class ProtectionHandlers {
 		}
 
 		if (player instanceof FakePlayer) {
-			if (!ProtectionManager.getFlagValueAtLocation(FlagType.FAKERS, ev.world.provider.dimensionId, ev.x, ev.y,
-					ev.z)) {
+			if (!ProtectionManager.getFlagValueAtLocation(FlagType.FAKERS, ev.world.provider.getDimensionId(), ev.pos.getX(), ev.pos.getY(),
+					ev.pos.getZ())) {
 				ev.setCanceled(true);
 			}
 		} else {
 			Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(player);
 			// Changed to EmpiresUniverse.instance from Empires.instance in
 			// above lines^
-			if (!EmpiresUniverse.instance.blocks.contains(ev.world.provider.dimensionId, ev.x >> 4, ev.z >> 4)) {
+			if (!EmpiresUniverse.instance.blocks.contains(ev.world.provider.getDimensionId(), ev.pos.getX() >> 4, ev.pos.getZ() >> 4)) {
 				// Changed to EmpiresUniverse.instance from Empires.instance in
 				// above lines^
 				int range = Config.instance.placeProtectionRange.get();
-				Volume placeBox = new Volume(ev.x - range, ev.y - range, ev.z - range, ev.x + range, ev.y + range,
-						ev.z + range);
+				Volume placeBox = new Volume(ev.pos.getX() - range, ev.pos.getY() - range, ev.pos.getZ() - range, ev.pos.getX() + range, ev.pos.getY() + range,
+						ev.pos.getZ() + range);
 
-				if (!ProtectionManager.hasPermission(res, FlagType.MODIFY, ev.world.provider.dimensionId, placeBox)) {
+				if (!ProtectionManager.hasPermission(res, FlagType.MODIFY, ev.world.provider.getDimensionId(), placeBox)) {
 					ev.setCanceled(true);
 					return;
 				}
 			} else {
-				if (!ProtectionManager.hasPermission(res, FlagType.MODIFY, ev.world.provider.dimensionId, ev.x, ev.y,
-						ev.z)) {
+				if (!ProtectionManager.hasPermission(res, FlagType.MODIFY, ev.world.provider.getDimensionId(), ev.pos.getX(), ev.pos.getY(),
+						ev.pos.getZ())) {
 					ev.setCanceled(true);
 					return;
 				}
 			}
 
-			if (ev.block instanceof ITileEntityProvider && ev.itemInHand != null) {
-				TileEntity te = ((ITileEntityProvider) ev.block).createNewTileEntity(
-						MinecraftServer.getServer().worldServerForDimension(ev.world.provider.dimensionId),
+			if (ev.placedBlock instanceof ITileEntityProvider && ev.itemInHand != null) {
+				TileEntity te = ((ITileEntityProvider) ev.placedBlock).createNewTileEntity(
+						MinecraftServer.getServer().worldServerForDimension(ev.world.provider.getDimensionId()),
 						ev.itemInHand.getItemDamage());
 				if (te != null && ProtectionManager.isOwnable(te.getClass())) {
-					ThreadPlacementCheck thread = new ThreadPlacementCheck(res, ev.x, ev.y, ev.z,
-							ev.world.provider.dimensionId);
+					ThreadPlacementCheck thread = new ThreadPlacementCheck(res, ev.pos.getX(), ev.pos.getY(), ev.pos.getZ(),
+							ev.world.provider.getDimensionId());
 					activePlacementThreads++;
 					thread.start();
 				}
@@ -226,7 +231,7 @@ public class ProtectionHandlers {
 		// lines^
 		ProtectionManager.checkInteraction(ev.target, res, ev);
 		if (!ev.isCanceled() && ev.entityPlayer.getHeldItem() != null) {
-			BlockPos bp = new BlockPos(x, y, z, ev.target.dimension);
+			BlockPosition bp = new BlockPosition(x, y, z, ev.target.dimension);
 			ProtectionManager.checkUsage(ev.entityPlayer.getHeldItem(), res, PlayerInteractEvent.Action.RIGHT_CLICK_AIR,
 					bp, -1, ev);
 		}
@@ -262,7 +267,7 @@ public class ProtectionHandlers {
 					ev);
 		}
 		if (!ev.isCanceled()) {
-			ProtectionManager.checkBlockInteraction(res, new BlockPos(ev.x, ev.y, ev.z, ev.world.provider.dimensionId),
+			ProtectionManager.checkBlockInteraction(res, new BlockPosition(ev.pos.getX(), ev.pos.getY(), ev.pos.getZ(), ev.world.provider.getDimensionId()),
 					ev.action, ev);
 		}
 
@@ -283,7 +288,7 @@ public class ProtectionHandlers {
 		Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(ev.player);
 		if (ev.player.getHeldItem() != null) {
 			ProtectionManager.checkUsage(ev.player.getHeldItem(), res, Action.RIGHT_CLICK_BLOCK,
-					new BlockPos(ev.x, ev.y, ev.z, ev.world.provider.dimensionId), ev.face, ev);
+					new BlockPosition(ev.x, ev.y, ev.z, ev.world.provider.getDimensionId()), ev.face, ev);
 		}
 	}
 
@@ -293,7 +298,7 @@ public class ProtectionHandlers {
 			return;
 		}
 
-		if (!ProtectionManager.getFlagValueAtLocation(FlagType.MODIFY, ev.world.provider.dimensionId, ev.x, ev.y,
+		if (!ProtectionManager.getFlagValueAtLocation(FlagType.MODIFY, ev.world.provider.getDimensionId(), ev.x, ev.y,
 				ev.z)) {
 			ev.setCanceled(true);
 			return;
@@ -320,8 +325,8 @@ public class ProtectionHandlers {
 
 		// Fake players are special
 		if (entity instanceof FakePlayer) {
-			if (!ProtectionManager.getFlagValueAtLocation(FlagType.FAKERS, ev.world.provider.dimensionId, ev.x, ev.y,
-					ev.z)) {
+			if (!ProtectionManager.getFlagValueAtLocation(FlagType.FAKERS, ev.world.provider.getDimensionId(), ev.pos.getX(), ev.pos.getY(),
+					ev.pos.getZ())) {
 				ev.setCanceled(true);
 			}
 		} else {
@@ -337,9 +342,9 @@ public class ProtectionHandlers {
 			}
 
 			// Trampling crops will break them and will modify the terrain
-			if (!ProtectionManager.checkBlockBreak(ev.block)) {
-				if (!ProtectionManager.hasPermission(res, FlagType.MODIFY, ev.world.provider.dimensionId, ev.x, ev.y,
-						ev.z)) {
+			if (!ProtectionManager.checkBlockBreak(ev.state.getBlock())) {
+				if (!ProtectionManager.hasPermission(res, FlagType.MODIFY, ev.world.provider.getDimensionId(), ev.pos.getX(), ev.pos.getY(),
+						ev.pos.getZ())) {
 					ev.setCanceled(true);
 				}
 			}
@@ -352,7 +357,7 @@ public class ProtectionHandlers {
 			return;
 		}
 
-		if (EmpiresUniverse.instance.blocks.contains(ev.world.provider.dimensionId, ev.x >> 4, ev.z >> 4)) {
+		if (EmpiresUniverse.instance.blocks.contains(ev.world.provider.getDimensionId(), ev.x >> 4, ev.z >> 4)) {
 			ev.setCanceled(true);
 		} // Changed to EmpiresUniverse.instance from Empires.instance in above
 			// lines^
@@ -366,22 +371,22 @@ public class ProtectionHandlers {
 		}
 
 		if (ev.getPlayer() instanceof FakePlayer) {
-			if (!ProtectionManager.getFlagValueAtLocation(FlagType.FAKERS, ev.world.provider.dimensionId, ev.x, ev.y,
-					ev.z)) {
+			if (!ProtectionManager.getFlagValueAtLocation(FlagType.FAKERS, ev.world.provider.getDimensionId(), ev.pos.getX(), ev.pos.getY(),
+					ev.pos.getZ())) {
 				ev.setCanceled(true);
 			}
 		} else {
 			Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(ev.getPlayer());
 			// Changed to EmpiresUniverse.instance from Empires.instance in
 			// above lines^
-			if (!EmpiresUniverse.instance.blocks.contains(ev.world.provider.dimensionId, ev.x >> 4, ev.z >> 4)) {
+			if (!EmpiresUniverse.instance.blocks.contains(ev.world.provider.getDimensionId(), ev.pos.getX() >> 4, ev.pos.getZ() >> 4)) {
 				int range = Config.instance.placeProtectionRange.get();
-				Volume breakBox = new Volume(ev.x - range, ev.y - range, ev.z - range, ev.x + range, ev.y + range,
-						ev.z + range);
+				Volume breakBox = new Volume(ev.pos.getX() - range, ev.pos.getY() - range, ev.z - range, ev.pos.getX() + range, ev.pos.getY() + range,
+						ev.pos.getZ() + range);
 				// Changed to EmpiresUniverse.instance from Empires.instance in
 				// above lines^
-				if (!ProtectionManager.checkBlockBreak(ev.block)) {
-					if (!ProtectionManager.hasPermission(res, FlagType.MODIFY, ev.world.provider.dimensionId,
+				if (!ProtectionManager.checkBlockBreak(ev.state.getBlock())) {
+					if (!ProtectionManager.hasPermission(res, FlagType.MODIFY, ev.world.provider.getDimensionId(),
 							breakBox)) {
 						ev.setCanceled(true);
 						return;
@@ -389,9 +394,9 @@ public class ProtectionHandlers {
 				}
 
 			} else {
-				if (!ProtectionManager.checkBlockBreak(ev.block)) {
-					if (!ProtectionManager.hasPermission(res, FlagType.MODIFY, ev.world.provider.dimensionId, ev.x,
-							ev.y, ev.z)) {
+				if (!ProtectionManager.checkBlockBreak(ev.state.getBlock())) {
+					if (!ProtectionManager.hasPermission(res, FlagType.MODIFY, ev.world.provider.getDimensionId(), ev.pos.getX(),
+							ev.pos.getY(), ev.pos.getZ())) {
 						ev.setCanceled(true);
 						return;
 					}
@@ -400,14 +405,14 @@ public class ProtectionHandlers {
 
 			if (ev.getPlayer().getHeldItem() != null) {
 				ProtectionManager.checkBreakWithItem(ev.getPlayer().getHeldItem(), res,
-						new BlockPos(ev.x, ev.y, ev.z, ev.world.provider.dimensionId), ev);
+						new BlockPosition(ev.pos.getX(), ev.pos.getY(), ev.pos.getZ(), ev.world.provider.getDimensionId()), ev);
 			}
 		}
 
-		if (!ev.isCanceled() && ev.block instanceof ITileEntityProvider) {
-			TileEntity te = ((ITileEntityProvider) ev.block).createNewTileEntity(ev.world, ev.blockMetadata);
+		if (!ev.isCanceled() && ev.state.getBlock() instanceof ITileEntityProvider) {
+			TileEntity te = ((ITileEntityProvider) ev.state.getBlock()).createNewTileEntity(ev.world, ev.state.getBlock());
 			if (te != null && ProtectionManager.isOwnable(te.getClass())) {
-				te = ev.world.getTileEntity(ev.x, ev.y, ev.z);
+				te = ev.world.getTileEntity(ev.pos.getX(), ev.pos.getY(), ev.pos.getZ());
 				ownedTileEntities.remove(te);
 				Empires.instance.LOG.info("Removed te {}", te.toString());
 			}
@@ -479,17 +484,17 @@ public class ProtectionHandlers {
 			return;
 		}
 
-		int x = (int) Math.floor(ev.target.blockX);
-		int y = (int) Math.floor(ev.target.blockY);
-		int z = (int) Math.floor(ev.target.blockZ);
+		int x = (int) Math.floor(ev.target.getBlockPos().getX());
+		int y = (int) Math.floor(ev.target.getBlockPos().getY());
+		int z = (int) Math.floor(ev.target.getBlockPos().getZ());
 
 		if (ev.entityPlayer instanceof FakePlayer) {
-			if (!ProtectionManager.getFlagValueAtLocation(FlagType.FAKERS, ev.world.provider.dimensionId, x, y, z)) {
+			if (!ProtectionManager.getFlagValueAtLocation(FlagType.FAKERS, ev.world.provider.getDimensionId(), x, y, z)) {
 				ev.setCanceled(true);
 			}
 		} else {
 			Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(ev.entityPlayer);
-			if (!ProtectionManager.hasPermission(res, FlagType.USAGE, ev.world.provider.dimensionId, x, y, z)) {
+			if (!ProtectionManager.hasPermission(res, FlagType.USAGE, ev.world.provider.getDimensionId(), x, y, z)) {
 				ev.setCanceled(true);
 			}
 		}
@@ -542,7 +547,7 @@ public class ProtectionHandlers {
 
 	// Changed to EmpiresUniverse.instance from Empires.instance in above lines^
 
-	private BlockPos createBlockPos(PlayerInteractEvent ev) {
+	private BlockPosition createBlockPos(PlayerInteractEvent ev) {
 		int x, y, z;
 
 		if (ev.action == PlayerInteractEvent.Action.RIGHT_CLICK_AIR) {
@@ -550,10 +555,10 @@ public class ProtectionHandlers {
 			y = (int) Math.floor(ev.entityPlayer.posY);
 			z = (int) Math.floor(ev.entityPlayer.posZ);
 		} else {
-			x = ev.x;
-			y = ev.y;
-			z = ev.z;
+			x = ev.pos.getX();
+			y = ev.pos.getY();
+			z = ev.pos.getZ();
 		}
-		return new BlockPos(x, y, z, ev.world.provider.dimensionId);
+		return new BlockPosition(x, y, z, ev.world.provider.getDimensionId());
 	}
 }

@@ -3,9 +3,10 @@ package EmpiresMod.API.permissions;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
+import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
@@ -35,7 +36,7 @@ public final class PermissionManager {
 		registerDefaultPermissions();
 	}
 
-	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	@net.minecraftforge.fml.common.eventhandler.SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void commandEvent(CommandEvent event) {
 		if (!checkPermission(event.sender, event.command)) {
 			event.setCanceled(true);
@@ -79,7 +80,7 @@ public final class PermissionManager {
 		String permission = commandPermissions.get(command);
 		if (permission != null)
 			return permission;
-		return DEFAULT_COMMAND_NODE + command.getCommandName();
+		return DEFAULT_COMMAND_NODE + command.getName();
 	}
 
 	public static PermissionLevel getCommandLevel(ICommand command) {

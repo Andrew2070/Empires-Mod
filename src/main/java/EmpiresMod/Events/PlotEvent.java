@@ -1,8 +1,8 @@
 package EmpiresMod.Events;
 
 import EmpiresMod.entities.Empire.Plot;
-import cpw.mods.fml.common.eventhandler.Cancelable;
-import cpw.mods.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.Cancelable;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.common.MinecraftForge;
 
 public class PlotEvent extends Event {

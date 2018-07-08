@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import EmpiresMod.entities.Empire.Citizen;
-import EmpiresMod.entities.Position.BlockPos;
+import EmpiresMod.entities.Position.BlockPosition;
 import EmpiresMod.protection.Segment.Enums.BlockType;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.BlockPos;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 /**
@@ -18,9 +19,10 @@ public class SegmentBlock extends Segment {
 	protected ClientBlockUpdate clientUpdate;
 	protected List<BlockType> types = new ArrayList<BlockType>();
 
-	public boolean shouldInteract(Citizen res, BlockPos bp, PlayerInteractEvent.Action action) {
-		if (meta != -1 && meta != MinecraftServer.getServer().worldServerForDimension(bp.getDim())
-				.getBlockMetadata(bp.getX(), bp.getY(), bp.getZ())) {
+	public boolean shouldInteract(Citizen res, BlockPosition bp, PlayerInteractEvent.Action action) {
+		if (meta != -1 && meta != MinecraftServer.getServer().worldServerForDimension(bp.getDim()).getBlockState(
+				new BlockPos(bp.getX(), bp.getY(), bp.getZ())).getBlock().getMetaFromState( MinecraftServer.getServer().worldServerForDimension(bp.getDim()).getBlockState(
+				new BlockPos(bp.getX(), bp.getY(), bp.getZ())).getBlock().getDefaultState())) {
 			return true;
 		}
 

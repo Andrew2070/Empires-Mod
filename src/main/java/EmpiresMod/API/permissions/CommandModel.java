@@ -4,8 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import EmpiresMod.API.permissions.Bridges.ForgeEssentialsPermissionBridge;
-import cpw.mods.fml.common.Optional;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
 /**
@@ -75,5 +76,17 @@ public class CommandModel extends CommandBase implements PermissionObject {
 	public PermissionLevel getPermissionLevel() {
 		return PermissionLevel
 				.fromBoolean(!(PermissionProxy.getPermissionManager() instanceof ForgeEssentialsPermissionBridge));
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void execute(ICommandSender sender, String[] args) throws CommandException {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -17,7 +17,7 @@ import EmpiresMod.entities.Empire.EmpireBlock;
 import EmpiresMod.entities.Empire.Plot;
 import EmpiresMod.entities.Managers.ToolManager;
 import EmpiresMod.entities.Misc.Tool;
-import EmpiresMod.entities.Position.BlockPos;
+import EmpiresMod.entities.Position.BlockPosition;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
@@ -42,7 +42,7 @@ public class PlotSelectionTool extends Tool {
 	}
 
 	@Override
-	public void onItemUse(BlockPos bp, int face) {
+	public void onItemUse(BlockPosition bp, int face) {
 		Empire empire = EmpireUtils.getEmpireAtPosition(bp.getDim(), bp.getX() >> 4, bp.getZ() >> 4);
 
 		if (!hasPermission(empire)) {

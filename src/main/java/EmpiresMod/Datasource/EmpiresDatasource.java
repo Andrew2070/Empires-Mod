@@ -33,6 +33,7 @@ import EmpiresMod.exceptions.Command.CommandException;
 import EmpiresMod.protection.ProtectionManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 
@@ -74,8 +75,8 @@ public class EmpiresDatasource extends DatasourceSQL {
         }
 
         for (World world : MinecraftServer.getServer().worldServers) {
-            if (!EmpiresUniverse.instance.worlds.contains(world.provider.dimensionId)) {
-                saveWorld(world.provider.dimensionId);
+            if (!EmpiresUniverse.instance.worlds.contains(world.provider.getDimensionId())) {
+                saveWorld(world.provider.getDimensionId());
                 //Test
             }
         }
@@ -105,7 +106,7 @@ public class EmpiresDatasource extends DatasourceSQL {
 
                 for (ForgeChunkManager.Ticket ticket : EmpiresLoadingCallback.tickets) {
                     if (ticket.getModData().getString("empireName").equals(empire.getName())) {
-                        empire.ticketMap.put(ticket.world.provider.dimensionId, ticket);
+                        empire.ticketMap.put(ticket.world.provider.getDimensionId(), ticket);
                     }
                 }
 
@@ -503,8 +504,9 @@ public class EmpiresDatasource extends DatasourceSQL {
                     LOG.error("Failed to find a TileEntity at position ({}, {}, {}| DIM: {})", x, y, z, dim);
                     continue;
                 }
-
-                TileEntity te = world.getTileEntity(x, y, z);
+                BlockPos pos = new BlockPos(x, y, z);
+                TileEntity te = world.getTileEntity(pos);
+                				
                 if(te == null) {
                     LOG.error("Failed to find a TileEntity at position ({}, {}, {}| DIM: {})", x, y, z, dim);
                     continue;

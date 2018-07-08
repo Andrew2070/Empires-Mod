@@ -1,9 +1,7 @@
 package EmpiresMod.Configuration;
 
-
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Items;
-
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class Config extends ConfigTemplate {
 

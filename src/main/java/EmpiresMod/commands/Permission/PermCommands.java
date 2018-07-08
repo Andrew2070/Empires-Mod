@@ -23,7 +23,7 @@ import net.minecraft.util.IChatComponent;
 
 public class PermCommands {
 
-	protected static Group getGroupFromName(String name) {
+	protected static Group getGroupFromName(String name) throws PermissionCommandException {
 		Group group = getManager().groups.get(name);
 		if (group == null) {
 			throw new PermissionCommandException("Empires.perm.cmd.err.group.notExist",
@@ -32,8 +32,8 @@ public class PermCommands {
 		return group;
 	}
 
-	protected static UUID getUUIDFromUsername(String username) {
-		UUID uuid = PlayerUtils.getUUIDFromUsername(username);
+	protected static UUID getUUIDFromUsername(String username) throws PermissionCommandException {
+		UUID uuid = PlayerUtils.getPlayerFromUUID(username);
 		if (uuid == null) {
 			throw new PermissionCommandException("Empires.perm.cmd.err.player.notExist",
 					LocalizationManager.get("Empires.format.user.short", username));
@@ -85,7 +85,7 @@ public class PermCommands {
 		}
 
 		@Command(name = "delete", permission = "Empires.perm.cmd.group.delete", parentName = "Empires.perm.cmd.group", syntax = "/empireperm group delete <name>")
-		public static CommandResponse groupDeleteCommand(ICommandSender sender, List<String> args) {
+		public static CommandResponse groupDeleteCommand(ICommandSender sender, List<String> args) throws PermissionCommandException {
 			if (args.size() < 1) {
 				return CommandResponse.SEND_SYNTAX;
 			}
@@ -98,7 +98,7 @@ public class PermCommands {
 		}
 
 		@Command(name = "rename", permission = "Empires.perm.cmd.group.rename", parentName = "Empires.perm.cmd.group", syntax = "/empireperm group rename <group> <name>")
-		public static CommandResponse groupRenameCommand(ICommandSender sender, List<String> args) {
+		public static CommandResponse groupRenameCommand(ICommandSender sender, List<String> args) throws PermissionCommandException {
 			if (args.size() < 2) {
 				return CommandResponse.SEND_SYNTAX;
 			}
@@ -142,7 +142,7 @@ public class PermCommands {
 		}
 
 		@Command(name = "add", permission = "Empires.perm.cmd.group.perm.add", parentName = "Empires.perm.cmd.group.perm", syntax = "/empireperm group perm add <group> <perm>")
-		public static CommandResponse groupPermAddCommand(ICommandSender sender, List<String> args) {
+		public static CommandResponse groupPermAddCommand(ICommandSender sender, List<String> args) throws PermissionCommandException {
 			if (args.size() < 2) {
 				return CommandResponse.SEND_SYNTAX;
 			}
@@ -156,7 +156,7 @@ public class PermCommands {
 		}
 
 		@Command(name = "remove", permission = "Empires.perm.cmd.group.perm.remove", parentName = "Empires.perm.cmd.group.perm", syntax = "/empireperm group perm remove <group> <perm>")
-		public static CommandResponse groupPermRemoveCommand(ICommandSender sender, List<String> args) {
+		public static CommandResponse groupPermRemoveCommand(ICommandSender sender, List<String> args) throws PermissionCommandException {
 			if (args.size() < 2) {
 				return CommandResponse.SEND_SYNTAX;
 			}
@@ -170,7 +170,7 @@ public class PermCommands {
 		}
 
 		@Command(name = "list", permission = "Empires.perm.cmd.group.perm.list", parentName = "Empires.perm.cmd.group.perm", syntax = "/empireperm group perm list <group>")
-		public static CommandResponse groupPermListCommand(ICommandSender sender, List<String> args) {
+		public static CommandResponse groupPermListCommand(ICommandSender sender, List<String> args) throws PermissionCommandException {
 			if (args.size() < 1) {
 				return CommandResponse.SEND_SYNTAX;
 			}
@@ -191,7 +191,7 @@ public class PermCommands {
 		}
 
 		@Command(name = "show", permission = "Empires.perm.cmd.user.group.show", parentName = "Empires.perm.cmd.user.group", syntax = "/empireperm user group show <player>")
-		public static CommandResponse userGroupShowCommand(ICommandSender sender, List<String> args) {
+		public static CommandResponse userGroupShowCommand(ICommandSender sender, List<String> args) throws PermissionCommandException {
 			if (args.size() < 1) {
 				return CommandResponse.SEND_SYNTAX;
 			}
@@ -205,7 +205,7 @@ public class PermCommands {
 		}
 
 		@Command(name = "set", permission = "Empires.perm.cmd.user.group.set", parentName = "Empires.perm.cmd.user.group", syntax = "/empireperm user group set <player> <group>")
-		public static CommandResponse userGroupSetCommand(ICommandSender sender, List<String> args) {
+		public static CommandResponse userGroupSetCommand(ICommandSender sender, List<String> args) throws PermissionCommandException {
 			if (args.size() < 2) {
 				return CommandResponse.SEND_SYNTAX;
 			}
@@ -245,7 +245,7 @@ public class PermCommands {
 		}
 
 		@Command(name = "add", permission = "Empires.perm.cmd.user.perm.add", parentName = "Empires.perm.cmd.user.perm", syntax = "/empireperm user perm add <player> <perm>")
-		public static CommandResponse userPermAddCommand(ICommandSender sender, List<String> args) {
+		public static CommandResponse userPermAddCommand(ICommandSender sender, List<String> args) throws PermissionCommandException {
 			if (args.size() < 2) {
 				return CommandResponse.SEND_SYNTAX;
 			}
@@ -260,7 +260,7 @@ public class PermCommands {
 		}
 
 		@Command(name = "remove", permission = "Empires.perm.cmd.user.perm.remove", parentName = "Empires.perm.cmd.user.perm", syntax = "/empireperm user perm remove <player> <perm>")
-		public static CommandResponse userPermRemoveCommand(ICommandSender sender, List<String> args) {
+		public static CommandResponse userPermRemoveCommand(ICommandSender sender, List<String> args) throws PermissionCommandException {
 			if (args.size() < 2) {
 				return CommandResponse.SEND_SYNTAX;
 			}
@@ -275,7 +275,7 @@ public class PermCommands {
 		}
 
 		@Command(name = "list", permission = "Empires.perm.cmd.user.perm.list", parentName = "Empires.perm.cmd.user.perm", syntax = "/empireperm user perm list <player>")
-		public static CommandResponse userPermListCommand(ICommandSender sender, List<String> args) {
+		public static CommandResponse userPermListCommand(ICommandSender sender, List<String> args) throws PermissionCommandException {
 			if (args.size() < 1) {
 				return CommandResponse.SEND_SYNTAX;
 			}

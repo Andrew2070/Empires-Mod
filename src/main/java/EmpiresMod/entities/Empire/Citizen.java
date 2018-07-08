@@ -20,7 +20,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.IChatComponent;
 
 public class Citizen implements IChatFormat {
@@ -146,10 +146,10 @@ public class Citizen implements IChatFormat {
             return;
         }
 
-        ChunkCoordinates spawn = player.getBedLocation(player.dimension);
+        BlockPos spawn = player.getBedLocation(player.dimension);
         if (spawn == null)
             spawn = player.worldObj.getSpawnPoint();
-        ((EntityPlayerMP) player).playerNetServerHandler.setPlayerLocation(spawn.posX, spawn.posY, spawn.posZ, player.rotationYaw, player.rotationPitch);
+        ((EntityPlayerMP) player).playerNetServerHandler.setPlayerLocation(spawn.getX(), spawn.getY(), spawn.getZ(), player.rotationYaw, player.rotationPitch);
     }
 
     /**
@@ -174,10 +174,10 @@ public class Citizen implements IChatFormat {
                 while (!empire.hasPermission(this, FlagType.ENTER, player.dimension, x, y, z) && empire.isPointInEmpire(player.dimension, x, z))
                     x++;
                 x += 3;
-
-                while(player.worldObj.getBlock(x, y, z) != Blocks.air && player.worldObj.getBlock(x, y + 1, z) != Blocks.air && y < 256)
+                BlockPos pos = new BlockPos(x,y,z);
+                while(player.worldObj.getBlockState(pos) != Blocks.air && player.worldObj.getBlockState(new BlockPos(x, y + 1, z)) != Blocks.air && y < 256)
                     y++;
-
+              
                 if(empire.hasPermission(this, FlagType.ENTER, player.dimension, x, y, z) || !empire.isPointInEmpire(player.dimension, x, z))
                     ok = true;
             }
@@ -191,7 +191,7 @@ public class Citizen implements IChatFormat {
 
     public void setPlayer(EntityPlayer pl) {
         this.player = pl;
-        this.playerName = pl.getDisplayName();
+        this.playerName = pl.getDisplayNameString();
     }
 
     public UUID getUUID() {

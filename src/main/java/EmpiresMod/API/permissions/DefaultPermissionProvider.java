@@ -40,9 +40,9 @@ public class DefaultPermissionProvider implements IPermissionProvider {
 	protected int getOpLevel(GameProfile profile) {
 		if (!MinecraftServer.getServer().getConfigurationManager().func_152596_g(profile))
 			return 0;
-		UserListOpsEntry entry = (UserListOpsEntry) MinecraftServer.getServer().getConfigurationManager()
+		UserListOpsEntry entry = (UserListOpsEntry) ((Object) MinecraftServer.getServer().getConfigurationManager())
 				.func_152603_m().func_152683_b(profile);
-		return entry != null ? entry.func_152644_a() : MinecraftServer.getServer().getOpPermissionLevel();
+		return entry != null ? ((Object) entry).func_152644_a() : MinecraftServer.getServer().getOpPermissionLevel();
 	}
 
 }

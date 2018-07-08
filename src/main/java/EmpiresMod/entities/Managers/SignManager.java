@@ -6,10 +6,11 @@ import java.util.Map;
 import EmpiresMod.Transformers.SignClassTransformer;
 import EmpiresMod.entities.Misc.Sign;
 import EmpiresMod.entities.Misc.SignType;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySign;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -25,7 +26,8 @@ public class SignManager {
 	public final Map<String, SignType> signTypes = new HashMap<String, SignType>(1);
 
 	public Sign loadSign(World world, int x, int y, int z) {
-		TileEntity tileEntity = world.getTileEntity(x, y, z);
+		BlockPos pos = new BlockPos(x,y,z);
+		TileEntity tileEntity = world.getTileEntity(pos);
 		if (!(tileEntity instanceof TileEntitySign))
 			return null;
 
@@ -47,7 +49,7 @@ public class SignManager {
 			return;
 		}
 
-		Sign sign = loadSign(ev.world, ev.x, ev.y, ev.z);
+		Sign sign = loadSign(ev.world, ev.pos.getX(), ev.pos.getY(), ev.pos.getZ());
 		if (sign == null)
 			return;
 
@@ -60,7 +62,7 @@ public class SignManager {
 
 	@SubscribeEvent
 	public void onPlayerBreaksBlock(BlockEvent.BreakEvent ev) {
-		Sign sign = loadSign(ev.world, ev.x, ev.y, ev.z);
+		Sign sign = loadSign(ev.world, ev.pos.getX(), ev.pos.getY(), ev.pos.getZ());
 
 		if (sign != null) {
 			sign.onShiftRightClick(ev.getPlayer());

@@ -64,8 +64,9 @@ public class EmpiresUniverse { // TODO Allow migrating between different Datasou
 
     /**
      * Creates and returns a new Empire with basic entities saved to db, or null if it couldn't be created
+     * @throws CommandException 
      */
-    public final Empire newEmpire(String name, Citizen creator) {
+    public final Empire newEmpire(String name, Citizen creator) throws CommandException {
         Empire empire = new Empire(name);
         configureEmpire(empire, creator);
         this.theempirename = name;
@@ -74,8 +75,9 @@ public class EmpiresUniverse { // TODO Allow migrating between different Datasou
 
     /**
      * Creates and returns a new AdminEmpire and fires event
+     * @throws CommandException 
      */
-    public final AdminEmpire newAdminEmpire(String name, Citizen creator) {
+    public final AdminEmpire newAdminEmpire(String name, Citizen creator) throws CommandException {
         AdminEmpire empire = new AdminEmpire(name);
         configureEmpire(empire, creator);
         return empire;
@@ -83,12 +85,13 @@ public class EmpiresUniverse { // TODO Allow migrating between different Datasou
 
     /**
      * Common method for creating any type of empire
+     * @throws CommandException 
      */
     @SuppressWarnings("unchecked")
-    private void configureEmpire(Empire empire, Citizen creator) {
+    private void configureEmpire(Empire empire, Citizen creator) throws CommandException {
         for (World world : MinecraftServer.getServer().worldServers) {
-            if (!EmpiresUniverse.instance.worlds.contains(world.provider.dimensionId)) {
-                getDatasource().saveWorld(world.provider.dimensionId);
+            if (!EmpiresUniverse.instance.worlds.contains(world.provider.getDimensionId())) {
+                getDatasource().saveWorld(world.provider.getDimensionId());
             }
         }
         /*
@@ -262,7 +265,7 @@ public class EmpiresUniverse { // TODO Allow migrating between different Datasou
     }
 
     public Citizen getOrMakeCitizen(EntityPlayer player) {
-        return getOrMakeCitizen(player.getPersistentID(), player.getDisplayName(), player instanceof FakePlayer);
+        return getOrMakeCitizen(player.getPersistentID(), player.getName(), player instanceof FakePlayer);
     }
 
     public Citizen getOrMakeCitizen(Entity e) {
@@ -284,6 +287,8 @@ public class EmpiresUniverse { // TODO Allow migrating between different Datasou
         GameProfile profile;
         try {
             profile = MinecraftServer.getServer().func_152358_ax().func_152655_a(username);
+            GameProfile[] profiles = MinecraftServer.getServer().getGameProfiles();
+            			  profiles.
         }
         catch (Exception e) {
             e.printStackTrace();

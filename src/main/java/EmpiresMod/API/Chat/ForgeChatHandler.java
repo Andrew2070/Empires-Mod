@@ -13,7 +13,6 @@ import EmpiresMod.entities.Empire.Citizen;
 import EmpiresMod.entities.Empire.Empire;
 import EmpiresMod.entities.Empire.Rank;
 import EmpiresMod.exceptions.Command.CommandException;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentTranslation;
@@ -24,7 +23,7 @@ public class ForgeChatHandler {
 	
 	public static final ForgeChatHandler instance = new ForgeChatHandler();
 			
-	@SubscribeEvent
+	@net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 	public void onServerChatReceivedEvent(ServerChatEvent event) {
 		//if (ClassUtils.isBukkitLoaded() == false) {
 

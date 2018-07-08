@@ -1,7 +1,7 @@
 package EmpiresMod.Curse;
 
 
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.common.Loader;
 import EmpiresMod.Curse.Curse;
 import EmpiresMod.Curse.CurseModInfo;
 import EmpiresMod.Curse.VersionInfo;

@@ -48,22 +48,22 @@ public class EntityThrowableTransformer implements IClassTransformer {
 		}
 
 		@Override
-		public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
+		public void visitMethodInsn(int opcode, String owner, String name, String desc) {
 			if (!patched && opcode == Opcodes.INVOKEVIRTUAL
 					&& owner.equals("net/minecraft/entity/projectile/EntityThrowable")
 					&& (name.equals("func_70184_a") || name.equals("onImpact"))) {
 				super.visitMethodInsn(Opcodes.INVOKESTATIC, "EmpiresMod/Events/ProjectileImpactEvent", "fireEvent",
-						"(Lnet/minecraft/entity/projectile/EntityThrowable;Lnet/minecraft/util/MovingObjectPosition;)Z",
-						false);
+						"(Lnet/minecraft/entity/projectile/EntityThrowable;Lnet/minecraft/util/MovingObjectPosition;)Z");
+						
 				Label elseLabel = new Label();
 				super.visitJumpInsn(Opcodes.IFEQ, elseLabel);
 				super.visitVarInsn(Opcodes.ALOAD, 0);
 				super.visitVarInsn(Opcodes.ALOAD, 3);
-				super.visitMethodInsn(opcode, owner, name, desc, itf);
+				super.visitMethodInsn(opcode, owner, name, desc);
 				super.visitLabel(elseLabel);
 				patched = true;
 			} else {
-				super.visitMethodInsn(opcode, owner, name, desc, itf);
+				super.visitMethodInsn(opcode, owner, name, desc);
 			}
 		}
 	}

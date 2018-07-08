@@ -18,11 +18,15 @@ import EmpiresMod.entities.Empire.Rank;
 import EmpiresMod.entities.Empire.Relationship;
 import EmpiresMod.entities.Empire.Relationship.Type;
 import EmpiresMod.exceptions.Command.CommandException;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.relauncher.Side;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.Side;
+
+
+
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
@@ -83,7 +87,7 @@ public class Ticker {
 							if (player.isDead) continue;
 							
 							//Check To See if Player Has A Citizen Profile, If Not Then Make One:	
-							String playerName =  player.getDisplayName();
+							String playerName =  player.getDisplayNameString();
 							Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(playerName); 
 							Citizen citizen = res;
 							//Essentially a bunch of mathematical equations from here on:
@@ -142,7 +146,7 @@ public class Ticker {
             
             
         } else {
-            Empires.instance.LOG.error("[Player Login] Didn't create citizen for player {} ({})", ev.player.getCommandSenderName(), ev.player.getPersistentID());
+            Empires.instance.LOG.error("[Player Login] Didn't create citizen for player {} ({})", ev.player.getName(), ev.player.getPersistentID());
        
         }
     }
@@ -159,7 +163,7 @@ public class Ticker {
 
     @SubscribeEvent
     public void onPlayerBreaksBlock(BlockEvent.BreakEvent ev) {
-        if (VisualsHandler.instance.isBlockMarked(ev.x, ev.y, ev.z, ev.world.provider.dimensionId, (EntityPlayerMP) ev.getPlayer())) {
+        if (VisualsHandler.instance.isBlockMarked(ev.pos.getX(), ev.pos.getY(), ev.pos.getZ(), ev.world.provider.getDimensionId(), (EntityPlayerMP) ev.getPlayer())) {
             // Cancel event if it's a border that has been broken
             ev.setCanceled(true);
         }

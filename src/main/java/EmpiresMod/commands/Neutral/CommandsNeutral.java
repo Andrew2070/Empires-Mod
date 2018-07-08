@@ -27,6 +27,7 @@ import EmpiresMod.entities.Empire.Relationship;
 import EmpiresMod.entities.Empire.Relationship.Type;
 import EmpiresMod.entities.Flags.FlagType;
 import EmpiresMod.exceptions.Empires.EmpiresCommandException;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IChatComponent;
@@ -92,7 +93,7 @@ public class CommandsNeutral extends CommandsEMP {
             console = true)
     public static CommandResponse resCommand(ICommandSender sender, List<String> args) {
         if (args.size() < 1) {
-        	Citizen res1 = getCitizenFromName(sender.getCommandSenderName());
+        	Citizen res1 = getCitizenFromName(sender.getName());
         	  IChatComponent header = LocalizationManager.get("Empires.format.list.header", new ChatComponentFormatted("{6|%s}", ChatComponentBorders.borderEditor(res1.getPlayerName())));
         	 ChatManager.send(sender, "Empires.format.citizen.long", header, res1.empiresContainer, Formatter.formatDate(res1.getJoinDate()), Formatter.formatDate(res1.getLastOnline()), res1.getExtraBlocks(), res1.getPower(), res1.getMaxPower());
         	 return CommandResponse.DONE;
@@ -134,7 +135,7 @@ public class CommandsNeutral extends CommandsEMP {
             permission = "Empires.cmd.outsider.new",
             parentName = "Empires.cmd",
             syntax = "/empire create <name>")
-    public static CommandResponse newEmpireCommand(ICommandSender sender, List<String> args) {
+    public static CommandResponse newEmpireCommand(ICommandSender sender, List<String> args) throws CommandException {
         if (args.size() < 1) {
             return CommandResponse.SEND_SYNTAX;
         }

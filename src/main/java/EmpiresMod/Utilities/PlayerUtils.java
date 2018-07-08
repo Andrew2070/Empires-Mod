@@ -17,8 +17,9 @@ import EmpiresMod.Handlers.WorldUtils;
 import EmpiresMod.entities.Empire.Citizen;
 import EmpiresMod.entities.Empire.Empire;
 import EmpiresMod.exceptions.Command.CommandException;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Slot;
@@ -66,7 +67,17 @@ public class PlayerUtils {
 		return takeItemFromPlayer(player, new ItemStack(item, 1, meta), amount);
 	}
 	
-	
+	public static UUID getPlayerFromUUID(String username) {
+		 List<EntityPlayerMP> allPlayers = MinecraftServer.getServer().getConfigurationManager().playerEntityList;
+	     for(int i=0; i < allPlayers.size(); i++) {
+	    	 EntityPlayer player = allPlayers.get(i);
+	    	 if (player.getName() == username) {
+	    		 return player.getUniqueID();
+	    	 }
+	     }
+	     return null;
+				 
+	}
 	public static void recalculatePower(Citizen res) {
 		double powerPerHour = Config.instance.PowerPerHour.get();
 		double powerUpdateTime = Config.instance.PowerUpdateTime.get();
@@ -301,7 +312,7 @@ public class PlayerUtils {
 
 		player.dimension = dim;
 		player.playerNetServerHandler
-				.sendPacket(new S07PacketRespawn(player.dimension, player.worldObj.difficultySetting,
+				.sendPacket(new S07PacketRespawn(player.dimension, player.worldObj.getDifficulty(),
 						player.worldObj.getWorldInfo().getTerrainType(), player.theItemInWorldManager.getGameType()));
 		oldWorldServer.removePlayerEntityDangerously(player);
 		player.isDead = false;
@@ -336,94 +347,81 @@ public class PlayerUtils {
 		player.setWorld(newWorld);
 	}
 
-	public static boolean isOp(EntityPlayer player) {
-		if (player.getGameProfile() == null) {
-			return false;
-		}
-		return isOp(player.getGameProfile());
-	}
 
-	public static boolean isOp(UUID uuid) {
-		GameProfile gameProfile = MinecraftServer.getServer().func_152358_ax().func_152652_a(uuid);
-		if (gameProfile == null) {
-			return false;
-		}
+	 public static boolean isOp(EntityPlayer player) {
+			if(player == null) // TODO: It appears fakeplayers can be null?
+	            return false;
+	        
+	        if(player.getGameProfile() == null)
+	            return false; // TODO: Could be for fake players. Still not sure if I should allow it.
 
-		return isOp(gameProfile);
-	}
-	@SuppressWarnings("unchecked")
-	public static boolean isOp(GameProfile gameProfile) {
-		UserListOps ops = MinecraftServer.getServer().getConfigurationManager().func_152603_m();
-		try {
-			Class clazz = Class.forName("net.minecraft.server.management.UserList");
-			Method method = clazz.getDeclaredMethod("func_152692_d", Object.class);
-			method.setAccessible(true);
-			return (Boolean) method.invoke(ops, gameProfile);
-		} catch (Exception e) {
-			for (Method mt : UserList.class.getMethods()) {
-				Empires.instance.LOG.info(mt.getName());
-			}
-			Empires.instance.LOG.error(ExceptionUtils.getStackTrace(e));
-		}
+	        UserListOps ops = MinecraftServer.getServer().getConfigurationManager().getOppedPlayers();
+	        try {
+	            Class clazz = Class.forName("net.minecraft.server.management.UserList");
+	            Method method = clazz.getDeclaredMethod("func_152692_d", Object.class);
+	            method.setAccessible(true);
+	            return (Boolean)method.invoke(ops, player.getGameProfile());
+	        } catch (Exception e) {
+	            for(Method mt : UserList.class.getMethods()) {
+	                Empires.instance.LOG.info(mt.getName());
+	            }
+	            e.printStackTrace();
+	        }
+	        return false;
+	    }
+	 public static boolean isOp(UUID uuid) {
+		 EntityPlayer player = (EntityPlayer) MinecraftServer.getServer().getEntityFromUuid(uuid);
+			if(player == null) // TODO: It appears fakeplayers can be null?
+	            return false;
+	        
+	        if(player.getGameProfile() == null)
+	            return false; // TODO: Could be for fake players. Still not sure if I should allow it.
 
-		return false;
-	}
+	        UserListOps ops = MinecraftServer.getServer().getConfigurationManager().getOppedPlayers();
+	        try {
+	            Class clazz = Class.forName("net.minecraft.server.management.UserList");
+	            Method method = clazz.getDeclaredMethod("func_152692_d", Object.class);
+	            method.setAccessible(true);
+	            return (Boolean)method.invoke(ops, player.getGameProfile());
+	        } catch (Exception e) {
+	            for(Method mt : UserList.class.getMethods()) {
+	                Empires.instance.LOG.info(mt.getName());
+	            }
+	            e.printStackTrace();
+	        }
+	        return false;
+	    }
 
 	/**
 	 * Gets the position at which the player is looking
 	 */
-	public static MovingObjectPosition getMovingObjectPositionFromPlayer(World p_77621_1_, EntityPlayer p_77621_2_,
-			boolean p_77621_3_) {
-		float f = 1.0F;
-		float f1 = p_77621_2_.prevRotationPitch + (p_77621_2_.rotationPitch - p_77621_2_.prevRotationPitch) * f;
-		float f2 = p_77621_2_.prevRotationYaw + (p_77621_2_.rotationYaw - p_77621_2_.prevRotationYaw) * f;
-		double d0 = p_77621_2_.prevPosX + (p_77621_2_.posX - p_77621_2_.prevPosX) * (double) f;
-		double d1 = p_77621_2_.prevPosY + (p_77621_2_.posY - p_77621_2_.prevPosY) * (double) f
-				+ (double) (p_77621_1_.isRemote ? p_77621_2_.getEyeHeight() - p_77621_2_.getDefaultEyeHeight()
-						: p_77621_2_.getEyeHeight()); // isRemote check to
-														// revert changes to ray
-														// trace position due to
-														// adding the eye height
-														// clientside and player
-														// yOffset differences
-		double d2 = p_77621_2_.prevPosZ + (p_77621_2_.posZ - p_77621_2_.prevPosZ) * (double) f;
-		Vec3 vec3 = Vec3.createVectorHelper(d0, d1, d2);
-		float f3 = MathHelper.cos(-f2 * 0.017453292F - (float) Math.PI);
-		float f4 = MathHelper.sin(-f2 * 0.017453292F - (float) Math.PI);
-		float f5 = -MathHelper.cos(-f1 * 0.017453292F);
-		float f6 = MathHelper.sin(-f1 * 0.017453292F);
-		float f7 = f4 * f5;
-		float f8 = f3 * f5;
-		double d3 = 5.0D;
-		if (p_77621_2_ instanceof EntityPlayerMP) {
-			d3 = ((EntityPlayerMP) p_77621_2_).theItemInWorldManager.getBlockReachDistance();
-		}
-		Vec3 vec31 = vec3.addVector((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
-		return p_77621_1_.func_147447_a(vec3, vec31, p_77621_3_, !p_77621_3_, false);
-	}
+	    public static MovingObjectPosition getMovingObjectPositionFromPlayer(World p_77621_1_, EntityPlayer p_77621_2_, boolean p_77621_3_) {
+	        float f = 1.0F;
+	        float f1 = p_77621_2_.prevRotationPitch + (p_77621_2_.rotationPitch - p_77621_2_.prevRotationPitch) * f;
+	        float f2 = p_77621_2_.prevRotationYaw + (p_77621_2_.rotationYaw - p_77621_2_.prevRotationYaw) * f;
+	        double d0 = p_77621_2_.prevPosX + (p_77621_2_.posX - p_77621_2_.prevPosX) * (double) f;
+	        double d1 = p_77621_2_.prevPosY + (p_77621_2_.posY - p_77621_2_.prevPosY) * (double) f + (double) (p_77621_1_.isRemote ? p_77621_2_.getEyeHeight() - p_77621_2_.getDefaultEyeHeight() : p_77621_2_.getEyeHeight()); // isRemote check to revert changes to ray trace position due to adding the eye height clientside and player yOffset differences
+	        double d2 = p_77621_2_.prevPosZ + (p_77621_2_.posZ - p_77621_2_.prevPosZ) * (double) f;
+	        Vec3 vec3 = new Vec3(d0, d1, d2);
+	        float f3 = MathHelper.cos(-f2 * 0.017453292F - (float) Math.PI);
+	        float f4 = MathHelper.sin(-f2 * 0.017453292F - (float) Math.PI);
+	        float f5 = -MathHelper.cos(-f1 * 0.017453292F);
+	        float f6 = MathHelper.sin(-f1 * 0.017453292F);
+	        float f7 = f4 * f5;
+	        float f8 = f3 * f5;
+	        double d3 = 5.0D;
+	        if (p_77621_2_ instanceof EntityPlayerMP) {
+	            d3 = ((EntityPlayerMP) p_77621_2_).theItemInWorldManager.getBlockReachDistance();
+	        }
+	        Vec3 vec31 = vec3.addVector((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
+	        return p_77621_1_.rayTraceBlocks(vec3, vec31, p_77621_3_, !p_77621_3_, false);
+	    }
 
 	@SuppressWarnings("unchecked")
-	public static EntityPlayer getPlayerFromUUID(UUID uuid) {
-		for (EntityPlayer player : (List<EntityPlayer>) MinecraftServer.getServer()
-				.getConfigurationManager().playerEntityList) {
-			if (player.getGameProfile().getId().equals(uuid)) {
-				return player;
-			}
-		}
-		return null;
-	}
-
-	public static UUID getUUIDFromUsername(String username) {
-		GameProfile profile = MinecraftServer.getServer().func_152358_ax().func_152655_a(username);
-		return profile == null ? null : profile.getId();
-	}
 
 	public static String getUsernameFromUUID(UUID uuid) {
-		GameProfile profile = MinecraftServer.getServer().func_152358_ax().func_152652_a(uuid);
-		return profile == null ? null : profile.getName();
+		EntityPlayer player = (EntityPlayer) MinecraftServer.getServer().getEntityFromUuid(uuid);
+		return player.getName();
 	}
 
-	public static List<String> getAllUsernames() {
-		return Arrays.asList(MinecraftServer.getServer().func_152358_ax().func_152654_a());
-	}
 }

@@ -186,43 +186,6 @@ public class Plot implements IChatFormat {
 		return this.dbID;
 	}
 
-	public void deleteSignBlocks(SignType signType, World world) {
-		if (world.provider.dimensionId != dim)
-			return;
-
-		int x1 = getStartX();
-		int y1 = getStartY();
-		int z1 = getStartZ();
-		int x2 = getEndX();
-		int y2 = getEndY();
-		int z2 = getEndZ();
-		int cx1 = x1 >> 4;
-		int cz1 = z1 >> 4;
-		int cx2 = x2 >> 4;
-		int cz2 = z2 >> 4;
-		for (int cx = cx1; cx <= cx2; cx++)
-			for (int cz = cz1; cz <= cz2; cz++) {
-				Chunk chunk = world.getChunkFromChunkCoords(cx, cz);
-				if (!chunk.isChunkLoaded)
-					chunk = world.getChunkProvider().loadChunk(cx, cz);
-
-				List<int[]> sellSigns = new ArrayList<int[]>(2);
-				for (Object obj : chunk.chunkTileEntityMap.values()) {
-					if (obj instanceof TileEntitySign) {
-						TileEntitySign sign = (TileEntitySign) obj;
-						if (sign.xCoord >= x1 && sign.xCoord <= x2 && sign.yCoord >= y1 && sign.yCoord <= y2
-								&& sign.zCoord >= z1 && sign.zCoord <= z2 && signType.isTileValid(sign))
-							sellSigns.add(new int[] { sign.xCoord, sign.yCoord, sign.zCoord });
-					}
-				}
-
-				for (int[] sellSign : sellSigns) {
-					world.removeTileEntity(sellSign[0], sellSign[1], sellSign[2]);
-					world.setBlock(sellSign[0], sellSign[1], sellSign[2], Blocks.air);
-				}
-			}
-	}
-
 	public static class Container extends ArrayList<Plot> implements IChatFormat {
 
 		private int maxPlots;

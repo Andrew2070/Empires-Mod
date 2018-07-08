@@ -1,7 +1,7 @@
 package EmpiresMod.protection.Segment;
 
 import EmpiresMod.entities.Misc.Volume;
-import EmpiresMod.entities.Position.BlockPos;
+import EmpiresMod.entities.Position.BlockPosition;
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.S23PacketBlockChange;
@@ -24,7 +24,7 @@ public class ClientBlockUpdate {
 		this.relativeCoords = new Volume(xMin, yMin, zMin, xMax, yMax, zMax);
 	}
 
-	public void send(BlockPos center, EntityPlayerMP player, ForgeDirection face) {
+	public void send(BlockPosition center, EntityPlayerMP player, ForgeDirection face) {
 		World world = MinecraftServer.getServer().worldServerForDimension(center.getDim());
 		int x, y, z;
 		Volume updateVolume = relativeCoords.translate(face);
@@ -44,7 +44,7 @@ public class ClientBlockUpdate {
 		}
 	}
 
-	public void send(BlockPos center, EntityPlayerMP player) {
+	public void send(BlockPosition center, EntityPlayerMP player) {
 		send(center, player, ForgeDirection.SOUTH);
 	}
 }

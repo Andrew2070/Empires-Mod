@@ -1,8 +1,8 @@
 package EmpiresMod.Events;
 
 import EmpiresMod.entities.Empire.Rank;
-import cpw.mods.fml.common.eventhandler.Cancelable;
-import cpw.mods.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.Cancelable;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.common.MinecraftForge;
 
 public class RankEvent extends Event {

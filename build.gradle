@@ -11,7 +11,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.0-SNAPSHOT'
     }
 }
 
@@ -48,12 +48,12 @@ if (System.env.TRAVIS_TAG != null && !System.env.TRAVIS_TAG.isEmpty()) {
     ext.config.build_number = System.env.TRAVIS_TAG.substring(0, System.env.TRAVIS_TAG.length()-1)
     ext.config.build_type = System.env.TRAVIS_TAG.substring(System.env.TRAVIS_TAG.length()-1)
 } else {
-    ext.config.build_number = "1.1.2"
+    ext.config.build_number = "1.1.3"
     ext.config.build_type = "[R]"
 }
 
 // Apply Plugins
-apply plugin: 'forge'
+apply plugin: 'net.minecraftforge.gradle.forge'
 
 // Configure Everything
 //version = "${minecraft.version}-${build_number}${build_type}"
@@ -61,7 +61,9 @@ println "reflectasmversion is " + reflectasmversion
 version = "${config.minecraft_version}-${config.build_number}${config.build_type}"
 minecraft {
    replace "@VERSION@", "${project.version}"
-   version = "1.7.10-10.13.4.1614-1.7.10"
+   version = "1.8-11.14.4.1563"
+   mappings = "snapshot_20141130"
+   runDir = "run"
 }
 
 

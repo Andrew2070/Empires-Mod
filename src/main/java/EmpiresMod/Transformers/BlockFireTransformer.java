@@ -39,23 +39,22 @@ public class BlockFireTransformer implements IClassTransformer {
 		}
 
 		@Override
-		public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
+		public void visitMethodInsn(int opcode, String owner, String name, String desc) {
 			if ((methodTransformed.equals("func_149674_a") || methodTransformed.equals("updateTick"))
 					&& !kcauldronDetected && opcode == Opcodes.INVOKEVIRTUAL) {
 				if (owner.equals("net/minecraft/world/World") && name.equals("func_147465_d")
 						|| name.equals("setBlock")) {
 					super.visitMethodInsn(Opcodes.INVOKESTATIC, "EmpiresMod/Events/ModifyBlockEvent",
-							"checkAndSetBlock", "(Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;II)Z",
-							false);
+							"checkAndSetBlock", "(Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;II)Z");
 					return;
 				} else if (owner.equals("org/bukkit/event/block/BlockIgniteEvent") && name.equals("isCancelled")) {
-					super.visitMethodInsn(opcode, owner, name, desc, itf);
+					super.visitMethodInsn(opcode, owner, name, desc);
 					super.visitVarInsn(Opcodes.ALOAD, 1);
 					super.visitVarInsn(Opcodes.ILOAD, 10);
 					super.visitVarInsn(Opcodes.ILOAD, 12);
 					super.visitVarInsn(Opcodes.ILOAD, 11);
 					super.visitMethodInsn(Opcodes.INVOKESTATIC, "EmpiresMod/Events/ModifyBlockEvent",
-							"checkFlagAndBlock", "(ZLnet/minecraft/world/World;III)Z", false);
+							"checkFlagAndBlock", "(ZLnet/minecraft/world/World;III)Z");
 					kcauldronDetected = true;
 					return;
 				}
@@ -63,17 +62,16 @@ public class BlockFireTransformer implements IClassTransformer {
 					&& owner.equals("net/minecraft/world/World")) {
 				if (name.equals("func_147465_d") || name.equals("setBlock")) {
 					super.visitMethodInsn(Opcodes.INVOKESTATIC, "EmpiresMod/Events/ModifyBlockEvent",
-							"checkAndSetBlock", "(Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;II)Z",
-							false);
+							"checkAndSetBlock", "(Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;II)Z");
 					return;
 				} else if (name.equals("func_147468_f") || name.equals("setBlockToAir")) {
 					super.visitMethodInsn(Opcodes.INVOKESTATIC, "EmpiresMod/Events/ModifyBlockEvent",
-							"checkAndSetBlockToAir", "(Lnet/minecraft/world/World;III)Z", false);
+							"checkAndSetBlockToAir", "(Lnet/minecraft/world/World;III)Z");
 					return;
 				}
 			}
 
-			super.visitMethodInsn(opcode, owner, name, desc, itf);
+			super.visitMethodInsn(opcode, owner, name, desc);
 		}
 	}
 

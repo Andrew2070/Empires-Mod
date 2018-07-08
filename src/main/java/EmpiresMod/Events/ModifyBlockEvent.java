@@ -1,8 +1,9 @@
 package EmpiresMod.Events;
 
-import cpw.mods.fml.common.eventhandler.Cancelable;
-import cpw.mods.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.Cancelable;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraft.block.Block;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -27,15 +28,15 @@ public class ModifyBlockEvent extends Event {
 	@SuppressWarnings("unused")
 	public static boolean checkAndSetBlockToAir(World world, int x, int y, int z) {
 		if (!MinecraftForge.EVENT_BUS.post(new ModifyBlockEvent(world, x, y, z))) {
-			return world.setBlockToAir(x, y, z);
+			return world.setBlockToAir(new BlockPos(x,y,z));
 		}
 		return false;
 	}
 
 	@SuppressWarnings("unused")
-	public static boolean checkAndSetBlock(World world, int x, int y, int z, Block block, int meta, int flags) {
+	public static boolean checkAndSetBlock(World world, int x, int y, int z, Block block, int flags) {
 		if (!MinecraftForge.EVENT_BUS.post(new ModifyBlockEvent(world, x, y, z))) {
-			return world.setBlock(x, y, z, block, meta, flags);
+			return world.setBlockState(new BlockPos(x,y,z), block.getDefaultState(), flags);
 		}
 		return false;
 	}

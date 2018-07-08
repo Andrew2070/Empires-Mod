@@ -10,15 +10,17 @@ import EmpiresMod.Empires;
 import EmpiresMod.Utilities.WorldUtils;
 import EmpiresMod.entities.Empire.EmpireBlock;
 import EmpiresMod.entities.Empire.Plot;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.relauncher.Side;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.Packet;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.S23PacketBlockChange;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.BlockPos;
 
 public class VisualsHandler {
 
@@ -40,19 +42,16 @@ public class VisualsHandler {
 						.iterator(); blockCoordsIterator.hasNext();) {
 					BlockCoords coord = blockCoordsIterator.next();
 					if (!coord.packetSent) {
-						S23PacketBlockChange packet = new S23PacketBlockChange(coord.x, coord.y, coord.z,
-								MinecraftServer.getServer().worldServerForDimension(coord.dim));
-						packet.field_148883_d = coord.block;
+						S23PacketBlockChange packet = new S23PacketBlockChange();
+						packet.func_179827_b().add(coord.x, coord.y, coord.z);
+						packet.field_148883_d = coord.block.getDefaultState();
 						visualObject.sendPacketToPlayer(packet);
 						coord.packetSent = true;
 					}
 					if (coord.deleted) {
-						S23PacketBlockChange packet = new S23PacketBlockChange(coord.x, coord.y, coord.z,
-								MinecraftServer.getServer().worldServerForDimension(coord.dim));
+						S23PacketBlockChange packet = new S23PacketBlockChange();
 						packet.field_148883_d = MinecraftServer.getServer().worldServerForDimension(coord.dim)
-								.getBlock(coord.x, coord.y, coord.z);
-						packet.field_148884_e = MinecraftServer.getServer().worldServerForDimension(coord.dim)
-								.getBlockMetadata(coord.x, coord.y, coord.z);
+								.getBlockState(new BlockPos(coord.x, coord.y, coord.z));
 						visualObject.sendPacketToPlayer(packet);
 						blockCoordsIterator.remove();
 					}

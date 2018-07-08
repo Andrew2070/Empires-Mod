@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLWarning;
 
 import EmpiresMod.Empires;
-import cpw.mods.fml.common.ICrashCallable;
+import net.minecraftforge.fml.common.ICrashCallable;
 
 // TODO Add more info about the datasource?
 

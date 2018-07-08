@@ -8,7 +8,7 @@ import EmpiresMod.entities.Empire.Empire;
 import EmpiresMod.entities.Empire.Plot;
 import EmpiresMod.entities.Managers.ToolManager;
 import EmpiresMod.entities.Misc.Tool;
-import EmpiresMod.entities.Position.BlockPos;
+import EmpiresMod.entities.Position.BlockPosition;
 import EmpiresMod.entities.Signs.SellSign;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
@@ -34,9 +34,9 @@ public class PlotSellTool extends Tool {
 	}
 
 	@Override
-	public void onItemUse(BlockPos bp, int face) {
+	public void onItemUse(BlockPosition bp, int face) {
 		ForgeDirection direction = ForgeDirection.getOrientation(face);
-		bp = new BlockPos(bp.getX() + direction.offsetX, bp.getY() + direction.offsetY, bp.getZ() + direction.offsetZ,
+		bp = new BlockPosition(bp.getX() + direction.offsetX, bp.getY() + direction.offsetY, bp.getZ() + direction.offsetZ,
 				bp.getDim());
 
 		Empire empire = EmpireUtils.getEmpireAtPosition(bp.getDim(), bp.getX() >> 4, bp.getZ() >> 4);
@@ -61,7 +61,7 @@ public class PlotSellTool extends Tool {
 				LocalizationManager.get("Empires.tool.plot.sell.property"), restricted);
 	}
 
-	protected boolean hasPermission(Empire empire, BlockPos bp) {
+	protected boolean hasPermission(Empire empire, BlockPosition bp) {
 		World world = MinecraftServer.getServer().worldServerForDimension(bp.getDim());
 
 		if (world.getBlock(bp.getX(), bp.getY(), bp.getZ()) != Blocks.air) {

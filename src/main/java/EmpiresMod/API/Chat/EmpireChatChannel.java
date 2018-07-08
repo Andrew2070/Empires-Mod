@@ -10,18 +10,17 @@ import EmpiresMod.entities.Empire.Citizen;
 import EmpiresMod.entities.Empire.Empire;
 import EmpiresMod.entities.Empire.Rank;
 import EmpiresMod.exceptions.Command.CommandException;
-import cpw.mods.fml.common.eventhandler.IEventListener;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.event.ServerChatEvent;
+import net.minecraftforge.fml.common.eventhandler.IEventListener;
 
 public class EmpireChatChannel {
 	public static final EmpireChatChannel instance = new EmpireChatChannel();
 	
-	@SubscribeEvent
+	@net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 	public void onServerChatReceivedEvent(ServerChatEvent event) {
 		EntityPlayer player = (EntityPlayer) event.player;
 		Citizen citizen = EmpiresUniverse.instance.getOrMakeCitizen(player);

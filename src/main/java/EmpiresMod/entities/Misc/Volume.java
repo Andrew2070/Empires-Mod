@@ -13,8 +13,9 @@ import com.google.gson.JsonSerializationContext;
 import EmpiresMod.Empires;
 import EmpiresMod.API.Chat.IChatFormat;
 import EmpiresMod.API.JSON.API.SerializerTemplate;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.common.util.EnumHelper;
 
 /**
  * A rectangular shaped volume.
@@ -57,7 +58,7 @@ public class Volume implements IChatFormat {
 		return maxZ;
 	}
 
-	public Volume translate(ForgeDirection direction) {
+	public Volume translate(EnumFacing direction) {
 		Volume volume = this;
 		switch (direction) {
 		case DOWN:
@@ -82,8 +83,6 @@ public class Volume implements IChatFormat {
 			break;
 		case SOUTH:
 			// The translation on South is already the correct one.
-			break;
-		case UNKNOWN:
 			break;
 		}
 		return volume;

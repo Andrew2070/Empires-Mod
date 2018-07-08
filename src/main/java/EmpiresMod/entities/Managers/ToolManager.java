@@ -6,9 +6,10 @@ import java.util.List;
 
 import EmpiresMod.Utilities.PlayerUtils;
 import EmpiresMod.entities.Misc.Tool;
-import EmpiresMod.entities.Position.BlockPos;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent;
+import EmpiresMod.entities.Position.BlockPosition;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
@@ -76,7 +77,7 @@ public class ToolManager {
 					tool.onShiftRightClick();
 					return;
 				} else if (ev.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
-					tool.onItemUse(new BlockPos(ev.x, ev.y, ev.z, ev.world.provider.dimensionId), ev.face);
+					tool.onItemUse(new BlockPosition(ev.pos.getX(), ev.pos.getY(), ev.pos.getZ(), ev.world.provider.getDimensionId()), ev.face);
 					return;
 				}
 			}

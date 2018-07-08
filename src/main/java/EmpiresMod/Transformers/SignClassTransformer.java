@@ -213,7 +213,7 @@ public class SignClassTransformer implements IClassTransformer {
 				super.visitVarInsn(Opcodes.ALOAD, 0);
 				super.visitVarInsn(Opcodes.ALOAD, 1);
 				super.visitMethodInsn(Opcodes.INVOKESTATIC, "EmpiresMod/Transformers/SignClassTransformer", localMethodName,
-						"(Ljava/lang/Object;Lnet/minecraft/nbt/NBTTagCompound;)V", false);
+						"(Ljava/lang/Object;Lnet/minecraft/nbt/NBTTagCompound;)V");
 			}
 
 			// Add the current instruction

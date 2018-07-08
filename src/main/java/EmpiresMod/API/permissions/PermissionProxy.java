@@ -8,7 +8,7 @@ import EmpiresMod.API.permissions.Bridges.ServerToolsPermissionBridge;
 import EmpiresMod.Configuration.Config;
 import EmpiresMod.Utilities.ClassUtils;
 import EmpiresMod.exceptions.Permission.PermissionException;
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.common.Loader;
 
 public class PermissionProxy {
 	public static final String PERM_SYSTEM_BUKKIT = "$Bukkit";

@@ -5,7 +5,7 @@ import java.util.List;
 
 import EmpiresMod.entities.Empire.Citizen;
 import EmpiresMod.entities.Misc.Volume;
-import EmpiresMod.entities.Position.BlockPos;
+import EmpiresMod.entities.Position.BlockPosition;
 import EmpiresMod.protection.Segment.Enums.ItemType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -25,7 +25,7 @@ public class SegmentItem extends Segment {
 	protected ClientInventoryUpdate inventoryUpdate;
 	protected boolean directionalClientUpdate = false;
 
-	public boolean shouldInteract(ItemStack item, Citizen res, PlayerInteractEvent.Action action, BlockPos bp,
+	public boolean shouldInteract(ItemStack item, Citizen res, PlayerInteractEvent.Action action, BlockPosition bp,
 			int face) {
 		if (damage != -1 && item.getItemDamage() != damage) {
 			return true;
@@ -78,7 +78,7 @@ public class SegmentItem extends Segment {
 		return true;
 	}
 
-	public boolean shouldBreakBlock(ItemStack item, Citizen res, BlockPos bp) {
+	public boolean shouldBreakBlock(ItemStack item, Citizen res, BlockPosition bp) {
 		if (damage != -1 && item.getItemDamage() != damage) {
 			return true;
 		}

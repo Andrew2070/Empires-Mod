@@ -118,7 +118,7 @@ public class CommandsAdmin extends CommandsEMP {
          empire.setDesc(desc);
          getDatasource().saveEmpire(empire);
          ChatManager.send(sender, "Empires.notification.desc.succesful");
-         empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.desc", sender.getCommandSenderName(), empire.getDesc()));
+         empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.desc", sender.getDisplayName(), empire.getDesc()));
         return CommandResponse.DONE;
     }
 
@@ -258,7 +258,7 @@ public class CommandsAdmin extends CommandsEMP {
             permission = "Empires.adm.cmd.new",
             parentName = "Empires.adm.cmd",
             syntax = "/empireadmin new <name>")
-    public static CommandResponse newCommand(ICommandSender sender, List<String> args) {
+    public static CommandResponse newCommand(ICommandSender sender, List<String> args) throws net.minecraft.command.CommandException {
         if (args.size() < 1) {
             return CommandResponse.SEND_SYNTAX;
         }
@@ -1318,7 +1318,7 @@ public class CommandsAdmin extends CommandsEMP {
             if(player.inventory.getCurrentItem() != null) {
 
                 if(player.inventory.getCurrentItem().getItem() instanceof ItemBlock) {
-                    Block block = ((ItemBlock)player.inventory.getCurrentItem().getItem()).field_150939_a;
+                    Block block = ((ItemBlock)player.inventory.getCurrentItem().getItem()).block;
                     list.add(block.getClass());
                     if(block instanceof ITileEntityProvider) {
                     	TileEntity te = ((ITileEntityProvider) block).createNewTileEntity(MinecraftServer.getServer().worldServerForDimension(0), 0);

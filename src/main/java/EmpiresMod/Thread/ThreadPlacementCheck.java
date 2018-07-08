@@ -1,7 +1,8 @@
 package EmpiresMod.Thread;
 
 import EmpiresMod.entities.Empire.Citizen;
-import EmpiresMod.entities.Position.BlockPos;
+import net.minecraft.util.BlockPos;
+import EmpiresMod.entities.Position.BlockPosition;
 import EmpiresMod.protection.ProtectionManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
@@ -15,12 +16,12 @@ public class ThreadPlacementCheck extends Thread {
 	private static final int TIMEOUT_IN_MS = 1000;
 
 	private final Citizen res;
-	private final BlockPos position;
+	private final BlockPosition position;
 
 	public ThreadPlacementCheck(Citizen res, int x, int y, int z, int dim) {
 		super();
 		this.res = res;
-		this.position = new BlockPos(x, y, z, dim);
+		this.position = new BlockPosition(x, y, z, dim);
 	}
 
 	@Override
@@ -33,7 +34,8 @@ public class ThreadPlacementCheck extends Thread {
 				ProtectionManager.placementThreadTimeout();
 				return;
 			}
-			te = world.getTileEntity(position.getX(), position.getY(), position.getZ());
+
+			te = world.getTileEntity(new BlockPos(position.getX(), position.getY(), position.getZ()));
 		}
 		ProtectionManager.addTileEntity(te, res);
 	}

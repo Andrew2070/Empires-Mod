@@ -5,7 +5,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import EmpiresMod.Transformers.SignClassTransformer;
-import EmpiresMod.entities.Position.BlockPos;
+import EmpiresMod.entities.Position.BlockPosition;
+import net.minecraft.util.BlockPos;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTBase;
@@ -14,6 +15,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -29,7 +31,7 @@ public abstract class Sign {
 
 	protected NBTBase data;
 
-	protected BlockPos bp;
+	protected BlockPosition bp;
 
 	protected Sign(SignType signType) {
 		this.signType = signType;
@@ -44,10 +46,11 @@ public abstract class Sign {
 
 	public TileEntitySign createSignBlock(EntityPlayer player, BlockPos bp, int face) {
 		World world = MinecraftServer.getServer().worldServerForDimension(bp.getDim());
-		ForgeDirection direction = ForgeDirection.getOrientation(face);
+		EnumFacing direction = ForgeDirection.getOrientation(face);
 		if (direction == ForgeDirection.DOWN || face == 1) {
 			int i1 = MathHelper.floor_double((double) ((player.rotationYaw + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15;
-			world.setBlock(bp.getX(), bp.getY(), bp.getZ(), Blocks.standing_sign, i1, 3);
+			BlockPos pos = new BlockPos(bp.getX(), bp.getY(), bp.getZ());
+			world.setBlockState(bp, Blocks.standing_sign.getDefaultState());
 		} else {
 			world.setBlock(bp.getX(), bp.getY(), bp.getZ(), Blocks.wall_sign, face, 3);
 		}
@@ -97,7 +100,7 @@ public abstract class Sign {
 			return super.add(sign);
 		}
 
-		public Sign get(BlockPos bp) {
+		public Sign get(BlockPosition bp) {
 			for (Sign sign : this) {
 				if (bp.equals(sign.bp)) {
 					return sign;
@@ -106,7 +109,7 @@ public abstract class Sign {
 			return null;
 		}
 
-		public boolean contains(BlockPos bp) {
+		public boolean contains(BlockPosition bp) {
 			for (Sign sign : this) {
 				if (bp.equals(sign.bp)) {
 					return true;
@@ -115,7 +118,7 @@ public abstract class Sign {
 			return false;
 		}
 
-		public boolean remove(BlockPos bp) {
+		public boolean remove(BlockPosition bp) {
 			for (Iterator<Sign> it = iterator(); it.hasNext();) {
 				Sign sign = it.next();
 				if (bp.equals(sign.bp)) {

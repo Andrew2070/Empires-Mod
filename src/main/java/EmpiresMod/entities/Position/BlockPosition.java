@@ -7,13 +7,13 @@ import net.minecraft.util.IChatComponent;
 /**
  * Helper class for storing position of a block
  */
-public class BlockPos implements IChatFormat {
+public class BlockPosition implements IChatFormat {
 	private final int dim;
 	private final int x;
 	private final int y;
 	private final int z;
 
-	public BlockPos(int x, int y, int z, int dim) {
+	public BlockPosition(int x, int y, int z, int dim) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -43,8 +43,8 @@ public class BlockPos implements IChatFormat {
 
 	@Override
 	public boolean equals(Object other) {
-		if (other instanceof BlockPos) {
-			BlockPos otherBP = (BlockPos) other;
+		if (other instanceof BlockPosition) {
+			BlockPosition otherBP = (BlockPosition) other;
 			return otherBP.dim == dim && otherBP.x == x && otherBP.y == y && otherBP.z == z;
 		}
 		return super.equals(other);

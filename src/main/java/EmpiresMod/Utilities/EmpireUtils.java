@@ -52,7 +52,8 @@ public class EmpireUtils {
 		int[] dz = { 0, 0, 0, 0, 1, -1 };
 
 		for (int i = 0; i < 6; i++) {
-			TileEntity found = te.getWorldObj().getTileEntity(te.xCoord + dx[i], te.yCoord + dy[i], te.zCoord + dz[i]);
+			net.minecraft.util.BlockPos newPos = new net.minecraft.util.BlockPos(te.getPos().getX() + dx[i], te.getPos().getY() + dy[i] , te.getPos().getZ() + dz[i]);
+			TileEntity found = te.getWorld().getTileEntity(newPos);
 			if (found != null && type.isAssignableFrom(found.getClass())) {
 				Empires.instance.LOG.info("Found tile entity {} for class {}", found, type.getName());
 				result.add(found);

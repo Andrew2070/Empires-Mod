@@ -29,7 +29,6 @@ import EmpiresMod.entities.Empire.Relationship;
 import EmpiresMod.entities.Empire.Relationship.Type;
 import EmpiresMod.entities.Flags.Flag;
 import EmpiresMod.entities.Flags.FlagType;
-import EmpiresMod.entities.Guards.Guard;
 import EmpiresMod.entities.Managers.ToolManager;
 import EmpiresMod.entities.Position.ChunkPos;
 import EmpiresMod.entities.Tools.WhitelisterTool;
@@ -851,7 +850,7 @@ public class CommandsOfficer extends CommandsEMP {
         empire.setDesc(desc);
         getDatasource().saveEmpire(empire);
         ChatManager.send(sender, "Empires.notification.desc.succesful");
-        empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.desc", sender.getCommandSenderName(), empire.getDesc()));
+        empire.notifyEveryone(getLocal().getLocalization("Empires.notification.empire.desc", sender.getName(), empire.getDesc()));
         return CommandResponse.DONE;
     }
 

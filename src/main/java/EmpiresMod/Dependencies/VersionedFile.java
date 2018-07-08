@@ -1,8 +1,6 @@
 package EmpiresMod.Dependencies;
 
-
-import cpw.mods.fml.common.versioning.ComparableVersion;
-
+import net.minecraftforge.fml.common.versioning.ComparableVersion;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

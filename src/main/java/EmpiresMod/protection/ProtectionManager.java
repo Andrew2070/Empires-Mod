@@ -19,7 +19,7 @@ import EmpiresMod.entities.Empire.Plot;
 import EmpiresMod.entities.Empire.Wild;
 import EmpiresMod.entities.Flags.FlagType;
 import EmpiresMod.entities.Misc.Volume;
-import EmpiresMod.entities.Position.BlockPos;
+import EmpiresMod.entities.Position.BlockPosition;
 import EmpiresMod.entities.Position.EntityPos;
 import EmpiresMod.entities.Signs.SellSign;
 import EmpiresMod.protection.JSON.Protection;
@@ -30,7 +30,7 @@ import EmpiresMod.protection.Segment.SegmentItem;
 import EmpiresMod.protection.Segment.SegmentSpecialBlock;
 import EmpiresMod.protection.Segment.SegmentTileEntity;
 import EmpiresMod.protection.Segment.Enums.EntityType;
-import cpw.mods.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSign;
 import net.minecraft.entity.Entity;
@@ -43,6 +43,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySign;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -177,8 +178,8 @@ public class ProtectionManager {
 				NBTTagCompound nbt = new NBTTagCompound();
 				te.writeToNBT(nbt);
 				itemStack.setTagCompound(nbt);
-				WorldUtils.dropAsEntity(te.getWorldObj(), te.xCoord, te.yCoord, te.zCoord, itemStack);
-				te.getWorldObj().setBlock(te.xCoord, te.yCoord, te.zCoord, Blocks.air);
+				WorldUtils.dropAsEntity(te.getWorld(), te.getPos().getX(), te.getPos().getY(), te.getPos().getZ(), itemStack);
+				te.getWorld().setBlockState(new BlockPos(te.getPos().getX(), te.getPos().getY(), te.getPos().getZ()), Blocks.air.getDefaultState());
 				te.invalidate();
 				Empires.instance.LOG.info("TileEntity {} was ATOMICALLY DISINTEGRATED!", te.toString());
 				return;
@@ -210,7 +211,7 @@ public class ProtectionManager {
 		}
 	}
 
-	public static void checkUsage(ItemStack stack, Citizen res, PlayerInteractEvent.Action action, BlockPos bp,
+	public static void checkUsage(ItemStack stack, Citizen res, PlayerInteractEvent.Action action, BlockPosition bp,
 			int face, Event ev) {
 		if (!ev.isCancelable()) {
 			return;
@@ -223,7 +224,7 @@ public class ProtectionManager {
 		}
 	}
 
-	public static void checkBreakWithItem(ItemStack stack, Citizen res, BlockPos bp, Event ev) {
+	public static void checkBreakWithItem(ItemStack stack, Citizen res, BlockPosition bp, Event ev) {
 		if (!ev.isCancelable()) {
 			return;
 		}
@@ -235,17 +236,17 @@ public class ProtectionManager {
 		}
 	}
 
-	public static void checkBlockInteraction(Citizen res, BlockPos bp, PlayerInteractEvent.Action action, Event ev) {
+	public static void checkBlockInteraction(Citizen res, BlockPosition bp, PlayerInteractEvent.Action action, Event ev) {
 		if (!ev.isCancelable()) {
 			return;
 		}
 
 		World world = MinecraftServer.getServer().worldServerForDimension(bp.getDim());
-		Block block = world.getBlock(bp.getX(), bp.getY(), bp.getZ());
+		Block block = world.getBlockState(new BlockPos(bp.getX(), bp.getY(), bp.getZ())).getBlock();
 
 		// Bypass for SellSign
 		if (block instanceof BlockSign) {
-			TileEntity te = world.getTileEntity(bp.getX(), bp.getY(), bp.getZ());
+			TileEntity te = world.getTileEntity(new BlockPos(bp.getX(), bp.getY(), bp.getZ()));
 			if (te instanceof TileEntitySign && SellSign.SellSignType.instance.isTileValid((TileEntitySign) te)) {
 				return;
 			}
@@ -383,8 +384,8 @@ public class ProtectionManager {
 
 	public static void saveBlockOwnersToDB() {
 		for (Map.Entry<TileEntity, Citizen> set : ProtectionHandlers.instance.ownedTileEntities.entrySet()) {
-			Empires.instance.datasource.saveBlockOwner(set.getValue(), set.getKey().getWorldObj().provider.dimensionId,
-					set.getKey().xCoord, set.getKey().yCoord, set.getKey().zCoord);
+			Empires.instance.datasource.saveBlockOwner(set.getValue(), set.getKey().getWorld().provider.getDimensionId(),
+					set.getKey().getPos().getX(), set.getKey().getPos().getY(), set.getKey().getPos().getZ());
 		}
 	}
 
