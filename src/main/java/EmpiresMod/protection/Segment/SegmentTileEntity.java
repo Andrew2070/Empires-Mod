@@ -21,7 +21,7 @@ public class SegmentTileEntity extends Segment {
 		}
 
 		Volume teBox = new Volume(getX1(te), getY1(te), getZ1(te), getX2(te), getY2(te), getZ2(te));
-		int dim = te.getWorldObj().provider.dimensionId;
+		int dim = te.getWorld().provider.getDimensionId();
 		Citizen owner;
 		if (retainsOwner) {
 			owner = ProtectionHandlers.instance.getOwnerForTileEntity(te);
@@ -44,7 +44,7 @@ public class SegmentTileEntity extends Segment {
 			}
 		} catch (GetterException ex) {
 		}
-		return te.xCoord - Config.instance.defaultProtectionSize.get();
+		return te.getPos().getX() - Config.instance.defaultProtectionSize.get();
 	}
 
 	public int getY1(TileEntity te) {
@@ -55,7 +55,7 @@ public class SegmentTileEntity extends Segment {
 			}
 		} catch (GetterException ex) {
 		}
-		return te.yCoord - Config.instance.defaultProtectionSize.get();
+		return te.getPos().getY()- Config.instance.defaultProtectionSize.get();
 	}
 
 	public int getZ1(TileEntity te) {
@@ -66,7 +66,7 @@ public class SegmentTileEntity extends Segment {
 			}
 		} catch (GetterException ex) {
 		}
-		return te.zCoord - Config.instance.defaultProtectionSize.get();
+		return te.getPos().getY() - Config.instance.defaultProtectionSize.get();
 	}
 
 	public int getX2(TileEntity te) {
@@ -77,7 +77,7 @@ public class SegmentTileEntity extends Segment {
 			}
 		} catch (GetterException ex) {
 		}
-		return te.xCoord + Config.instance.defaultProtectionSize.get();
+		return te.getPos().getX() + Config.instance.defaultProtectionSize.get();
 	}
 
 	public int getY2(TileEntity te) {
@@ -88,7 +88,7 @@ public class SegmentTileEntity extends Segment {
 			}
 		} catch (GetterException ex) {
 		}
-		return te.yCoord + Config.instance.defaultProtectionSize.get();
+		return te.getPos().getY() + Config.instance.defaultProtectionSize.get();
 	}
 
 	public int getZ2(TileEntity te) {
@@ -99,7 +99,7 @@ public class SegmentTileEntity extends Segment {
 			}
 		} catch (GetterException ex) {
 		}
-		return te.xCoord + Config.instance.defaultProtectionSize.get();
+		return te.getPos().getX() + Config.instance.defaultProtectionSize.get();
 	}
 
 	public boolean retainsOwner() {

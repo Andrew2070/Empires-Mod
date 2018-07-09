@@ -40,6 +40,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
@@ -233,7 +235,9 @@ public class ProtectionHandlers {
 		if (!ev.isCanceled() && ev.entityPlayer.getHeldItem() != null) {
 			BlockPosition bp = new BlockPosition(x, y, z, ev.target.dimension);
 			ProtectionManager.checkUsage(ev.entityPlayer.getHeldItem(), res, PlayerInteractEvent.Action.RIGHT_CLICK_AIR,
-					bp, -1, ev);
+					bp, ev.entityPlayer.getHorizontalFacing(), ev);
+		
+		
 		}
 	}
 
@@ -288,7 +292,7 @@ public class ProtectionHandlers {
 		Citizen res = EmpiresUniverse.instance.getOrMakeCitizen(ev.player);
 		if (ev.player.getHeldItem() != null) {
 			ProtectionManager.checkUsage(ev.player.getHeldItem(), res, Action.RIGHT_CLICK_BLOCK,
-					new BlockPosition(ev.x, ev.y, ev.z, ev.world.provider.getDimensionId()), ev.face, ev);
+					new BlockPosition(ev.x, ev.y, ev.z, ev.player.dimension), ev.player.getHorizontalFacing(), ev);
 		}
 	}
 
@@ -381,7 +385,7 @@ public class ProtectionHandlers {
 			// above lines^
 			if (!EmpiresUniverse.instance.blocks.contains(ev.world.provider.getDimensionId(), ev.pos.getX() >> 4, ev.pos.getZ() >> 4)) {
 				int range = Config.instance.placeProtectionRange.get();
-				Volume breakBox = new Volume(ev.pos.getX() - range, ev.pos.getY() - range, ev.z - range, ev.pos.getX() + range, ev.pos.getY() + range,
+				Volume breakBox = new Volume(ev.pos.getX() - range, ev.pos.getY() - range, ev.pos.getZ() - range, ev.pos.getX() + range, ev.pos.getY() + range,
 						ev.pos.getZ() + range);
 				// Changed to EmpiresUniverse.instance from Empires.instance in
 				// above lines^
@@ -410,9 +414,9 @@ public class ProtectionHandlers {
 		}
 
 		if (!ev.isCanceled() && ev.state.getBlock() instanceof ITileEntityProvider) {
-			TileEntity te = ((ITileEntityProvider) ev.state.getBlock()).createNewTileEntity(ev.world, ev.state.getBlock());
+			TileEntity te = ((ITileEntityProvider) ev.state.getBlock()).createNewTileEntity(ev.world, ev.state.getBlock().getMetaFromState(ev.state));
 			if (te != null && ProtectionManager.isOwnable(te.getClass())) {
-				te = ev.world.getTileEntity(ev.pos.getX(), ev.pos.getY(), ev.pos.getZ());
+				te = ev.world.getTileEntity(new BlockPos(ev.pos.getX(), ev.pos.getY(), ev.pos.getZ()));
 				ownedTileEntities.remove(te);
 				Empires.instance.LOG.info("Removed te {}", te.toString());
 			}

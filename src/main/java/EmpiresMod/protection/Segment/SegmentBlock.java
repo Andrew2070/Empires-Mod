@@ -34,7 +34,7 @@ public class SegmentBlock extends Segment {
 
 		if (!hasPermissionAtLocation(res, bp.getDim(), bp.getX(), bp.getY(), bp.getZ())) {
 			if (clientUpdate != null) {
-				clientUpdate.send(bp, (EntityPlayerMP) res.getPlayer());
+				clientUpdate.send(new BlockPosition(bp.getX(), bp.getY(), bp.getZ(), bp.getDim()), (EntityPlayerMP) res.getPlayer());
 			}
 			return false;
 		}

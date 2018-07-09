@@ -67,17 +67,6 @@ public class PlayerUtils {
 		return takeItemFromPlayer(player, new ItemStack(item, 1, meta), amount);
 	}
 	
-	public static UUID getPlayerFromUUID(String username) {
-		 List<EntityPlayerMP> allPlayers = MinecraftServer.getServer().getConfigurationManager().playerEntityList;
-	     for(int i=0; i < allPlayers.size(); i++) {
-	    	 EntityPlayer player = allPlayers.get(i);
-	    	 if (player.getName() == username) {
-	    		 return player.getUniqueID();
-	    	 }
-	     }
-	     return null;
-				 
-	}
 	public static void recalculatePower(Citizen res) {
 		double powerPerHour = Config.instance.PowerPerHour.get();
 		double powerUpdateTime = Config.instance.PowerUpdateTime.get();
@@ -422,6 +411,22 @@ public class PlayerUtils {
 	public static String getUsernameFromUUID(UUID uuid) {
 		EntityPlayer player = (EntityPlayer) MinecraftServer.getServer().getEntityFromUuid(uuid);
 		return player.getName();
+	}
+
+	public static EntityPlayer getPlayerFromUUID(UUID uuid) {
+		EntityPlayer player = (EntityPlayer) MinecraftServer.getServer().getEntityFromUuid(uuid);
+		return player;
+	}
+	public static UUID getUUIDFromPlayer(String username) {
+		 List<EntityPlayerMP> allPlayers = MinecraftServer.getServer().getConfigurationManager().playerEntityList;
+	     for(int i=0; i < allPlayers.size(); i++) {
+	    	 EntityPlayer player = allPlayers.get(i);
+	    	 if (player.getName() == username) {
+	    		 return player.getUniqueID();
+	    	 }
+	     }
+	     return null;
+				 
 	}
 
 }

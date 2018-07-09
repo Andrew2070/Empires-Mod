@@ -44,6 +44,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -212,7 +213,7 @@ public class ProtectionManager {
 	}
 
 	public static void checkUsage(ItemStack stack, Citizen res, PlayerInteractEvent.Action action, BlockPosition bp,
-			int face, Event ev) {
+			EnumFacing face, Event ev) {
 		if (!ev.isCancelable()) {
 			return;
 		}

@@ -2,12 +2,13 @@ package EmpiresMod.protection.Segment;
 
 import EmpiresMod.entities.Misc.Volume;
 import EmpiresMod.entities.Position.BlockPosition;
-import cpw.mods.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.S23PacketBlockChange;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * Sends packets to the client when denying actions.
@@ -24,7 +25,7 @@ public class ClientBlockUpdate {
 		this.relativeCoords = new Volume(xMin, yMin, zMin, xMax, yMax, zMax);
 	}
 
-	public void send(BlockPosition center, EntityPlayerMP player, ForgeDirection face) {
+	public void send(BlockPosition center, EntityPlayerMP player, EnumFacing face) {
 		World world = MinecraftServer.getServer().worldServerForDimension(center.getDim());
 		int x, y, z;
 		Volume updateVolume = relativeCoords.translate(face);
@@ -36,7 +37,8 @@ public class ClientBlockUpdate {
 					y = center.getY() + j;
 					z = center.getZ() + k;
 
-					S23PacketBlockChange packet = new S23PacketBlockChange(x, y, z, world);
+					S23PacketBlockChange packet = new S23PacketBlockChange();
+					packet.func_179827_b().add(x, y, z);
 					FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager()
 							.sendPacketToAllPlayers(packet);
 				}
@@ -45,6 +47,6 @@ public class ClientBlockUpdate {
 	}
 
 	public void send(BlockPosition center, EntityPlayerMP player) {
-		send(center, player, ForgeDirection.SOUTH);
+		send(center, player, EnumFacing.SOUTH);
 	}
 }

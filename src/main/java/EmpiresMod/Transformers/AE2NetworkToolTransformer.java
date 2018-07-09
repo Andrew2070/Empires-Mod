@@ -42,7 +42,7 @@ public class AE2NetworkToolTransformer implements IClassTransformer {
 			float hitX, float hitY, float hitZ) {
 		
 		return MinecraftForge.EVENT_BUS.post(new PlayerInteractEvent(player, side == -1 ? PlayerInteractEvent.Action.RIGHT_CLICK_AIR : PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK,
-				new BlockPos(x,y,z), EnumFacing.getFacingFromVector((float)player.getLookVec().xCoord, (float)player.getLookVec().yCoord,(float) player.getLookVec().zCoord), world));
+				new BlockPos(x,y,z), player.getHorizontalFacing(), world));
 		
 	}
 

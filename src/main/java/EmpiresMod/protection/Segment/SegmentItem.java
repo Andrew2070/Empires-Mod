@@ -10,7 +10,7 @@ import EmpiresMod.protection.Segment.Enums.ItemType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 /**
@@ -26,7 +26,7 @@ public class SegmentItem extends Segment {
 	protected boolean directionalClientUpdate = false;
 
 	public boolean shouldInteract(ItemStack item, Citizen res, PlayerInteractEvent.Action action, BlockPosition bp,
-			int face) {
+			EnumFacing face) {
 		if (damage != -1 && item.getItemDamage() != damage) {
 			return true;
 		}
@@ -53,9 +53,8 @@ public class SegmentItem extends Segment {
 		if (range == 0) {
 			if (!hasPermissionAtLocation(res, dim, x, y, z)) {
 				if (clientUpdate != null) {
-					ForgeDirection direction = ForgeDirection.getOrientation(face);
 					clientUpdate.send(bp, (EntityPlayerMP) player,
-							directionalClientUpdate ? direction : ForgeDirection.UNKNOWN);
+							directionalClientUpdate ? face : player.getHorizontalFacing());
 				}
 				if (inventoryUpdate != null)
 					inventoryUpdate.send(player);
@@ -65,9 +64,8 @@ public class SegmentItem extends Segment {
 			Volume rangeBox = new Volume(x - range, y - range, z - range, x + range, y + range, z + range);
 			if (!hasPermissionAtLocation(res, dim, rangeBox)) {
 				if (clientUpdate != null) {
-					ForgeDirection direction = ForgeDirection.getOrientation(face);
 					clientUpdate.send(bp, (EntityPlayerMP) player,
-							directionalClientUpdate ? direction : ForgeDirection.UNKNOWN);
+							directionalClientUpdate ? face : EnumFacing.valueOf(null));
 				}
 				if (inventoryUpdate != null)
 					inventoryUpdate.send(player);

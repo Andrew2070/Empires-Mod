@@ -23,12 +23,12 @@ public class CommandModel extends CommandBase implements PermissionObject {
 		this.commandTree = commandTree;
 	}
 
-	@Override
+
 	public List getCommandAliases() {
 		return Arrays.asList(commandTree.getRoot().getAnnotation().alias());
 	}
 
-	@Override
+
 	public String getCommandName() {
 		return commandTree.getRoot().getLocalizedName();
 	}
@@ -39,13 +39,14 @@ public class CommandModel extends CommandBase implements PermissionObject {
 
 	/**
 	 * Processes the command by calling the method that was linked to it.
+	 * @throws CommandException 
 	 */
-	@Override
-	public void processCommand(ICommandSender sender, String[] args) {
+
+	public void processCommand(ICommandSender sender, String[] args) throws CommandException {
 		commandTree.commandCall(sender, Arrays.asList(args));
 	}
 
-	@Override
+
 	public List addTabCompletionOptions(ICommandSender sender, String[] args) {
 		CommandTreeNode node = commandTree.getNodeFromArgs(Arrays.asList(args));
 
@@ -61,7 +62,7 @@ public class CommandModel extends CommandBase implements PermissionObject {
 	 * the command trees therefore it always returns true. The check is moved
 	 * directly to the processCommand method.
 	 */
-	@Override
+
 	public boolean canCommandSenderUseCommand(ICommandSender sender) {
 		return true;
 	}

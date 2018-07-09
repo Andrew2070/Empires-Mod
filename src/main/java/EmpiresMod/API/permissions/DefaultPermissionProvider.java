@@ -6,6 +6,7 @@ import java.util.Map;
 import com.mojang.authlib.GameProfile;
 
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.management.UserListEntry;
 import net.minecraft.server.management.UserListOpsEntry;
 
 public class DefaultPermissionProvider implements IPermissionProvider {
@@ -38,11 +39,20 @@ public class DefaultPermissionProvider implements IPermissionProvider {
 	}
 
 	protected int getOpLevel(GameProfile profile) {
-		if (!MinecraftServer.getServer().getConfigurationManager().func_152596_g(profile))
+		if (!MinecraftServer.getServer().getConfigurationManager().canSendCommands((profile))) {
 			return 0;
-		UserListOpsEntry entry = (UserListOpsEntry) ((Object) MinecraftServer.getServer().getConfigurationManager())
-				.func_152603_m().func_152683_b(profile);
-		return entry != null ? ((Object) entry).func_152644_a() : MinecraftServer.getServer().getOpPermissionLevel();
+		}
+UserListOpsEntry entry = (UserListOpsEntry) MinecraftServer.getServer().getConfigurationManager().getOppedPlayers().getEntry(profile);
+		//if entry is not null, return entry.getPermissionLevel,
+		//if entry is null, return MinecraftServer.getServer().getOpPermissionLevel()
+		
+		if (entry != null) {
+			return entry.getPermissionLevel();
+		} else {
+			return MinecraftServer.getServer().getOpPermissionLevel();
+		}
+			
+		
 	}
 
 }

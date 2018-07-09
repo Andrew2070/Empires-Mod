@@ -14,8 +14,8 @@ import com.google.gson.JsonSerializationContext;
 import EmpiresMod.API.JSON.API.SerializerTemplate;
 import EmpiresMod.exceptions.Protection.ProtectionParseException;
 import EmpiresMod.protection.Segment.Segment;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.ModContainer;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.ModContainer;
 
 /**
  * This object is used only for loading the protection.

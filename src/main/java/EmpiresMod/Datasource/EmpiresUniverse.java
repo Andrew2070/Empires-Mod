@@ -284,17 +284,8 @@ public class EmpiresUniverse { // TODO Allow migrating between different Datasou
 
     public Citizen getOrMakeCitizen(String username) {
         if(username == null || username.isEmpty()) return null;
-        GameProfile profile;
-        try {
-            profile = MinecraftServer.getServer().func_152358_ax().func_152655_a(username);
-            GameProfile[] profiles = MinecraftServer.getServer().getGameProfiles();
-            			  profiles.
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        return profile == null ? null : getOrMakeCitizen(profile.getId(), profile.getName());
+        Citizen ciz = getOrMakeCitizen(PlayerUtils.getUUIDFromPlayer(username), username);
+        return ciz;
     }
 
     /* ----- Modifying Entity */

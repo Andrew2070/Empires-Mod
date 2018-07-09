@@ -33,7 +33,7 @@ public class PermCommands {
 	}
 
 	protected static UUID getUUIDFromUsername(String username) throws PermissionCommandException {
-		UUID uuid = PlayerUtils.getPlayerFromUUID(username);
+		UUID uuid = PlayerUtils.getUUIDFromPlayer(username);
 		if (uuid == null) {
 			throw new PermissionCommandException("Empires.perm.cmd.err.player.notExist",
 					LocalizationManager.get("Empires.format.user.short", username));

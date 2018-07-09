@@ -41,13 +41,13 @@ public class CallerNBT extends Caller {
 
 	private Object getInfoFromNBTBase(NBTBase instance) {
 		if (instance instanceof NBTTagDouble) {
-			return ((NBTTagDouble) instance).func_150286_g();
+			return ((NBTTagDouble) instance).getDouble();
 		} else if (instance instanceof NBTTagFloat) {
-			return ((NBTTagFloat) instance).func_150288_h();
+			return ((NBTTagFloat) instance).getFloat();
 		} else if (instance instanceof NBTTagInt) {
-			return ((NBTTagInt) instance).func_150287_d();
+			return ((NBTTagInt) instance).getInt();
 		} else if (instance instanceof NBTTagString) {
-			return ((NBTTagString) instance).func_150285_a_();
+			return ((NBTTagString) instance).getString();
 		}
 		return null;
 	}
